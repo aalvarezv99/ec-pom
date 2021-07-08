@@ -347,12 +347,7 @@ public class BaseTest {
    
    
 	/************* INICIO FUNC REPORTES ***********************/
-	public byte[] adjuntarCaptura(String descripcion) {
-		byte[] captura = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-		Allure.addAttachment(descripcion,
-				new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
-		return captura;
-	}
+	
    
 	/************* FIN FUNC REPORTES ***********************/
    

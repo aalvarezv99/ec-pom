@@ -2,24 +2,22 @@ package StepsDefinitions;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
-<<<<<<< HEAD
 import java.util.HashMap;
-=======
->>>>>>> develop
+
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-<<<<<<< HEAD
+
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-=======
+
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
->>>>>>> develop
+
 
 import CommonFuntions.BaseTest;
 import CommonFuntions.CrearDriver;
@@ -34,12 +32,18 @@ public class Driver {
 	Scenario scenario = null;
 	BaseTest baseTest ;
 	
+	private static String navegador;
+	private static String sistemaOperativo;	
+	private static String origenFuente;
+	
+	private static Properties pro = new Properties();
+	private static InputStream in = CrearDriver.class.getResourceAsStream("../test.properties");
 	
 	public Driver() {
 		baseTest = new BaseTest(driver);
 		
 	}
-	/*
+	
 	@Before
 	public void before(Scenario scenario) {
 		this.scenario = scenario;		
@@ -61,7 +65,7 @@ public class Driver {
 	
 	public void levantarURL() {
 		try {			
-			String url = baseTest.leerPropiedades("UrlAmbienteUno");
+			String url = baseTest.leerPropiedades("UrlAmbiente");
 			log.info("******************** NAVEGANDO EN LA URL " + url + " **********************");
 			driver.get(url);			
 		} catch (Exception e) {
@@ -89,6 +93,6 @@ public class Driver {
 			log.info("***********************************************************************************************************");
 		  
 		}
-	*/
+	
 	
 }
