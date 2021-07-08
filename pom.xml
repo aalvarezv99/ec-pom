@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>Prueba</groupId>
+	<artifactId>Automation</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>Automation</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.version>4.13</junit.version>
+		<selenium.version>3.11.0</selenium.version>
+		<cucumber.version>4.3.1</cucumber.version>
+		<log.version>1.2.17</log.version>
+		<slf4Simple.version>1.6.1</slf4Simple.version>
+		<json.verison>1.1.1</json.verison>
+		<poi.version>3.10-FINAL</poi.version>
+
+		<allurecucumber.version>2.13.2</allurecucumber.version>
+		<picocontainer.version>1.2.5</picocontainer.version>
+		<maven.compiler.version>3.8.0</maven.compiler.version>
+		<java.version>1.8</java.version>
+		<alluremaven.version>2.10.0</alluremaven.version>
+		<mavensurefire.version>2.20</mavensurefire.version>
+		<aspectj.version>1.8.10</aspectj.version>
+
+	</properties>
+
+
+	<dependencies>
+		<!--Dependencias para Selenium -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--Dependencias para Juni -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--Dependencias para Cucumber -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--Dependencias para Cucumber -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!--Dependencias para LOG -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Thainer Dependencia agregada 02/03/2021-->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4Simple.version}</version>
+		</dependency>
+		<!-- Dependencia para lectura de archivos excel -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>${poi.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.qameta.allure</groupId>
+			<artifactId>allure-cucumber4-jvm</artifactId>
+			<version>${allurecucumber.version}</version>
+		</dependency>
+		<!--DEPENDENCIAS PARA LOS REPORTES -->
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-picocontainer</artifactId>
+			<scope>test</scope>
+			<version>${picocontainer.version}</version>
+		</dependency>
+		<!--TP 05/03/2021 se agrega dependencia para leer PDF-->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.1</version>
+		</dependency>
+		<!--TP 11/03/2021 se agrega dependencia para leer compilar y consultas-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.19</version>
+		</dependency>
+		<!--TP 03/Jun/2021 se agrega dependencia de apache para los file de la capturas-->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.53</version>
+		</dependency>
+
+		<!-- <dependency> -->
+		<!-- <groupId>io.qameta.allure</groupId> -->
+		<!-- <artifactId>allure-maven</artifactId> -->
+		<!-- <version>${alluremaven.version}</version> -->
+		<!-- </dependency> -->
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>io.qameta.allure</groupId>
+				<artifactId>allure-maven</artifactId>
+				<version>2.10.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<phase>post-integration-test</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<propertiesFilePath>src/test/resources/allure.properties/allure.properties</propertiesFilePath>
+					<reportDirectory>${project.build.directory}/allure-report</reportDirectory>
+					<reportVersion>2.7.0</reportVersion>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${mavensurefire.version}</version>
+				<configuration>
+					<systemPropertyVariables>
+						<reportVersion>2.7.0</reportVersion>
+						<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+					</systemPropertyVariables>
+					<argLine>
+                       -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                       -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
+                   	</argLine>
+					<includes>
+						<!-- <include>**/*Steps.java</include> -->
+						<include>**/*Runner.java</include>
+					<!--<include>**/OriginacionCreditosRunner.java</include> -->
+					</includes>
+					<!-- <testFailureIgnore>true</testFailureIgnore> -->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
