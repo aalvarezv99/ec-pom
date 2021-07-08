@@ -19,7 +19,7 @@ public class SolicitudCreditoSteps {
 	BaseTest baseTest;
 	
 	public SolicitudCreditoSteps() {		
-		//driver = Driver.driver;		
+		driver = Driver.driver;		
 		originacionaccion = new OriginacionCreditosAccion(driver);
 		baseTest = new BaseTest(driver);
 	}

@@ -54,7 +54,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 
 	public OriginacionCreditosAccion(WebDriver driver) {
-		// this.driver = driver;
+		///this.driver = driver;
 		super(driver);
 		// baseTest = new BaseTest(driver);
 		simuladorasesorpage = new SimuladorAsesorPages(driver);
