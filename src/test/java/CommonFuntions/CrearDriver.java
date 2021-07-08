@@ -2,16 +2,13 @@ package CommonFuntions;
 
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class CrearDriver {
 	
@@ -26,12 +23,12 @@ public class CrearDriver {
 	private static Logger log = Logger.getLogger(CrearDriver.class);
 	//BaseTest baseTest = new BaseTest(driver);
 	
-	/*Se crea el contructor de la clase donde se oinicia la condiguracion*/
+	//Se crea el contructor de la clase donde se oinicia la condiguracion
 	private CrearDriver() {
 		CrearDriver.inicialConfig();
 	}
 	
-	/*Esta confiuracion toma el Siste operativo y el navegador del archivo .propertiesy crea el driver*/
+	//Esta confiuracion toma el Siste operativo y el navegador del archivo .propertiesy crea el driver
 	public static WebDriver inicialConfig() {
 		WebDriver driver;
 		
@@ -47,12 +44,12 @@ public class CrearDriver {
 		}
 		
 		driver = crearNuevoWebDriver(navegador, sistemaOperativo);
-		//BaseTest baseTest = new BaseTest(driver);
+	   //BaseTest baseTest = new BaseTest(driver);
 		return driver;
 		
 	}
 	
-	/*Esta lee el sistema operativo y el navegador basado en esto ejecuta el driver correspondiente*/
+	//Esta lee el sistema operativo y el navegador basado en esto ejecuta el driver correspondiente
 	public static WebDriver crearNuevoWebDriver(String navegador, String so) {
 		WebDriver driver = null;
 		try {
@@ -73,8 +70,7 @@ public class CrearDriver {
 					System.setProperty("webdriver.chrome.driver", origenFuente + so + "/linux");
 					break;	
 				}
-				DesiredCapabilities ruta = setDownloadsPath();
-				driver = new ChromeDriver(ruta);
+				driver = new ChromeDriver();
 				break;
 
 			case "Firefox":
@@ -118,23 +114,6 @@ public class CrearDriver {
 		return driver;
 	}
 	
-	public static DesiredCapabilities setDownloadsPath() {
-		DesiredCapabilities caps = null;
-		try {
-			pro.load(in);
-			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");			
-			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
-			chromePrefs.put("download.default_directory", RutaDescargas);
-			ChromeOptions options = new ChromeOptions();
-			options.setExperimentalOption("prefs", chromePrefs);
-			caps = new DesiredCapabilities();
-			caps.setCapability(ChromeOptions.CAPABILITY, options);
-		} catch (Exception e) {
-			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
-		}
-		
-		return caps;
-	}
 }
 
 

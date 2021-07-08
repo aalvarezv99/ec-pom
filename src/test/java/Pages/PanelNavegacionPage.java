@@ -14,6 +14,7 @@ public class PanelNavegacionPage {
 	public By selectSimulador;
 	public By selectCreditos;
 	public By botonSalir;
+	public By selectDesembolso;
 	
 	
 	
@@ -25,11 +26,20 @@ public class PanelNavegacionPage {
 	public By selectIrSimulador;
 	public By selecPrepagoConfig;
 	public By selectSolicitudCredito;
-		
+	public By selectAnalisisDeCredito;
+	public By selectTareas;	
+	public By selectTareasVer;
+	public By selectClientesBienvenida;
+	public By selectClientesVisacion;
+	public By selectListadepagos;
+	public By selectLMediosDispersion;
+	public By selectRetanqueo;
+	public By selectListaCreditoRetanqueo;
+	
 	
 	public PanelNavegacionPage(WebDriver driver) {
-		this.driver = driver;		
-		//Componentes Pagaduria
+		this.driver = driver;
+		//Componentes Pagaduria		
 		selectPagaduria = By.xpath("//*[@id=\"formMenu:menu\"]/div[2]/h3");
 		selectSucursalActiva = By.xpath("//*[@id=\"formMenu:menu_1\"]/ul/li[3]/a");	
 		
@@ -46,14 +56,39 @@ public class PanelNavegacionPage {
 		selectRecaudo = By.xpath("//a[text()='Recaudo']");
 		selectPagosRecaudos = By.xpath("//span[text()='Pagos de recaudo']");
 		
+		
 		//Componentes Simulador
-		selectIrSimulador = By.xpath("//*[@id=\"formMenu:menu_2\"]/ul/li/a");
-		selectSimulador = By.xpath("//*[@id=\"formMenu:menu\"]/div[3]/h3");
+		selectSimulador = By.xpath("//a[text()='Simulador']");
+		selectIrSimulador = By.xpath("//span[text()='Ir']");
 		
 		//Componentes Creditos 
-		selectCreditos = By.xpath("//*[@id=\"formMenu:menu\"]/div[9]/h3");
-		selectSolicitudCredito = By.xpath("//*[@id=\"formMenu:menu_8\"]/ul/li[1]/a");
+		selectCreditos = By.xpath("//a[text()='Creditos']");
+		selectSolicitudCredito = By.xpath("//span[text()='Solicitud de crédito']");
 		
+		//Componentes Analisis
+		selectAnalisisDeCredito = By.xpath("//span[text()='Análisis de Crédito']");
+		
+		//Componente Tareas
+	    selectTareas= By.xpath("//a[text()='Tareas']");
+		selectTareasVer = By.xpath("//span[text()='Ver']");
+		
+		//Componente clientes bienvenida
+		selectClientesBienvenida = By.xpath("//span[text()='Clientes para bienvenida']");
+		
+		//Componente clientes visacion
+		selectClientesVisacion = By.xpath("//span[text()='Creditos para visación']");
+		
+		//Componente Desembolso
+		
+		selectDesembolso = By.xpath("//a[text()='Desembolso']");
+		selectListadepagos = By.xpath("//span[text()='Lista de pagos']");
+		selectLMediosDispersion = By.xpath("//span[text()='Descarga medios de dispersión']");
+		
+		//Componente retanqueo
+		selectRetanqueo = By.xpath("//a[text()='Retanqueo']");
+		selectListaCreditoRetanqueo = By.xpath("//span[text()='Lista créditos a retanquear']");
+		
+		//logout
 		botonSalir = By.id("formMenu:usuario:salir");				
 		
 	}							

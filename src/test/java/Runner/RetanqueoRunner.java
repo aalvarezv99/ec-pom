@@ -8,12 +8,12 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/resources/feature/OriginacionCreditos.feature", 					
+		features = "src/test/resources/feature/Retanqueo.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@SimuladorAsesor"},
+		tags = {"@Retanqueo"},
 	    snippets = SnippetType.CAMELCASE
 		)
-public class OriginacionCreditosRunner {
+public class RetanqueoRunner {
 
 }
 
