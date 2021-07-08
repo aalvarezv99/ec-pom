@@ -2,13 +2,24 @@ package StepsDefinitions;
 
 import java.io.InputStream;
 import java.net.MalformedURLException;
+<<<<<<< HEAD
+import java.util.HashMap;
+=======
+>>>>>>> develop
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+<<<<<<< HEAD
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+=======
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+>>>>>>> develop
 
 import CommonFuntions.BaseTest;
 import CommonFuntions.CrearDriver;

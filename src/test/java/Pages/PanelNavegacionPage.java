@@ -38,23 +38,24 @@ public class PanelNavegacionPage {
 	
 	
 	public PanelNavegacionPage(WebDriver driver) {
-		this.driver = driver;		
-		//Componentes Pagaduria
-		selectPagaduria = By.xpath("//*[@id=\"formMenu:menu\"]/div[2]/h3");//
-		selectSucursalActiva = By.xpath("//*[@id=\"formMenu:menu_1\"]/ul/li[3]/a");	//
+		this.driver = driver;
+		//Componentes Pagaduria		
+		selectPagaduria = By.xpath("//*[@id=\"formMenu:menu\"]/div[2]/h3");
+		selectSucursalActiva = By.xpath("//*[@id=\"formMenu:menu_1\"]/ul/li[3]/a");	
 		
 		//Componentes Configuracion
-		selectConfigBlobal = By.xpath("//*[@id=\"formMenu:menu\"]/div[4]/h3");
-		selecPrepagoConfig = By.xpath("//*[@id=\"formMenu:menu_3\"]/ul/li[6]/a");
+		selectConfigBlobal = By.xpath("//a[text()='Configuración global']");
+		selecPrepagoConfig = By.xpath("//span[text()='Prepago']");
 		
 		//Componentes Prepago
-		selectPrepago = By.xpath("//*[@id=\"formMenu:menu\"]/div[17]/h3");
-		selectCertificacionSaldos = By.xpath("//*[@id=\"formMenu:menu_16\"]/ul/li[1]/a");
-		selectGestionCertificado = By.xpath("//*[@id=\"formMenu:menu_16\"]/ul/li[2]/a");
+		selectPrepago = By.xpath("//a[text()='Prepago']");
+		selectCertificacionSaldos = By.xpath("//span[text()='Certificacion de saldos']");
+		selectGestionCertificado = By.xpath("//span[text()='Gestión de certificacion saldos']");
 		
 		//Componentes Recaudo
-		selectRecaudo = By.xpath("//*[@id=\"formMenu:menu\"]/div[15]/h3");
-		selectPagosRecaudos = By.xpath("//*[@id=\"formMenu:menu_14\"]/ul/li/a");
+		selectRecaudo = By.xpath("//a[text()='Recaudo']");
+		selectPagosRecaudos = By.xpath("//span[text()='Pagos de recaudo']");
+		
 		
 		//Componentes Simulador
 		selectSimulador = By.xpath("//a[text()='Simulador']");

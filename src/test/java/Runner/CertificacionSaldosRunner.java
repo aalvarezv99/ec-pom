@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/CertificacionSaldos.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@CertificacionActiva, @CertificacionEnMora"},				
+		tags = {"@CertidicacionSaldoActivaCXCFianza"},				
 	    snippets = SnippetType.CAMELCASE
 		)
 public class CertificacionSaldosRunner {

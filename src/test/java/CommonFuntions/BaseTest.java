@@ -534,7 +534,15 @@ public class BaseTest {
 	 * Metodo que selecciona el tipo de captura que se va a realizar (Reporte o Local)
 	 * Modificar el archivo test.properties el valor "TipoCaptura"
 	 * */
-	
+	public void adjuntarCaptura(String descripcion) { 
+		String tipoCaptura = leerPropiedades("TipoCaptura");
+		if(tipoCaptura.equals("Local")) {
+			adjuntarCapturaLocal(descripcion);
+		}
+		else {
+			adjuntarCapturaReporte(descripcion);
+		}
+	}
 	
 	/*
 	 * Accion que se ejecuta y guarda agrega las imagenes en los reportes de Allure
@@ -559,8 +567,10 @@ public class BaseTest {
 		       log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		       FileUtils.copyFile(scrFile, new File(String.format("%s.png", imageNombre)));
 		} catch (Exception e) {
-	log.error("############## ERROR,  BaseTest - adjuntarCapturaLocal() #########" + e);
+			log.error("############## ERROR,  BaseTest - adjuntarCapturaLocal() #########" + e);
 		}
+		
+		
 	}
 
 	/************* FIN FUNC REPORTES ***********************/
@@ -599,7 +609,7 @@ public void clickvarios(By locator) {
 		}
 	}
 
- public void selectFechActualCalendario(By contlist, By itemsLista) {
+	public void selectFechActualCalendario(By contlist, By itemsLista) {
 		WebElement diasCalen = driver.findElement(contlist);
 		List<WebElement> list = diasCalen.findElements(itemsLista);
 		String fecha = getFechaActualDia();

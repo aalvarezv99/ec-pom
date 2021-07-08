@@ -1,50 +1,69 @@
 package Consultas;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+
 import org.apache.log4j.Logger;
+
+import CommonFuntions.CrearDriver;
 
 
 public class ConexionBase {
 	
-	private static Logger log = Logger.getLogger(ConexionBase.class);
+	private  Properties pro = new Properties();
+	private  InputStream in = CrearDriver.class.getResourceAsStream("../Dbconfig.properties");	
+	private  Logger log = Logger.getLogger(ConexionBase.class);
+	
+	private static String instancia;	
+	private static String dbUrl;
+	private static String username;	
+	private static String password;
+	private static String driver;
+	
+	public String leerPropiedades(String valor) {
+		try {
+			pro.load(in);
+		} catch (Exception e) {
+			log.error("====== ERROR LEYENDO EL ARCHIVO DE PROPIEDADES========= " + e);
+		}
+		return pro.getProperty(valor);
+	}
 	
 	public ResultSet conexion(String query) throws SQLException, ClassNotFoundException {
 		ResultSet rs = null;
+		
+
 		try {
-			String dbUrl = "jdbc:postgresql://libranzas-preproduccion.chimul6agbmw.us-east-1.rds.amazonaws.com:5432/libranzas_instancia4";
+			if(instancia == null) {
+				instancia = leerPropiedades("instancia");
+				log.info("====================");
+				log.info("[ Base de Datos ] - " + instancia.toUpperCase());
+				log.info("====================");
+				dbUrl = leerPropiedades("jdbc-url")+instancia;
 
-			// Database Username
-			String username = "abacus";
+				username = leerPropiedades("username");
 
-			String password = "L1br4nz4s$2018";
+				password = leerPropiedades("password");					
 
-			Class.forName("org.postgresql.Driver");
-
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
 			Connection con = DriverManager.getConnection(dbUrl, username, password);
-
-			// Create Statement Object
+			
 			Statement stmt = con.createStatement();
-
-			// Execute the SQL Query. Store results in ResultSet
+			stmt.setFetchSize(50);
 			rs = stmt.executeQuery(query);
-			
-			
-			// While Loop to iterate through all data and print results
-//			while (rs.next()) {
-//				String myName = rs.getString(1);
-//				String myAge = rs.getString(2);
-//				System.out.println(myName + "  " + myAge);
-//			}
-			// closing DB Connection
-//			con.close();
+		
 		} catch (Exception e) {
 			log.error("********ERROR CONEXION BASE DATOS*******");
 			log.error(e.getMessage());
 		}
+		
 		return rs;
 		
 	}

@@ -8,13 +8,11 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-		features = "src/test/resources/feature/OriginacionCreditos.feature", 					
+		features = "src/test/resources/feature/Recaudos.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@SimuladorAsesor"},
+		tags = {"@RecaudoPagaduria"},				
 	    snippets = SnippetType.CAMELCASE
 		)
-public class OriginacionCreditosRunner {
+public class RecaudosRunner {
 
 }
-
-//tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida"},

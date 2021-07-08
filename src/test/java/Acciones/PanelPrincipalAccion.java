@@ -24,41 +24,65 @@ public class PanelPrincipalAccion extends BaseTest {
 	public void navegarCertificacionSaldo() {
 		try {
 			log.info("********navegarCertificacionSaldo()********");
-			
+			esperaExplicita(panelnavegacionpage.selectPrepago);			
 			hacerClick(panelnavegacionpage.selectPrepago);
-			esperaImplicita();
-			hacerClick(panelnavegacionpage.selectCertificacionSaldos);
-			esperaImplicita();
-			
-		} catch (Exception e) {
+			esperaExplicita(panelnavegacionpage.selectCertificacionSaldos);
+			hacerClick(panelnavegacionpage.selectCertificacionSaldos);						
+		} catch (Exception e) {			
 			log.error("##### ERROR navegarCertificacionSaldo()######"+e);
+			assertTrue("##### ERROR navegarCertificacionSaldo()######"+ e,false);
 		}
 
 	}
 
 	public void navegarRecaudo() {
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(panelnavegacionpage.selectRecaudo).click();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(panelnavegacionpage.selectPagosRecaudos).click();
+		log.info("************PanelPrincipalAccion - navegarRecaudo()****************");
+		try {			
+			esperaExplicita(panelnavegacionpage.selectRecaudo);
+			hacerClick(panelnavegacionpage.selectRecaudo);		
+			esperaExplicita(panelnavegacionpage.selectPagosRecaudos);
+			hacerClick(panelnavegacionpage.selectPagosRecaudos);
+		} catch (Exception e) {			
+			assertTrue("#####  ERROR PANELPRINCIPALACCION - NAVEGARRECAUDO() ######"+ e,false);
+		}
+				
 	}
 
 	public void navegarGestionCertificado() {
-		driver.findElement(panelnavegacionpage.selectPrepago).click();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(panelnavegacionpage.selectGestionCertificado).click();
+		log.info("**********PanelPrincipalAccion - navegarGestionCertificado()**********");
+		try {
+			esperaExplicita(panelnavegacionpage.selectPrepago);
+			hacerClick(panelnavegacionpage.selectPrepago);			
+			esperaExplicita(panelnavegacionpage.selectGestionCertificado);
+			hacerClick(panelnavegacionpage.selectGestionCertificado);			
+		} catch (Exception e) {
+			log.error("####### ERROR PANELPRINCIPALACCION - NAVEGARGESTIONCERTIFICADO() ######"+ e);
+			assertTrue("####### ERROR PANELPRINCIPALACCION - NAVEGARGESTIONCERTIFICADO() ######"+ e,false);
+		}
+		
 	}
 
 	public void navegarConfigPrepago() {
-		driver.findElement(panelnavegacionpage.selectConfigBlobal).click();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.findElement(panelnavegacionpage.selecPrepagoConfig).click();
+		log.info("**********PanelPrincipalAccion - navegarConfigPrepago()**********");
+		try {
+			esperaExplicita(panelnavegacionpage.selectConfigBlobal);
+			hacerClick(panelnavegacionpage.selectConfigBlobal);
+			esperaExplicita(panelnavegacionpage.selecPrepagoConfig);
+			hacerClick(panelnavegacionpage.selecPrepagoConfig);	
+		} catch (Exception e) {
+			log.error("########## ERROR PANELPRINCIPALACCION - NAVEGARCONFIGPREPAGO() ########" + e);
+			assertTrue("########## ERROR PANELPRINCIPALACCION - NAVEGARCONFIGPREPAGO() ########"+ e,false);
+			
+		}
+			
 	}
 
 	public void navegarSimulador() {
+		// driver.findElement(panelnavegacionpage.selectSimulador).click();
 		hacerClick(panelnavegacionpage.selectSimulador);
 		esperaImplicita();
 		hacerClick(panelnavegacionpage.selectIrSimulador);
+		// driver.findElement(panelnavegacionpage.selectIrSimulador).click();
 		adjuntarCaptura("IngresoSimulador");
 	}
 

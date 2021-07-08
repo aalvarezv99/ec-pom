@@ -1,162 +1,95 @@
 package Consultas;
 
-import java.sql.ResultSet;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
+import java.sql.ResultSet;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.WebDriver;
+
 
 public class CertificacionSaldoQuery {
 	
 	private static Logger log = Logger.getLogger(CertificacionSaldoQuery.class);
+	
 	ConexionBase dbconector = new ConexionBase();
-	// Certificacion
-	String idCertificado;
-	String nombres;
-	String apellidos;
-	String identificacion;
-	String numRadicacion;
-	String idCredito;
-	String fechaSolicitud;
-
-	// Recaudo
-	String nRadicado;
-	String idRecaudo;
-	String origen;
-	String tipo;
-	String valor;
-	String fecha;
-
-	// CuentasCXC
-	String FechaAprobacion;
-
-	// Intereses de fianza
-	String interesFianza;
-
-	WebDriver driver;
-	//CertificacionSaldoAccion cert = new CertificacionSaldoAccion(driver);//Se comentario se debe validar
+	
 	
 
-	//Se debe validar su uso
-	/*public CertificacionSaldoAccion getCert() {
-		return cert;
-	}
-
-	public void setCert(CertificacionSaldoAccion cert) {
-		this.cert = cert;
-	}*/
-
-	public void ConsultarRegistroCertificacion(String identificacion, String numRadicado) {
+	public ResultSet ConsultarRegistroCertificacion( String numRadicado) {
+		ResultSet r = null;
+		log.info("**************** CertificacionSaldoQuery - ConsultarRegistroCertificacion()");
 		try {
-			ResultSet r = dbconector.conexion("SELECT DISTINCT CE.ID,\r\n"
-					+ "UPPER(C.PRIMER_NOMBRE ||' '|| C.SEGUNDO_NOMBRE) NOMBRES,\r\n"
-					+ "UPPER( C.PRIMER_APELLIDO ||' '|| C.SEGUNDO_APELLIDO) APELLIDOS,\r\n"
-					+ "C.IDENTIFICACION CEDULA,\r\n" + "CR.NUMERO_RADICACION,\r\n" + "CR.ID IDCREDITO,\r\n"
-					+ "CE.FECHA_SOLICITUD \r\n" + "FROM CLIENTE C \r\n" + "INNER JOIN CREDITO CR\r\n"
-					+ "ON CR.ID_CLIENTE = C.ID \r\n" + "INNER JOIN CERTIFICACION CE\r\n"
-					+ "ON CE.ID_CREDITO = CR.ID \r\n" + "WHERE 1=1\r\n" + "AND C.IDENTIFICACION = '" + identificacion
-					+ "' AND CR.NUMERO_RADICACION  =" + numRadicado + "\r\n" + "ORDER BY CE.FECHA_SOLICITUD DESC;");
-			while (r.next()) {
-				this.idCertificado = r.getString(1);
-				this.nombres = r.getString(2);
-				this.apellidos = r.getString(3);
-				this.identificacion = r.getString(4);
-				this.numRadicacion = r.getString(5);
-				this.idCredito = r.getString(6);
-				this.fechaSolicitud = r.getString(7);
-			}
-			System.out.println("##CONSULTA TABLA CERTIFICACION##");
-			System.out.println("idCertificado " + idCertificado + "\n" + "nombres " + nombres + "\n" + "Apellidos "
-					+ apellidos + "\n" + "identificacino " + identificacion + "\n" + "Num Radicado " + numRadicacion
-					+ "\n" + "IdCredito " + idCredito + "\n" + "FechaSolicitud " + fechaSolicitud);
-			//validarRegistroCertificacion(fechaSolicitud, numRadicacion);
+			 r = dbconector.conexion("select	'certificacion-saldo-'|| c.id ||'.pdf' nombreDoc,\r\n"
+			 		+ "		coalesce(valor_saldo_capital,0) capital,\r\n"
+			 		+ "		coalesce(c.valor_intereses_corrientes,0) interesesCorrientes,\r\n"
+			 		+ "		coalesce(c.valor_seguros,0) seguro,\r\n"
+			 		+ "		coalesce(c.cuenta_por_cobrar_seguro,0) seguroInicialPendientePago,\r\n"
+			 		+ "		coalesce(c.cuenta_por_cobrar_intereses_iniciales,0) interesesInicialesPentPago,\r\n"
+			 		+ "		coalesce(c.cuenta_por_cobrar_estudio_credito,0) estudiCrediPendPago,\r\n"
+			 		+ "		coalesce(round(d.valor_fianza),0) fianza,\r\n"
+			 		+ "     sum(coalesce(valor_interes_fianza_corridos,0)+coalesce(valor_interes_fianza_no_corridos,0))InteresesFianza,\r\n"
+			 		+ "		coalesce(c.cxc_interes_prima_seguro_anticipada,0) primaSegPendientePago,\r\n"
+			 		+ "		coalesce(c.cxc_prima_seguro_anticipada,0) intPrimaSeguro,\r\n"
+			 		+ "		round(sum(coalesce(c.valor_saldo_capital,0)+coalesce(c.valor_intereses_corrientes,0) + coalesce(c.valor_seguros,0)\r\n"
+			 		+ "			 				+coalesce(c.cuenta_por_cobrar_seguro,0)+ coalesce(c.cuenta_por_cobrar_intereses_iniciales,0)\r\n"
+			 		+ "			 				+coalesce(c.cuenta_por_cobrar_estudio_credito,0)+coalesce(d.valor_fianza,0)+coalesce(c.cxc_interes_prima_seguro_anticipada,0)\r\n"
+			 		+ "			 				+coalesce(c.cxc_prima_seguro_anticipada,0)+coalesce(valor_interes_fianza_corridos,0)+ coalesce(valor_interes_fianza_no_corridos,0) ))totalPagar,"
+			 		+ "		cr.fecha_aprobacion,\r\n"
+			 		+ "		c.fecha_solicitud fechaSolicitudCert,\r\n"
+			 		+ "		to_char(c.fecha_vencimiento, 'DD/MM/YYYY') fechaVenciCert,\r\n"
+			 		+ "		coalesce(c.valor_sancion_prepago,0) clausulaIndemnizacion\r\n"
+			 		+ "from certificacion c \r\n"
+			 		+ "inner join credito cr on c.id_credito = cr.id\r\n"
+			 		+ "inner join desglose d on cr.id = d.id_credito \r\n"
+			 		+ "where 1=1\r\n"
+			 		+ "and cr.numero_radicacion ="+ numRadicado
+			 		+ "and d.desglose_seleccionado is true\r\n"
+			 		+ "group by c.id, cr.fecha_aprobacion, d.valor_fianza\r\n"
+			 		+ "order by c.id desc\r\n"
+			 		+ "limit 1;");
+	
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
 			log.error(e.getMessage());			
 		}
-
+		return r;
 	}
-
-	public void validarRegistroCertificacion(String fechaSolicitud, String numRadicacion) throws ParseException {
-		SimpleDateFormat objSDF = new SimpleDateFormat("yyyy-mm-dd");
-		Date date1 = objSDF.parse(fechaSolicitud);
-		System.out.println(date1);
-	}
-
-	public void consultarRecaudo(String numRadicado) {
+	
+	public ResultSet consultarTipoCertificacion(String numRadicado) {
+		ResultSet r = null;
+		log.info("**************** CertificacionSaldoQuery - TipoCertificacion()");
 		try {
-			ResultSet r = dbconector.conexion("SELECT C.NUMERO_RADICACION,R.ID,R.ORIGEN,R.TIPO,R.VALOR, R.FECHA\r\n"
-					+ "FROM RECAUDO_CLIENTE RC\r\n" + "INNER JOIN CREDITO C ON RC.ID_CREDITO = C.ID\r\n"
-					+ "INNER JOIN RECAUDO R ON RC.ID_RECAUDO = R.ID\r\n" + "WHERE 1=1\r\n" + "AND C.NUMERO_RADICACION ="
-					+ numRadicado + "\r\n" + "AND R.TIPO IN ('CERTIFICACION_DE_SALDO');");
-			while (r.next()) {
-				this.nRadicado = r.getString(1);
-				this.idRecaudo = r.getString(2);
-				this.origen = r.getString(3);
-				this.tipo = r.getString(4);
-				this.valor = r.getString(5);
-				this.fecha = r.getString(6);
-			}
-			System.out.println("##CONSULTAR RECAUDO##");
-			System.out.println("nRadicado " + nRadicado + "\n" + "idRecaudo " + idRecaudo + "\n" + "Apellidos "
-					+ apellidos + "\n" + "origen " + origen + "\n" + "Num Radicado " + numRadicacion + "\n" + "tipo "
-					+ tipo + "\n" + "valor " + valor);
+			 r = dbconector.conexion("select\r\n"
+			 		+ "	d.valor_fianza,\r\n"
+			 		+ "	cr.estado,\r\n"
+			 		+ "	(case when cr.fecha_aprobacion < '2019-02-05'\r\n"
+			 		+ "	then 'SINCXC'\r\n"
+			 		+ "	else \r\n"
+			 		+ "	'CONCXC' END) Cuentas\r\n"
+			 		+ "from\r\n"
+			 		+ "	desglose d\r\n"
+			 		+ "join credito cr on\r\n"
+			 		+ "	cr.id = d.id_credito\r\n"
+			 		+ "where\r\n"
+			 		+ "	1 = 1\r\n"			 		
+			 		+ "	and cr.credito_activo is true\r\n"
+			 		+ "	and d.desglose_seleccionado is true\r\n"
+			 		+ "and cr.numero_radicacion ="+numRadicado);
+	
 		} catch (Exception e) {
-			System.out.println("Error consulta Recauido" + e.getMessage());
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - TipoCertificacion() ********");
+			log.error(e.getMessage());			
 		}
-
+		return r;
 	}
-
-	public void consultarCXC(String numRadicado) {
+	
+	public ResultSet ejecutarFuncion() {
+		ResultSet r = null;
+		log.info("**************** CertificacionSaldoQuery - TipoCertificacion()");
 		try {
-			ResultSet r = dbconector.conexion("SELECT\r\n"
-					+ "	UPPER(C.PRIMER_NOMBRE || ' ' || C.SEGUNDO_NOMBRE) NOMBRES,\r\n"
-					+ "	UPPER( C.PRIMER_APELLIDO || ' ' || C.SEGUNDO_APELLIDO) APELLIDOS,\r\n"
-					+ "	CR.FECHA_APROBACION\r\n" + "FROM\r\n" + "	CREDITO CR\r\n" + "INNER JOIN CLIENTE C ON\r\n"
-					+ "	CR.ID_CLIENTE = C.ID\r\n" + "WHERE\r\n" + "	CR.FECHA_APROBACION >= '2019-02-06'\r\n"
-					+ "AND	CR.NUMERO_RADICACION =" + numRadicado + ";");
-			while (r.next()) {
-				this.nombres = r.getString(1);
-				this.apellidos = r.getString(2);
-				this.FechaAprobacion = r.getString(3);
-			}
-			System.out.println("###CONSULTA CXC");
-			System.out.println("nombres " + nombres + "\n" + "apellidos " + apellidos + "\n" + "FechaAprobacion "
-					+ FechaAprobacion);
+			 r = dbconector.conexion(" SELECT * from funcautocalculocertificacion("+38570+");");	
 		} catch (Exception e) {
-			System.out.println("Error consulta CXC" + e.getMessage());
-			FechaAprobacion = " ";
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - TipoCertificacion() ********");
+			log.error(e.getMessage());			
 		}
-		if (FechaAprobacion == null ) {
-			System.out.println("No tiene intereses cuenta por cobrar");
-		} else {
-			System.out.println("Tiene intereses cuenta ppor cobrar");
-		}
-	}
-
-	public void ConsultarInteresesFianza(String numRadicado) {
-		try {
-			ResultSet r = dbconector
-					.conexion("SELECT\r\n" + "	UPPER(C.PRIMER_NOMBRE || ' ' || C.SEGUNDO_NOMBRE) NOMBRES,\r\n"
-							+ "	UPPER( C.PRIMER_APELLIDO || ' ' || C.SEGUNDO_APELLIDO) APELLIDOS,\r\n"
-							+ "	CR.FECHA_APROBACION,\r\n" + "	D.VALOR_FIANZA\r\n" + "FROM\r\n" + "	CREDITO CR\r\n"
-							+ "INNER JOIN CLIENTE C ON\r\n" + "	CR.ID_CLIENTE = C.ID\r\n"
-							+ "INNER JOIN DESGLOSE D ON\r\n" + "	CR.ID = D.ID_CREDITO\r\n" + "WHERE\r\n"
-							+ "	D.VALOR_FIANZA IS NOT NULL\r\n" + "	AND D.DESGLOSE_SELECCIONADO IS TRUE\r\n"
-							+ "	AND CR.NUMERO_RADICACION =" + numRadicado + ";");
-			while (r.next()) {
-				this.nombres = r.getString(1);
-				this.apellidos = r.getString(2);
-				this.FechaAprobacion = r.getString(3);
-				this.interesFianza = r.getString(4);
-			}
-			System.out.println("##CONSULTA INT RIANZA##");
-			System.out.println("nombres " + nombres + "\n" + "apellidos " + apellidos + "\n" + "FechaAprobacion "
-					+ FechaAprobacion + "\n" + "interesFianza " + interesFianza);
-		} catch (Exception e) {
-			System.out.println("Error consulta intereses" + e.getMessage());
-		}
+		return r;
 	}
 }

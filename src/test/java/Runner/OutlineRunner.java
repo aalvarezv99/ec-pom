@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 features = "src/test/resources/feature/OutLine.feature",
 glue = "StepsDefinitions",
-tags = "@Prueba",
+tags = "not @Prueba",
    snippets = SnippetType.CAMELCASE
 )
 public class OutlineRunner {
