@@ -1,5 +1,5 @@
 #language: es
-Característica: Prepago de Creditos
+Característica: Prepago de Creditos Abacus
 
   Antecedentes: Usuario en el sistema
     Dado Un agente en el sistema core abacus con sesion iniciada
