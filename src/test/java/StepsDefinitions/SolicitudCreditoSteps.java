@@ -122,7 +122,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.ClientesParaBienvenida(Cedula);
 	}
 	
-	@Y("se marcar los check corretos junto con el celular y correo{string}{string}")
+	@Y("se marcar los check correctos junto con el celular y correo{string}{string}")
 	public void semarcarloscheckcorretosjuntoconelcelularycorreo (String Celular,String Correo) throws InterruptedException {
 		originacionaccion.Correctocondiciones(Celular,Correo);
 	}
