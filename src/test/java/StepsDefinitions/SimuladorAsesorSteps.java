@@ -10,7 +10,6 @@ import org.openqa.selenium.WebDriver;
 import Acciones.LoginAccion;
 import Acciones.OriginacionCreditosAccion;
 import CommonFuntions.BaseTest;
-import CommonFuntions.Navegador;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Dado;
 import cucumber.api.java.es.Entonces;
@@ -24,46 +23,27 @@ public class SimuladorAsesorSteps {
 	RetanqueoAsesorSteps retanqueoasesorsteps;
 	LoginAccion loginaccion;
 	BaseTest baseTest;
-	private List<String> Variables;
-	static int a=0;
 	
-	public SimuladorAsesorSteps() {					
-		//super(driver);
-		//this.driver=Driver.driver;	
-		this.driver=Navegador.driver;
-		originacionaccion = new OriginacionCreditosAccion(driver);	
+	
+	public SimuladorAsesorSteps() {						
+		this.driver=Driver.driver;		
 		loginaccion=new LoginAccion(driver);
+		originacionaccion = new OriginacionCreditosAccion(driver);	
 	}
 	
-	@Dado("^Un agente en el sistema core abacus con sesion iniciada$")
-	public void unAgenteEnElSistemaCoreAbacusConSesionIniciada(List<String> Valores) throws Exception {
+	@Dado("Un agente en el sistema core abacus con sesion iniciada")
+	public void unAgenteEnElSistemaCoreAbacusConSesionIniciada() throws Exception {
 
-		this.Variables=Valores;
-		
-		String Url=null;
-		String Navegador=null;
-		String Usuario=null;
-		String Password=null;
-		
-	   	for(int i=1;i!=a;i++) {					
-			Url=Variables.get(a);
-			Navegador=Variables.get(a+1);
-			Usuario=Variables.get(a+2);
-			Password=Variables.get(a+3);
-			a=(a+3)+1;	
-			i=a-1;
-		}
-		
-		try {			
-			driver = loginaccion.iniciarSesion(Url,Navegador,Usuario,Password);  //*********************************************************
-			originacionaccion = new OriginacionCreditosAccion(driver);//*******************************
+		try {
+			loginaccion.iniciarSesion();
 		} catch (Exception e) {
 			log.error("#ERROR###"+e);
 			throw new Exception();
+			
 		}
 	}
 
-	@Cuando("el agente ingrese a la pestana de simulador asesor")
+	@Cuando("el agente ingresa a la pestana de simulador asesor")
 	public void elAgenteIngreseALaPestanaDeSimuladorAsesor() {
 		originacionaccion.ingresarSimuladorAsesor();
 	}
@@ -82,7 +62,7 @@ public class SimuladorAsesorSteps {
     originacionaccion.assertSimulador(Fecha,Tasa,Plazo,Monto,DiasHabilesIntereses,Ingresos,descLey,descNomina,vlrCompasSaneamientos,tipo,colchon);  
 	}
 
-	@Y("guarde la simulacion presionando el boton guardar")
+	@Y("guarda la simulacion presionando el boton guardar")
 	public void guardeLaSimulacionPresionandoElBotonGuardar() throws InterruptedException {
 	originacionaccion.GuardarSimulacion();
 	}
@@ -92,7 +72,7 @@ public class SimuladorAsesorSteps {
 	originacionaccion.CrearCliente(TipoContrato,FechaIngreso,Pnombre,Papellido,Sapellido,Correo,Celular,Dpto,Ciudad);
 	}
 
-	@Y("el sistema habilite el cargue de documentos para el cliente {string}")
+	@Y("el sistema habilita el cargue de documentos para el cliente {string}")
 	public void el_sistema_habilite_el_cargue_de_documentos_para_el_cliente(String ruta) throws InterruptedException {
 	originacionaccion.SubirDocumentos(ruta);
 	}

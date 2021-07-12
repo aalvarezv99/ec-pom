@@ -2,11 +2,9 @@ package StepsDefinitions;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-
 import Acciones.OriginacionCreditosAccion;
 import Acciones.RetanqueoCreditos;
 import CommonFuntions.BaseTest;
-import CommonFuntions.Navegador;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import cucumber.api.java.es.Y;
@@ -20,7 +18,7 @@ public class RetanqueoAsesorSteps {
 	
 	public RetanqueoAsesorSteps() {		
 		//super(driver);
-		this.driver = Navegador.driver;				
+		this.driver = Driver.driver;				
 		retanqueocreditos = new RetanqueoCreditos(driver);		
 	}
 	
