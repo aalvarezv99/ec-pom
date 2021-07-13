@@ -410,6 +410,19 @@ public class BaseTest {
 			WebElement Element = driver.findElement(locator);
 			js.executeScript("arguments[0].scrollIntoView();", Element);
 	}
+	
+	//metodo que usa JavaScrip para hacer Scroll Abajo
+	public void Hacer_scroll_Abajo(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView(false);", Element);
+}
+	//metodo que usa JavaScrip para hacer Scroll Arriba
+	public void Hacer_scroll_Arriba(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView(true);", Element);
+}
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {
 
@@ -437,13 +450,13 @@ public class BaseTest {
 			id[i]=BtnCarga.get(i).getAttribute("id");
 		}
 		for(int i=0;i<id.length;i++) {		
-			Thread.sleep(350);
+			Thread.sleep(450);
 		    driver.findElement(By.id(id[i])).sendKeys(Pdf);		    
 		    esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
 		    esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
 		    hacerClicknotificacion();		
 		    hacerScrollAbajo();
-    
+		    ElementVisible();
 		}
 		ElementVisible();
 		Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
@@ -661,7 +674,7 @@ public void clickvarios(By locator) {
 	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 	}
     
     public void esperaExplicitaNopresente() {		

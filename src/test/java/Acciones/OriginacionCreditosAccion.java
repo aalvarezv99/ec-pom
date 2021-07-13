@@ -777,30 +777,31 @@ public class OriginacionCreditosAccion extends BaseTest {
     
     public void Correctocondiciones(String Telefono,String Correo) throws InterruptedException {
     	MarcarCheck(pagesclienteparabienvenida.Check);
-        Hacer_scroll(pagesclienteparabienvenida.Telefono);
-        Clear(pagesclienteparabienvenida.Telefono);       
-        EscribirElemento(pagesclienteparabienvenida.Telefono, Telefono);
-        Hacer_scroll(pagesclienteparabienvenida.Correo);
-        Clear(pagesclienteparabienvenida.Correo);
-        EscribirElemento(pagesclienteparabienvenida.Correo, Correo);
+        Hacer_scroll(pagesclienteparabienvenida.label_Nombres_Completos);
+        hacerClick(pagesclienteparabienvenida.Contactado);
+        ElementVisible(); 
+        hacerClick(pagesclienteparabienvenida.Direccion_Residencia_Si); 
+        ElementVisible(); 
+        Hacer_scroll_Abajo(pagesclienteparabienvenida.Guardar);
         hacerClick(pagesclienteparabienvenida.Guardar);
         ElementVisible(); 
         hacerClick(pagesclienteparabienvenida.Correcta);
-        ElementVisible(); 
+        ElementVisible();
        
     }
     
     public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
     	 recorerpestanas("CONDICIONES DEL CRÉDITO");
+    	 Refrescar();
          MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
          Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
          Thread.sleep(1000);
          hacerClick(pagesclienteparabienvenida.Desembolso);
          selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);        
-        hacerClick(pagesclienteparabienvenida.CalificacionProceso);
+         hacerClick(pagesclienteparabienvenida.CalificacionProceso);
          hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-        hacerScrollAbajo();
-        hacerClick(pagesclienteparabienvenida.Acepta);
+         hacerScrollAbajo();
+         hacerClick(pagesclienteparabienvenida.Acepta);
          ElementVisible(); 
     }
     
