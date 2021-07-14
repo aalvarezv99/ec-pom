@@ -3,6 +3,7 @@ package StepsDefinitions;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
+import Acciones.AplicacionCierreAccion.AplicacionCierreAccion;
 import cucumber.api.PendingException;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
@@ -12,14 +13,16 @@ public class AplicacionCierrePagaduriaSteps {
 	
 	WebDriver driver;
 	Logger log = Logger.getLogger(AplicacionCierrePagaduriaSteps.class);
+	AplicacionCierreAccion aplicacioncierre;
 	
 	public AplicacionCierrePagaduriaSteps() {
-		//driver = Driver.driver;	
+		driver = Driver.driver;	
+		aplicacioncierre = new AplicacionCierreAccion(driver);
 	}
 	
 	@Cuando("^Navegue al modulo de pagos y seleccione \"([^\"]*)\"$")
     public void navegueAlModuloDePagosYSeleccioneSomething(String opcion) throws Throwable {
-        log.info(opcion);
+        aplicacioncierre.NavegarPagoConOpcion(opcion);
     }  
 
     @Y("^en la pantalla cargue de lista de pagos seleccione el (.+) para el ano actual$")

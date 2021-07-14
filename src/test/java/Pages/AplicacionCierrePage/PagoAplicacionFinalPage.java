@@ -1,5 +1,5 @@
 package Pages.AplicacionCierrePage;
 
-public class ListaPagoPages {
+public class PagoAplicacionFinalPage {
 
 }

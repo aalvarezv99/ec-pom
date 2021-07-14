@@ -15,12 +15,23 @@ public class PanelNavegacionPage {
 	public By selectCreditos;
 	public By botonSalir;
 	public By selectDesembolso;
+	public By selectPagos;
 	
 	
 	
 	//Select Secundarios
+	// sub menu del modulo de pagos
+	public By selectListaPagosCargar;
+	public By selectPreaplicacionPago;
+	public By selectaplicacionFinal;
+	public By selectCierrePagos;
+	
+	
+	//select sunMenu prepago
 	public By selectCertificacionSaldos;
 	public By selectGestionCertificado;
+	
+	
 	public By selectSucursalActiva;
 	public By selectPagosRecaudos;	
 	public By selectIrSimulador;
@@ -46,6 +57,13 @@ public class PanelNavegacionPage {
 		//Componentes Configuracion
 		selectConfigBlobal = By.xpath("//a[text()='Configuración global']");
 		selecPrepagoConfig = By.xpath("//span[text()='Prepago']");
+		
+		//componentesPagos
+		selectPagos = By.xpath("//a[text()='Pagos']");
+		selectListaPagosCargar = By.xpath("//span[text()='Lista pagos a cargar']");
+		selectPreaplicacionPago = By.xpath("//span[text()='Preaplicacion pagos']");
+		selectaplicacionFinal = By.xpath("//span[text()='Aplicacion Final']");
+		selectCierrePagos = By.xpath("//span[text()='Cierre Pagos']");
 		
 		//Componentes Prepago
 		selectPrepago = By.xpath("//a[text()='Prepago']");
