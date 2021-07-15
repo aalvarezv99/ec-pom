@@ -3,6 +3,13 @@ package Pages.SolicitudCreditoPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * Clase que contiene la definici&oacute;n de los elementos que se encuentran en
+ * la pestaña de digitalizaci&oacute;n.
+ *
+ * @author Equipo de desarrollo de pruebas automatizadas.
+ * @version 1.0
+ */
 public class PestanaDigitalizacionPage {
 	WebDriver driver;
 	
@@ -10,6 +17,13 @@ public class PestanaDigitalizacionPage {
 	public By Notificacion;
 	public By Guardar;	
 	public static By EnVerificacion;
+
+	/**
+	 * Atributo SegundaPestanaDigitalizacion : {@link By}
+	 *
+	 * Atributo que define la segunda pestaña ubicada en el formulario de
+	 * digitalizaci&oacute;n
+	 */
 	public By SegundaPestanaDigitalizacion;
 	public By CodigoProforenses;
 	public By IdentidadConfirmada;

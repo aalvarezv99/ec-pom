@@ -570,18 +570,26 @@ public class BaseTest {
 
 	/************* FIN FUNC REPORTES ***********************/
 
-   public void MarcarCheck(By locator) throws InterruptedException {
+	/**
+	 * M&eacute;todo encargado de marchar una opci&oacute;n proveniente de un
+	 * elemento de tipo radio button o checkbox.
+	 *
+	 * @param locator					El elemento de tipo radio button o
+	 *                                  checkbox.
+	 * @throws InterruptedException
+	 */
+	public void MarcarCheck(By locator) throws InterruptedException {
 		Thread.sleep(1000);
-	
+
 		List<WebElement> BtnCheck = driver.findElements(locator);
-		
+
 		int count =0;
-		
-		for (WebElement contenido : BtnCheck) {	
-			
+
+		for (WebElement contenido : BtnCheck) {
+
 			contenido.click();
 			count = count + 1;
-			hacerScrollAbajo();			
+			hacerScrollAbajo();
 		}
 	}
  

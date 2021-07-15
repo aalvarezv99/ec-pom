@@ -1,37 +1,26 @@
 package Acciones;
 
-import static org.junit.Assert.assertTrue;
+import Archivo.LeerArchivo;
+import CommonFuntions.BaseTest;
+import Consultas.OriginacionCreditoQuery;
+import JSch.JSchSSHConnection;
+import Pages.*;
+import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
+import Pages.SolicitudCreditoPage.PestanaFormularioPage;
+import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
+import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 
-import Archivo.LeerArchivo;
-import CommonFuntions.BaseTest;
-import Consultas.CertificacionSaldoQuery;
-import Consultas.OriginacionCreditoQuery;
-import JSch.JSchSSHConnection;
-import Pages.CreditoSolicitudPage;
-import Pages.PagesClienteParaBienvenida;
-import Pages.PagesClienteParaVisacion;
-import Pages.PagesCreditosDesembolso;
-import Pages.PagesTareas;
-import Pages.PanelNavegacionPage;
-import Pages.SimuladorAsesorPages;
-import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
-import Pages.SolicitudCreditoPage.PestanaFormularioPage;
-import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
-import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
-
-public class OriginacionCreditosAccion extends BaseTest {
-	
 	WebDriver driver;
 	SimuladorAsesorPages simuladorasesorpage;
 	PanelPrincipalAccion panelnavegacionaccion;
@@ -39,6 +28,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 	CreditoSolicitudPage creditocolicitudpage;
 	PestanaSimuladorInternoPage pestanasimuladorinternopage;
 	Pages.SolicitudCreditoPage.pestanaSeguridadPage pestanaSeguridadPage;
+
+	/**
+	 *
+	 */
 	PestanaDigitalizacionPage pestanadigitalizacionPage;
 	PestanaFormularioPage pestanaformulariopage;
 	PestanaReferenciacionPage pestanareferenciacionpage;
@@ -47,16 +40,13 @@ public class OriginacionCreditosAccion extends BaseTest {
 	PagesClienteParaVisacion pagesclienteparavisacion;
 	JSchSSHConnection jSchSSHConnection;
 	PagesCreditosDesembolso pagescreditosdesembolso;
-	
+
 	LoginAccion loginaccion;
 	LeerArchivo archivo;
-	// BaseTest baseTest;
-	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
+	private static Logger log = Logger.getLogger(OriginacionCreditoSaneamientoAccion.class);
 
-	public OriginacionCreditosAccion(WebDriver driver) {
-		///this.driver = driver;
+	public OriginacionCreditoSaneamientoAccion(WebDriver driver) {
 		super(driver);
-		// baseTest = new BaseTest(driver);
 		simuladorasesorpage = new SimuladorAsesorPages(driver);
 		panelnavegacionaccion = new PanelPrincipalAccion(driver);
 		PanelNavegacionPage = new PanelNavegacionPage(driver);
@@ -790,19 +780,19 @@ public class OriginacionCreditosAccion extends BaseTest {
        
     }
     
-	public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
-		recorerpestanas("CONDICIONES DEL CRÉDITO");
-		MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
-		Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-		Thread.sleep(1000);
-		hacerClick(pagesclienteparabienvenida.Desembolso);
-		selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);
-		hacerClick(pagesclienteparabienvenida.CalificacionProceso);
-		hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-		hacerScrollAbajo();
-		hacerClick(pagesclienteparabienvenida.Acepta);
-		ElementVisible();
-	}
+    public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
+    	 recorerpestanas("CONDICIONES DEL CRÉDITO");
+         MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
+         Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
+         Thread.sleep(1000);
+         hacerClick(pagesclienteparabienvenida.Desembolso);
+         selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);        
+        hacerClick(pagesclienteparabienvenida.CalificacionProceso);
+         hacerClick(pagesclienteparabienvenida.CalificacionCobro);
+        hacerScrollAbajo();
+        hacerClick(pagesclienteparabienvenida.Acepta);
+         ElementVisible(); 
+    }
     
     
     /************FIN Clientes Para Bienvenidad *************/
@@ -886,8 +876,14 @@ public class OriginacionCreditosAccion extends BaseTest {
     	hacerClick(PagesCreditosDesembolso.Guardar);
     	ElementVisible();    	
     }
-    
-    
-    
+
+	/**
+	 * M&eacute;todo encargado de redirigir a la segunda pestaña de
+	 * digitalizaci&oacute;n.
+	 */
+	public void pasarASiguienteTab() {
+		this.hacerScrollAbajo();
+    	this.hacerClick(this.pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+	}
     /************ FIN Creditos Para Desembolso **********/
 }
