@@ -13,46 +13,41 @@ public class AplicacionCierrePagaduriaSteps {
 	
 	WebDriver driver;
 	Logger log = Logger.getLogger(AplicacionCierrePagaduriaSteps.class);
-	AplicacionCierreAccion aplicacioncierre;
+	AplicacionCierreAccion aplicacioncierreaccion;
 	
 	public AplicacionCierrePagaduriaSteps() {
 		driver = Driver.driver;	
-		aplicacioncierre = new AplicacionCierreAccion(driver);
+		aplicacioncierreaccion = new AplicacionCierreAccion(driver);
 	}
 	
 	@Cuando("^Navegue al modulo de pagos y seleccione \"([^\"]*)\"$")
     public void navegueAlModuloDePagosYSeleccioneSomething(String opcion) throws Throwable {
-        aplicacioncierre.NavegarPagoConOpcion(opcion);
+		aplicacioncierreaccion.NavegarPagoConOpcion(opcion);
     }  
 
     @Y("^en la pantalla cargue de lista de pagos seleccione el (.+) para el ano actual$")
     public void enLaPantallaCargueDeListaDePagosSeleccioneElParaElAnoActual(String periodo) throws Throwable {
-       log.info(periodo);
+    	aplicacioncierreaccion.SeleccionarPeriodoAno(periodo);
     }
 
     @Y("^Ingrese el (.+) en el campo pagaduria verificando que no se ha cargado anteriormente$")
     public void ingreseElEnElCampoPagaduriaVerificandoQueNoSeHaCargadoAnteriormente(String nombrepagaduria) throws Throwable {
-        log.info(nombrepagaduria);
-    }
+        aplicacioncierreaccion.escribirPagaduriaValidarCargue(nombrepagaduria);
+    }    
 
-    @Y("seleccione el boton cargar")
-    public void seleccioneElBotonCargar() throws Throwable {
-        throw new PendingException();
-    }
-
-    @Y("^cargue la pagaduria (.+) que se encuentra en la ruta (.+)$")
+    @Y("^cargue la pagaduria (.+) que se encuentra en la ruta \"([^\"]*)\"$")
     public void cargueLaPagaduriaQueSeEncuentraEnLaRuta(String nombrepagaduria, String rutapagaduria) throws Throwable {
-        log.info(rutapagaduria);
+        aplicacioncierreaccion.cargarArchivoPagaduria(nombrepagaduria, rutapagaduria);
     }
     
     @Entonces("^cargara la pagaduria de manera exitosa mostando el mensaje \"([^\"]*)\"$")
     public void cargaraLaPagaduriaDeManeraExitosaMostandoElMensajeSomething(String Mensaje) throws Throwable {
-       log.info(Mensaje);
+       aplicacioncierreaccion.validarMensajeCargueTerminado(Mensaje);
     }
 
-    @Y("se validara el valor listado con el valor del sistema terminando con el proceso")
-    public void seValidaraElValorListadoConElValorDelSistemaTerminandoConElProceso() throws Throwable {
-        throw new PendingException();
+    @Y("^se valida el valor listado de la (.+) para el (.+) con el valor del sistema terminando con el proceso$")
+    public void seValidaElValorListadoDeLaParaElConElValorDelSistemaTerminandoConElProceso(String nombrepagaduria, String periodo) throws Throwable {
+       aplicacioncierreaccion.validarVlrPlanillaContraSistema(nombrepagaduria, periodo);
     }
 
 	
