@@ -666,9 +666,9 @@ public class OriginacionCreditosAccion extends BaseTest {
     }
     
     public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
-    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
-    	ElementVisible(); 
+    	ElementVisible (); 
     	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);
     	ElementVisible(); 
     	hacerClick(pestanasimuladorinternopage.CalcularDesglose);
