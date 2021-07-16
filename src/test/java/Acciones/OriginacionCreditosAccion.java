@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Sleeper;
 
 import Archivo.LeerArchivo;
 import CommonFuntions.BaseTest;
@@ -176,14 +177,20 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	}
 	
-	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException{
-		      
+	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo, String pagaduria) throws NumberFormatException, SQLException{
+		
 		       // consulta base de datos
 				int DesPrimaAntic = 0;
 				OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 				ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
 				while (resultado.next()) {
 					DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+				}
+				
+				int colchon = 0;
+				ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+				while (resultadocolchon.next()) {
+					colchon = Integer.parseInt(resultadocolchon.getString(1));
 				}
 		 
 				double EstudioCredito = 0;
@@ -207,7 +214,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 				// Validar resultados de simulacion
 
-				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina));
+				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina),colchon);
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.CapacidadAproximada), String.valueOf(Capacidad));
 				
 				int edad = (int) edad(Fecha);
@@ -243,7 +250,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
 
 				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-						Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
+						Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
 						Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),
 						String.valueOf(MontoMaxDesembolsar));
@@ -354,7 +361,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 	}
 	
-	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException, InterruptedException{
+	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
 	      
 	       // consulta base de datos
 			int DesPrimaAntic = 0;
@@ -362,6 +369,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
 			while (resultado.next()) {
 				DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+			}
+			
+			int colchon = 0;
+			ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+			while (resultadocolchon.next()) {
+				colchon = Integer.parseInt(resultadocolchon.getString(1));
 			}
 	
 			double EstudioCredito = 0;
@@ -418,7 +431,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
 
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-					Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
+					Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
 					Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido),
 					String.valueOf(MontoMaxDesembolsar));
@@ -640,11 +653,11 @@ public class OriginacionCreditosAccion extends BaseTest {
     	esperaExplicita(pestanadigitalizacionPage.Notificacion);
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		
-		
+			
     	
     }
-    public void SegundaPestanaSimuladorAnalista () {
+    public void SegundaPestanaSimuladorAnalista () throws InterruptedException {
+    	Thread.sleep(4000);
     	hacerClick(pestanasimuladorinternopage.SgdPestana);
 		ElementVisible(); 
 		esperaExplicita(pestanadigitalizacionPage.Notificacion);
@@ -652,7 +665,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String colchon,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible(); 
@@ -677,6 +690,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 			EstudioCredito = Double.parseDouble(resultado2.getString(1));
 		}
 		
+		int colchon = 0;
+		ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+		while (resultadocolchon.next()) {
+			colchon = Integer.parseInt(resultadocolchon.getString(1));
+		}
+		
 		double TasaFianza =0;
 		ResultSet resultado3 = query.porcentajefianza();
 		while (resultado3.next()) {
@@ -691,7 +710,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
 		
-		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina));
+		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
 
 		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
@@ -705,7 +724,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		// revisar calculo
 		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
 
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
     		
 	    int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
