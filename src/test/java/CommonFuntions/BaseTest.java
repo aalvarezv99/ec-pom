@@ -29,7 +29,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -754,10 +754,12 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
+		
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
-
+		}
 
 	}
 
@@ -846,6 +848,15 @@ public WebDriver chromeDriverConnection() {
 		driver= new InternetExplorerDriver();
 		return driver;
 	}
+    
+    public void  ToleranciaPeso(int a,int b){
+    	int Tolerancia=a-b;
+        if(Tolerancia<=1 && Tolerancia>=0){
+    		assertTrue(true);
+    	}else {
+    		assertTrue(false);
+    	}
+    }
   
 	/**************************************/
 
