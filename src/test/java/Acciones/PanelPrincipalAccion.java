@@ -49,6 +49,19 @@ public class PanelPrincipalAccion extends BaseTest {
 		}
 				
 	}
+	
+	public void navegarPagos() {
+		log.info("************PanelPrincipalAccion - navegarRecaudo()****************");
+		try {			
+			esperaExplicita(panelnavegacionpage.selectPagos);
+			hacerClick(panelnavegacionpage.selectPagos);		
+			esperaExplicita(panelnavegacionpage.selectPreaplicacionPagos);
+			hacerClick(panelnavegacionpage.selectPreaplicacionPagos);
+		} catch (Exception e) {			
+			assertTrue("#####  ERROR PANELPRINCIPALACCION - NAVEGARRECAUDO() ######"+ e,false);
+		}
+				
+	}
 
 	public void navegarGestionCertificado() {
 		log.info("**********PanelPrincipalAccion - navegarGestionCertificado()**********");

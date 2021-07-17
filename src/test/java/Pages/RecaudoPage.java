@@ -12,6 +12,12 @@ public class RecaudoPage {
 	public By archivoSoporte;
 	public By checkCliente;
 	public By checkPagaduria;
+	public By listaPagaduria;
+	public By FiltroPagaduria;
+	public By Ano;
+	public By RecaudoPeriodo;
+	public By ListPeriodo;
+	public By botonGuardarInfPago;
 	
 	//Elementos fecha
 	public By calendario;
@@ -54,6 +60,12 @@ public class RecaudoPage {
 		archivoSoporte = By.id("formulario-pagos-recaudo:fileUploadBtn_input");
 		checkCliente = By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:origenPago:') and @value='CLIENTE']");
 		checkPagaduria = By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:origenPago:') and @value='PAGADURIA']");
+		listaPagaduria = By.id("formulario-pagos-recaudo:DivPagaduria_label");
+		FiltroPagaduria = By.id("formulario-pagos-recaudo:DivPagaduria_filter");
+		Ano = By.id("formulario-pagos-recaudo:j_idt93_input");
+		RecaudoPeriodo = By.id("formulario-pagos-recaudo:j_idt96_label");
+		ListPeriodo= By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:j_idt96')  and @role='option']");		
+		botonGuardarInfPago = By.xpath("//span[contains(text(),'Guardar Información del Pago')]");
 		
 		
 		botonGuardar = By.id("//span[contains(text(),'Guardar Información')]");

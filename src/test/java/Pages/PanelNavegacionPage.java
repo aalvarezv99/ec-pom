@@ -35,6 +35,8 @@ public class PanelNavegacionPage {
 	public By selectLMediosDispersion;
 	public By selectRetanqueo;
 	public By selectListaCreditoRetanqueo;
+	public By selectPagos;
+	public By selectPreaplicacionPagos;
 	
 	
 	public PanelNavegacionPage(WebDriver driver) {
@@ -55,6 +57,10 @@ public class PanelNavegacionPage {
 		//Componentes Recaudo
 		selectRecaudo = By.xpath("//a[text()='Recaudo']");
 		selectPagosRecaudos = By.xpath("//span[text()='Pagos de recaudo']");
+		
+		//Componentes Pagos
+		selectPagos = By.xpath("//a[text()='Pagos']");
+		selectPreaplicacionPagos = By.xpath("//span[text()='Preaplicacion pagos']");
 		
 		
 		//Componentes Simulador
