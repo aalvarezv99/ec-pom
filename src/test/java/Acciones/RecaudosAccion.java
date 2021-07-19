@@ -169,8 +169,10 @@ public class RecaudosAccion extends BaseTest{
 			}		
 			result.close();		
 			
-			assertvalidarEquals(valorRecaudo.replace(",","."),vlrDbRecaudo);
-			assertvalidarEquals(estadoCredito.toUpperCase(),estadoDbCredito);
+			assertValidarEqualsImprimeMensaje("######## EL VALOR DEL RECAUDO NO COINCIDE CON BASE DE DATOS ######",
+					valorRecaudo.replace(",","."),vlrDbRecaudo);
+			assertValidarEqualsImprimeMensaje(" ####### EL ESTADO DEL CREDITO 'PREPAGADO', NO COINCIDE, VALIDAR BASE DE DATOS  ######",
+					estadoCredito.toUpperCase(),estadoDbCredito);
 			
 		} catch (Throwable e) {
 			log.error("####### ERROR RecaudosAccion - validarEstadoCredito() ##########"+ e);

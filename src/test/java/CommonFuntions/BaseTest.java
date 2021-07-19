@@ -126,8 +126,12 @@ public class BaseTest {
 	
 	public void assertvalidarEquals (String a, String b) {
 		assertEquals(a,b);
+		
 	}
 	
+	public void assertValidarEqualsImprimeMensaje(String mensaje, String a, String b) {
+		assertEquals(mensaje,a,b);
+	}
 
 	 public String separarFecha(String fecha, String tipo) {
 			String result = "";
@@ -212,7 +216,9 @@ public class BaseTest {
    
    public void assertTextonotificacion(By locator,String Texto) {		
 		String pageText = driver.findElement(locator).getText();
-		assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+			assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		}		
 	}
 	
 	public void assertTextoelemento(By locator, String Comparar) {
@@ -396,6 +402,7 @@ public class BaseTest {
 	/********* FIN FUNC AVANZADAS SELENIUM **************/
 
 	/************ INICIO FUNC JAVASCRIPT ************/
+	
 	public void hacerScrollAbajo() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,10)");
@@ -619,6 +626,14 @@ public void clickvarios(By locator) {
 			countFilas = driver.findElements(locator).size();
 		}
 	}
+   
+   /*
+    * Recibe una tabla y retorna una pocion con sui valor en String
+    * */
+   public String buscarElementoFilaTabla(By locator, int pocision) {
+	   List<WebElement> ListaElement = driver.findElements(locator);	
+	   return ListaElement.get(pocision).getText();	
+   }
 
 	public void selectFechActualCalendario(By contlist, By itemsLista) {
 		WebElement diasCalen = driver.findElement(contlist);
@@ -778,6 +793,13 @@ public void clickvarios(By locator) {
 	public String getFechaActualDia() {
 		Calendar calen = Calendar.getInstance(TimeZone.getDefault());
 		int todayInt = calen.get(Calendar.DAY_OF_MONTH);
+		return Integer.toString(todayInt);
+	}
+	
+	/*CONSULTAR EL AÑO ACTUAL*/
+	public String getFechaActualAno() {
+		Calendar calen = Calendar.getInstance(TimeZone.getDefault());
+		int todayInt = calen.get(Calendar.DAY_OF_YEAR);
 		return Integer.toString(todayInt);
 	}
 
