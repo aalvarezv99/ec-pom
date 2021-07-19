@@ -26,6 +26,8 @@ public class PestanaSimuladorInternoPage {
 	public By MesDeAfecatcion;
 	public By ListaMes;
 	public By CalcularDesglose;
+	public By FechaDesembolso;
+	public By FechasManuales;
 	
 	public By MontoSolicitado;
 	public By CapitalTotal;
@@ -46,6 +48,7 @@ public class PestanaSimuladorInternoPage {
 	public By DescuentoAfiliaciones;
 	public By GuardarSimulacion;
 	public By Aprobar;
+	public By Monto;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -69,6 +72,8 @@ public class PestanaSimuladorInternoPage {
 	    MesDeAfecatcion = By.id("formSimulador:mesAfectacion_label");
 	    ListaMes= By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
 	    CalcularDesglose = By.id("formSimulador:calcular_desglose_analista_b_boton");
+	    FechaDesembolso=By.id("formSimulador:fechaDesembolso_input");
+	    FechasManuales=By.xpath("//span[text()='Aplicar fechas manuales']");
 	    
 	    
 	    DescuentoAfiliaciones = By.id("simuladorAnalista:j_idt109:0:descuentos_nomina_analista_a_input_input");
@@ -90,6 +95,8 @@ public class PestanaSimuladorInternoPage {
 	    DescuentosNomina = By.id("formSimulador:descuentosNomina");
 	    GuardarSimulacion=By.id("formSimulador:guardar");
 	    Aprobar = By.id("form:aprobar");
+	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
+	    
 	    
 	}
 }
