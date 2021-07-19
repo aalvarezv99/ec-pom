@@ -37,4 +37,4 @@ Característica: Recaudos generales en el sistema de cliente y pagaduria
    
     Ejemplos: 
       |Pagaduria                                     |Ano   |Periodo      |
-      |"ALCALDIA MUNICIPAL DE ESPINAL PENSIONADOS"   |"2021"|"Junio  30"  |
+      |"ALCALDIA MUNICIPAL DE ESPINAL PENSIONADOS"   |"2020"|"Junio  30"  |

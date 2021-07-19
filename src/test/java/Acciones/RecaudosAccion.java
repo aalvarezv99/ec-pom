@@ -1,5 +1,6 @@
 package Acciones;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
@@ -195,7 +196,11 @@ public class RecaudosAccion extends BaseTest{
 		
 		ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
 		SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
-		System.out.println(" Aqui VALORES "+ValorRecaudo+" "+SumValoresRecibidos);
+		if(ValorRecaudo=="0") {
+			assertTrue(true);
+		}else {
+			assertFalse(false);
+		}
 		
 	}
 	
