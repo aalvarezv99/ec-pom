@@ -42,7 +42,6 @@ public class SolicitudCreditoSteps {
 	@Y("carga todos los archivos en la pestana de digitalizacion {string}")
 	public void cargaTodosLosArchivosEnLaPestanaDeDigitalizacion(String Pdf) throws InterruptedException {
         originacionaccion.Digitalizacion(Pdf);
-		
 	}
 
 	@Y("marcar los check en correcto guardando en la pestana de digitalizacion")
@@ -154,7 +153,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.ProcesarPagos();
 	}
 	
-	@Y("se filtra por monto y se edita {string}{string}{string}")
+	@Y("se filtra por monto y se edita {string}{string}{string}{string}")
 	public void sefiltrapormontoyseedita(String Monto, String Banco,String Pdf) {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}

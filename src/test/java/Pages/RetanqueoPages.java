@@ -31,6 +31,7 @@ public class RetanqueoPages {
 		public By inputDescLey;
 		public By inputdDescNomina;
 		public By vlrCompra;
+		public By MontoSolicitar;
 		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
@@ -52,6 +53,7 @@ public class RetanqueoPages {
 			Concepto=By.xpath("//div[text()='CONCEPTO FINAL ']");
 			
 			//Componentes valores
+			MontoSolicitar = By.id("formSimuladorCredito:montoTotalCr_hinput");
 			inputTasa = By.id("formSimuladorCredito:tasaCr_input");
 			inputPlazo = By.id("formSimuladorCredito:plazoCr_input");		
 			inputMonto = By.id("formSimuladorCredito:montoCr_input");	
