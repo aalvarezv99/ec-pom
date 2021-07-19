@@ -623,6 +623,14 @@ public void clickvarios(By locator) {
 			countFilas = driver.findElements(locator).size();
 		}
 	}
+   
+   /*
+    * Recibe una tabla y retorna una pocion con sui valor en String
+    * */
+   public String buscarElementoFilaTabla(By locator, int pocision) {
+	   List<WebElement> ListaElement = driver.findElements(locator);	
+	   return ListaElement.get(pocision).getText();	
+   }
 
 	public void selectFechActualCalendario(By contlist, By itemsLista) {
 		WebElement diasCalen = driver.findElement(contlist);
