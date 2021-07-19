@@ -53,5 +53,31 @@ public class RecaudosSteps {
 	@Entonces("la amortizacion del prepago y lo movimientos contables en bases de datos")
 	public void laAmortizacionDelPrepagoYLoMovimientosContablesEnBasesDeDatos() {
 	}
-
+	
+	
+	@Cuando("El agente navegue a la pestana pagos hasta la pestana preaplicacion de pagos")
+	public void Elagentenaveguealapestanapagoshastalapestanapreaplicaciondepagos() {
+		recaudoAccion.IngresaVentanaPagos();
+	}
+	
+	@Y("Se filtra por {string}{string}{string}")
+	public void sefiltrapor(String Pagaduria,String Ano,String Periodo) throws InterruptedException{
+		recaudoAccion.filtrosPreAplicacionPagos(Pagaduria, Ano, Periodo);
+	}
+	
+	@Y("Se captura el valor del recaudo con la suma de valores recibidos")
+	public void secapturaelvalordelrecaudoconlasumadevaloresrecibidos() {
+		recaudoAccion.capturarValoresPreaplicacionPagos();
+	}
+	
+	@Entonces("se pasa a la pestana de recaudo")
+	public void sepasaalapestanaderecaudo() {
+		recaudoAccion.pestanarecaudo();
+	}
+	
+	@Entonces("se agrega el pago de recaudo {string}{string}{string}")
+	public void seagregaelpagoderecaudo(String Pagaduria,String ano,String periodo) {
+		recaudoAccion.Agregarpago(Pagaduria,ano,periodo);
+	}
+	
 }

@@ -109,7 +109,12 @@ public class BaseTest {
 	public String TextoElemento(By locator) {
 		return driver.findElement(locator).getAttribute("value");
 	}
+	
+	public String GetText(By locator) {
+		return driver.findElement(locator).getText();
+	}
 
+	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
 			return driver.findElement(locator).isDisplayed();
@@ -373,12 +378,10 @@ public class BaseTest {
 	public void selectValorLista(By lista, String Texto) {
    
 	List<WebElement> ListaElement = driver.findElements(lista);	
-   
 	for(int i=0;i<ListaElement.size();i++) {
-		String str = limpiarCadena(ListaElement.get(i).getText());
-		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {
+		String str = limpiarCadena(ListaElement.get(i).getText());		
+		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {			 
 			 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
-   
 		     ElementVisible();
 		}
 	}

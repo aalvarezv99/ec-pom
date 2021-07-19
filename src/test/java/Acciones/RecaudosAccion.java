@@ -1,5 +1,6 @@
 package Acciones;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
@@ -14,21 +15,27 @@ import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
 import Consultas.PrepagoQuery;
 import Pages.RecaudoPage;
+import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
 
 public class RecaudosAccion extends BaseTest{
 	WebDriver driver;
 	RecaudoPage recaudopage = new RecaudoPage(driver); 
 	PanelPrincipalAccion panelprincipal;
+	PagoPreaplicacionPagoPage pagopreaplicacionpagopage;
 	CertificacionSaldoQuery query;
 	PrepagoQuery queryRecaudo;
 	private static Logger log = Logger.getLogger(RecaudosAccion.class);
 	
 	//variables Locales
 	String valorRecaudo;
+	static String ValorRecaudo;
+	static String SumValoresRecibidos;
+	
 
 	public RecaudosAccion(WebDriver driver) {
 		super(driver);
 		panelprincipal = new PanelPrincipalAccion(driver);
+		pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		query = new CertificacionSaldoQuery();
 		queryRecaudo = new PrepagoQuery();
 	}
@@ -38,6 +45,11 @@ public class RecaudosAccion extends BaseTest{
 	 * */
 	public void ingresarVentanaRecaudo() {
 		panelprincipal.navegarRecaudo();
+		adjuntarCaptura("ingresarVentanaRecaudo");
+	}
+	
+	public void IngresaVentanaPagos() {
+		panelprincipal.navegarPagos();
 		adjuntarCaptura("ingresarVentanaRecaudo");
 	}
 	
@@ -167,6 +179,65 @@ public class RecaudosAccion extends BaseTest{
 			assertTrue("####### ERROR RecaudosAccion - validarEstadoCredito() ##########"+ e,false);
 		}	
 		
+	}
+	
+	public void filtrosPreAplicacionPagos(String Pagaduria,String Ano,String Periodo) throws InterruptedException {
+		esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
+		hacerClick(pagopreaplicacionpagopage.ListPagaduria);
+		EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
+		EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
+		ElementVisible();
+		hacerClick(pagopreaplicacionpagopage.Ano);
+		selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
+		ElementVisible();
+		hacerClick(pagopreaplicacionpagopage.Periodo);		
+		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+	}
+	
+	public void capturarValoresPreaplicacionPagos() {
+		
+		ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		if(ValorRecaudo=="0") {
+			assertTrue(true);
+		}else {
+			assertFalse(false);
+		}
+		
+	}
+	
+	public void pestanarecaudo() {
+		panelprincipal.navegarRecaudo();
+	}
+	
+	public void Agregarpago(String Pagaduria,String Ano,String Periodo) {
+		hacerClick(recaudopage.botonAddPagoRecaudo);
+		ElementVisible();
+		hacerClick(recaudopage.inputFecha);
+		selectFechActualCalendario(recaudopage.contDiasCalendario,recaudopage.selectDia);
+		ElementVisible();
+		hacerClick(recaudopage.inputValor);
+		EscribirElemento(recaudopage.inputValor, ValorRecaudo);
+		ElementVisible();
+		hacerClick(recaudopage.checkPagaduria);
+		hacerClick(recaudopage.checkPagaduria);
+		ElementVisible();
+		hacerClick(recaudopage.listaPagaduria);
+		ElementVisible();
+		EscribirElemento(recaudopage.FiltroPagaduria, Pagaduria);
+		EnviarEnter(recaudopage.FiltroPagaduria);
+		ElementVisible();
+		Clear(recaudopage.Ano);
+		EscribirElemento(recaudopage.Ano,Ano);
+		ElementVisible();
+		hacerClick(recaudopage.RecaudoPeriodo);
+		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+		ElementVisible();
+		esperaExplicita(recaudopage.botonGuardarInfPago);
+		hacerClick(recaudopage.botonGuardarInfPago);
+		ElementVisible();
+		assertTextonotificacion(recaudopage.notificacion,"Se registro correctamente el recaudo del pago");
+		//
 	}
 	
 }
