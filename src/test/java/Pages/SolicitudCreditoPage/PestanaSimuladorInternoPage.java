@@ -26,6 +26,8 @@ public class PestanaSimuladorInternoPage {
 	public By MesDeAfecatcion;
 	public By ListaMes;
 	public By CalcularDesglose;
+	public By FechaDesembolso;
+	public By FechasManuales;
 	
 	public By MontoSolicitado;
 	public By CapitalTotal;
@@ -47,6 +49,8 @@ public class PestanaSimuladorInternoPage {
 	public By GuardarSimulacion;
 	public By Aprobar;
 	public By CompraSaneamiento;
+	public By ValorCompraCartera;
+	public By Monto;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -56,7 +60,7 @@ public class PestanaSimuladorInternoPage {
         Gmf4100 = By.id("formSimuladorCredito:gmfCr_hinput");
         Valorinteresesini = By.id("formSimuladorCredito:diasICr_hinput");
         PrimaAnticipadaSeguro = By.id("formSimuladorCredito:primaSeguro_hinput");
-        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput");
+        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput"); 
         CuotaCorriente = By.id("formSimuladorCredito:cuotaCr_hinput");
         edad = By.id("formSimuladorCredito:edad_hinput");
         MontoMaximoSugerido = By.id("formSimuladorCredito:montoMax_hinput");
@@ -71,6 +75,9 @@ public class PestanaSimuladorInternoPage {
 	    ListaMes= By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
 	    CalcularDesglose = By.id("formSimulador:calcular_desglose_analista_b_boton");
 	    CompraSaneamiento = By.id("formSimulador:valorCompraCartera_hinput");
+	    ValorCompraCartera = By.id("formSimulador:valorCompraCartera_hinput");  
+	    FechaDesembolso=By.id("formSimulador:fechaDesembolso_input");
+	    FechasManuales=By.xpath("//span[text()='Aplicar fechas manuales']");
 	    
 	    
 	    DescuentoAfiliaciones = By.id("simuladorAnalista:j_idt109:0:descuentos_nomina_analista_a_input_input");
@@ -92,6 +99,8 @@ public class PestanaSimuladorInternoPage {
 	    DescuentosNomina = By.id("formSimulador:descuentosNomina");
 	    GuardarSimulacion=By.id("formSimulador:guardar");
 	    Aprobar = By.id("form:aprobar");
+	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
+	    
 	    
 	}
 }

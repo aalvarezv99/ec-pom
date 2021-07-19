@@ -43,5 +43,7 @@ public class PagesCreditosDesembolso {
     	TipoOperacionRemanente = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[3]");
     	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
     	FiltroTipoOperacion = By.xpath("//label[text()='Tipo Operación']");
+    	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
+    	EstadoPago = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
 	}
 }
