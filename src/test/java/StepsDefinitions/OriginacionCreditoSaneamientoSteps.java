@@ -4,6 +4,7 @@ import Acciones.OriginacionCreditoSaneamientoAccion;
 import Acciones.OriginacionCreditosAccion;
 import CommonFuntions.BaseTest;
 import cucumber.api.java.es.Cuando;
+import cucumber.api.java.es.Entonces;
 import cucumber.api.java.es.Y;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -27,34 +28,112 @@ public class OriginacionCreditoSaneamientoSteps {
         baseTest = new BaseTest(driver);
     }
 
-    @Cuando("el agente ingrese a la pestana solicitud credito con la cedula del cliente {string}{string}")
-    public void el_agente_ingrese_a_la_pestana_solicitud_credito_con_la_cedula_del_cliente_Cedula(String Cedula,String NombreCredito) throws InterruptedException {
-        originacionCreditoSaneamientoAccion.ingresarSolicitudCredito(Cedula,NombreCredito);
-    }
+    @Y("se pasa a la segunda pestana de digitalizacion se agrega el saneamiento {string}{string}{string}{string}{string}") 
+	public void sepasaalasegundapestanadedigitalizacionseagregaelsaneamiento(String entidad_san, String saneamiento, String vlr_cuota_san, String fecha_vencimiento, String num_obligacion_san) throws InterruptedException {
+    	originacionCreditoSaneamientoAccion.DatosSaneamiento(entidad_san, saneamiento, vlr_cuota_san, fecha_vencimiento, num_obligacion_san); 
+	}
+    
+    @Y("se selecciona el tipo de cartera saneamiento") 
+	public void seseleccionaeltipodecarterasaneamiento() throws InterruptedException {
+    	originacionCreditoSaneamientoAccion.SeleccionSaneamiento(); 
+	}
 
-    @Y("consulta la pestana seguridad dejando el cliente viable")
-    public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException {
-        originacionCreditoSaneamientoAccion.Seguridad();
-    }
+	@Y("guarda el saneamiento agregado")
+	public void guardaelsaneamientoagregado()  {
+	    originacionCreditoSaneamientoAccion.GuardarSaneamiento();
+	}
 
-    @Y("valida los calculos correctos de la simulacion interna {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-    public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException, InterruptedException {
-        originacionCreditoSaneamientoAccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, colchon);
-    }
+	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}")
+	public void sepasaalaprimerapestanadereferenciacionparaconfirmarlaentidad(String entidad_san) throws InterruptedException {
+	    originacionCreditoSaneamientoAccion.ConfirmarEntidadSaneamiento(entidad_san);
+	}
+	
+	@Y("se confirma el numero de obligacion {string}")
+	public void seconfirmaelnumerodeobligacion(String num_obligacion_san) throws InterruptedException {
+	    originacionCreditoSaneamientoAccion.ConfirmarObligacionSaneamiento(num_obligacion_san);
+	}
 
-    @Y("carga todos los archivos en la pestana de digitalizacion {string}")
-    public void cargaTodosLosArchivosEnLaPestanaDeDigitalizacion(String Pdf) throws InterruptedException {
-        originacionCreditoSaneamientoAccion.Digitalizacion(Pdf);
+	@Y("se aprueba el saneamiento")
+	public void seapruebaelsaneamiento() {
+	    originacionCreditoSaneamientoAccion.AprobarSaneamiento();
+	}
 
-    }
+	@Y("se guarda en la primera pestana de referenciacion")
+	public void seguardaenlaprimerapestanadereferenciacion() {
+	    originacionCreditoSaneamientoAccion.Guardar();
+	}
 
-    @Y("marcar los check en correcto guardando en la pestana de digitalizacion")
-    public void marcarLosCheckEnCorrectoGuardandoEnLaPestanaDeDigitalizacion() throws InterruptedException {
-        originacionCreditoSaneamientoAccion.DigitalizacionCheck();
-    }
+	@Y("se pasa a la segunda pestana de digitalizacion para agregar el codigo proforences aprueba referencias{string}")
+	public void sepasaalasegundapestanadedigitalizacionparaagregarelcodigoproforencesapruebareferencias(String codigo) throws InterruptedException {
+	     originacionCreditoSaneamientoAccion.Referenciaspositivas(codigo);
+	}
+	
+	@Y("se pasa a la segunda pestana de digitalizacion y seleciona el saneamiento")
+	public void sepasaalasegundapestanadedigitalizacionyselecionaelsaneamiento() throws InterruptedException {
+	    originacionCreditoSaneamientoAccion.MarcarSaneamiento();
+	}
+	
+	@Y("se marca identidida confirmada para radicar la solicitud")
+	public void semarcaidentididaconfirmadapararadicarlasolicitud() throws InterruptedException {
+	     originacionCreditoSaneamientoAccion.Radicar();
+	}
+	
+	@Entonces("se realiza la solicitud del analisis")
+	public void serealizalasolicituddelanalisis() throws InterruptedException {
+		 originacionCreditoSaneamientoAccion.ReferenciacionSolicitarAnalisis();
+	}
+	
+//####################### FinalizaSolicitudCreditoParaSaneamiento #####################################################################
 
-    @Y("pasar a la siguiente pestaña")
-    public void pasarASiguienteTab() {
+	
+//####################### IniciaAnalisisCreditoParaSaneamiento #####################################################################
 
-    }
+	   @Y("Valida los valores del simulador para compra saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	   public void Validalosvaloresdelsimuladorparacomprasaneamiento(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String saneamiento) throws NumberFormatException, SQLException {
+		   originacionCreditoSaneamientoAccion.ValidarSimuladorAnalistaSaneamiento(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,saneamiento);
+	   }
+
+//####################### FinalizaAnalisisCreditoParaSaneamiento #####################################################################
+
+//####################### IniciaLlamadaDeBienvenidaParaSaneamiento #####################################################################
+
+	   @Y("se marcar los check corretos junto con el celular correo para saneamiento {string}{string}")
+	   public void semarcarloscheckcorretosjuntoconelcelularcorreoparasaneamiento (String Celular, String Correo ) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.CorrectocondicionesSaneamiento(Celular, Correo);
+	   }
+	   
+	   @Entonces("se pasa a la pestana condiciones de credito se marcan los check acepta saneamiento y se acepta condiciones{string}")
+	   public void sepasaalapestanacondicionesdecreditosemarcanloscheckaceptasaneamientoyseaceptacondiciones (String TipoDesen) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.AceptaCondiconesCreditoSaneamiento(TipoDesen);
+	   }
+	   
+//####################### FinalizaLlamadaDeBienvenidaParaCompraDeCartera #####################################################################
+
+//####################### IniciaDesembolsoSaneamiento #####################################################################  
+	   
+	   @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")
+	   public void elagenteingresaalalistadepagosparaprocesarelsaneamiento (String Cedula) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.ProcesarSaneamiento(Cedula);
+	   }
+	   
+	   @Y("se descargadescargan medios de dispersion para el saneamiento {string}{string}{string}")
+		public void sedescargadescarganmediosdedispersionparaelsaneamiento (String saneamiento, String Banco,String Pdf) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.DescargarMediosDispercionSaneamiento(saneamiento, Banco,Pdf);
+		}
+	   
+//####################### FinalizaDesembolsoSaneamiento #####################################################################
+	   
+//####################### IniciaDesembolsoRemanente #####################################################################  
+	   
+	   @Cuando ("el agente ingresa a la lista de pagos para procesar el remanente {string}")
+	   public void elagenteingresaalalistadepagosparaprocesarelremanente (String Cedula) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.ProcesarRemanente(Cedula);
+	   }
+	   
+	   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}") 
+	   public void sedescargamediosdedispersionparaelremanente (String Monto, String saneamiento, String Banco, String Pdf) throws InterruptedException {
+		   originacionCreditoSaneamientoAccion.DescargarMediosDispercionRemanente (Monto,saneamiento,Banco,Pdf);
+	  }
+	   
+//####################### FinalizaDesembolsoRemanente #####################################################################
 }

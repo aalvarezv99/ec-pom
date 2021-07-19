@@ -297,12 +297,10 @@ public class BaseTest {
                           
 	}
                           
-	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina) {
-		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina;
+	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
+		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
 		return (int) redondearDecimales(Valor,0);
-                          
 	}
- 
 	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
  
 		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
@@ -409,6 +407,12 @@ public class BaseTest {
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			WebElement Element = driver.findElement(locator);
 			js.executeScript("arguments[0].scrollIntoView();", Element);
+	}
+	
+	public void Hacer_scroll_Abajo(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView(false);", Element);
 	}
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {

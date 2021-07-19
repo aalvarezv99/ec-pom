@@ -176,7 +176,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	}
 	
-	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException{
+	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo, String pagaduria) throws NumberFormatException, SQLException{
 		      
 		       // consulta base de datos
 				int DesPrimaAntic = 0;
@@ -184,6 +184,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 				ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
 				while (resultado.next()) {
 					DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+				}
+				
+				int colchon = 0;
+				ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+				while (resultadocolchon.next()) {
+					colchon = Integer.parseInt(resultadocolchon.getString(1));
 				}
 		 
 				double EstudioCredito = 0;
@@ -204,10 +210,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 		       // Valores para la funciones estaticos
 				int Tasaxmillonseguro = 4625;				
 				double variableFianza = 1.19;
-
+				
 				// Validar resultados de simulacion
 
-				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina));
+				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina),colchon);
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.CapacidadAproximada), String.valueOf(Capacidad));
 				
 				int edad = (int) edad(Fecha);
@@ -243,7 +249,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
 
 				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-						Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
+						Integer.parseInt(descNomina), (colchon), Double.parseDouble(Tasa),
 						Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),
 						String.valueOf(MontoMaxDesembolsar));
@@ -341,6 +347,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		Refrescar();
 		hacerClick(pestanaSeguridadPage.PestanaSeguridad);	
 		esperaExplicita(pestanaSeguridadPage.BotonGuardar);
+		hacerClick(pestanaSeguridadPage.Viable);
 		hacerClick(pestanaSeguridadPage.BotonGuardar);
 		assertTextonotificacion(simuladorasesorpage.notificacion,"Proceso Realizado Correctamente");
 		esperaExplicitaNopresente(simuladorasesorpage.notificacion);
@@ -652,7 +659,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String colchon,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible(); 
@@ -677,6 +684,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 			EstudioCredito = Double.parseDouble(resultado2.getString(1));
 		}
 		
+		int colchon = 0;
+		ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+		while (resultadocolchon.next()) {
+			colchon = Integer.parseInt(resultadocolchon.getString(1));
+		}
+		
 		double TasaFianza =0;
 		ResultSet resultado3 = query.porcentajefianza();
 		while (resultado3.next()) {
@@ -691,7 +704,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
 		
-		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina));
+		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
 
 		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
@@ -705,7 +718,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		// revisar calculo
 		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
 
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
     		
 	    int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
@@ -777,32 +790,33 @@ public class OriginacionCreditosAccion extends BaseTest {
     
     public void Correctocondiciones(String Telefono,String Correo) throws InterruptedException {
     	MarcarCheck(pagesclienteparabienvenida.Check);
-        Hacer_scroll(pagesclienteparabienvenida.Telefono);
-        Clear(pagesclienteparabienvenida.Telefono);       
-        EscribirElemento(pagesclienteparabienvenida.Telefono, Telefono);
-        Hacer_scroll(pagesclienteparabienvenida.Correo);
-        Clear(pagesclienteparabienvenida.Correo);
-        EscribirElemento(pagesclienteparabienvenida.Correo, Correo);
+        Hacer_scroll(pagesclienteparabienvenida.label_Nombres_Completos);
+        hacerClick(pagesclienteparabienvenida.Contactado);
+        ElementVisible(); 
+        hacerClick(pagesclienteparabienvenida.Direccion_Residencia_Si); 
+        ElementVisible(); 
+        Hacer_scroll_Abajo(pagesclienteparabienvenida.Guardar);
         hacerClick(pagesclienteparabienvenida.Guardar);
         ElementVisible(); 
         hacerClick(pagesclienteparabienvenida.Correcta);
-        ElementVisible(); 
+        ElementVisible();
        
     }
     
-	public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
-		recorerpestanas("CONDICIONES DEL CRÉDITO");
-		MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
-		Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-		Thread.sleep(1000);
-		hacerClick(pagesclienteparabienvenida.Desembolso);
-		selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);
-		hacerClick(pagesclienteparabienvenida.CalificacionProceso);
-		hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-		hacerScrollAbajo();
-		hacerClick(pagesclienteparabienvenida.Acepta);
-		ElementVisible();
-	}
+    public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
+    	 recorerpestanas("CONDICIONES DEL CRÉDITO");
+    	 Refrescar();
+         MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
+         Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
+         Thread.sleep(1000);
+         hacerClick(pagesclienteparabienvenida.Desembolso);
+         selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);        
+         hacerClick(pagesclienteparabienvenida.CalificacionProceso);
+         hacerClick(pagesclienteparabienvenida.CalificacionCobro);
+         hacerScrollAbajo();
+         hacerClick(pagesclienteparabienvenida.Acepta);
+         ElementVisible(); 
+    }
     
     
     /************FIN Clientes Para Bienvenidad *************/
