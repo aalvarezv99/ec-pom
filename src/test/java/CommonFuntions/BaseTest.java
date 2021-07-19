@@ -297,8 +297,8 @@ public class BaseTest {
                           
 	}
                           
-	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina) {
-		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina;
+	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
+		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
 		return (int) redondearDecimales(Valor,0);
                           
 	}

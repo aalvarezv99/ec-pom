@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Sleeper;
 
 import Archivo.LeerArchivo;
 import CommonFuntions.BaseTest;
@@ -168,84 +169,88 @@ public class OriginacionCreditosAccion extends BaseTest {
 		hacerClick(simuladorasesorpage.inputIngresos);
 		ElementVisible();
 
+	}	
+	
+	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo, String pagaduria) throws NumberFormatException, SQLException{
+		
+		       // consulta base de datos
+				int DesPrimaAntic = 0;
+				OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+				ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
+				while (resultado.next()) {
+					DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+				}
+				
+				int colchon = 0;
+				ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+				while (resultadocolchon.next()) {
+					colchon = Integer.parseInt(resultadocolchon.getString(1));
+				}
+		 
+				double EstudioCredito = 0;
+				ResultSet resultado2 = query.EstudioCredito();
+				while (resultado2.next()) {
+					EstudioCredito = Double.parseDouble(resultado2.getString(1));
+				}
+				
+				double TasaFianza =0;
+				ResultSet resultado3 = query.porcentajefianza();
+				while (resultado3.next()) {
+					TasaFianza = Double.parseDouble(resultado3.getString(1));
+				}
+				
+				
+				//porcentajefianza
+		
+		       // Valores para la funciones estaticos
+				int Tasaxmillonseguro = 4625;				
+				double variableFianza = 1.19;
+
+				// Validar resultados de simulacion
+
+				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina),colchon);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.CapacidadAproximada), String.valueOf(Capacidad));
+				
+				int edad = (int) edad(Fecha);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.edad), String.valueOf(edad));
+
+				int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
+
+				int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.CuotaCorriente), String.valueOf(CuotaCorriente));
+
+				int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.EstudioCreditoIVA), String.valueOf(EstudioCreditoIva));
+
+				int ValorFianza = (int) ValorFianza(calculoMontoSoli, TasaFianza, variableFianza);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.ValorFianza), String.valueOf(ValorFianza));
+
+				int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.Gmf4100), String.valueOf(Gmf4100));
+
+				int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
+						Integer.parseInt(DiasHabilesIntereses), 30);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.Valorinteresesini),
+						String.valueOf(ValorInteresesIniciales));
+
+				int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
+						DesPrimaAntic);
+				// revisar calculo
+				//assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
+
+				int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
+						Gmf4100, PrimaAnticipadaSeguro);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
+
+				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
+						Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
+						Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),
+						String.valueOf(MontoMaxDesembolsar));
+		
 	}
-
-	public void assertSimulador(String Fecha, String Tasa, String Plazo, String Monto, String DiasHabilesIntereses,
-			String Ingresos, String descLey, String descNomina, String vlrCompasSaneamientos, String tipo,
-			String colchon) throws NumberFormatException, SQLException {
-
-		// consulta base de datos
-		int DesPrimaAntic = 0;
-		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-		ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
-		while (resultado.next()) {
-			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
-		}
-
-		double EstudioCredito = 0;
-		ResultSet resultado2 = query.EstudioCredito();
-		while (resultado2.next()) {
-			EstudioCredito = Double.parseDouble(resultado2.getString(1));
-		}
-
-		double TasaFianza = 0;
-		ResultSet resultado3 = query.porcentajefianza();
-		while (resultado3.next()) {
-			TasaFianza = Double.parseDouble(resultado3.getString(1));
-		}
-
-		// porcentajefianza
-
-		// Valores para la funciones estaticos
-		int Tasaxmillonseguro = 4625;
-		double variableFianza = 1.19;
-
-		// Validar resultados de simulacion
-
-		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-				Integer.parseInt(descNomina));
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.CapacidadAproximada), String.valueOf(Capacidad));
-
-		int edad = (int) edad(Fecha);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.edad), String.valueOf(edad));
-
-		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
-
-		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.CuotaCorriente), String.valueOf(CuotaCorriente));
-
-		int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.EstudioCreditoIVA), String.valueOf(EstudioCreditoIva));
-
-		int ValorFianza = (int) ValorFianza(calculoMontoSoli, TasaFianza, variableFianza);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.ValorFianza), String.valueOf(ValorFianza));
-
-		int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.Gmf4100), String.valueOf(Gmf4100));
-
-		int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
-				Integer.parseInt(DiasHabilesIntereses), 30);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.Valorinteresesini),
-				String.valueOf(ValorInteresesIniciales));
-
-		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
-				DesPrimaAntic);
-		// revisar calculo
-		// assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
-
-		int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
-				Gmf4100, PrimaAnticipadaSeguro);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
-
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-				Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
-				Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
-		assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),
-				String.valueOf(MontoMaxDesembolsar));
-
-	}
-
+	
 	public void GuardarSimulacion() throws InterruptedException {
 
 		Hacer_scroll(simuladorasesorpage.btnGuardar);
@@ -348,90 +353,93 @@ public class OriginacionCreditosAccion extends BaseTest {
 		Hacer_scroll(pestanaSeguridadPage.Concepto);
 		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
 		recorerpestanas("SIMULADOR");
-
+		
 	}
+	
+	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
+	      
+	       // consulta base de datos
+			int DesPrimaAntic = 0;
+			OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+			ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
+			while (resultado.next()) {
+				DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+			}
+			
+			int colchon = 0;
+			ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+			while (resultadocolchon.next()) {
+				colchon = Integer.parseInt(resultadocolchon.getString(1));
+			}
+	
+			double EstudioCredito = 0;
+			ResultSet resultado2 = query.EstudioCredito();
+			while (resultado2.next()) {
+				EstudioCredito = Double.parseDouble(resultado2.getString(1));
+			}
+			
+			double TasaFianza =0;
+			ResultSet resultado3 = query.porcentajefianza();
+			while (resultado3.next()) {
+				TasaFianza = Double.parseDouble(resultado3.getString(1));
+			}
+			
+			
+			
+	
+	       // Valores para la funciones estaticos
+			int Tasaxmillonseguro = 4625;
+			double variableFianza = 1.19;
 
-	public void assertSimuladorinterno(String Fecha, String Tasa, String Plazo, String Monto,
-			String DiasHabilesIntereses, String Ingresos, String descLey, String descNomina,
-			String vlrCompasSaneamientos, String tipo, String colchon)
-			throws NumberFormatException, SQLException, InterruptedException {
+			// Validar resultados de simulacion
 
-		// consulta base de datos
-		int DesPrimaAntic = 0;
-		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-		ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
-		while (resultado.next()) {
-			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
-		}
+			int edad = (int) edad(Fecha);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.edad), String.valueOf(edad));
 
-		double EstudioCredito = 0;
-		ResultSet resultado2 = query.EstudioCredito();
-		while (resultado2.next()) {
-			EstudioCredito = Double.parseDouble(resultado2.getString(1));
-		}
+			int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
 
-		double TasaFianza = 0;
-		ResultSet resultado3 = query.porcentajefianza();
-		while (resultado3.next()) {
-			TasaFianza = Double.parseDouble(resultado3.getString(1));
-		}
+			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CuotaCorriente), String.valueOf(CuotaCorriente));
 
-		// Valores para la funciones estaticos
-		int Tasaxmillonseguro = 4625;
-		double variableFianza = 1.19;
+			int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA), String.valueOf(EstudioCreditoIva));
 
-		// Validar resultados de simulacion
+			int ValorFianza = (int) ValorFianza(calculoMontoSoli,TasaFianza, variableFianza);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorFianza), String.valueOf(ValorFianza));
 
-		int edad = (int) edad(Fecha);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.edad), String.valueOf(edad));
+			int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gmf4100), String.valueOf(Gmf4100));
 
-		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli),
-				String.valueOf(calculoMontoSoli));
+			int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
+					Integer.parseInt(DiasHabilesIntereses), 30);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Valorinteresesini),
+					String.valueOf(ValorInteresesIniciales));
 
-		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CuotaCorriente), String.valueOf(CuotaCorriente));
+			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
+					DesPrimaAntic);
+			// revisar calculo
+			//assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
 
-		int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA),
-				String.valueOf(EstudioCreditoIva));
+			int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
+					Gmf4100, PrimaAnticipadaSeguro);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
 
-		int ValorFianza = (int) ValorFianza(calculoMontoSoli, TasaFianza, variableFianza);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorFianza), String.valueOf(ValorFianza));
-
-		int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gmf4100), String.valueOf(Gmf4100));
-
-		int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
-				Integer.parseInt(DiasHabilesIntereses), 30);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Valorinteresesini),
-				String.valueOf(ValorInteresesIniciales));
-
-		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
-				DesPrimaAntic);
-		// revisar calculo
-		// assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
-
-		int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
-				Gmf4100, PrimaAnticipadaSeguro);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado),
-				String.valueOf(RemanenteEstimado));
-
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-				Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
-				Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido),
-				String.valueOf(MontoMaxDesembolsar));
-
-		Hacer_scroll(pestanasimuladorinternopage.Solicitar);
-		hacerClick(pestanasimuladorinternopage.Solicitar);
-		esperaExplicita(simuladorasesorpage.notificacion);
-		assertTextonotificacion(simuladorasesorpage.notificacion, "Se ha solicitado la radicación para el crédito");
-		ElementVisible();
-
-	}
-
-	public void Digitalizacion(String Pdf) throws InterruptedException {
+			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
+					Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
+					Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido),
+					String.valueOf(MontoMaxDesembolsar));
+			
+			Hacer_scroll(pestanasimuladorinternopage.Solicitar);
+			hacerClick(pestanasimuladorinternopage.Solicitar);
+			esperaExplicita(simuladorasesorpage.notificacion);
+			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la radicación para el crédito");
+			ElementVisible();  
+	
+}
+	
+	public void Digitalizacion(String Pdf) throws InterruptedException  {
 		recorerpestanas("DIGITALIZACIÓN");
 		esperaExplicita(pestanadigitalizacionPage.Titulo);
 		cargarPdfDigitalizacion(Pdf);
@@ -646,31 +654,30 @@ public class OriginacionCreditosAccion extends BaseTest {
 		esperaExplicita(pestanadigitalizacionPage.Notificacion);
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-
-	}
-
-	public void SegundaPestanaSimuladorAnalista() {
-		hacerClick(pestanasimuladorinternopage.SgdPestana);
-		ElementVisible();
+			
+    	
+    }
+    public void SegundaPestanaSimuladorAnalista () throws InterruptedException {
+    	Thread.sleep(4000);
+    	hacerClick(pestanasimuladorinternopage.SgdPestana);
+		ElementVisible(); 
 		esperaExplicita(pestanadigitalizacionPage.Notificacion);
 		hacerClicknotificacion();
-
-	}
-
-	public void ValidarSimuladorAnalista(String Mes, String Monto, String Tasa, String Plazo, String Ingresos,
-			String descLey, String descNomina, String colchon, String vlrCompasSaneamientos)
-			throws InterruptedException, NumberFormatException, SQLException {
-		esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
-		hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
-		ElementVisible();
-		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
-		ElementVisible();
-		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
-		ElementVisible();
-		hacerClicknotificacion();
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-
-		// consulta base de datos
+		
+    }
+    
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
+    	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
+    	ElementVisible (); 
+    	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);
+    	ElementVisible(); 
+    	hacerClick(pestanasimuladorinternopage.CalcularDesglose);
+    	ElementVisible(); 
+    	hacerClicknotificacion();
+    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    	
+    	 // consulta base de datos
 		int DesPrimaAntic = 0;
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
@@ -683,8 +690,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 		while (resultado2.next()) {
 			EstudioCredito = Double.parseDouble(resultado2.getString(1));
 		}
-
-		double TasaFianza = 0;
+		
+		int colchon = 0;
+		ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
+		while (resultadocolchon.next()) {
+			colchon = Integer.parseInt(resultadocolchon.getString(1));
+		}
+		
+		double TasaFianza =0;
 		ResultSet resultado3 = query.porcentajefianza();
 		while (resultado3.next()) {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
@@ -696,10 +709,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 		// Validar resultados de simulacion
 
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado), Monto);
-
-		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-				Integer.parseInt(descNomina));
+		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
+		
+		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
 
 		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
@@ -712,19 +724,15 @@ public class OriginacionCreditosAccion extends BaseTest {
 		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
 				DesPrimaAntic);
 		// revisar calculo
-		// assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
+		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
 
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-				Integer.parseInt(descNomina), Integer.parseInt(colchon), Double.parseDouble(Tasa),
-				Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),
-				String.valueOf(MontoMaxDesembolsar));
-
-		int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC),
-				String.valueOf(EstudioCreditoIva));
-
-		int ValorFianza = (int) ValorFianza(calculoMontoSoli, TasaFianza, variableFianza);
+		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
+    		
+	    int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
+		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC), String.valueOf(EstudioCreditoIva));
+		
+		int ValorFianza = (int) ValorFianza(calculoMontoSoli,TasaFianza, variableFianza);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC), String.valueOf(ValorFianza));
 
 		int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
