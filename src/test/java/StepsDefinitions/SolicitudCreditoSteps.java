@@ -35,14 +35,13 @@ public class SolicitudCreditoSteps {
 	}
 
 	@Y("valida los calculos correctos de la simulacion interna {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException, InterruptedException {
-		originacionaccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, colchon);
+	public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
+		originacionaccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, pagaduria);
 	}
 
 	@Y("carga todos los archivos en la pestana de digitalizacion {string}")
 	public void cargaTodosLosArchivosEnLaPestanaDeDigitalizacion(String Pdf) throws InterruptedException {
         originacionaccion.Digitalizacion(Pdf);
-		
 	}
 
 	@Y("marcar los check en correcto guardando en la pestana de digitalizacion")
@@ -92,13 +91,13 @@ public class SolicitudCreditoSteps {
 	}
 
 	@Y("pasa a la siguiente pestana del simulador analista")
-	public void pasa_a_la_siguiente_pestana_del_simulador_analista() {
+	public void pasa_a_la_siguiente_pestana_del_simulador_analista() throws InterruptedException {
 		originacionaccion.SegundaPestanaSimuladorAnalista();
 	}
 
 	@Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void validaLosValoresDelSimulador(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String colchon,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
-	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,colchon,vlrCompasSaneamientos);
+	public void validaLosValoresDelSimulador(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos);
 	}
 	
 	@Y ("Guarda los datos del simulador")
@@ -122,7 +121,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.ClientesParaBienvenida(Cedula);
 	}
 	
-	@Y("se marcar los check corretos junto con el celular y correo{string}{string}")
+	@Y("se marcar los check correctos junto con el celular y correo{string}{string}")
 	public void semarcarloscheckcorretosjuntoconelcelularycorreo (String Celular,String Correo) throws InterruptedException {
 		originacionaccion.Correctocondiciones(Celular,Correo);
 	}
@@ -154,7 +153,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.ProcesarPagos();
 	}
 	
-	@Y("se filtra por monto y se edita {string}{string}{string}")
+	@Y("se filtra por monto y se edita {string}{string}{string}{string}")
 	public void sefiltrapormontoyseedita(String Monto, String Banco,String Pdf) {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}
