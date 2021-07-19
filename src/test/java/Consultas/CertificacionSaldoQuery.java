@@ -92,4 +92,6 @@ public class CertificacionSaldoQuery {
 		}
 		return r;
 	}
+	
+
 }

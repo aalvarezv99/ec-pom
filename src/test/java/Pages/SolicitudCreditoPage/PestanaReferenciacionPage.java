@@ -20,6 +20,7 @@ public class PestanaReferenciacionPage {
 	public By Titulo;
 	public By GuardarReferencias;
 	public By SolicitarAnalisis;
+	public By SeleccionarSaneamiento;
 	
 	
 	
@@ -39,5 +40,6 @@ public class PestanaReferenciacionPage {
 		CheckSI = By.xpath("//*[@value='true' and @data-itemindex='0']");
 		GuardarReferencias = By.xpath("//a[text()='Guardar']");
 		SolicitarAnalisis = By.id("formConsultas:analisis");
+		SeleccionarSaneamiento = By.id("formConsultas:j_idt170:0:j_idt198:0");
 	}
 }

@@ -172,7 +172,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}	
 	
 	public void assertSimulador( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo, String pagaduria) throws NumberFormatException, SQLException{
-		
+		      
 		       // consulta base de datos
 				int DesPrimaAntic = 0;
 				OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -205,7 +205,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		       // Valores para la funciones estaticos
 				int Tasaxmillonseguro = 4625;				
 				double variableFianza = 1.19;
-
+				
 				// Validar resultados de simulacion
 
 				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina),colchon);
@@ -343,6 +343,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		Refrescar();
 		hacerClick(pestanaSeguridadPage.PestanaSeguridad);
 		esperaExplicita(pestanaSeguridadPage.BotonGuardar);
+		hacerClick(pestanaSeguridadPage.Viable);
 		hacerClick(pestanaSeguridadPage.BotonGuardar);
 		assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
 		esperaExplicitaNopresente(simuladorasesorpage.notificacion);
