@@ -20,6 +20,7 @@ public class AplicacionCierrePagaduriaSteps {
 		aplicacioncierreaccion = new AplicacionCierreAccion(driver);
 	}
 	
+	/*CARGUE ARCGIVO STEPS*/
 	@Cuando("^Navegue al modulo de pagos y seleccione \"([^\"]*)\"$")
     public void navegueAlModuloDePagosYSeleccioneSomething(String opcion) throws Throwable {
 		aplicacioncierreaccion.NavegarPagoConOpcion(opcion);
@@ -49,6 +50,33 @@ public class AplicacionCierrePagaduriaSteps {
     public void seValidaElValorListadoDeLaParaElConElValorDelSistemaTerminandoConElProceso(String nombrepagaduria, String periodo) throws Throwable {
        aplicacioncierreaccion.validarVlrPlanillaContraSistema(nombrepagaduria, periodo);
     }
+    /*CARGUE ARCHIVO STEPS*/
+    
+    
+    /*PREAPLICACION STEPS*/
+    
+    @Y("^valide que no se ha realizado una preaplicacion anteriormente con el (.+)$")
+    public void valideQueNoSeHaRealizadoUnaPreaplicacionAnteriormenteConEl(String idpagaduria) throws Throwable {
+    	aplicacioncierreaccion.validarCheckPreaplicacion(idpagaduria);
+    }
+
+	@Y("valide que el valor del recaudo sea igual al de recibido")
+	public void valideQueElValorDelRecaudoSeaIgualAlDeRecibido() throws Throwable {
+		aplicacioncierreaccion.capturarValidarValoresPreaplicacion();
+	}
+
+	@Entonces("^permite realizar la preaplicacion mostrando el mensaje \"([^\"]*)\"$")
+    public void permiteRealizarLaPreaplicacionMostrandoElMensajeSomething(String mensaje) throws Throwable {
+		aplicacioncierreaccion.realizarPreaplicacion(mensaje);
+    }
+
+	@Y("^se finaliza con el mensaje \"([^\"]*)\"$")
+	public void seFinalizaConElMensajeSomething(String mensaje) throws Throwable {
+		aplicacioncierreaccion.mensajeFinalizacion(mensaje);
+	}
+
+    
+    /*PREAPLICACION STEPS*/
 
 	
 }

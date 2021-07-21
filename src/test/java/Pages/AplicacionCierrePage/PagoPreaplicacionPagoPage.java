@@ -14,6 +14,8 @@ public class PagoPreaplicacionPagoPage {
 	public By ValoresRecibidos;
 	public By ListAno;
 	public By ListaPeriodo;
+	public By btnPreaplicar;
+	public By notificacion;
 	
 	
 	public PagoPreaplicacionPagoPage(WebDriver driver) {
@@ -26,6 +28,7 @@ public class PagoPreaplicacionPagoPage {
 		ListaPeriodo=By.id("//*[starts-with(@id,'form:idPeriodos') and starts-with(@class,'ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all')]");
 		ValorRecaudo=By.id("form:vlrRecaudo");
 		ValoresRecibidos=By.id("form:vlrRecibido");
-
+		btnPreaplicar = By.id("form:pagosPreaplicacion");
+		notificacion = By.xpath("//*[@class='ui-growl-title']");
 	}
 }

@@ -13,6 +13,7 @@ import Acciones.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.AplicacionCierreQuery;
 import Pages.AplicacionCierrePage.PagoListaPagoPages;
+import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
 
 
 public class AplicacionCierreAccion extends BaseTest {
@@ -20,7 +21,8 @@ public class AplicacionCierreAccion extends BaseTest {
 	
 	WebDriver driver;
 	//Inicializacion pages
-		PagoListaPagoPages listapagopage = new PagoListaPagoPages(driver);
+	PagoListaPagoPages listapagopage = new PagoListaPagoPages(driver);
+	PagoPreaplicacionPagoPage pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		
 	private static Logger log = Logger.getLogger(AplicacionCierreAccion.class);
 	PanelPrincipalAccion panelprincipalaccion;
@@ -66,8 +68,8 @@ public class AplicacionCierreAccion extends BaseTest {
 			//se valida el campo que no se encuentre en cero (VlrListado)
 			esperaExplicitaTexto(nombrePagaduria);
 			String vlr = buscarElementoFilaTabla(listapagopage.contTablafiltro, 12).replaceAll("[^a-zA-Z0-9]", "");	
-			/*if(Math.round(Integer.valueOf(vlr))!=0) {
-				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA AGADURIA", vlr, "0");
+			/*if(Math.round(Long.valueOf(vlr))!=0) {
+				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA AGADURIA","0" , vlr);
 			}*/
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - escribirPagaduriaValidarCargue()  ################"+ e);
@@ -127,6 +129,51 @@ public class AplicacionCierreAccion extends BaseTest {
 			assertTrue("########## ErrorAplicacionCierreAccion - validarVlrPlanillaContrasistema() ########"+ e,false);
 		}
 		
+	}
+	
+	public void validarCheckPreaplicacion(String idPagaduria) {
+		log.info("*¨*************************** AplicacionCierreAccion - validarCheckPreaplicacion()");
+		ResultSet result = query.validarPreaplicacionRealizada(idPagaduria);
+		boolean checkPagaduria= false;
+		try {
+			while(result.next()) {
+				checkPagaduria = result.getBoolean(1);
+			}
+			assertBooleanImprimeMensaje("ERROR - EXISTE UNA PREAPLICACION EN EL SISTEMA",checkPagaduria);
+		} catch (Exception e) {
+			log.error("############## AplicacionCierreAccion - validarCheckPreaplicacion()  ################"+e);
+			assertTrue("########## AplicacionCierreAccion - validarCheckPreaplicacion()########"+ e,false);
+		}
+	}
+	
+	public void capturarValidarValoresPreaplicacion() {
+		String ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		String SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		assertValidarEqualsImprimeMensaje(" ################ ERROR - EL VALOR DEL RECAUDO NO COINCIDE CON EL DEL LISTADO ##########", 
+				SumValoresRecibidos,  ValorRecaudo);
+	}
+	
+	public void realizarPreaplicacion(String mensaje) {
+		try {
+			esperaExplicita(pagopreaplicacionpagopage.btnPreaplicar);
+			hacerClick(pagopreaplicacionpagopage.btnPreaplicar);
+			assertTextonotificacion(pagopreaplicacionpagopage.notificacion, mensaje);
+			hacerClicknotificacion();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public void mensajeFinalizacion(String mensaje) {
+		try {
+			esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
+			ElementVisible();			
+			assertTextonotificacion(listapagopage.notificacion, mensaje);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 	
 	

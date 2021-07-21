@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
-import Consultas.PrepagoQuery;
+import Consultas.RecaudoQuery;
 import Pages.RecaudoPage;
 import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
 
@@ -23,7 +23,7 @@ public class RecaudosAccion extends BaseTest{
 	PanelPrincipalAccion panelprincipal;
 	PagoPreaplicacionPagoPage pagopreaplicacionpagopage;
 	CertificacionSaldoQuery query;
-	PrepagoQuery queryRecaudo;
+	RecaudoQuery queryRecaudo;
 	private static Logger log = Logger.getLogger(RecaudosAccion.class);
 	
 	//variables Locales
@@ -37,7 +37,7 @@ public class RecaudosAccion extends BaseTest{
 		panelprincipal = new PanelPrincipalAccion(driver);
 		pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		query = new CertificacionSaldoQuery();
-		queryRecaudo = new PrepagoQuery();
+		queryRecaudo = new RecaudoQuery();
 	}
 	
 	/*NAVEGACION PRINCIPAL
@@ -159,7 +159,6 @@ public class RecaudosAccion extends BaseTest{
 	 * */
 	public void validarEstadoCredito(String numRadicado, String estadoCredito) {
 		ResultSet result = queryRecaudo.validarRecaudo(numRadicado, "PREPAGO"); 
-		NumberFormat formatoNumero = NumberFormat.getNumberInstance();		
 		String vlrDbRecaudo = "";
 		String estadoDbCredito = "";
 		try {
@@ -192,6 +191,7 @@ public class RecaudosAccion extends BaseTest{
 		ElementVisible();
 		hacerClick(pagopreaplicacionpagopage.Periodo);		
 		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+		ElementVisible();
 	}
 	
 	public void capturarValoresPreaplicacionPagos() {
@@ -217,7 +217,7 @@ public class RecaudosAccion extends BaseTest{
 		selectFechActualCalendario(recaudopage.contDiasCalendario,recaudopage.selectDia);
 		ElementVisible();
 		hacerClick(recaudopage.inputValor);
-		EscribirElemento(recaudopage.inputValor, ValorRecaudo);
+		EscribirElemento(recaudopage.inputValor, SumValoresRecibidos);
 		ElementVisible();
 		hacerClick(recaudopage.checkPagaduria);
 		hacerClick(recaudopage.checkPagaduria);
@@ -238,6 +238,35 @@ public class RecaudosAccion extends BaseTest{
 		ElementVisible();
 		assertTextonotificacion(recaudopage.notificacion,"Se registro correctamente el recaudo del pago");
 		//
+	}
+	
+	public void validarRecaudoPagaduriaContraDB(String pagaduria) {
+		log.info("********** RecaudosAccion -  validarRecaudoPagaduriaContraDB()************");
+		ResultSet result = queryRecaudo.validarRecaudoPagaduria(pagaduria); 
+		String vlrDbRecaudo ="No se llena";
+		String vlr2 = "";
+		String vlr3 = "";
+		String vlr4 = "";
+		try {
+			while(result.next()) {
+				vlrDbRecaudo = result.getString(1);	//valor del recaudo
+				vlr2 = result.getString(2);
+				vlr3 = result.getString(3);
+				vlr4 = result.getString(4);
+			}		
+			result.close();	
+			log.info(vlr2+vlr3+vlr4);
+			
+			log.info(SumValoresRecibidos + "  -  "+ vlrDbRecaudo);
+			
+			/*assertValidarEqualsImprimeMensaje("######## EL VALOR DEL RECAUDO NO COINCIDE CON BASE DE DATOS ######",
+					valorRecaudo.replace(",","."),vlrDbRecaudo);*/
+			
+		} catch (Throwable e) {
+			log.error("####### ERROR RecaudosAccion - validarRecaudoPagaduriaContraDB() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - validarRecaudoPagaduriaContraDB() ##########"+ e,false);
+		}	
+		
 	}
 	
 }

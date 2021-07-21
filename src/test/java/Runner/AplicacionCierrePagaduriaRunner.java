@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/AplicacionCierrePagaduria.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@CarguePlanillaAlSistema"},				
+		tags = {"@CarguePlanillaAlSistema,@RecaudoPagaduria,@PreaplicacionPagaduria"},				
 	    snippets = SnippetType.CAMELCASE
 		)
 public class AplicacionCierrePagaduriaRunner {

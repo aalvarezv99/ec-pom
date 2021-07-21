@@ -34,6 +34,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -131,6 +132,10 @@ public class BaseTest {
 	
 	public void assertValidarEqualsImprimeMensaje(String mensaje, String a, String b) {
 		assertEquals(mensaje,a,b);
+	}
+	
+	public void assertBooleanImprimeMensaje(String mensaje,boolean variable) {
+		assertFalse("####################"+ mensaje +"#############",variable);
 	}
 
 	 public String separarFecha(String fecha, String tipo) {
