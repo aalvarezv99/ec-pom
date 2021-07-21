@@ -136,6 +136,7 @@ public class RecaudosAccion extends BaseTest{
 			log.error("############## ERROR recaudoClienteCertificacion() ###########" + e);
 			assertTrue("############## ERROR recaudoClienteCertificacion() ###########"+ e,false);
 		}		
+		System.out.println();
 		
 	}
 	

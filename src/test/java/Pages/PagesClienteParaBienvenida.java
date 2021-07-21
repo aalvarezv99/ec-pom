@@ -25,6 +25,8 @@ public class PagesClienteParaBienvenida {
 	public By Contactado;
 	public By Direccion_Residencia_Si;
 	public By CxCSeguroInicial;
+	public By AceptarCartera;
+	public By AceptarSaneamiento;
 	
 	public PagesClienteParaBienvenida(WebDriver driver) {
 		filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -46,5 +48,8 @@ public class PagesClienteParaBienvenida {
 	    Contactado = By.xpath("//*[@id=\"form:contCel\"]/div[2]/span"); //se debe cambiar cuando se actualicen los ID
 	    Direccion_Residencia_Si= By.id("form:direccionCorrespondencia:0");
 	    CxCSeguroInicial = By.id("formCondicionCredito:seguroInicial:0_clone");
+	    AceptarCartera = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:0_clone') and contains (@value,'true')]");
+	    AceptarSaneamiento = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:2_clone') and contains (@value,'true')]");
+
 	}
 }

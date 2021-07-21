@@ -99,6 +99,12 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina);
 	}
 	
+    @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2) throws InterruptedException {
+    	retanqueocreditos.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Cartera1, Saneamiento2);
+	}
+    
+	
 	@Y("se filtra por monto para retanqueo y se edita {string}{string}{string}")
 	public void sefiltrapormontopararetanqueoyseedita(String Retanqueo,String Banco, String rutaPDF) {
 		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);

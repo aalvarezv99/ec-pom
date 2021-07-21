@@ -268,13 +268,33 @@ public class RetanqueoCreditos extends BaseTest {
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
-    	/*int Tolerancia=(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar))-(Integer.parseInt(retanqueo)));
-        if(Tolerancia<=1 && Tolerancia>=0){
-    		assertTrue(true);
-    	}else {
-    		assertTrue(false);
-    	}*/
+    	
     }
+	
+	public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Cartera, String Saneamiento) throws InterruptedException{
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
+    	Clear(pestanasimuladorinternopage.FechaDesembolso);
+    	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);  
+    	EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+    	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);    	
+		ElementVisible();
+		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.FechasManuales);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
+		ElementVisible();
+		hacerClicknotificacion();
+		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		int TotalCarteras = (Integer.parseInt(Cartera)+Integer.parseInt(Saneamiento));		
+		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
+		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));		
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+    	
+    }
+	
+	
 
 	public void DescargarMediosdedispercionRetanqueo(String Retanqueo,String Banco, String Pdf) {
 
