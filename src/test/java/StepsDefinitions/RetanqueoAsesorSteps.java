@@ -74,9 +74,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.Simulador(retanqueo,Tasa, Plazo, DiasHabilesIntereses, Ingresos, descLey, descNomina);
 	}
 	
-	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}{string}")
-	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String colchon,String Tasa,String Plazo) throws NumberFormatException, SQLException {
-		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,colchon,Tasa,Plazo);
+	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}")
+	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,Tasa,Plazo);
 	}
 	
 	@Y("se da clic en solicitar")

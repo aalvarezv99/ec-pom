@@ -201,7 +201,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 	}
 
-	public void ValidarSimulador(String Ingresos, String descLey, String descNomina, String colchon, String Tasa,
+	public void ValidarSimulador(String Ingresos, String descLey, String descNomin, String Tasa,
 			String Plazo) throws NumberFormatException, SQLException {
 
 		// Valores para la funciones estaticos
