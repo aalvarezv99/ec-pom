@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import Acciones.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.AplicacionCierreQuery;
+import Pages.AplicacionCierrePage.PagoAplicacionFinalPage;
 import Pages.AplicacionCierrePage.PagoListaPagoPages;
 import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
 
@@ -23,6 +24,7 @@ public class AplicacionCierreAccion extends BaseTest {
 	//Inicializacion pages
 	PagoListaPagoPages listapagopage = new PagoListaPagoPages(driver);
 	PagoPreaplicacionPagoPage pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
+	PagoAplicacionFinalPage pagoaplicacionfinalpage = new PagoAplicacionFinalPage(driver);
 		
 	private static Logger log = Logger.getLogger(AplicacionCierreAccion.class);
 	PanelPrincipalAccion panelprincipalaccion;
@@ -131,6 +133,9 @@ public class AplicacionCierreAccion extends BaseTest {
 		
 	}
 	
+	/*
+	 *TP - 21/07/2021
+	 *Valida contra base de datos si ya el valor de preaplicacion se encuentra en TRUE */
 	public void validarCheckPreaplicacion(String idPagaduria) {
 		log.info("*¨*************************** AplicacionCierreAccion - validarCheckPreaplicacion()");
 		ResultSet result = query.validarPreaplicacionRealizada(idPagaduria);
@@ -146,13 +151,28 @@ public class AplicacionCierreAccion extends BaseTest {
 		}
 	}
 	
+	/*
+	 * Tp - 21/07/2021
+	 * Se crea el metodo que compara los valores de la planilla con el del recaudo
+	 */
 	public void capturarValidarValoresPreaplicacion() {
-		String ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
-		String SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
-		assertValidarEqualsImprimeMensaje(" ################ ERROR - EL VALOR DEL RECAUDO NO COINCIDE CON EL DEL LISTADO ##########", 
-				SumValoresRecibidos,  ValorRecaudo);
+		log.info("********************* AplicacionCierreAccion - capturarValidarValoresPreaplicacion()");
+		try {
+			String ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+			String SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+			assertValidarEqualsImprimeMensaje(" ################ ERROR - EL VALOR DEL RECAUDO NO COINCIDE CON EL DEL LISTADO ##########", 
+					SumValoresRecibidos,  ValorRecaudo);
+		} catch (Exception e) {
+			log.error("############## AplicacionCierreAccion - capturarValidarValoresPreaplicacion()  ################"+e);
+			assertTrue("########## AplicacionCierreAccion - capturarValidarValoresPreaplicacion()########"+ e,false);
+		}
+		
 	}
 	
+	/*
+	 * TP - 21/07/2021
+	 * Se crea el metodo para seleccionar el boton de preaplicar
+	 */
 	public void realizarPreaplicacion(String mensaje) {
 		try {
 			esperaExplicita(pagopreaplicacionpagopage.btnPreaplicar);
@@ -165,6 +185,9 @@ public class AplicacionCierreAccion extends BaseTest {
 		
 	}
 	
+	/*
+	 * TP - 21/07/2021
+	 * Valida la finalizacion de la preaplicacion - preaplicacion*/
 	public void mensajeFinalizacion(String mensaje) {
 		try {
 			esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
@@ -175,6 +198,92 @@ public class AplicacionCierreAccion extends BaseTest {
 		}
 
 	}
+	
+	/*
+	 * TP - 21/07/2021 
+	 * Acciones para aplicacion final*/
+	public void filtrarTablaAplicacion(String pagaduria, String Periodo, String refresh) {
+		log.info("****************** AplicacionCierreAccion- filtrarTablaAplicacion() **************" );
+		try {
+			if(refresh.equals("SI")) {
+				log.info("************** AplicacionCierreAccion - Refrescar(); ***********");
+				Refrescar();
+				esperaExplicita(pagoaplicacionfinalpage.inputPeriodo);
+				EscribirElemento(pagoaplicacionfinalpage.inputPeriodo, Periodo);
+				ElementVisible();
+				String dia = separarFecha(Periodo, "dia");
+				selecDiaCalendario(pagoaplicacionfinalpage.listDiasCalendario, dia);
+				ElementVisible();
+				esperaExplicita(pagoaplicacionfinalpage.inputPagaduria);
+				EscribirElemento(pagoaplicacionfinalpage.inputPagaduria, pagaduria);
+				ElementVisible();
+				esperaExplicitaTexto(pagaduria);
+			}else {
+				esperaExplicita(pagoaplicacionfinalpage.inputPeriodo);
+				EscribirElemento(pagoaplicacionfinalpage.inputPeriodo, Periodo);
+				ElementVisible();
+				String dia = separarFecha(Periodo, "dia");
+				selecDiaCalendario(pagoaplicacionfinalpage.listDiasCalendario, dia);
+				ElementVisible();
+				esperaExplicita(pagoaplicacionfinalpage.inputPagaduria);
+				EscribirElemento(pagoaplicacionfinalpage.inputPagaduria, pagaduria);
+				ElementVisible();
+				esperaExplicitaTexto(pagaduria);
+			}
+		} catch (Exception e) {
+			log.error("############## AplicacionCierreAccion - filtrarTablaAplicacion() ################"+e);
+			assertTrue("########## AplicacionCierreAccion - filtrarTablaAplicacion()########"+ e,false);
+		}
+	}
+	
+	/*TP - 21/07/2021
+	 * Este metodo inicia la aplicacion final presionando el check
+	 * */
+	public void iniciarAplicacionFinal() {
+		log.info("*************** AplicacionCierreAccion - iniciarAplicacionFinal()*************");
+		try {
+			esperaExplicita(pagoaplicacionfinalpage.btnConfirmarPago);
+			hacerClick(pagoaplicacionfinalpage.btnConfirmarPago);
+		} catch (Exception e) {
+			log.error("############## AplicacionCierreAccion - iniciarAplicacionFinal()() ################"+e);
+			assertTrue("########## AplicacionCierreAccion - iniciarAplicacionFinal()()########"+ e,false);
+		}
+	}
+	
+	
+	/*
+	 * TP - 21/07/2021
+	 * Metodo para validar */
+	public void validarCambioestado(String vlrfila, String vlrColumna, String pagaduria, String periodo) {
+		int vlrContador = 0;
+		String vlrFilaNavegador = "";
+		while (vlrContador<300) {									
+			switch (vlrColumna) {
+			case "Recaudo confirmado":
+				vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 13);
+				break;
+
+			case "Estado Pagaduria":
+				vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 14);
+				break;
+			}
+			if(vlrFilaNavegador.contains(vlrfila) && vlrContador < 300) {
+				break;
+			}
+			else {
+				vlrContador = vlrContador + 10;
+				filtrarTablaAplicacion( pagaduria,  periodo, "SI");
+			}
+		}
+		if(vlrContador>=300) {
+			assertBooleanImprimeMensaje("######### ERROR - SUPERO LA MAXIMA ESPERA PARA EL CAMBIO DE ESTADO"
+					+ " DE LA PAGADURIA - #######" + pagaduria, true);
+		}
+		log.info("Salio del Wile");
+	}
+	
+	
+	/*Acciones para aplicacion final*/
 	
 	
 }

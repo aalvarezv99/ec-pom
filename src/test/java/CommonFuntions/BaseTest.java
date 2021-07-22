@@ -652,6 +652,20 @@ public void clickvarios(By locator) {
 		}
 	}
 	
+	
+	/*
+	 * TP - 21/07/2021
+	 * Se crea el metodo que recibe un dia y lo selecciona en cualquier calendario*/
+	public void selecDiaCalendario(By lisDias, String dia) {
+		List<WebElement> list = driver.findElements(lisDias);
+		for (WebElement contenido : list) {
+			if (contenido.getText().contains(dia)) {				
+				contenido.click();
+				break;
+			}
+		}
+	}
+	
 	public void escribirListaInput(By listElementos,int Posicion,String vlrCampo) {
 		List<WebElement> list = driver.findElements(listElementos);
 		

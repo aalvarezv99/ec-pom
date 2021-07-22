@@ -18,7 +18,7 @@ Característica: Aplicacion de pagos y cierre
     Ejemplos: 
       | Periodo  | NombrePagaduria                        | RutaPagaduria                                            |
     #  | Junio 30 | FIDUPREVISORA NÓMINA PENSIONADOS FOMAG | "C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\" |
-	  |  Junio 30  |ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA EMPLEADOS PÚBLICOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
+	  |  Junio 30  |CAJA DE COMPENSACION DE CAQUETA|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
   
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -29,8 +29,8 @@ Característica: Aplicacion de pagos y cierre
     Y se agrega el pago de recaudo <Pagaduria><Ano><Periodo>
 
     Ejemplos: 
-      | Pagaduria                                   											| Ano    | Periodo     |
-      | "ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA EMPLEADOS PÚBLICOS" | "2021" | "Junio  30" |
+      | Pagaduria        | Ano    | Periodo     |
+      | "CAJA DE COMPENSACION DE CAQUETA" | "2021" | "Junio  30" |
       
     @PreaplicacionPagaduria
     Esquema del escenario: Preaplicacion Pagaduria
@@ -42,4 +42,27 @@ Característica: Aplicacion de pagos y cierre
     	Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
     	Ejemplos: 
     	|IdPagaduria| Pagaduria                                   | Ano    | Periodo     |
-      |345| "ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA EMPLEADOS PÚBLICOS" | "2021" | "Junio  30" |
+      |389| "CAJA DE COMPENSACION DE CAQUETA" | "2021" | "Junio  30" |
+      
+      @AplicacionFinalPagaduria
+      Esquema del escenario: Aplicacion final de pagaduria en abacus
+      	Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
+      	Y cuando filtre utilizando el <Periodo> con <Pagaduria> en la pantalla Aplicacion final
+      	Y Se muestra un unico registro permitiendo confirmar el pago
+      	Entonces en pantalla se visualiza el siguiente mensaje "se ha iniciado la aplicación de pagos"      	
+      	Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <Pagaduria> y <Periodo>
+      	Ejemplos:
+      	|Pagaduria|Periodo|
+      	|CAJA DE COMPENSACION DE CAQUETA|30/06/2021|
+      	
+      @CierrePagaduria
+      Esquema del escenario: Aplicacion final de pagaduria en abacus
+      	Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
+      	Y cuando filtre utilizando el <Periodo> con <Pagaduria> en la pantalla Aplicacion final
+      	Y Se muestra un unico registro permitiendo confirmar el pago
+      	Entonces en pantalla se visualiza el siguiente mensaje "se ha iniciado la aplicación de pagos"      	
+      	Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <Pagaduria> y <Periodo>
+      	Ejemplos:
+      	|Pagaduria|Periodo|
+      	|CAJA DE COMPENSACION DE CAQUETA|30/06/2021|
+      	
