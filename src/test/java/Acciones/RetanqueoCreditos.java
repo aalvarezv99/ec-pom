@@ -290,8 +290,16 @@ public class RetanqueoCreditos extends BaseTest {
 		int TotalCarteras = (Integer.parseInt(Cartera)+Integer.parseInt(Saneamiento));		
 		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
 		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));		
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+			
+		//ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
     	
+		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+		System.out.println("dentro del if que contiene punto");
+		}else {
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+		System.out.println("dentro del else que no contiene punto");
+		}
     }
 	
 	
@@ -302,10 +310,10 @@ public class RetanqueoCreditos extends BaseTest {
 		panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 		esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 		EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(Monto));
-		ElementVisible();
-
+		ElementVisible();	
+		
 		String pattern = "###,###,###.###";
-		double value = Double.parseDouble(String.valueOf(Monto));
+		double value = Double.parseDouble(String.valueOf(Remanente));
 
 		DecimalFormat myFormatter = new DecimalFormat(pattern);
 		myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
