@@ -54,7 +54,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	// BaseTest baseTest;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 
-	public OriginacionCreditosAccion(WebDriver driver) {
+	public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
 		/// this.driver = driver;
 		super(driver);
 		// baseTest = new BaseTest(driver);

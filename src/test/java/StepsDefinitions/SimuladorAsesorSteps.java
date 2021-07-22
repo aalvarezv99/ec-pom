@@ -25,7 +25,7 @@ public class SimuladorAsesorSteps {
 	BaseTest baseTest;
 	
 	
-	public SimuladorAsesorSteps() {						
+	public SimuladorAsesorSteps() throws InterruptedException {						
 		this.driver=Driver.driver;		
 		loginaccion=new LoginAccion(driver);
 		originacionaccion = new OriginacionCreditosAccion(driver);	
