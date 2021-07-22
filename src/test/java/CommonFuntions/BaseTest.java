@@ -388,6 +388,7 @@ public class BaseTest {
 		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {			 
 			 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
 		     ElementVisible();
+		     break;
 		}
 	}
 	
@@ -494,8 +495,8 @@ public class BaseTest {
     //Metodo utilizado para abir los pdf en el navegador el que recibe la ruta del pdf + el nombre
 	public void abriPdfNavegador(String rutaPdf) {		
 		try {
-			driver.get(rutaPdf);
-			Thread.sleep(2000);			
+			Thread.sleep(2500);
+			driver.get(rutaPdf);						
 		} catch (Exception e) {
 			log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
 		}
@@ -850,6 +851,8 @@ public void clickvarios(By locator) {
 
 		} catch (Exception e) {
 			log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + "|" + e);
+			assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
+			
 		}
 		return result;
 	}
@@ -867,6 +870,7 @@ public void clickvarios(By locator) {
 	    		 
 			 catch (Exception e) {
 			 log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
+			 //assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
 			}
 		 return result;
 	}

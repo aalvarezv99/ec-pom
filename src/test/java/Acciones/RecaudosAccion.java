@@ -54,36 +54,27 @@ public class RecaudosAccion extends BaseTest{
 	}
 	
 	public void abrirCertificacionNavegador(String rutaDocumento, String numRadicado) {	
-		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		String  nombreDoc = "";
+		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");	
 		try {
-			while(result.next()) {
-				nombreDoc = result.getString(1);	
-			}		
-			result.close();			
+			abriPdfNavegador(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");	
+			adjuntarCaptura(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");
 		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - abrirCertificacionNavegador() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - abrirCertificacionNavegador() ##########"+ e,false);
-		}	
-		abriPdfNavegador(rutaDocumento+nombreDoc);	
-		adjuntarCaptura("nombreDoc");
+			log.error("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e,false);
+		}
+		
 	}
 	
 	public String consultarVlrTotal(String numRadicado, String rutadocumento) {
 		String vlrTotal = "";
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		String  nombreDoc = "";
+		String nombreDoc = "certificacion-saldo-"+numRadicado+".pdf";
 		try { 
-			while(result.next()) {
-				nombreDoc = result.getString(1);	
-			}		
-			result.close();			
+			vlrTotal = extraerValorPDF(rutadocumento, nombreDoc,"Total a pagar $ ");		
 		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e,false);
-		}	
-		return vlrTotal = extraerValorPDF(rutadocumento, nombreDoc,"Total a pagar $ ");
+			log.error("####### ERROR RecaudosAccion - consultarVlrTotal() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - consultarVlrTotal() ##########"+ e,false);
+		}
+		return vlrTotal;	
 	}
 	
 	public void seleccionarPagaduria(String vlrpago, String origen) {
@@ -118,8 +109,9 @@ public class RecaudosAccion extends BaseTest{
 			hacerClick(recaudopage.checkCliente);
 			ElementVisible();
 			hacerClick(recaudopage.tipoPago);
-			selectValorLista(recaudopage.contTipoPago,recaudopage.listTipoPago, tipoRecaudo);
-			ElementVisible();			
+			selectValorLista(recaudopage.listTipoPago, tipoRecaudo);
+			ElementVisible();		
+			esperaExplicita(recaudopage.inputCedula);
 			hacerClick(recaudopage.inputCedula);
 			EscribirElemento(recaudopage.inputCedula, identitificacion);
 			ElementVisible();			
@@ -158,6 +150,7 @@ public class RecaudosAccion extends BaseTest{
 	 * se ejecutan las acciones para realizar la validacion del cambio de estado del Credito a PREPAGADO
 	 * */
 	public void validarEstadoCredito(String numRadicado, String estadoCredito) {
+		log.info("********************* RecaudosAccion validarEstadoCredito()" );
 		ResultSet result = queryRecaudo.validarRecaudo(numRadicado, "PREPAGO"); 
 		String vlrDbRecaudo = "";
 		String estadoDbCredito = "";
@@ -169,7 +162,7 @@ public class RecaudosAccion extends BaseTest{
 			result.close();		
 			
 			assertValidarEqualsImprimeMensaje("######## EL VALOR DEL RECAUDO NO COINCIDE CON BASE DE DATOS ######",
-					valorRecaudo.replace(",","."),vlrDbRecaudo);
+					valorRecaudo.replace(",",""),vlrDbRecaudo.replace(",",""));
 			assertValidarEqualsImprimeMensaje(" ####### EL ESTADO DEL CREDITO 'PREPAGADO', NO COINCIDE, VALIDAR BASE DE DATOS  ######",
 					estadoCredito.toUpperCase(),estadoDbCredito);
 			

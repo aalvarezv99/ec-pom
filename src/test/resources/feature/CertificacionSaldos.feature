@@ -24,7 +24,7 @@ Característica: Prepago de Creditos Abacus
     ##Y la amortizacion del prepago y lo movimientos contables en bases de datos
     Ejemplos: 
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento                                       |
-      | 65334 			| 49776835	|               21 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
+       | 73638 | 10222425 |             22 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
 
   @CertificacionSaldoActivaCXCSinFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc sin fianza

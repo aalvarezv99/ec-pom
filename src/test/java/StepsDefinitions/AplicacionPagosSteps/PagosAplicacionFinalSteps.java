@@ -44,5 +44,12 @@ public class PagosAplicacionFinalSteps {
 		
 	
 	/*APLICACION FINAL STEPS*/
+	 
+	 /*STEPS CIERRE*/
+	 @Y("^Se muestra un unico registro permitiendo cerrar la pagaduria$")
+		public void seMuestraUnUnicoRegistroPermitiendoCerrarLaPagaduria() throws Throwable {
+			aplicacioncierreaccion.iniciarCierrePagaduria();
+		}
+		
 
 }

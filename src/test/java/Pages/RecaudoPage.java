@@ -72,7 +72,7 @@ public class RecaudoPage {
 		//Cliente
 		tipoPago = By.xpath("//label[contains(text(),'Seleccione un tipo de')]");
 		
-		contTipoPago = By.xpath("/html/body/div[29]/div/ul");
+		//contTipoPago = By.xpath("/html/body/div[29]/div/ul");
 		listTipoPago = By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
 		inputCedula = By.id("formulario-pagos-recaudo:autocomplete-cliente_input");
 		selectCredito = By.xpath("//label[contains(text(),'Seleccione un')]");

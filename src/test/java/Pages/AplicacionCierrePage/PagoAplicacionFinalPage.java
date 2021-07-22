@@ -10,6 +10,7 @@ public class PagoAplicacionFinalPage {
 	public By listDiasCalendario;
 	public By contTablaColumnas;
 	public By btnConfirmarPago;
+	public By btnCerrarPagaduria;
 
 	public PagoAplicacionFinalPage(WebDriver driver) {
 		this.driver = driver;
@@ -19,5 +20,6 @@ public class PagoAplicacionFinalPage {
 		listDiasCalendario = By.xpath("//td[contains(@class,' ')]");
 		contTablaColumnas = By.xpath("//*[@id=\"form:aplicacionPagoPagaduria_data\"]/tr/td");
 		btnConfirmarPago = By.id("form:aplicacionPagoPagaduria:0:botonConfirmarPagos");
+		btnCerrarPagaduria = By.id("form:aplicacionPagoPagaduria:0:botonCerrarPagaduria");
 	}
 }

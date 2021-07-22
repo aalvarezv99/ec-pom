@@ -70,9 +70,9 @@ public class AplicacionCierreAccion extends BaseTest {
 			//se valida el campo que no se encuentre en cero (VlrListado)
 			esperaExplicitaTexto(nombrePagaduria);
 			String vlr = buscarElementoFilaTabla(listapagopage.contTablafiltro, 12).replaceAll("[^a-zA-Z0-9]", "");	
-			/*if(Math.round(Long.valueOf(vlr))!=0) {
+			if(Math.round(Long.valueOf(vlr))!=0) {
 				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA AGADURIA","0" , vlr);
-			}*/
+			}
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - escribirPagaduriaValidarCargue()  ################"+ e);
 			assertTrue("########## Error - AplicacionCierreAccion - escribirPagaduriaValidarCargue() ########"+ e,false);
@@ -250,6 +250,19 @@ public class AplicacionCierreAccion extends BaseTest {
 		}
 	}
 	
+	/*
+	 * TP - 22/07/2021
+	 * Este metodo Inicia el cierre precionando el boton */
+	public void iniciarCierrePagaduria() {
+		log.info("*************** AplicacionCierreAccion - iniciarCierrePagaduria()*************");
+		try {
+			esperaExplicita(pagoaplicacionfinalpage.btnCerrarPagaduria);
+			hacerClick(pagoaplicacionfinalpage.btnCerrarPagaduria);
+		} catch (Exception e) {
+			log.error("############## AplicacionCierreAccion - iniciarCierrePagaduria() ################"+e);
+			assertTrue("########## AplicacionCierreAccion - iniciarCierrePagaduria()########"+ e,false);
+		}
+	}
 	
 	/*
 	 * TP - 21/07/2021

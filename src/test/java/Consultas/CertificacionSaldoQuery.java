@@ -1,7 +1,11 @@
 package Consultas;
 
 
+import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Date;
+
 import org.apache.log4j.Logger;
 
 
@@ -11,7 +15,33 @@ public class CertificacionSaldoQuery {
 	
 	ConexionBase dbconector = new ConexionBase();
 	
-	
+	public void obtenerSaldoInsoluto(Integer idCredito, Date fechaVencimiento, Date periodoFechaVencimiento) throws SQLException {
+		ResultSet capital = null;
+		ResultSet intMora = null;
+		try {
+			capital = dbconector.conexion("select sum(distinct(pdp.capital)) - sum(distinct(dcp.capital)) as saldo_capital\r\n"
+					+ "from plan_de_pagos pdp\r\n"
+					+ "left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pdp.id\r\n"
+					+ "where id_credito = "+idCredito+";");
+			
+			/*intMora = dbconector.conexion("select calcular_interes_mora_cobranza("+idCredito+",0, (select max(fecha_ejecucion_cierre)))\r\n"
+					+ "from historico_cierres;"); */
+			
+			intMora = dbconector.conexion("select calcular_interes_mora_cobranza("+idCredito+",0, '2021-07-12')\r\n"
+					+ "from historico_cierres;"); 
+			
+			while (intMora.next()) {
+				
+				BigDecimal asd = intMora.getBigDecimal(1);
+				log.info(asd);
+			}
+			
+		} catch (Exception e) {
+			log.error(e);
+		}
+		
+		
+	}
 
 	public ResultSet ConsultarRegistroCertificacion( String numRadicado) {
 		ResultSet r = null;
