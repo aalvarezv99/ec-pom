@@ -35,8 +35,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"|"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
  
   @AnalisisCreditoRetanqueo
    Esquema del escenario: Analisis del credito
@@ -49,8 +49,8 @@ Característica: Retanqueo de creditos
    Y Aprueba la tarea del credito<Cedula>
     
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"|"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
  
   @ClientesBienvenida 
    Esquema del escenario: Clientes para Bienvenida
@@ -59,8 +59,8 @@ Característica: Retanqueo de creditos
    Entonces se pasa a la pestana condiciones de credito se marcan los check acepta cartera y se acepta condiciones<TipoDesen>
   
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"|"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
   
   @CreditosVisacion
    Esquema del escenario: Creditos para Visacion
@@ -68,8 +68,8 @@ Característica: Retanqueo de creditos
    Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
     
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"|"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
    
   @DesembolsoCartera
    Esquema del escenario: Carteras para Desembolso
@@ -77,8 +77,8 @@ Característica: Retanqueo de creditos
    Y se descargadescargan medios de dispersion para la cartera <cartera><Banco><rutaPDF>
 
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula     |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134" |"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
  
  @VisacionCartera
     Esquema del escenario: Visacion de la cartera
@@ -86,8 +86,8 @@ Característica: Retanqueo de creditos
     Y se navega hasta carteras <rutaPDF>
     
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula      |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"  |"NANCY PATRICIA" |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
  
   @Desembolso
    Esquema del escenario: Remanente para Desembolso
@@ -95,8 +95,8 @@ Característica: Retanqueo de creditos
    Y se descarga medios de dispersion para el remanente <Retanqueo><cartera><Banco><rutaPDF>
     
    Ejemplos: 
-   |Cedula      |NombreCredito   |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"5816825"|"DIOSELINA"       |"55190" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"21/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"21/07/2021"|"0"    |
+   |Cedula      |NombreCredito     |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
+   |"65697134"  |"NANCY PATRICIA"  |"52734" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
   
   
     

@@ -258,7 +258,7 @@ public class RetanqueoCreditos extends BaseTest {
     	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
     	Clear(pestanasimuladorinternopage.FechaDesembolso);
     	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);  
-    	//EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+    	EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);    	
 		ElementVisible();
 		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
@@ -281,10 +281,10 @@ public class RetanqueoCreditos extends BaseTest {
 		String valordesembolsar;
 		
 		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
-	//		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(VlrDesembolsar));
+			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(VlrDesembolsar));
 	    	   System.out.println("dentro del if que contiene punto");
 		}else {
-	  //  		   ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(VlrDesembolsar));
+	    		   ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(VlrDesembolsar));
 	    		   System.out.println("dentro del else que no contiene punto");	    
 		}
 		
