@@ -66,7 +66,8 @@ public class PestanaFormularioPage {
 		Guardar = By.xpath("//span[text()='Guardar']");
 		PestanaFormulario=By.xpath("//a[@class='link-circle']");
 		TituloReferencias=By.xpath("//div[text()='REFERENCIAS']");
-		MasReferencia = By.xpath("//a[starts-with(@id,'form:j_idt') and contains(@class,'iconoSuma2X')]");
+		//MasReferencia = By.id("form:j_idt197");
+		MasReferencia = By.xpath("//*[starts-with(@id,'form:j_idt') and contains(@class,'iconoSuma2X')]");
 		CheckFamiliar = By.id("form:j_idt156:0:tipoReferencia:0");
 		CheckPersonal = By.id("form:j_idt156:1:tipoReferencia:1");
 		PapellidoReferencia = By.xpath("//input[starts-with(@id,'form:j_idt156:') and contains(@id,'j_idt163')]");

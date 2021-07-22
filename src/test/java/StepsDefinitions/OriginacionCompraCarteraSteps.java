@@ -36,8 +36,8 @@ public class OriginacionCompraCarteraSteps {
 	    originacioncompracarteraaccion.GuardarCartera();
 	}
 
-	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}")
-	public void se_pasa_a_la_primera_pestana_de_referenciacion_para_confirmar_la_entidad_entidad(String entidad) throws InterruptedException {
+	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad saneamiento {string}")
+	public void se_pasa_a_la_primera_pestana_de_referenciacion_para_confirmar_la_entidad_entidad_saneamiento(String entidad) throws InterruptedException {
 	    originacioncompracarteraaccion.ConfirmarEntidad(entidad);
 	}
 
@@ -67,7 +67,7 @@ public class OriginacionCompraCarteraSteps {
 	}
 	
 	@Y("se marca identidida confirmada para radicar la solicitud")
-	public void seMarcaIdentididaConfirmadaParaRadicarLaSolicitud() throws InterruptedException {
+	public void SeMarcaIdentididaConfirmadaParaRadicarLaSolicitud() throws InterruptedException {
 	     originacioncompracarteraaccion.Radicar();
 	}
 	

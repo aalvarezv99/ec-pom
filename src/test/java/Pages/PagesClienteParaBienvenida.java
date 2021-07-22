@@ -37,7 +37,8 @@ public class PagesClienteParaBienvenida {
 	    CedulaGrilla = By.xpath("//td[text()='52912399']");
 		Guardar= By.xpath("//a[text()='Guardar']");
 	    Correcta = By.xpath("//*[text()='Correcta']");
-	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone']");
+	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone'  and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone' and @id!='formCondicionCredito:j_idt255:1:aceptaRadio:2_clone']");
+	    //CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone']");
 	    label_Nombres_Completos=By.xpath("//label[text()='Nombres completos: ']"); 
 	    Correo=By.name("form:j_idt127");
 	    Desembolso=By.id("formCondicionCredito:j_idt296_label");

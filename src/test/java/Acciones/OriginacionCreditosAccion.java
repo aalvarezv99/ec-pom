@@ -215,7 +215,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.edad), String.valueOf(edad));
 
 				int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
-				assertvalidarEquals(TextoElemento(simuladorasesorpage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
+				//assertvalidarEquals(TextoElemento(simuladorasesorpage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
+				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)),calculoMontoSoli);
 
 				int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
 				assertvalidarEquals(TextoElemento(simuladorasesorpage.CuotaCorriente), String.valueOf(CuotaCorriente));
@@ -246,8 +247,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 						Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
 						Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
-				assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),
-						String.valueOf(MontoMaxDesembolsar));
+				//assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),String.valueOf(MontoMaxDesembolsar));
+				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
 		
 	}
 	
@@ -318,9 +319,20 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void ConsultaCentrales() throws InterruptedException {
 		hacerClick(simuladorasesorpage.btnSoliConsulta);
 		ElementVisible();
-		assertTextonotificacion(simuladorasesorpage.notificacion,
-				"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
+		esperaExplicita(simuladorasesorpage.notificacion);
+		String TextoNotificacion=GetText(simuladorasesorpage.notificacion);
+		
+		if(TextoNotificacion.contains("OCURRIÓ UN ERROR")==true){
+	    hacerClicknotificacion();
+		hacerClick(simuladorasesorpage.btnSoliConsulta);
+		ElementVisible();		
+		assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
 		hacerClicknotificacion();
+		}else 
+		{
+		assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
+		hacerClicknotificacion();
+		}
 	}
 
 	/************ FIN ACCIONES PARA SIMULADOR ASESOR ***************/
@@ -500,8 +512,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		Hacer_scroll(pestanaformulariopage.Guardar);
 		hacerClick(pestanaformulariopage.Guardar);
 		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		hacerClickVariasNotificaciones();
+		//esperaExplicita(pestanadigitalizacionPage.Notificacion);
+		//hacerClickVariasNotificaciones();
 		// hacerClicknotificacion();
 		// hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
@@ -510,17 +522,21 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void formularioSegundaPestana(String IngresosMes, String TotalActivos, String Papellido, String Pnombre,
 			String Direccion, String TelefonoResidencia, String TelefonoTrabajo, String Dpto, String Ciudad)
 			throws InterruptedException {
+		recorerpestanas("FORMULARIO");//borrar despues de la prueba
 		hacerClick(pestanaformulariopage.PestanaFormulario);
 		ElementVisible();
 		esperaExplicita(pestanaformulariopage.TituloReferencias);
+		esperaExplicita(pestanaformulariopage.IngresosMes);
 		hacerClick(pestanaformulariopage.IngresosMes);
 		LimpiarConTeclado(pestanaformulariopage.IngresosMes);
 		EscribirElemento(pestanaformulariopage.IngresosMes, IngresosMes);
 		hacerClick(pestanaformulariopage.TotalActivos);
 		LimpiarConTeclado(pestanaformulariopage.TotalActivos);
 		EscribirElemento(pestanaformulariopage.TotalActivos, TotalActivos);
+		esperaExplicita(pestanaformulariopage.MasReferencia);
 		hacerClick(pestanaformulariopage.MasReferencia);
 		ElementVisible();
+		esperaExplicita(pestanaformulariopage.MasReferencia);
 		Hacer_scroll(pestanaformulariopage.TituloReferencias);
 		hacerClick(pestanaformulariopage.MasReferencia);
 		ElementVisible();
