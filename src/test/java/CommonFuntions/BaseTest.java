@@ -110,6 +110,9 @@ public class BaseTest {
 		return driver.findElement(locator).getAttribute("value");
 	}
 
+	public String GetText(By locator) {
+		return driver.findElement(locator).getText();
+	}
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
 			return driver.findElement(locator).isDisplayed();
@@ -908,6 +911,9 @@ public WebDriver chromeDriverConnection() {
     
     public void  ToleranciaPeso(int a,int b){
     	int Tolerancia=a-b;
+    	if( Tolerancia<0) {
+    		Tolerancia=Tolerancia*-1;
+    	}
         if(Tolerancia<=1 && Tolerancia>=0){
     		assertTrue(true);
     	}else {

@@ -184,9 +184,12 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     /************INICIA ACCIONES ANALISTA DE CREDITO COMPRA CARTERA*************
      * @throws SQLException 
      * @throws NumberFormatException ***************/
-
+    
        public void ValidarSimuladorAnalistaCompraCartera(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2) throws NumberFormatException, SQLException {
-    	   esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    	   
+    	log.info("***************** AplicacionCierreAccion - ValidarSimuladorAnalistaCompraCartera()");
+    	try {   
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
        	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
        	ElementVisible(); 
        	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);
@@ -270,8 +273,12 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.IngresosAsesor).substring(0,TextoElemento(pestanasimuladorinternopage.IngresosAsesor).length()-2).replaceAll("[^a-zA-Z0-9]", ""),Ingresos);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosLey).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosLey).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descLey);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
-       }
-       
+    		}
+      catch (Exception e) {
+    	  	log.error("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno()  #######" + e);
+			assertTrue("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno() ########"+ e,false);
+		}
+     }
     /************FINALIZA ACCIONES ANALISTA DE CREDITO COMPRA DE CARTERA*************/
        
     /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
@@ -283,7 +290,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
            hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);
            MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
            Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-           Thread.sleep(1000);
+           Thread.sleep(3000);
            hacerClick(pagesclienteparabienvenida.Desembolso);
            selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
            hacerClick(pagesclienteparabienvenida.CalificacionProceso);

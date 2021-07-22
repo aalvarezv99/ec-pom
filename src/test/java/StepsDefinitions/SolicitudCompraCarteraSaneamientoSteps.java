@@ -64,34 +64,17 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 
 	 //####################### IniciaDesembolsoCartera ##################################################################### 
 	
-	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera {string}")
-	public void elagenteingresaalalistadepagosparaprocesarlacartera (String Cedula) throws InterruptedException {
+	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera uno {string}")
+	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera (String Cedula) throws InterruptedException {
 		solicitudcompracarterasaneamientoaccion.ProcesarCartera(Cedula);
 	   }
 	   
-	@Y("se descargadescargan medios de dispersion para la cartera {string}{string}{string}")
-	public void sedescargadescarganmediosdedispersionparalacartera(String cartera, String Banco,String Pdf) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionCartera(cartera, Banco,Pdf);
-	}
 	//####################### FinalizaDesembolsoCartera #####################################################################     
 	 
-	 //####################### IniciaVisacionCartera #####################################################################  
-	   
-	@Y("se navega hasta carteras {string}")
-	public void senavegahastacarteras(String Pdf) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.VisacionCartera(Pdf);
-	}
-	 
-	 //####################### FinalizaVisacionCartera ##################################################################### 
-	   
+ 
 	//####################### IniciaDesembolsoSaneamiento #####################################################################  
-	   
-	   @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")
-	   public void elagenteingresaalalistadepagosparaprocesarelsaneamiento (String Cedula) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.ProcesarSaneamiento(Cedula);
-	   }
-	   
-	   @Y("se descargadescargan medios de dispersion para el saneamiento {string}{string}{string}")
+	   	   
+	   @Y("se descargan medios de dispersion para el saneamiento dos {string}{string}{string}")
 		public void sedescargadescarganmediosdedispersionparaelsaneamiento (String Saneamiento2, String Banco,String Pdf) throws InterruptedException {
 		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionSaneamiento(Saneamiento2, Banco,Pdf);
 		}
@@ -99,12 +82,7 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 //####################### FinalizaDesembolsoSaneamiento #####################################################################
 	   
 //####################### IniciaDesembolsoRemanente #####################################################################  
-	   
-	   @Cuando ("el agente ingresa a la lista de pagos para procesar el remanente {string}")
-	   public void elagenteingresaalalistadepagosparaprocesarelremanente (String Cedula) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.ProcesarRemanente(Cedula);
-	   }
-	   
+	
 	   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}{string}") 
 	   public void sedescargamediosdedispersionparaelremanente (String Monto, String Cartera1, String Saneamiento2, String Banco, String Pdf) throws InterruptedException {
 		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionRemanente (Monto,Cartera1, Saneamiento2,Banco,Pdf);

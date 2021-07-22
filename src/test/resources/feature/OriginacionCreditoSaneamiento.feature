@@ -32,7 +32,7 @@ Característica: Originación de Creditos con saneamientos
     Y se pasa a la segunda pestana de digitalizacion se agrega el saneamiento <entidad_san><saneamiento><vlr_cuota_san><fecha_vencimiento><num_obligacion_san>
     Y se selecciona el tipo de cartera saneamiento
     Y guarda el saneamiento agregado    
-    Y se pasa a la primera pestana de referenciacion para confirmar la entidad <entidad_san>
+    Y se pasa a la primera pestana de referenciacion para confirmar la entidad saneamiento <entidad_san>
     Y se confirma el numero de obligacion <num_obligacion_san>
     Y se aprueba el saneamiento
     Y se guarda en la primera pestana de referenciacion
