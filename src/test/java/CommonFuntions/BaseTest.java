@@ -894,7 +894,8 @@ public WebDriver chromeDriverConnection() {
 			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
 			a[i] = BtnAprobar.get(i).getAttribute("id");
 		}
-
+        
+		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(1).getAttribute("id")));
 		driver.findElement(By.id(RadioSaneamiento.get(1).getAttribute("id"))).click();
 
         //Aprobar las compras
