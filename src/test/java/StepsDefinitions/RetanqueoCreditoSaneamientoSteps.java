@@ -15,7 +15,7 @@ public class RetanqueoCreditoSaneamientoSteps {
 	RetanqueoCreditoSaneamientoAccion retanqueocreditosaneamientoaccion;
 	BaseTest baseTest;
 	
-	public RetanqueoCreditoSaneamientoSteps() {		
+	public RetanqueoCreditoSaneamientoSteps() throws InterruptedException {		
 		driver = Driver.driver;		
 		retanqueocreditosaneamientoaccion = new RetanqueoCreditoSaneamientoAccion(driver);
 		baseTest = new BaseTest(driver);

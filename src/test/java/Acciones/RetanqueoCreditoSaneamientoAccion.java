@@ -40,7 +40,7 @@ public class RetanqueoCreditoSaneamientoAccion extends BaseTest {
 	LeerArchivo archivo;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 
-	public RetanqueoCreditoSaneamientoAccion(WebDriver driver) {
+	public RetanqueoCreditoSaneamientoAccion(WebDriver driver) throws InterruptedException {
 	//this.driver = driver;
 	super(driver);
 	// baseTest = new BaseTest(driver);
