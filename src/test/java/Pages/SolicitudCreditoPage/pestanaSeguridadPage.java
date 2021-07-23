@@ -17,6 +17,7 @@ public class pestanaSeguridadPage {
 	public By DatosConsulta;
 	public By ActivoVigente;
     public By BtnCheck;
+    public By Viable;
 	
 	
 	
@@ -31,5 +32,6 @@ public class pestanaSeguridadPage {
 		DatosConsulta= By.xpath("//*[@class='card-title' and text()='DATOS CONSULTA:']");
 		ActivoVigente = By.xpath("//div[@class='modal fade']");
 		BtnCheck =By.xpath("//div[@class='radio disabled' and @id='uniform-formulario2:estados:1']");
+		Viable = By.id("formConsultas:estados0:0_clone");
 	}
 }

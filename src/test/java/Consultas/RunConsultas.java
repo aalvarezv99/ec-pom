@@ -14,11 +14,10 @@ public class RunConsultas {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		CertificacionSaldoQuery query = new CertificacionSaldoQuery();
-		
-		//NumberFormat formatoNumero = NumberFormat.getNumberInstance();
-		//Calendar fechaVencimiento = Calendar.getInstance();
-		//log.info(fechaVencimiento.setTime(new Date("2021-08-24")));
-		query.obtenerSaldoInsoluto(134001, null, null);
+		query.obtenerSaldoInsoluto(134001, "2021-08-24", "2021-08-30", "2021-07-12");
+		/*ResultSet result;
+		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
+		result = query.ejecutarFuncion(); 
 		log.info("CONSULTAS PROCEDURE ***************");
 		
 		/*result = query.ConsultarRegistroCertificacion(String.valueOf(38570)); 

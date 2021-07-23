@@ -58,8 +58,8 @@ public class SimuladorAsesorSteps {
 	}
 
 	@Y("valida los calculos correctos de la simulacion{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void valida_los_calculos_correctos_de_la_simulacion(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String colchon) throws NumberFormatException, SQLException {
-    originacionaccion.assertSimulador(Fecha,Tasa,Plazo,Monto,DiasHabilesIntereses,Ingresos,descLey,descNomina,vlrCompasSaneamientos,tipo,colchon);  
+	public void valida_los_calculos_correctos_de_la_simulacion(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException {
+    originacionaccion.assertSimulador(Fecha,Tasa,Plazo,Monto,DiasHabilesIntereses,Ingresos,descLey,descNomina,vlrCompasSaneamientos,tipo,pagaduria);  
 	}
 
 	@Y("guarda la simulacion presionando el boton guardar")

@@ -18,6 +18,12 @@ public class PagesCreditosDesembolso {
 	public static By Guardar;
 	public static By VerEvidencias;
 	public static By ArchivoCreado;
+	public static By EstadoPago;
+	public static By FiltroEstadoPago;
+	public static By TipoOperacionSaneamiento;
+	public static By TipoOperacionRemanente;
+	public static By FiltroTipoOperacion;
+	
 	
 	public PagesCreditosDesembolso(WebDriver driver) {
 		filtrocedula = By.id("form:listaPagos:j_idt73:filter");
@@ -31,6 +37,13 @@ public class PagesCreditosDesembolso {
         CrearArchivo = By.id("formLote:procesar");
     	Guardar= By.xpath("//*[text()='Guardar']");
     	VerEvidencias= By.id("formLote:j_idt103");
-    	ArchivoCreado =By.id("formLote:dispersion");	
+    	ArchivoCreado =By.id("formLote:dispersion");
+    	EstadoPago = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
+    	TipoOperacionSaneamiento = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[4]/label");
+    	TipoOperacionRemanente = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[3]");
+    	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
+    	FiltroTipoOperacion = By.xpath("//label[text()='Tipo Operación']");
+    	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
+    	EstadoPago = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
 	}
 }
