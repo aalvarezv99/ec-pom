@@ -19,7 +19,7 @@ public class OriginacionCompraCarteraSteps {
 	BaseTest baseTest;
 	OriginacionCompraCarteraAccion originacioncompracarteraaccion;
 	
-	public OriginacionCompraCarteraSteps () {
+	public OriginacionCompraCarteraSteps () throws InterruptedException {
 		driver = Driver.driver;		
 		baseTest = new BaseTest(driver);
 		originacioncompracarteraaccion = new OriginacionCompraCarteraAccion (driver);
@@ -102,9 +102,9 @@ public class OriginacionCompraCarteraSteps {
    
  //####################### IniciaDesembolsoCartera #####################################################################  
    
-   @Cuando ("el agente ingresa a la lista de pagos para procesar la cartera {string}{string}")
-   public void elagenteingresaalalistadepagosparaprocesarlacartera (String Cedula, String estadopago) throws InterruptedException {
-	   originacioncompracarteraaccion.ProcesarCartera(Cedula,estadopago);
+   @Cuando ("el agente ingresa a la lista de pagos para procesar la cartera {string}")
+   public void elagenteingresaalalistadepagosparaprocesarlacartera (String Cedula) throws InterruptedException {
+	   originacioncompracarteraaccion.ProcesarCartera(Cedula );
    }
    
    @Y("se descargadescargan medios de dispersion para la cartera {string}{string}{string}")
@@ -125,7 +125,7 @@ public class OriginacionCompraCarteraSteps {
    
    
   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}") 
-   public void sedescargamediosdedispersionparaelremanente (String Monto, String cartera, String Banco, String Pdf) throws InterruptedException {
-	  originacioncompracarteraaccion.DescargarMediosDispercionRemanente (Monto,cartera,Banco,Pdf);
+   public void sedescargamediosdedispersionparaelremanente (String Retanqueo, String cartera, String Banco, String Pdf) throws InterruptedException {
+	  originacioncompracarteraaccion.DescargarMediosDispercionRemanente (Retanqueo,cartera,Banco,Pdf);
   }
 }

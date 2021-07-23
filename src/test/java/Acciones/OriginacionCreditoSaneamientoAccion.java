@@ -50,7 +50,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 	LeerArchivo archivo;
 	private static Logger log = Logger.getLogger(OriginacionCreditoSaneamientoAccion.class);
 
-	public OriginacionCreditoSaneamientoAccion(WebDriver driver) {
+	public OriginacionCreditoSaneamientoAccion(WebDriver driver) throws InterruptedException {
 		super(driver);
 		simuladorasesorpage = new SimuladorAsesorPages(driver);
 		panelnavegacionaccion = new PanelPrincipalAccion(driver);
@@ -350,9 +350,13 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
            	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
            	ElementVisible();
            	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-           	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
+           	hacerClick(pagescreditosdesembolso.FiltroEstadoPago);
+           	hacerClick(pagescreditosdesembolso.EstadoPagoHabilitado);
+           	ElementVisible();
+           	hacerClick(pagescreditosdesembolso.FiltroTipoOperacion);
            	hacerClick(pagescreditosdesembolso.TipoOperacionRemanente);
-           	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
+         	Thread.sleep(2000);
+            Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
            	ElementVisible();
            	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
            	ElementVisible();

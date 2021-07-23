@@ -386,8 +386,15 @@ public class BaseTest {
 	
 	public void ClicUltimoElemento(By lista) {
 		List<WebElement> ListaElement = driver.findElements(lista);		
-		int i=ListaElement.size()-1;	
+		int i=ListaElement.size()-1;
+		System.out.println("mensaje  "+i+"  atributo  ");
+		if (i>0) { 
+		System.out.println("mensaje  "+i+"  atributo  ");
 		driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
+		}else {
+			System.out.println("mensaje  "+i+"  atributo  ");
+			driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
+					}
 
 	}
 
@@ -655,13 +662,14 @@ public void clickvarios(By locator) {
 		Thread.sleep(1000);
 		List<WebElement> clickvarios = driver.findElements(locator);
 		int Totaldoc=clickvarios.size();
+		if (Totaldoc != 0) {
 		String Borrar=clickvarios.get(0).getAttribute("id");
 		for(int i=0;i<Totaldoc;i++) {	
 			Thread.sleep(2000);			
 			hacerClick(By.id(Borrar));			
 			hacerClickVariasNotificaciones();
 			}
-		hacerClickVariasNotificaciones();
+		hacerClickVariasNotificaciones();}
 	}
 	
 	public void cargarpdf(By locator,String Pdf) {
@@ -773,11 +781,13 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClickVariasNotificaciones() throws InterruptedException {
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
 		List<WebElement> clickvarios = driver.findElements(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		for(int i=0;i<clickvarios.size();i++) {			
 			JavascriptExecutor js= (JavascriptExecutor)driver;		
 			js.executeScript("arguments[0].click();", clickvarios.get(i));			
 			}
+		}
 	}
 
 /************ FIN DE ESPERAS ***********/
@@ -912,8 +922,8 @@ public WebDriver chromeDriverConnection() {
     
     public void  ToleranciaPeso(int a,int b){
     	int Tolerancia=a-b;
-    	if( Tolerancia<0) {
-    		Tolerancia=Tolerancia*-1;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
     		assertTrue(true);

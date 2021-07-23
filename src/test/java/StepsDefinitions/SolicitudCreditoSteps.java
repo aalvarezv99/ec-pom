@@ -18,7 +18,7 @@ public class SolicitudCreditoSteps {
 	OriginacionCreditosAccion originacionaccion;
 	BaseTest baseTest;
 	
-	public SolicitudCreditoSteps() {		
+	public SolicitudCreditoSteps() throws InterruptedException {		
 		driver = Driver.driver;		
 		originacionaccion = new OriginacionCreditosAccion(driver);
 		baseTest = new BaseTest(driver);

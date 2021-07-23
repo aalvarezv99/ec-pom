@@ -22,7 +22,7 @@ public class OriginacionCreditoSaneamientoSteps {
     OriginacionCreditoSaneamientoAccion originacionCreditoSaneamientoAccion;
     BaseTest baseTest;
 
-    public OriginacionCreditoSaneamientoSteps() {
+    public OriginacionCreditoSaneamientoSteps() throws InterruptedException {
         driver = Driver.driver;
         originacionCreditoSaneamientoAccion = new OriginacionCreditoSaneamientoAccion(driver);
         baseTest = new BaseTest(driver);

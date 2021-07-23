@@ -94,9 +94,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.AprobarReferenciasPagaduria();
 	}
 	
-	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina) throws InterruptedException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina);
+	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}")
+	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera) throws InterruptedException {
+		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera);
 	}
 	
     @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")

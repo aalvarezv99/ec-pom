@@ -54,6 +54,7 @@ public class PestanaReferenciacionPage {
 		FechaIngreso  = By.id("formConsultas:fechaIngreso:0_clone");
 		TipoContrato = By.id("formConsultas:tipoContrato:0_clone");
 		CargoCheck = By.id("formConsultas:cargo:0_clone");
+<<<<<<< HEAD
 		RadioSaneamiento = By.id("formConsultas:j_idt170:2:j_idt198:0");
 		ListLabelEntidad = By.xpath("//label[starts-with(@id,'formConsultas:j_idt170:')]");
 		ListFiltroEntidad = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170') and @class='ui-selectonemenu-filter ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all']");
@@ -78,6 +79,12 @@ public class PestanaReferenciacionPage {
 		NumObligacion2 = By.name("formConsultas:j_idt170:2:j_idt216");
 		//BtnAprobar2 = By.id("formConsultas:j_idt170:2:j_idt218");
 		BtnsAprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt170:') and text()='Aprobar']");
+=======
+		Entidad = By.xpath("//label[starts-with(@id,'formConsultas:j_idt170') and contains (@id,'j_idt170')]"); 
+		FiltroEntidad =  By.xpath("//input[starts-with(@id,'formConsultas:j_idt170') and contains (@id,'j_idt203_filter')]");
+		Aprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt170') and contains (@id,'j_idt218') and contains (text (),'Aprobar')]");
+		NumObligacion = By.name("formConsultas:j_idt170:0:j_idt216");
+>>>>>>> develop
 		Guardar = By.id("formConsultas:guardar");
 		ReferenciaPositiva = By.xpath("//*[@value='REFERENCIA_POSITIVA']");
 		CheckSI = By.xpath("//*[@value='true' and @data-itemindex='0']");

@@ -116,6 +116,7 @@ public class RetanqueoCreditos extends BaseTest {
 	}
 
 	public void CargarArchivos(String pdf) throws InterruptedException {
+		Thread.sleep(1000);
 		cargarpdf(retanqueopages.ImputAutorizacion, pdf);
 		esperaExplicitaNopresente(retanqueopages.BarraCarga);
 		hacerClickVariasNotificaciones();
@@ -230,6 +231,7 @@ public class RetanqueoCreditos extends BaseTest {
 		esperaExplicita(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
 		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
 		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
+		
 		EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, codigo);
 		ElementVisible();
 		hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
@@ -251,7 +253,7 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 	}
 
-	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina) throws InterruptedException{
+	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera) throws InterruptedException{
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
     	Clear(pestanasimuladorinternopage.FechaDesembolso);
@@ -267,8 +269,32 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
-    	
+		
+		int Gmf4100 = (int) Gmf4100(Integer.parseInt(cartera), 0.004);
+		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
+		
+		int DescuentosPorCartera = ((Gmf4100 + Integer.parseInt(cartera)));
+		
+		int VlrDesembolsar = (Integer.parseInt(retanqueo)) - DescuentosPorCartera;
+		System.out.println("vlrdesembolso  "+ VlrDesembolsar + "  descuentos cartera   "+ DescuentosPorCartera + "  retanqueo   "+ retanqueo + "  Valor Sistema  " + TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]","") );
+
+		String valordesembolsar;
+		
+		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
+			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(VlrDesembolsar));
+	    	   System.out.println("dentro del if que contiene punto");
+		}else {
+	    		   ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(VlrDesembolsar));
+	    		   System.out.println("dentro del else que no contiene punto");	    
+		}
+		
+		
+		/*int Tolerancia=(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar))-(Integer.parseInt(retanqueo)));
+        if(Tolerancia<=1 && Tolerancia>=0){
+    		assertTrue(true);
+    	}else {
+    		assertTrue(false);
+    	}*/
     }
 	
 	public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Cartera, String Saneamiento) throws InterruptedException{
