@@ -34,6 +34,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -109,7 +110,12 @@ public class BaseTest {
 	public String TextoElemento(By locator) {
 		return driver.findElement(locator).getAttribute("value");
 	}
+	
+	public String GetText(By locator) {
+		return driver.findElement(locator).getText();
+	}
 
+	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
 			return driver.findElement(locator).isDisplayed();
@@ -121,8 +127,16 @@ public class BaseTest {
 	
 	public void assertvalidarEquals (String a, String b) {
 		assertEquals(a,b);
+		
 	}
 	
+	public void assertValidarEqualsImprimeMensaje(String mensaje, String a, String b) {
+		assertEquals(mensaje,a,b);
+	}
+	
+	public void assertBooleanImprimeMensaje(String mensaje,boolean variable) {
+		assertFalse("####################"+ mensaje +"#############",variable);
+	}
 
 	 public String separarFecha(String fecha, String tipo) {
 			String result = "";
@@ -207,7 +221,9 @@ public class BaseTest {
    
    public void assertTextonotificacion(By locator,String Texto) {		
 		String pageText = driver.findElement(locator).getText();
-		assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+			assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		}		
 	}
 	
 	public void assertTextoelemento(By locator, String Comparar) {
@@ -365,13 +381,12 @@ public class BaseTest {
 	public void selectValorLista(By lista, String Texto) {
    
 	List<WebElement> ListaElement = driver.findElements(lista);	
-   
 	for(int i=0;i<ListaElement.size();i++) {
-		String str = limpiarCadena(ListaElement.get(i).getText());
-		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {
+		String str = limpiarCadena(ListaElement.get(i).getText());		
+		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {			 
 			 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
-   
 		     ElementVisible();
+		     break;
 		}
 	}
 	
@@ -391,6 +406,7 @@ public class BaseTest {
 	/********* FIN FUNC AVANZADAS SELENIUM **************/
 
 	/************ INICIO FUNC JAVASCRIPT ************/
+	
 	public void hacerScrollAbajo() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,10)");
@@ -477,8 +493,8 @@ public class BaseTest {
     //Metodo utilizado para abir los pdf en el navegador el que recibe la ruta del pdf + el nombre
 	public void abriPdfNavegador(String rutaPdf) {		
 		try {
-			driver.get(rutaPdf);
-			Thread.sleep(2000);			
+			Thread.sleep(2500);
+			driver.get(rutaPdf);						
 		} catch (Exception e) {
 			log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
 		}
@@ -622,6 +638,14 @@ public void clickvarios(By locator) {
 			countFilas = driver.findElements(locator).size();
 		}
 	}
+   
+   /*
+    * Recibe una tabla y retorna una pocion con sui valor en String
+    * */
+   public String buscarElementoFilaTabla(By locator, int pocision) {
+	   List<WebElement> ListaElement = driver.findElements(locator);	
+	   return ListaElement.get(pocision).getText();	
+   }
 
 	public void selectFechActualCalendario(By contlist, By itemsLista) {
 		WebElement diasCalen = driver.findElement(contlist);
@@ -629,6 +653,20 @@ public void clickvarios(By locator) {
 		String fecha = getFechaActualDia();
 		for (WebElement contenido : list) {
 			if (contenido.getText().contains(fecha)) {				
+				contenido.click();
+				break;
+			}
+		}
+	}
+	
+	
+	/*
+	 * TP - 21/07/2021
+	 * Se crea el metodo que recibe un dia y lo selecciona en cualquier calendario*/
+	public void selecDiaCalendario(By lisDias, String dia) {
+		List<WebElement> list = driver.findElements(lisDias);
+		for (WebElement contenido : list) {
+			if (contenido.getText().contains(dia)) {				
 				contenido.click();
 				break;
 			}
@@ -785,6 +823,13 @@ public void clickvarios(By locator) {
 		int todayInt = calen.get(Calendar.DAY_OF_MONTH);
 		return Integer.toString(todayInt);
 	}
+	
+	/*CONSULTAR EL AÑO ACTUAL*/
+	public String getFechaActualAno() {
+		Calendar calen = Calendar.getInstance(TimeZone.getDefault());
+		int todayInt = calen.get(Calendar.DAY_OF_YEAR);
+		return Integer.toString(todayInt);
+	}
 
 	// Metodo que limpia los caracteres de las opciones quitando tildes
 	public String limpiarCadena(String cadena) {
@@ -814,6 +859,8 @@ public void clickvarios(By locator) {
 
 		} catch (Exception e) {
 			log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + "|" + e);
+			assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
+			
 		}
 		return result;
 	}
@@ -831,6 +878,7 @@ public void clickvarios(By locator) {
 	    		 
 			 catch (Exception e) {
 			 log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
+			 //assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
 			}
 		 return result;
 	}
