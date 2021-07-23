@@ -87,7 +87,7 @@ Característica: Originacion Compra Cartera
   
     @DesembolsoCartera
     Esquema del escenario: Carteras para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar la cartera <Cedula><estadopago>
+    Cuando el agente ingresa a la lista de pagos para procesar la cartera <Cedula>
     Y se descargadescargan medios de dispersion para la cartera <cartera><Banco><rutaPDF>
 
     Ejemplos: 
@@ -107,10 +107,10 @@ Característica: Originacion Compra Cartera
  
     @Desembolso
     Esquema del escenario: Remanente para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar la cartera <Cedula><estadopago>
+    Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
     Y se descarga medios de dispersion para el remanente <Monto><cartera><Banco><rutaPDF>
     
    Ejemplos: 
-    |Pagaduria                                         |Cedula    |Monto     |cartera |Banco                                            |rutaPDF                                    |estadopago  |
+    |Pagaduria                                         |Cedula    |Monto     |cartera  |Banco                                            |rutaPDF                                    |estadopago  |
     |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"|"79065233"|"15000000"|"2000000"|"Remanentes - 60237038927 - REMANENTE"           |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"Habilitado"|
   

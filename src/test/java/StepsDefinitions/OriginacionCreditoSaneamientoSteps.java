@@ -22,7 +22,7 @@ public class OriginacionCreditoSaneamientoSteps {
     OriginacionCreditoSaneamientoAccion originacionCreditoSaneamientoAccion;
     BaseTest baseTest;
 
-    public OriginacionCreditoSaneamientoSteps() {
+    public OriginacionCreditoSaneamientoSteps() throws InterruptedException {
         driver = Driver.driver;
         originacionCreditoSaneamientoAccion = new OriginacionCreditoSaneamientoAccion(driver);
         baseTest = new BaseTest(driver);
@@ -43,45 +43,45 @@ public class OriginacionCreditoSaneamientoSteps {
 	    originacionCreditoSaneamientoAccion.GuardarSaneamiento();
 	}
 
-	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}")
-	public void sepasaalaprimerapestanadereferenciacionparaconfirmarlaentidad(String entidad_san) throws InterruptedException {
-	    originacionCreditoSaneamientoAccion.ConfirmarEntidadSaneamiento(entidad_san);
-	}
+	//@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}")
+	//public void sepasaalaprimerapestanadereferenciacionparaconfirmarlaentidad(String entidad_san) throws InterruptedException {
+	//    originacionCreditoSaneamientoAccion.ConfirmarEntidadSaneamiento(entidad_san);
+	//}
 	
-	@Y("se confirma el numero de obligacion {string}")
+	/*@Y("se confirma el numero de obligacion {string}")
 	public void seconfirmaelnumerodeobligacion(String num_obligacion_san) throws InterruptedException {
 	    originacionCreditoSaneamientoAccion.ConfirmarObligacionSaneamiento(num_obligacion_san);
-	}
+	}*/
 
 	@Y("se aprueba el saneamiento")
 	public void seapruebaelsaneamiento() {
 	    originacionCreditoSaneamientoAccion.AprobarSaneamiento();
 	}
 
-	@Y("se guarda en la primera pestana de referenciacion")
+	/*@Y("se guarda en la primera pestana de referenciacion")
 	public void seguardaenlaprimerapestanadereferenciacion() {
 	    originacionCreditoSaneamientoAccion.Guardar();
-	}
+	}*/
 
-	@Y("se pasa a la segunda pestana de digitalizacion para agregar el codigo proforences aprueba referencias{string}")
+	/*@Y("se pasa a la segunda pestana de digitalizacion para agregar el codigo proforences aprueba referencias{string}")
 	public void sepasaalasegundapestanadedigitalizacionparaagregarelcodigoproforencesapruebareferencias(String codigo) throws InterruptedException {
 	     originacionCreditoSaneamientoAccion.Referenciaspositivas(codigo);
-	}
+	}*/
 	
 	@Y("se pasa a la segunda pestana de digitalizacion y seleciona el saneamiento")
 	public void sepasaalasegundapestanadedigitalizacionyselecionaelsaneamiento() throws InterruptedException {
 	    originacionCreditoSaneamientoAccion.MarcarSaneamiento();
 	}
 	
-	@Y("se marca identidida confirmada para radicar la solicitud")
+	/*@Y("se marca identidida confirmada para radicar la solicitud")
 	public void semarcaidentididaconfirmadapararadicarlasolicitud() throws InterruptedException {
 	     originacionCreditoSaneamientoAccion.Radicar();
-	}
+	}/*
 	
-	@Entonces("se realiza la solicitud del analisis")
+	/*@Entonces("se realiza la solicitud del analisis")
 	public void serealizalasolicituddelanalisis() throws InterruptedException {
 		 originacionCreditoSaneamientoAccion.ReferenciacionSolicitarAnalisis();
-	}
+	}*/
 	
 //####################### FinalizaSolicitudCreditoParaSaneamiento #####################################################################
 
@@ -130,10 +130,10 @@ public class OriginacionCreditoSaneamientoSteps {
 		   originacionCreditoSaneamientoAccion.ProcesarRemanente(Cedula);
 	   }
 	   
-	   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}") 
+	 /*  @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}") 
 	   public void sedescargamediosdedispersionparaelremanente (String Monto, String saneamiento, String Banco, String Pdf) throws InterruptedException {
 		   originacionCreditoSaneamientoAccion.DescargarMediosDispercionRemanente (Monto,saneamiento,Banco,Pdf);
-	  }
+	  }*/
 	   
 //####################### FinalizaDesembolsoRemanente #####################################################################
 }

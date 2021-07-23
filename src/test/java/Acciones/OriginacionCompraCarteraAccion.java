@@ -50,7 +50,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 	
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 	
-	public OriginacionCompraCarteraAccion (WebDriver driver) {
+	public OriginacionCompraCarteraAccion (WebDriver driver) throws InterruptedException {
 		///this.driver = driver;
     super(driver);
 	// baseTest = new BaseTest(driver);
@@ -303,15 +303,15 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 /************INICIA ACCIONES DESEMBOLSO CARTERA /
  * @throws InterruptedException*************/
    
-  public void ProcesarCartera (String Cedula, String estadopago) throws InterruptedException {
+  public void ProcesarCartera (String Cedula) throws InterruptedException {
 	panelnavegacionaccion.CreditoParaDesembolso();
   	ElementVisible();     	
   	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
   	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
   	ElementVisible();
   	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-  	hacerClick(PagesCreditosDesembolso.FiltroEstadoPago);
-  	hacerClick(pagescreditosdesembolso.EstadoPago);
+  	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
+  	hacerClick(pagescreditosdesembolso.TipoOperacionCompraCartera);
   	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
   	ElementVisible();
   	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
@@ -367,12 +367,12 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
   /************INICIA ACCIONES DESEMBOLSO REMANENTE 
  * @throws InterruptedException *************/
   
-  public void DescargarMediosDispercionRemanente(String Monto, String cartera, String Banco, String Pdf) throws InterruptedException {
+  public void DescargarMediosDispercionRemanente(String Retanqueo, String cartera, String Banco, String Pdf) throws InterruptedException {
 	  	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 	  	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 	  	
 	  	int Gmf4100 = (Integer.parseInt(cartera))*4/1000;
-	  	int Remanente =  (Integer.parseInt(Monto)) - (Integer.parseInt(cartera))- (int) (Gmf4100) ;
+	  	int Remanente =  (Integer.parseInt(Retanqueo)) - (Integer.parseInt(cartera))- (int) (Gmf4100) ;
 	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,String.valueOf(Remanente));
 	  	Thread.sleep(4000);
 	  	ElementVisible(); 	  	

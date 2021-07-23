@@ -22,7 +22,10 @@ public class PagesCreditosDesembolso {
 	public static By FiltroEstadoPago;
 	public static By TipoOperacionSaneamiento;
 	public static By TipoOperacionRemanente;
+	public static By TipoOperacionCompraCartera;
 	public static By FiltroTipoOperacion;
+	public static By EstadoPagoHabilitado;
+	public static By CerrarEstadoPago; 
 	
 	
 	public PagesCreditosDesembolso(WebDriver driver) {
@@ -39,8 +42,11 @@ public class PagesCreditosDesembolso {
     	VerEvidencias= By.id("formLote:j_idt103");
     	ArchivoCreado =By.id("formLote:dispersion");
     	EstadoPago = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
+    	CerrarEstadoPago = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[1]/a");    	                            
+    	EstadoPagoHabilitado = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
     	TipoOperacionSaneamiento = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[4]/label");
     	TipoOperacionRemanente = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[3]");
+    	TipoOperacionCompraCartera = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[1]/label");    	
     	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
     	FiltroTipoOperacion = By.xpath("//label[text()='Tipo Operación']");
     	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
