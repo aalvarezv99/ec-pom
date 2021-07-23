@@ -29,7 +29,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -313,12 +313,10 @@ public class BaseTest {
                           
 	}
                           
-	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina) {
-		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina;
+	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
+		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
 		return (int) redondearDecimales(Valor,0);
-                          
 	}
- 
 	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
  
 		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
@@ -599,18 +597,26 @@ public class BaseTest {
 
 	/************* FIN FUNC REPORTES ***********************/
 
-   public void MarcarCheck(By locator) throws InterruptedException {
+	/**
+	 * M&eacute;todo encargado de marchar una opci&oacute;n proveniente de un
+	 * elemento de tipo radio button o checkbox.
+	 *
+	 * @param locator					El elemento de tipo radio button o
+	 *                                  checkbox.
+	 * @throws InterruptedException
+	 */
+	public void MarcarCheck(By locator) throws InterruptedException {
 		Thread.sleep(1000);
-	
+
 		List<WebElement> BtnCheck = driver.findElements(locator);
-		
+
 		int count =0;
-		
-		for (WebElement contenido : BtnCheck) {	
-			
+
+		for (WebElement contenido : BtnCheck) {
+
 			contenido.click();
 			count = count + 1;
-			hacerScrollAbajo();			
+			hacerScrollAbajo();
 		}
 	}
  
@@ -792,10 +798,12 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
+		
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
-
+		}
 
 	}
 
@@ -894,6 +902,15 @@ public WebDriver chromeDriverConnection() {
 		driver= new InternetExplorerDriver();
 		return driver;
 	}
+    
+    public void  ToleranciaPeso(int a,int b){
+    	int Tolerancia=a-b;
+        if(Tolerancia<=1 && Tolerancia>=0){
+    		assertTrue(true);
+    	}else {
+    		assertTrue(false);
+    	}
+    }
   
 	/**************************************/
 

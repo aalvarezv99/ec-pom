@@ -59,7 +59,18 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet colchonpagaduria(String pagaduria) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select pp.valor from pagaduria p inner join pagaduria_parametro pp on pp.id_pagaduria = p.id inner join parametro pa on pa.id = pp.id_parametro where p.nombre = '"+ pagaduria +"' and pa.nombre = 'colchon';");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
 
+		return r;
+	}
 	}
 
 
