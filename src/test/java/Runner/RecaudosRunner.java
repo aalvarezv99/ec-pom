@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/Recaudos.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"not @RecaudoPagaduria"},				
+		tags = {"not @RecaudoCertificacionSaldos and not @RecaudoPrepagoCredito and not @RecaudoPagaduria"},				
 	    snippets = SnippetType.CAMELCASE
 		)
 public class RecaudosRunner {
