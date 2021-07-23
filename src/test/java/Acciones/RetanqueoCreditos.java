@@ -252,7 +252,26 @@ public class RetanqueoCreditos extends BaseTest {
 		hacerClick(pestanareferenciacionpage.CargoCheck);
 		ElementVisible();
 	}
-
+	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina) throws InterruptedException{
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
+    	Clear(pestanasimuladorinternopage.FechaDesembolso);
+    	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);  
+    	EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+    	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);    	
+		ElementVisible();
+		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.FechasManuales);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
+		ElementVisible();
+		hacerClicknotificacion();
+		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
+    	
+    }
+	
 	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera) throws InterruptedException{
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
