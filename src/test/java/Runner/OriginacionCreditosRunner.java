@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/OriginacionCreditos.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@SimuladorAsesor,@SolicitudCredito"},
+		tags = {"not @SimuladorAsesor and not @SolicitudCredito and not @AnalisisCredito and not @ClientesBienvenida and not  @CreditosVisacion and not @Desembolso"},
 	    snippets = SnippetType.CAMELCASE
 		)
 public class OriginacionCreditosRunner {

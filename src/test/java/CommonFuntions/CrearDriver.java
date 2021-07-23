@@ -2,13 +2,16 @@ package CommonFuntions;
 
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class CrearDriver {
 	
@@ -52,6 +55,7 @@ public class CrearDriver {
 	//Esta lee el sistema operativo y el navegador basado en esto ejecuta el driver correspondiente
 	public static WebDriver crearNuevoWebDriver(String navegador, String so) {
 		WebDriver driver = null;
+		DesiredCapabilities ruta = null;
 		try {
 			pro.load(in);
 			origenFuente = pro.getProperty("OrigenDriver");
@@ -70,7 +74,8 @@ public class CrearDriver {
 					System.setProperty("webdriver.chrome.driver", origenFuente + so + "/linux");
 					break;	
 				}
-				driver = new ChromeDriver();
+				ruta = setDownloadsPath();
+				driver = new ChromeDriver(ruta);
 				break;
 
 			case "Firefox":
@@ -85,7 +90,8 @@ public class CrearDriver {
 					System.setProperty("webdriver.gecko.driver", origenFuente + so + "/linux");
 					break;	
 				}
-				driver = new FirefoxDriver();
+				ruta = setDownloadsPath();
+				driver = new FirefoxDriver(ruta);
 				break;
 				
 			case "InternetExplored":
@@ -112,6 +118,24 @@ public class CrearDriver {
 		}
 
 		return driver;
+	}
+	
+	public static  DesiredCapabilities setDownloadsPath() {
+		DesiredCapabilities caps = null;
+		try {
+			pro.load(in);
+			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");			
+			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+			chromePrefs.put("download.default_directory", RutaDescargas);
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("prefs", chromePrefs);
+			caps = new DesiredCapabilities();
+			caps.setCapability(ChromeOptions.CAPABILITY, options);
+		} catch (Exception e) {
+			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
+		}
+		
+		return caps;
 	}
 	
 }

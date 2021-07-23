@@ -29,8 +29,13 @@ Característica: Recaudos generales en el sistema de cliente y pagaduria
 
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
-    Cuando Navegue a la pestana pagos de recaudos
-    Y Realice el recaudo con el valor <VlrPago> y origen "pagaduria"
+    Cuando El agente navegue a la pestana pagos hasta la pestana preaplicacion de pagos
+    Y Se filtra por <Pagaduria><Ano><Periodo>
+    Y Se captura el valor del recaudo con la suma de valores recibidos
+    #Entonces se pasa a la pestana de recaudo
+    #Y se agrega el pago de recaudo <Pagaduria><Periodo><Periodo>
+    Y finaliza con la validacion del recaudo <Pagaduria> realizado con el registrado en el sistema
+   
     Ejemplos: 
-      | VlrPago    |
-      | 1000000000 |
+      |Pagaduria                                     |Ano   |Periodo      |
+      |"ALCALDÍA MUNICIPAL DE ARMENIA NÓMINA ACTIVOS"   |"2021"|"Junio  30"  |

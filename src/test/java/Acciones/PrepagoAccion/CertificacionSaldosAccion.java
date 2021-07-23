@@ -209,7 +209,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 			assertTrue("######### ERROR - validarValoresPDF()#######"+ e,false);
 		}
 		
-		//abrirNuevaVentana();
+		abrirNuevaVentana();
 		
 	}
 	
@@ -222,7 +222,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 		
 		try {
 			while(result.next()) {
-				nombreDoc = result.getString(1);
+				nombreDoc = "certificacion-saldo-"+numRadicado+".pdf";
 				//log.info("************** Buscando valores en la certificacion " + nombreDoc +" *******");
 				//abriPdfNavegador(rutaPdf+nombreDoc);
 				adjuntarCaptura(nombreDoc);

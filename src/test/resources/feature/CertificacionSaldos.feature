@@ -1,10 +1,10 @@
 #language: es
-Característica: Prepago de Creditos
+Característica: Prepago de Creditos Abacus
 
   Antecedentes: Usuario en el sistema
     Dado Un agente en el sistema core abacus con sesion iniciada
 
-  @CertidicacionSaldoActivaCXCFianza
+  @CertificacionSaldoActivaCXCFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc y fianza
     Cuando Navegue a la configuracion global del pregago
     Y Configure los valores <DiaCertificacion> <VencimientoCert> <ValorCertificacion> para la certificacion de saldo
@@ -24,7 +24,7 @@ Característica: Prepago de Creditos
     ##Y la amortizacion del prepago y lo movimientos contables en bases de datos
     Ejemplos: 
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento                                       |
-      | 65334 			| 49776835	|               11 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
+        | 59829 | 64544337 |             22 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
 
   @CertificacionSaldoActivaCXCSinFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc sin fianza
