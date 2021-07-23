@@ -18,7 +18,7 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	SolicitudCompraCarteraSaneamientoAccion solicitudcompracarterasaneamientoaccion;
 	BaseTest baseTest;
 	
-	public SolicitudCompraCarteraSaneamientoSteps() {		
+	public SolicitudCompraCarteraSaneamientoSteps() throws InterruptedException {		
 		driver = Driver.driver;		
 		solicitudcompracarterasaneamientoaccion = new SolicitudCompraCarteraSaneamientoAccion(driver);
 		baseTest = new BaseTest(driver);

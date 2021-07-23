@@ -55,7 +55,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	LeerArchivo archivo;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 
-	public SolicitudCompraCarteraSaneamientoAccion(WebDriver driver) {
+	public SolicitudCompraCarteraSaneamientoAccion(WebDriver driver) throws InterruptedException {
 	//this.driver = driver;
 	super(driver);
 	// baseTest = new BaseTest(driver);

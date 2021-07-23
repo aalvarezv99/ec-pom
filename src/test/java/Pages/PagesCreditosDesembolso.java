@@ -26,10 +26,6 @@ public class PagesCreditosDesembolso {
 	public static By EstadoPagoHabilitado;
 	public static By TipoOperacionSaneamiento;
 	public static By TipoOperacionRemanente;
-	public static By TipoOperacionCompraCartera;
-	public static By FiltroTipoOperacion;
-	public static By EstadoPagoHabilitado;
-	public static By CerrarEstadoPago; 
 	
 	
 	public PagesCreditosDesembolso(WebDriver driver) {
