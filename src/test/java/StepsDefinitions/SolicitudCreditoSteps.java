@@ -100,6 +100,7 @@ public class SolicitudCreditoSteps {
 	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos);
 	}
 	
+	
 	@Y ("Guarda los datos del simulador")
 	public void guarda_los_datos_del_simulador() throws InterruptedException {
 	 originacionaccion.GuardarSimulacionAnalista();

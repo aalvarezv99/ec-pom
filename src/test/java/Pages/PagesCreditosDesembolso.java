@@ -18,8 +18,12 @@ public class PagesCreditosDesembolso {
 	public static By Guardar;
 	public static By VerEvidencias;
 	public static By ArchivoCreado;
-	public static By EstadoPago;
 	public static By FiltroEstadoPago;
+	public static By FiltroTipoOperacion;
+	public static By TipoOperacionCompraCartera;
+	public static By EstadoPago;
+	public static By CerrarEstadoPago;
+	public static By EstadoPagoHabilitado;
 	public static By TipoOperacionSaneamiento;
 	public static By TipoOperacionRemanente;
 	public static By TipoOperacionCompraCartera;

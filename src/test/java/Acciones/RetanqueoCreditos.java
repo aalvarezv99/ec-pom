@@ -202,7 +202,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 	}
 
-	public void ValidarSimulador(String Ingresos, String descLey, String descNomina, String colchon, String Tasa,
+	public void ValidarSimulador(String Ingresos, String descLey, String descNomin, String Tasa,
 			String Plazo) throws NumberFormatException, SQLException {
 
 		// Valores para la funciones estaticos
@@ -296,6 +296,39 @@ public class RetanqueoCreditos extends BaseTest {
     		assertTrue(false);
     	}*/
     }
+	
+	public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Cartera, String Saneamiento) throws InterruptedException{
+    	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
+    	Clear(pestanasimuladorinternopage.FechaDesembolso);
+    	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);  
+    	EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+    	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);    	
+		ElementVisible();
+		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.FechasManuales);
+		ElementVisible();
+		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
+		ElementVisible();
+		hacerClicknotificacion();
+		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		int TotalCarteras = (Integer.parseInt(Cartera)+Integer.parseInt(Saneamiento));		
+		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
+		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));		
+			
+		//ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+    	
+		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+		System.out.println("dentro del if que contiene punto");
+		}else {
+		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+		System.out.println("dentro del else que no contiene punto");
+		}
+    }
+	
+	
 
 	public void DescargarMediosdedispercionRetanqueo(String Retanqueo,String Banco, String Pdf) {
 
@@ -303,10 +336,10 @@ public class RetanqueoCreditos extends BaseTest {
 		panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 		esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 		EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(Monto));
-		ElementVisible();
-
+		ElementVisible();	
+		
 		String pattern = "###,###,###.###";
-		double value = Double.parseDouble(String.valueOf(Monto));
+		double value = Double.parseDouble(String.valueOf(Remanente));
 
 		DecimalFormat myFormatter = new DecimalFormat(pattern);
 		myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));

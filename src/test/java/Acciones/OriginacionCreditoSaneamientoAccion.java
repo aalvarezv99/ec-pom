@@ -100,35 +100,21 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 		hacerClick(pestanadigitalizacionPage.Guardar);
 		ElementVisible();	
 	}
-	
-	public void ConfirmarEntidadSaneamiento(String entidad_san) throws InterruptedException {
-		recorerpestanas("REFERENCIACIÓN");
-		esperaExplicita(pestanareferenciacionpage.Aprobar);
-		Hacer_scroll_Abajo(pestanareferenciacionpage.Aprobar);
-		hacerClick(pestanareferenciacionpage.SeleccionarSaneamiento);
-		hacerClick(pestanareferenciacionpage.Entidad);
-		EscribirElemento(pestanareferenciacionpage.FiltroEntidad, entidad_san);
-		EnviarEnter(pestanareferenciacionpage.FiltroEntidad);
-		ElementVisible();		
-	}
-	
-	public void ConfirmarObligacionSaneamiento(String num_obligacion) {
+		
+	/*public void ConfirmarObligacionSaneamiento(String num_obligacion) {
 		esperaExplicita(pestanareferenciacionpage.Entidad);
 		EscribirElemento(pestanareferenciacionpage.NumObligacion, num_obligacion);
 		ElementVisible();		
-	}
+	}*/
 	
 	public void AprobarSaneamiento () {
 		hacerClick(pestanareferenciacionpage.Aprobar);
 		ElementVisible();	
 	}
 	
-	public void Guardar () {
-		hacerClick(pestanareferenciacionpage.Guardar);
-		ElementVisible();		
-	}
+
 	
-	public void Referenciaspositivas(String codigo) throws InterruptedException {
+	/*public void Referenciaspositivas(String codigo) throws InterruptedException {
     	recorerpestanas("DIGITALIZACIÓN");
     	ElementVisible();
 		recorerpestanas("REFERENCIACIÓN");
@@ -166,34 +152,13 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 		//hacerClick(pestanadigitalizacionPage.Guardar);
 		ElementVisible();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);			
-	}
+	}*/
 	
 	public void MarcarSaneamiento () throws InterruptedException {
 		hacerClick(pestanadigitalizacionPage.MarcarCartera);
 		hacerClick(pestanadigitalizacionPage.Guardar);
 		ElementVisible();
 	}
-
-    public void Radicar() throws InterruptedException {	
-    	hacerClick(pestanadigitalizacionPage.Radicar);
-    	ElementVisible();
-    	esperaExplicita(pestanadigitalizacionPage.Notificacion);
-    	hacerClicknotificacion();
-    	hacerClicknotificacion();
-    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-    	}
-    
-    public void ReferenciacionSolicitarAnalisis() throws InterruptedException {
-		recorerpestanas("REFERENCIACIÓN");
-		Hacer_scroll(pestanareferenciacionpage.SolicitarAnalisis);
-		hacerClick(pestanareferenciacionpage.SolicitarAnalisis);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		hacerClicknotificacion();
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);		
-	}
-
-	
 
 /************FIN ACCIONES SOLICITUD CREDITO SANEAMIENTO***************/
     

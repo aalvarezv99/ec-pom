@@ -74,9 +74,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.Simulador(retanqueo,Tasa, Plazo, DiasHabilesIntereses, Ingresos, descLey, descNomina);
 	}
 	
-	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}{string}")
-	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String colchon,String Tasa,String Plazo) throws NumberFormatException, SQLException {
-		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,colchon,Tasa,Plazo);
+	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}")
+	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,Tasa,Plazo);
 	}
 	
 	@Y("se da clic en solicitar")
@@ -98,6 +98,12 @@ public class RetanqueoAsesorSteps {
 	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera) throws InterruptedException {
 		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera);
 	}
+	
+    @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2) throws InterruptedException {
+    	retanqueocreditos.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Cartera1, Saneamiento2);
+	}
+    
 	
 	@Y("se filtra por monto para retanqueo y se edita {string}{string}{string}")
 	public void sefiltrapormontopararetanqueoyseedita(String Retanqueo,String Banco, String rutaPDF) {

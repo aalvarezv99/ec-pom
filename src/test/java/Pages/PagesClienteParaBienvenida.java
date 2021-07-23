@@ -25,6 +25,8 @@ public class PagesClienteParaBienvenida {
 	public By Contactado;
 	public By Direccion_Residencia_Si;
 	public By CxCSeguroInicial;
+	public By AceptarCartera;
+	public By AceptarSaneamiento;
 	
 	public PagesClienteParaBienvenida(WebDriver driver) {
 		filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -35,7 +37,8 @@ public class PagesClienteParaBienvenida {
 	    CedulaGrilla = By.xpath("//td[text()='52912399']");
 		Guardar= By.xpath("//a[text()='Guardar']");
 	    Correcta = By.xpath("//*[text()='Correcta']");
-	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone']");
+	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone'  and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone' and @id!='formCondicionCredito:j_idt255:1:aceptaRadio:2_clone']");
+	    //CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone']");
 	    label_Nombres_Completos=By.xpath("//label[text()='Nombres completos: ']"); 
 	    Correo=By.name("form:j_idt127");
 	    Desembolso=By.id("formCondicionCredito:j_idt296_label");
@@ -46,5 +49,8 @@ public class PagesClienteParaBienvenida {
 	    Contactado = By.xpath("//*[@id=\"form:contCel\"]/div[2]/span"); //se debe cambiar cuando se actualicen los ID
 	    Direccion_Residencia_Si= By.id("form:direccionCorrespondencia:0");
 	    CxCSeguroInicial = By.id("formCondicionCredito:seguroInicial:0_clone");
+	    AceptarCartera = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:0_clone') and contains (@value,'true')]");
+	    AceptarSaneamiento = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:2_clone') and contains (@value,'true')]");
+
 	}
 }
