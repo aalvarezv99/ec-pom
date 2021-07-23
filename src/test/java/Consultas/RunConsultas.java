@@ -8,11 +8,12 @@ import org.apache.log4j.Logger;
 
 
 public class RunConsultas {
-	/*private static Logger log = Logger.getLogger(RunConsultas.class);
+	private static Logger log = Logger.getLogger(RunConsultas.class);
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		CertificacionSaldoQuery query = new CertificacionSaldoQuery();
-		ResultSet result;
+		query.obtenerSaldoInsoluto(134001, "2021-08-24", "2021-08-30", "2021-07-12");
+		/*ResultSet result;
 		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
 		result = query.ejecutarFuncion(); 
 		log.info("CONSULTAS PROCEDURE ***************");
@@ -54,7 +55,7 @@ public class RunConsultas {
 			log.info(result.getString(14));
 			log.info(result.getString(15));
 			log.info(result.getString(16));
-		}
-	}*/
+		}*/
+	}
 
 }
