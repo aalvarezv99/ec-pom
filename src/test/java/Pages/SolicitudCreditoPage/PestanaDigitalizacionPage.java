@@ -75,7 +75,7 @@ public class PestanaDigitalizacionPage {
 		EntidadCompetidorCartera = By.id("formRadicacion:j_idt93:1:competidorSO_label");
 		FiltroListaCartera = By.id("formRadicacion:j_idt93:1:competidorSO_filter");
 		RadioCompra = By.id("formRadicacion:j_idt93:1:tipoCarteraSO:1");
-		MontoCartera = By.id("formRadicacion:j_idt93:1:montoSO_input");
+		MontoCartera = By.id("formRadicacion:j_idt93:0:montoSO_input");
 		ValorCuotaCartera = By.id("formRadicacion:j_idt93:1:valorCuotaSO_input");
 		FechaVencimientoCartera = By.id("formRadicacion:j_idt93:1:fechaVencimientoSO_input");
 		NumeroObligacionCartera	= By.id("formRadicacion:j_idt93:1:numeroObligacionSO");

@@ -36,7 +36,7 @@ public class OriginacionCompraCarteraSteps {
 	    originacioncompracarteraaccion.GuardarCartera();
 	}
 
-	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad saneamiento {string}")
+	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}")
 	public void se_pasa_a_la_primera_pestana_de_referenciacion_para_confirmar_la_entidad_entidad_saneamiento(String entidad) throws InterruptedException {
 	    originacioncompracarteraaccion.ConfirmarEntidad(entidad);
 	}
