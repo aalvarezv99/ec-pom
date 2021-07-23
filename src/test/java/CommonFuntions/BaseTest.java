@@ -933,5 +933,57 @@ public WebDriver chromeDriverConnection() {
     }
   
 	/**************************************/
+//backup metodo de carteras y saneamientos
+    public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
+			throws InterruptedException {
+		List<WebElement> Entidad = driver.findElements(ListEntidad);
+		List<WebElement> Filtro = driver.findElements(ListFiltro);
+		List<WebElement> Monto = driver.findElements(ListMonto);
+		List<WebElement> Cuota = driver.findElements(ListValorCuota);
+		List<WebElement> Fecha = driver.findElements(ListFecha);
+		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
+		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
+		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
+		String a[] = new String[2];
 
+		for (int i = 0; i < Entidad.size(); i++) {
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+           //Llenar la entidad
+			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
+			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
+			EnviarEnter(By.id(Filtro.get(i).getAttribute("id")));
+            //llenar el monto
+			Hacer_scroll(By.name(Monto.get(i).getAttribute("name")));
+			Clear(By.name(Monto.get(i).getAttribute("name")));
+			driver.findElement(By.name(Monto.get(i).getAttribute("name"))).sendKeys(VlrMonto[i]);
+            //llenar la cuota
+			Clear(By.name(Cuota.get(i).getAttribute("name")));
+			driver.findElement(By.name(Cuota.get(i).getAttribute("name"))).sendKeys(VlrCuota[i]);
+            //llenar la fecha
+			Clear(By.name(Fecha.get(i).getAttribute("name")));
+			driver.findElement(By.name(Fecha.get(i).getAttribute("name"))).sendKeys(VlrFecha[i]);
+            //llenar numero de obligacion
+			Clear(By.name(NumObligacion.get(i).getAttribute("name")));
+			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
+			a[i] = BtnAprobar.get(i).getAttribute("id");
+		}
+        
+		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(RadioSaneamiento.size()-1).getAttribute("id")));
+		driver.findElement(By.id(RadioSaneamiento.get(RadioSaneamiento.size()-1).getAttribute("id"))).click();
+
+        //Aprobar las compras
+		for (int i = 0; i < BtnAprobar.size(); i++) {
+			assertEstaPresenteElemento(By.id(a[i]));
+			Hacer_scroll_Abajo(By.id(a[i]));
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+			i = i++;
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+		}
+	}
+    
 }
