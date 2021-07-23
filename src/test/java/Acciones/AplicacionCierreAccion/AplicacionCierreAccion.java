@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.record.TopMarginRecord;
 import org.apache.poi.ss.formula.functions.Replace;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,6 +40,7 @@ public class AplicacionCierreAccion extends BaseTest {
 	
 	public void NavegarPagoConOpcion(String opcion) {
 		panelprincipalaccion.navegarPagoconOpcion(opcion);
+		adjuntarCaptura("IngresarCarguePlanilla");
 	}
 	
 	/*
@@ -71,8 +73,11 @@ public class AplicacionCierreAccion extends BaseTest {
 			esperaExplicitaTexto(nombrePagaduria);
 			String vlr = buscarElementoFilaTabla(listapagopage.contTablafiltro, 12).replaceAll("[^a-zA-Z0-9]", "");	
 			if(Math.round(Long.valueOf(vlr))!=0) {
+				Hacer_scroll_Abajo(listapagopage.btnCargaArchivo);
+				adjuntarCaptura("PagaduriaCargada");
 				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA AGADURIA","0" , vlr);
 			}
+			adjuntarCaptura("FiltroPagaduria");
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - escribirPagaduriaValidarCargue()  ################"+ e);
 			assertTrue("########## Error - AplicacionCierreAccion - escribirPagaduriaValidarCargue() ########"+ e,false);
@@ -90,6 +95,7 @@ public class AplicacionCierreAccion extends BaseTest {
 			cargarpdf(listapagopage.btnCargaArchivo, rutaDocumento +nombrePagaduria+".xlsx");
 			esperaExplicita(listapagopage.notificacion);
 			assertTextonotificacion(listapagopage.notificacion, "Se ha iniciado la carga del archivo.");			
+			adjuntarCaptura("InicioCarguePlanilla");
 			hacerClicknotificacion();
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - cargarArchivoPagaduria()  ################"+e);
@@ -107,6 +113,8 @@ public class AplicacionCierreAccion extends BaseTest {
 			ElementVisible();
 			
 			assertTextonotificacion(listapagopage.notificacion, notificacion);
+			adjuntarCaptura("CargueTerminado");
+			hacerClicknotificacion();
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - validarMensajeCargueTerminado()  ################"+e);
 			assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
@@ -122,7 +130,8 @@ public class AplicacionCierreAccion extends BaseTest {
 				vlrListadoDB = result.getString(3);
 			}		
 			result.close();
-			
+			Hacer_scroll_Abajo(listapagopage.btnCargaArchivo);
+			adjuntarCaptura("ValorPlanillaCargada");
 			String Vlrpantalla = buscarElementoFilaTabla(listapagopage.contTablafiltro, 12).replaceAll("[^a-zA-Z0-9]", "");			
 			assertValidarEqualsImprimeMensaje("LOS VALORES CARGADOS EN LISTADO NO COINCIDEN CON LOS CARGADOS EN BASE DE DATOS", 
 					vlrListadoDB,  Vlrpantalla.substring(0, Vlrpantalla.length()-2));

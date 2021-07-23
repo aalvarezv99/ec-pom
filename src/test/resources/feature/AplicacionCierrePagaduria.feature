@@ -18,7 +18,7 @@ Característica: Aplicacion de pagos y cierre
     Ejemplos: 
       | Periodo  | NombrePagaduria                        | RutaPagaduria                                            |
     #  | Junio 30 | FIDUPREVISORA NÓMINA PENSIONADOS FOMAG | "C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\" |
-	  |  Junio 30  |BANCO DE LA REPUBLICA NÓMINA ACTIVOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
+	  |  Junio 30  |P.A POLICIA NACIONAL NOMINA UNIFORMADOS ACTIVOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
   
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -30,7 +30,7 @@ Característica: Aplicacion de pagos y cierre
 
     Ejemplos: 
       | Pagaduria        | Ano    | Periodo     |
-      | "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Junio  30" |
+      | "P.A POLICIA NACIONAL NOMINA UNIFORMADOS ACTIVOS" | "2021" | "Junio  30" |
       
     @PreaplicacionPagaduria
     Esquema del escenario: Preaplicacion Pagaduria
@@ -42,7 +42,7 @@ Característica: Aplicacion de pagos y cierre
     	Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
     	Ejemplos: 
     	|IdPagaduria| Pagaduria                                   | Ano    | Periodo     |
-      |228| "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Junio  30" |
+      |404| "P.A POLICIA NACIONAL NOMINA UNIFORMADOS ACTIVOS" | "2021" | "Junio  30" |
       
       @AplicacionFinalPagaduria
       Esquema del escenario: Aplicacion final de pagaduria en abacus
@@ -53,7 +53,7 @@ Característica: Aplicacion de pagos y cierre
       	Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <Pagaduria> y <Periodo>
       	Ejemplos:
       	|Pagaduria|Periodo|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/06/2021|
+      	|P.A POLICIA NACIONAL NOMINA UNIFORMADOS ACTIVOS|30/06/2021|
       	
       @CierrePagaduria
       Esquema del escenario: Cierre de pagaduria en abacus
@@ -64,5 +64,5 @@ Característica: Aplicacion de pagos y cierre
       	Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <Pagaduria> y <Periodo>
       	Ejemplos:
       	|Pagaduria|Periodo|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/06/2021|
+      	|P.A POLICIA NACIONAL NOMINA UNIFORMADOS ACTIVOS|30/06/2021|
       	
