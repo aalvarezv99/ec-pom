@@ -42,6 +42,11 @@ public class OriginacionCreditoSaneamientoSteps {
 	public void guardaelsaneamientoagregado()  {
 	    originacionCreditoSaneamientoAccion.GuardarSaneamiento();
 	}
+	
+	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad saneamiento {string}")
+	public void se_pasa_a_la_primera_pestana_de_referenciacion_para_confirmar_la_entidad_entidad_saneamiento(String entidad_san) throws InterruptedException {
+		originacionCreditoSaneamientoAccion.ConfirmarEntidadSaneamiento(entidad_san);
+	}
 
 	@Y("se aprueba el saneamiento")
 	public void seapruebaelsaneamiento() {

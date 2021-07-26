@@ -95,12 +95,23 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 		hacerClick(pestanadigitalizacionPage.SeleccionSaneamiento);
 	}
 	
+		
+	public void ConfirmarEntidadSaneamiento(String entidad_san) throws InterruptedException {
+		recorerpestanas("REFERENCIACIÓN");
+		esperaExplicita(pestanareferenciacionpage.Aprobar);
+		Hacer_scroll_Abajo(pestanareferenciacionpage.Aprobar);
+		hacerClick(pestanareferenciacionpage.ListRadioSaneamiento);
+		hacerClick(pestanareferenciacionpage.Entidad);
+		EscribirElemento(pestanareferenciacionpage.FiltroEntidad, entidad_san);
+		EnviarEnter(pestanareferenciacionpage.FiltroEntidad);
+		ElementVisible();		
+	}
+		
 	public void GuardarSaneamiento()  {
 		//hacerScrollAbajo(pestanadigitalizacionPage.Guardar);
 		hacerClick(pestanadigitalizacionPage.Guardar);
 		ElementVisible();	
 	}
-		
 	/*public void ConfirmarObligacionSaneamiento(String num_obligacion) {
 		esperaExplicita(pestanareferenciacionpage.Entidad);
 		EscribirElemento(pestanareferenciacionpage.NumObligacion, num_obligacion);
