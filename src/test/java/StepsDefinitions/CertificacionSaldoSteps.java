@@ -65,17 +65,15 @@ public class CertificacionSaldoSteps {
 	public void posteriormenteDescargandoLaCertificacionEnElModuloGestionCertificadosConLosDatosDelCliente(int numRadicado, int numCedula) {
 		certificacionAccion.descargarPdfGestionCertificado(numRadicado, numCedula);
 	}
-
-	@Y("se realiza la validacion del PDF descargado con el {int}")
-	public void seRealizaLaValidacionDelPDFDescargado(int numRadicado) throws Exception {
+	
+	@Y("^se realiza la validacion del PDF descargado con el (.+) en la ruta \"([^\"]*)\"$")
+    public void seRealizaLaValidacionDelPDFDescargadoConElEnLaRuta(String numradicado, String rutadocumento) throws Throwable {
 		try {
-			certificacionAccion.validarValoresPDF(numRadicado);	
+			certificacionAccion.validarValoresPDF(numradicado, rutadocumento);	
 		} catch (Exception e) {
 			log.fatal("#ERROR###"+e);
 			throw new Exception("ERROR");
-		}		
-		
-	}
-
+		}
+    }
 	
 }

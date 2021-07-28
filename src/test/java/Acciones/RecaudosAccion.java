@@ -1,5 +1,6 @@
 package Acciones;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
@@ -12,25 +13,31 @@ import org.openqa.selenium.WebElement;
 
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
-import Consultas.PrepagoQuery;
+import Consultas.RecaudoQuery;
 import Pages.RecaudoPage;
+import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
 
 public class RecaudosAccion extends BaseTest{
 	WebDriver driver;
 	RecaudoPage recaudopage = new RecaudoPage(driver); 
 	PanelPrincipalAccion panelprincipal;
+	PagoPreaplicacionPagoPage pagopreaplicacionpagopage;
 	CertificacionSaldoQuery query;
-	PrepagoQuery queryRecaudo;
+	RecaudoQuery queryRecaudo;
 	private static Logger log = Logger.getLogger(RecaudosAccion.class);
 	
 	//variables Locales
 	String valorRecaudo;
+	static String ValorRecaudo;
+	static String SumValoresRecibidos;
+	
 
 	public RecaudosAccion(WebDriver driver) {
 		super(driver);
 		panelprincipal = new PanelPrincipalAccion(driver);
+		pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		query = new CertificacionSaldoQuery();
-		queryRecaudo = new PrepagoQuery();
+		queryRecaudo = new RecaudoQuery();
 	}
 	
 	/*NAVEGACION PRINCIPAL
@@ -41,37 +48,33 @@ public class RecaudosAccion extends BaseTest{
 		adjuntarCaptura("ingresarVentanaRecaudo");
 	}
 	
+	public void IngresaVentanaPagos() {
+		panelprincipal.navegarPagos();
+		adjuntarCaptura("ingresarVentanaRecaudo");
+	}
+	
 	public void abrirCertificacionNavegador(String rutaDocumento, String numRadicado) {	
-		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		String  nombreDoc = "";
+		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");	
 		try {
-			while(result.next()) {
-				nombreDoc = result.getString(1);	
-			}		
-			result.close();			
+			abriPdfNavegador(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");	
+			adjuntarCaptura(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");
 		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - abrirCertificacionNavegador() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - abrirCertificacionNavegador() ##########"+ e,false);
-		}	
-		abriPdfNavegador(rutaDocumento+nombreDoc);	
-		adjuntarCaptura("nombreDoc");
+			log.error("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e,false);
+		}
+		
 	}
 	
 	public String consultarVlrTotal(String numRadicado, String rutadocumento) {
 		String vlrTotal = "";
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		String  nombreDoc = "";
+		String nombreDoc = "certificacion-saldo-"+numRadicado+".pdf";
 		try { 
-			while(result.next()) {
-				nombreDoc = result.getString(1);	
-			}		
-			result.close();			
+			vlrTotal = extraerValorPDF(rutadocumento, nombreDoc,"Total a pagar $ ");		
 		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e,false);
-		}	
-		return vlrTotal = extraerValorPDF(rutadocumento, nombreDoc,"Total a pagar $ ");
+			log.error("####### ERROR RecaudosAccion - consultarVlrTotal() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - consultarVlrTotal() ##########"+ e,false);
+		}
+		return vlrTotal;	
 	}
 	
 	public void seleccionarPagaduria(String vlrpago, String origen) {
@@ -106,8 +109,9 @@ public class RecaudosAccion extends BaseTest{
 			hacerClick(recaudopage.checkCliente);
 			ElementVisible();
 			hacerClick(recaudopage.tipoPago);
-			selectValorLista(recaudopage.contTipoPago,recaudopage.listTipoPago, tipoRecaudo);
-			ElementVisible();			
+			selectValorLista(recaudopage.listTipoPago, tipoRecaudo);
+			ElementVisible();		
+			esperaExplicita(recaudopage.inputCedula);
 			hacerClick(recaudopage.inputCedula);
 			EscribirElemento(recaudopage.inputCedula, identitificacion);
 			ElementVisible();			
@@ -136,6 +140,7 @@ public class RecaudosAccion extends BaseTest{
 			log.error("############## ERROR recaudoClienteCertificacion() ###########" + e);
 			assertTrue("############## ERROR recaudoClienteCertificacion() ###########"+ e,false);
 		}		
+		System.out.println();
 		
 	}
 	
@@ -146,8 +151,8 @@ public class RecaudosAccion extends BaseTest{
 	 * se ejecutan las acciones para realizar la validacion del cambio de estado del Credito a PREPAGADO
 	 * */
 	public void validarEstadoCredito(String numRadicado, String estadoCredito) {
+		log.info("********************* RecaudosAccion validarEstadoCredito()" );
 		ResultSet result = queryRecaudo.validarRecaudo(numRadicado, "PREPAGO"); 
-		NumberFormat formatoNumero = NumberFormat.getNumberInstance();		
 		String vlrDbRecaudo = "";
 		String estadoDbCredito = "";
 		try {
@@ -157,12 +162,103 @@ public class RecaudosAccion extends BaseTest{
 			}		
 			result.close();		
 			
-			assertvalidarEquals(valorRecaudo.replace(",","."),vlrDbRecaudo);
-			assertvalidarEquals(estadoCredito.toUpperCase(),estadoDbCredito);
+			assertValidarEqualsImprimeMensaje("######## EL VALOR DEL RECAUDO NO COINCIDE CON BASE DE DATOS ######",
+					valorRecaudo.replace(",",""),vlrDbRecaudo.replace(",",""));
+			assertValidarEqualsImprimeMensaje(" ####### EL ESTADO DEL CREDITO 'PREPAGADO', NO COINCIDE, VALIDAR BASE DE DATOS  ######",
+					estadoCredito.toUpperCase(),estadoDbCredito);
 			
 		} catch (Throwable e) {
 			log.error("####### ERROR RecaudosAccion - validarEstadoCredito() ##########"+ e);
 			assertTrue("####### ERROR RecaudosAccion - validarEstadoCredito() ##########"+ e,false);
+		}	
+		
+	}
+	
+	public void filtrosPreAplicacionPagos(String Pagaduria,String Ano,String Periodo) throws InterruptedException {
+		esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
+		hacerClick(pagopreaplicacionpagopage.ListPagaduria);
+		EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
+		EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
+		ElementVisible();
+		hacerClick(pagopreaplicacionpagopage.Ano);
+		selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
+		ElementVisible();
+		hacerClick(pagopreaplicacionpagopage.Periodo);		
+		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+		ElementVisible();
+	}
+	
+	public void capturarValoresPreaplicacionPagos() {
+		
+		ValorRecaudo=GetText(pagopreaplicacionpagopage.ValorRecaudo).substring(0,GetText(pagopreaplicacionpagopage.ValorRecaudo).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		SumValoresRecibidos=GetText(pagopreaplicacionpagopage.ValoresRecibidos).substring(0,GetText(pagopreaplicacionpagopage.ValoresRecibidos).length()-2).replaceAll("[^a-zA-Z0-9]", "");
+		if(ValorRecaudo=="0") {
+			assertTrue(true);
+		}else {
+			assertFalse(false);
+		}
+		
+	}
+	
+	public void pestanarecaudo() {
+		panelprincipal.navegarRecaudo();
+	}
+	
+	public void Agregarpago(String Pagaduria,String Ano,String Periodo) {
+		hacerClick(recaudopage.botonAddPagoRecaudo);
+		ElementVisible();
+		hacerClick(recaudopage.inputFecha);
+		selectFechActualCalendario(recaudopage.contDiasCalendario,recaudopage.selectDia);
+		ElementVisible();
+		hacerClick(recaudopage.inputValor);
+		EscribirElemento(recaudopage.inputValor, SumValoresRecibidos);
+		ElementVisible();
+		hacerClick(recaudopage.checkPagaduria);
+		hacerClick(recaudopage.checkPagaduria);
+		ElementVisible();
+		hacerClick(recaudopage.listaPagaduria);
+		ElementVisible();
+		EscribirElemento(recaudopage.FiltroPagaduria, Pagaduria);
+		EnviarEnter(recaudopage.FiltroPagaduria);
+		ElementVisible();
+		Clear(recaudopage.Ano);
+		EscribirElemento(recaudopage.Ano,Ano);
+		ElementVisible();
+		hacerClick(recaudopage.RecaudoPeriodo);
+		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+		ElementVisible();
+		esperaExplicita(recaudopage.botonGuardarInfPago);
+		hacerClick(recaudopage.botonGuardarInfPago);
+		ElementVisible();
+		assertTextonotificacion(recaudopage.notificacion,"Se registro correctamente el recaudo del pago");
+		//
+	}
+	
+	public void validarRecaudoPagaduriaContraDB(String pagaduria) {
+		log.info("********** RecaudosAccion -  validarRecaudoPagaduriaContraDB()************");
+		ResultSet result = queryRecaudo.validarRecaudoPagaduria(pagaduria); 
+		String vlrDbRecaudo ="No se llena";
+		String vlr2 = "";
+		String vlr3 = "";
+		String vlr4 = "";
+		try {
+			while(result.next()) {
+				vlrDbRecaudo = result.getString(1);	//valor del recaudo
+				vlr2 = result.getString(2);
+				vlr3 = result.getString(3);
+				vlr4 = result.getString(4);
+			}		
+			result.close();	
+			log.info(vlr2+vlr3+vlr4);
+			
+			log.info(SumValoresRecibidos + "  -  "+ vlrDbRecaudo);
+			
+			/*assertValidarEqualsImprimeMensaje("######## EL VALOR DEL RECAUDO NO COINCIDE CON BASE DE DATOS ######",
+					valorRecaudo.replace(",","."),vlrDbRecaudo);*/
+			
+		} catch (Throwable e) {
+			log.error("####### ERROR RecaudosAccion - validarRecaudoPagaduriaContraDB() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - validarRecaudoPagaduriaContraDB() ##########"+ e,false);
 		}	
 		
 	}

@@ -1,5 +1,7 @@
 package Acciones;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
@@ -20,7 +22,10 @@ public class PanelPrincipalAccion extends BaseTest {
 	public PanelPrincipalAccion(WebDriver driver) {
 		super(driver);
 	}
-
+	
+	/*
+	 *Accion para ingresar a la opcion de certificacion de saldo
+	 * */	
 	public void navegarCertificacionSaldo() {
 		try {
 			log.info("********navegarCertificacionSaldo()********");
@@ -34,7 +39,10 @@ public class PanelPrincipalAccion extends BaseTest {
 		}
 
 	}
-
+	
+	/*
+	 *Accion para ingresar a la opcion de recaudo
+	 * */
 	public void navegarRecaudo() {
 		log.info("************PanelPrincipalAccion - navegarRecaudo()****************");
 		try {			
@@ -47,7 +55,23 @@ public class PanelPrincipalAccion extends BaseTest {
 		}
 				
 	}
+	
+	public void navegarPagos() {
+		log.info("************PanelPrincipalAccion - navegarRecaudo()****************");
+		try {			
+			esperaExplicita(panelnavegacionpage.selectPagos);
+			hacerClick(panelnavegacionpage.selectPagos);		
+			esperaExplicita(panelnavegacionpage.selectPreaplicacionPagos);
+			hacerClick(panelnavegacionpage.selectPreaplicacionPagos);
+		} catch (Exception e) {			
+			assertTrue("#####  ERROR PANELPRINCIPALACCION - NAVEGARRECAUDO() ######"+ e,false);
+		}
+				
+	}
 
+	/*
+	 *Accion para ingresar a la opcion de descargar el certificado por el modulo prepago
+	 * */
 	public void navegarGestionCertificado() {
 		log.info("**********PanelPrincipalAccion - navegarGestionCertificado()**********");
 		try {
@@ -61,7 +85,42 @@ public class PanelPrincipalAccion extends BaseTest {
 		}
 		
 	}
-
+	
+	/*
+	 *ingresar al modulo de pagos y seleccionar la opcion necesaria
+	 * */
+	public void navegarPagoconOpcion(String opcion) {
+		log.info("************ PanelPrincipalAccion -  navegarPagoconOpcion()**************");
+		try {
+			esperaExplicita(panelnavegacionpage.selectPagos);
+			hacerClick(panelnavegacionpage.selectPagos);
+			switch (opcion) {
+			case "Lista pagos a cargar":
+				esperaExplicita(panelnavegacionpage.selectListaPagosCargar);
+				hacerClick(panelnavegacionpage.selectListaPagosCargar);
+				break;
+			case"Preaplicacion pagos":
+				esperaExplicita(panelnavegacionpage.selectPreaplicacionPago);
+				hacerClick(panelnavegacionpage.selectPreaplicacionPago);
+				break;			
+			case"Aplicacion Final":
+				esperaExplicita(panelnavegacionpage.selectaplicacionFinal);
+				hacerClick(panelnavegacionpage.selectaplicacionFinal);
+				break;				
+			case "Cierre Pagos":
+				esperaExplicita(panelnavegacionpage.selectCierrePagos);
+				hacerClick(panelnavegacionpage.selectCierrePagos);
+				break;
+			}
+		} catch (Exception e) {
+			log.error("########## ERROR PANELPRINCIPALACCION - NAVEGARPAGOCONOPCION() ########" + e);
+			assertTrue("########## ERROR PANELPRINCIPALACCION - NAVEGARPAGOCONOPCION() ########"+ e,false);
+		}
+	}
+	
+	/*
+	 *Accion para ingresar a la configuracion del prepago
+	 * */
 	public void navegarConfigPrepago() {
 		log.info("**********PanelPrincipalAccion - navegarConfigPrepago()**********");
 		try {

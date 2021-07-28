@@ -29,11 +29,12 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
@@ -109,7 +110,12 @@ public class BaseTest {
 	public String TextoElemento(By locator) {
 		return driver.findElement(locator).getAttribute("value");
 	}
+	
+	public String GetText(By locator) {
+		return driver.findElement(locator).getText();
+	}
 
+	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
 			return driver.findElement(locator).isDisplayed();
@@ -121,8 +127,16 @@ public class BaseTest {
 	
 	public void assertvalidarEquals (String a, String b) {
 		assertEquals(a,b);
+		
 	}
 	
+	public void assertValidarEqualsImprimeMensaje(String mensaje, String a, String b) {
+		assertEquals(mensaje,a,b);
+	}
+	
+	public void assertBooleanImprimeMensaje(String mensaje,boolean variable) {
+		assertFalse("####################"+ mensaje +"#############",variable);
+	}
 
 	 public String separarFecha(String fecha, String tipo) {
 			String result = "";
@@ -207,7 +221,9 @@ public class BaseTest {
    
    public void assertTextonotificacion(By locator,String Texto) {		
 		String pageText = driver.findElement(locator).getText();
-		assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+			assertThat("Texto no encontrado", pageText.toUpperCase(), containsString(Texto.toUpperCase()));
+		}		
 	}
 	
 	public void assertTextoelemento(By locator, String Comparar) {
@@ -297,12 +313,10 @@ public class BaseTest {
                           
 	}
                           
-	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina) {
-		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina;
+	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
+		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
 		return (int) redondearDecimales(Valor,0);
-                          
 	}
- 
 	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
  
 		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
@@ -347,12 +361,7 @@ public class BaseTest {
    
    
 	/************* INICIO FUNC REPORTES ***********************/
-	public byte[] adjuntarCaptura(String descripcion) {
-		byte[] captura = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-		Allure.addAttachment(descripcion,
-				new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
-		return captura;
-	}
+	
    
 	/************* FIN FUNC REPORTES ***********************/
    
@@ -372,13 +381,12 @@ public class BaseTest {
 	public void selectValorLista(By lista, String Texto) {
    
 	List<WebElement> ListaElement = driver.findElements(lista);	
-   
 	for(int i=0;i<ListaElement.size();i++) {
-		String str = limpiarCadena(ListaElement.get(i).getText());
-		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {
+		String str = limpiarCadena(ListaElement.get(i).getText());		
+		  if(str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))==true) {			 
 			 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
-   
 		     ElementVisible();
+		     break;
 		}
 	}
 	
@@ -390,14 +398,22 @@ public class BaseTest {
 	
 	public void ClicUltimoElemento(By lista) {
 		List<WebElement> ListaElement = driver.findElements(lista);		
-		int i=ListaElement.size()-1;	
+		int i=ListaElement.size()-1;
+		System.out.println("mensaje  "+i+"  atributo  ");
+		if (i>0) { 
+		System.out.println("mensaje  "+i+"  atributo  ");
 		driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
+		}else {
+			System.out.println("mensaje  "+i+"  atributo  ");
+			driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
+					}
 
 	}
 
 	/********* FIN FUNC AVANZADAS SELENIUM **************/
 
 	/************ INICIO FUNC JAVASCRIPT ************/
+	
 	public void hacerScrollAbajo() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,10)");
@@ -415,6 +431,19 @@ public class BaseTest {
 			WebElement Element = driver.findElement(locator);
 			js.executeScript("arguments[0].scrollIntoView();", Element);
 	}
+	
+	//metodo que usa JavaScrip para hacer Scroll Abajo
+	public void Hacer_scroll_Abajo(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView(false);", Element);
+}
+	//metodo que usa JavaScrip para hacer Scroll Arriba
+	public void Hacer_scroll_Arriba(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView(true);", Element);
+}
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {
 
@@ -442,13 +471,13 @@ public class BaseTest {
 			id[i]=BtnCarga.get(i).getAttribute("id");
 		}
 		for(int i=0;i<id.length;i++) {		
-			Thread.sleep(350);
+			Thread.sleep(450);
 		    driver.findElement(By.id(id[i])).sendKeys(Pdf);		    
 		    esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
 		    esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
 		    hacerClicknotificacion();		
 		    hacerScrollAbajo();
-    
+		    ElementVisible();
 		}
 		ElementVisible();
 		Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
@@ -471,8 +500,8 @@ public class BaseTest {
     //Metodo utilizado para abir los pdf en el navegador el que recibe la ruta del pdf + el nombre
 	public void abriPdfNavegador(String rutaPdf) {		
 		try {
-			driver.get(rutaPdf);
-			Thread.sleep(2000);			
+			Thread.sleep(2500);
+			driver.get(rutaPdf);						
 		} catch (Exception e) {
 			log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
 		}
@@ -575,18 +604,26 @@ public class BaseTest {
 
 	/************* FIN FUNC REPORTES ***********************/
 
-   public void MarcarCheck(By locator) throws InterruptedException {
+	/**
+	 * M&eacute;todo encargado de marchar una opci&oacute;n proveniente de un
+	 * elemento de tipo radio button o checkbox.
+	 *
+	 * @param locator					El elemento de tipo radio button o
+	 *                                  checkbox.
+	 * @throws InterruptedException
+	 */
+	public void MarcarCheck(By locator) throws InterruptedException {
 		Thread.sleep(1000);
-	
+
 		List<WebElement> BtnCheck = driver.findElements(locator);
-		
+
 		int count =0;
-		
-		for (WebElement contenido : BtnCheck) {	
-			
+
+		for (WebElement contenido : BtnCheck) {
+
 			contenido.click();
 			count = count + 1;
-			hacerScrollAbajo();			
+			hacerScrollAbajo();
 		}
 	}
  
@@ -608,6 +645,14 @@ public void clickvarios(By locator) {
 			countFilas = driver.findElements(locator).size();
 		}
 	}
+   
+   /*
+    * Recibe una tabla y retorna una pocion con sui valor en String
+    * */
+   public String buscarElementoFilaTabla(By locator, int pocision) {
+	   List<WebElement> ListaElement = driver.findElements(locator);	
+	   return ListaElement.get(pocision).getText();	
+   }
 
 	public void selectFechActualCalendario(By contlist, By itemsLista) {
 		WebElement diasCalen = driver.findElement(contlist);
@@ -615,6 +660,20 @@ public void clickvarios(By locator) {
 		String fecha = getFechaActualDia();
 		for (WebElement contenido : list) {
 			if (contenido.getText().contains(fecha)) {				
+				contenido.click();
+				break;
+			}
+		}
+	}
+	
+	
+	/*
+	 * TP - 21/07/2021
+	 * Se crea el metodo que recibe un dia y lo selecciona en cualquier calendario*/
+	public void selecDiaCalendario(By lisDias, String dia) {
+		List<WebElement> list = driver.findElements(lisDias);
+		for (WebElement contenido : list) {
+			if (contenido.getText().contains(dia)) {				
 				contenido.click();
 				break;
 			}
@@ -638,13 +697,14 @@ public void clickvarios(By locator) {
 		Thread.sleep(1000);
 		List<WebElement> clickvarios = driver.findElements(locator);
 		int Totaldoc=clickvarios.size();
+		if (Totaldoc != 0) {
 		String Borrar=clickvarios.get(0).getAttribute("id");
 		for(int i=0;i<Totaldoc;i++) {	
 			Thread.sleep(2000);			
 			hacerClick(By.id(Borrar));			
 			hacerClickVariasNotificaciones();
 			}
-		hacerClickVariasNotificaciones();
+		hacerClickVariasNotificaciones();}
 	}
 	
 	public void cargarpdf(By locator,String Pdf) {
@@ -666,7 +726,7 @@ public void clickvarios(By locator) {
 	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(5000);
+		Thread.sleep(6000);
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -746,19 +806,23 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
+		
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
-
+		}
 
 	}
 
 	public void hacerClickVariasNotificaciones() throws InterruptedException {
+		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
 		List<WebElement> clickvarios = driver.findElements(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		for(int i=0;i<clickvarios.size();i++) {			
 			JavascriptExecutor js= (JavascriptExecutor)driver;		
 			js.executeScript("arguments[0].click();", clickvarios.get(i));			
 			}
+		}
 	}
 
 /************ FIN DE ESPERAS ***********/
@@ -767,6 +831,13 @@ public void clickvarios(By locator) {
 	public String getFechaActualDia() {
 		Calendar calen = Calendar.getInstance(TimeZone.getDefault());
 		int todayInt = calen.get(Calendar.DAY_OF_MONTH);
+		return Integer.toString(todayInt);
+	}
+	
+	/*CONSULTAR EL AÑO ACTUAL*/
+	public String getFechaActualAno() {
+		Calendar calen = Calendar.getInstance(TimeZone.getDefault());
+		int todayInt = calen.get(Calendar.DAY_OF_YEAR);
 		return Integer.toString(todayInt);
 	}
 
@@ -798,6 +869,8 @@ public void clickvarios(By locator) {
 
 		} catch (Exception e) {
 			log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + "|" + e);
+			assertTrue("########## BASETEST - extraerValorPDF() ########"+ e,false);
+			
 		}
 		return result;
 	}
@@ -815,6 +888,7 @@ public void clickvarios(By locator) {
 	    		 
 			 catch (Exception e) {
 			 log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
+			 //assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
 			}
 		 return result;
 	}
@@ -838,7 +912,123 @@ public WebDriver chromeDriverConnection() {
 		driver= new InternetExplorerDriver();
 		return driver;
 	}
+    
+	public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
+			throws InterruptedException {
+		List<WebElement> Entidad = driver.findElements(ListEntidad);
+		List<WebElement> Filtro = driver.findElements(ListFiltro);
+		List<WebElement> Monto = driver.findElements(ListMonto);
+		List<WebElement> Cuota = driver.findElements(ListValorCuota);
+		List<WebElement> Fecha = driver.findElements(ListFecha);
+		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
+		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
+		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
+		String a[] = new String[2];
+
+		for (int i = 0; i < Entidad.size(); i++) {
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+           //Llenar la entidad
+			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
+			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
+			EnviarEnter(By.id(Filtro.get(i).getAttribute("id")));
+            //llenar el monto
+			Hacer_scroll(By.name(Monto.get(i).getAttribute("name")));
+			Clear(By.name(Monto.get(i).getAttribute("name")));
+			driver.findElement(By.name(Monto.get(i).getAttribute("name"))).sendKeys(VlrMonto[i]);
+            //llenar la cuota
+			Clear(By.name(Cuota.get(i).getAttribute("name")));
+			driver.findElement(By.name(Cuota.get(i).getAttribute("name"))).sendKeys(VlrCuota[i]);
+            //llenar la fecha
+			Clear(By.name(Fecha.get(i).getAttribute("name")));
+			driver.findElement(By.name(Fecha.get(i).getAttribute("name"))).sendKeys(VlrFecha[i]);
+            //llenar numero de obligacion
+			Clear(By.name(NumObligacion.get(i).getAttribute("name")));
+			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
+			a[i] = BtnAprobar.get(i).getAttribute("id");
+		}
+        
+		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(1).getAttribute("id")));
+		driver.findElement(By.id(RadioSaneamiento.get(1).getAttribute("id"))).click();
+
+        //Aprobar las compras
+		for (int i = 0; i < BtnAprobar.size(); i++) {
+			assertEstaPresenteElemento(By.id(a[i]));
+			Hacer_scroll_Abajo(By.id(a[i]));
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+			i = i++;
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+		}
+	}
+    
+    public void  ToleranciaPeso(int a,int b){
+    	int Tolerancia=a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if(Tolerancia<=1 && Tolerancia>=0){
+    		assertTrue(true);
+    	}else {
+    		assertTrue(false);
+    	}
+    }
   
 	/**************************************/
+//backup metodo de carteras y saneamientos
+    public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
+			throws InterruptedException {
+		List<WebElement> Entidad = driver.findElements(ListEntidad);
+		List<WebElement> Filtro = driver.findElements(ListFiltro);
+		List<WebElement> Monto = driver.findElements(ListMonto);
+		List<WebElement> Cuota = driver.findElements(ListValorCuota);
+		List<WebElement> Fecha = driver.findElements(ListFecha);
+		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
+		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
+		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
+		String a[] = new String[2];
 
+		for (int i = 0; i < Entidad.size(); i++) {
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+           //Llenar la entidad
+			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
+			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
+			EnviarEnter(By.id(Filtro.get(i).getAttribute("id")));
+            //llenar el monto
+			Hacer_scroll(By.name(Monto.get(i).getAttribute("name")));
+			Clear(By.name(Monto.get(i).getAttribute("name")));
+			driver.findElement(By.name(Monto.get(i).getAttribute("name"))).sendKeys(VlrMonto[i]);
+            //llenar la cuota
+			Clear(By.name(Cuota.get(i).getAttribute("name")));
+			driver.findElement(By.name(Cuota.get(i).getAttribute("name"))).sendKeys(VlrCuota[i]);
+            //llenar la fecha
+			Clear(By.name(Fecha.get(i).getAttribute("name")));
+			driver.findElement(By.name(Fecha.get(i).getAttribute("name"))).sendKeys(VlrFecha[i]);
+            //llenar numero de obligacion
+			Clear(By.name(NumObligacion.get(i).getAttribute("name")));
+			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
+			a[i] = BtnAprobar.get(i).getAttribute("id");
+		}
+        
+		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(RadioSaneamiento.size()-1).getAttribute("id")));
+		driver.findElement(By.id(RadioSaneamiento.get(RadioSaneamiento.size()-1).getAttribute("id"))).click();
+
+        //Aprobar las compras
+		for (int i = 0; i < BtnAprobar.size(); i++) {
+			assertEstaPresenteElemento(By.id(a[i]));
+			Hacer_scroll_Abajo(By.id(a[i]));
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+			i = i++;
+			driver.findElement(By.id(a[i])).click();
+			hacerClicknotificacion();
+		}
+	}
+    
 }

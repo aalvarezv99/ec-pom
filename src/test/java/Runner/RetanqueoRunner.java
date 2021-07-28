@@ -10,11 +10,11 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/Retanqueo.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@Retanqueo"},
+		tags = {"@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos"},
 	    snippets = SnippetType.CAMELCASE
 		)
 public class RetanqueoRunner {
-
+   
 }
-
+//,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
 //tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida"},

@@ -13,6 +13,8 @@ public class PagesClienteParaVisacion {
 	public static By DocumentoLibranza;
 	public static By Aprobar;
 	public static By cargapdf;
+	public static By PazYSalvoCartera;
+	public static By PazYSalvoSaneamiento;
 	
 	public PagesClienteParaVisacion(WebDriver driver) {
 		filtrocedula = By.id("form:listaCreditosVisacion:j_idt69:filter");
@@ -22,6 +24,7 @@ public class PagesClienteParaVisacion {
 	    DocumentoLibranza = By.id("formulario-visacion:j_idt96_input");
 	    cargapdf =By.xpath("//*[text()='Ver PDF']");
 	    Aprobar= By.xpath("//*[text()='Aprobar']");
-	    
+	    PazYSalvoCartera = By.id("formCarteras:carteras:0:j_idt88_input");
+	    PazYSalvoSaneamiento = By.id("formCarteras:carteras:1:j_idt88_input");
 	}
 }
