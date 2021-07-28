@@ -1,10 +1,10 @@
 #language: es
-Característica: Prepago de Creditos Abacus
+Característica: Prepago de Creditos
 
   Antecedentes: Usuario en el sistema
     Dado Un agente en el sistema core abacus con sesion iniciada
 
-  @CertificacionSaldoActivaCXCFianza
+  @CertidicacionSaldoActivaCXCFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc y fianza
     Cuando Navegue a la configuracion global del pregago
     Y Configure los valores <DiaCertificacion> <VencimientoCert> <ValorCertificacion> para la certificacion de saldo
@@ -16,15 +16,15 @@ Característica: Prepago de Creditos Abacus
     Entonces permite generar el recaudo con el <ValorCertificacion> para "certificacion de saldo" con los datos del cliente <NumCedula>
     Y posteriormente descargando la certificacion en el modulo gestion certificados con los datos del cliente <NumRadicado> y <NumCedula>
     Y El agente visualice el documento del certificado <RutaDocumento> del credito <NumRadicado>
-    Y se realiza la validacion del PDF descargado con el <NumRadicado> en la ruta <RutaDocumento>
+    Y se realiza la validacion del PDF descargado con el <NumRadicado>
     Y Navegue a la pestana pagos de recaudos
     Y Realice el recaudo del credito <NumRadicado> con el valor total a pagar <RutaDocumento> para <TipoPago> con los datos del cliente <NumCedula>
     Entonces se finaliza verificando el estado del credito <NumRadicado> que cambio a "Prepagado"
 
     ##Y la amortizacion del prepago y lo movimientos contables en bases de datos
     Ejemplos: 
-      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento 																			|
-       | 55144 | 70528263 |           27 |               0 |              18000	 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
+      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento                                       |
+      | 65334 			| 49776835	|               11 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
 
   @CertificacionSaldoActivaCXCSinFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc sin fianza
