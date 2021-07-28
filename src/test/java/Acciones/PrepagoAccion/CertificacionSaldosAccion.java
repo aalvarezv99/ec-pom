@@ -200,7 +200,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 		try {
 			Date fechaFormato = formato.parse(fecchaVencimiento);
 			log.info(formatoSalida.format(fechaFormato));
-			//query.obtenerSaldoInsoluto(numRadicado, fechaFormato, null, null);
+			query.obtenerSaldoInsoluto(numRadicado, fechaFormato);
 			while(result.next()) {
 				vlrFianza = result.getString(1);
 				estado = result.getString(2);
