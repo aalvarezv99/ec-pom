@@ -185,8 +185,8 @@
                    	</argLine>
 					<includes>
 						<!-- <include>**/*Steps.java</include> -->
-						<include>**/*Runner.java</include>
-					<!--<include>**/OriginacionCreditosRunner.java</include> -->
+<!-- 						<include>**/*Runner.java</include> -->
+					<include>**/CertificacionSaldosRunner.java</include>
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
 				</configuration>

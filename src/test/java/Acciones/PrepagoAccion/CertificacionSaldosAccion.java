@@ -4,7 +4,10 @@ package Acciones.PrepagoAccion;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +18,7 @@ import Acciones.ConfigGlobalAccion.ConfigPrepagoAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
 import Pages.Prepago.CertificacionSaldoPage;
+import dto.SaldoInsolutoDto;
 
 public class CertificacionSaldosAccion extends BaseTest {
 
@@ -25,11 +29,13 @@ public class CertificacionSaldosAccion extends BaseTest {
 	ConfigPrepagoAccion configlobalprepagoAccion;
 	GestionCertificadosAccion gestioncertificado;
 	CertificacionSaldoQuery query;
+	
 	private static Logger log = Logger.getLogger(CertificacionSaldosAccion.class);
 	
 	//Variables de uso grobal
 	String nombreDoc = "";
-
+	public static String rutaDocumentoG;
+	
 	public CertificacionSaldosAccion(WebDriver driver) {
 		super(driver);
 		// this.driver = driver;
@@ -182,13 +188,19 @@ public class CertificacionSaldosAccion extends BaseTest {
 	 * si no la tiene por favor crearla, posteriormente realiza la consulta o llamado a la funcion
 	 * para realizar la validacion de los valores mostrados en el PDF 
 	 * */
-	public void validarValoresPDF(int numRadicado) {
+	public void validarValoresPDF(String numRadicado, String rutadocumento) {
 		log.info("************** CertificacionSaldosAccion - validarValoresPDF() ************");		
 		ResultSet result = query.consultarTipoCertificacion(String.valueOf(numRadicado)); 		
 		String vlrFianza = null;		
 		String estado = null;
 		String cuentasCXC = null;
+		String fecchaVencimiento = extraerValorPDF(limpiarCadena(rutadocumento),"certificacion-saldo-"+numRadicado+".pdf", "Fecha limite de pago ").replace("pago ", "");
+		SimpleDateFormat formato = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-mm-dd");
 		try {
+			Date fechaFormato = formato.parse(fecchaVencimiento);
+			log.info(formatoSalida.format(fechaFormato));
+			query.obtenerSaldoInsoluto(numRadicado, fechaFormato);
 			while(result.next()) {
 				vlrFianza = result.getString(1);
 				estado = result.getString(2);
@@ -209,20 +221,23 @@ public class CertificacionSaldosAccion extends BaseTest {
 			assertTrue("######### ERROR - validarValoresPDF()#######"+ e,false);
 		}
 		
-		//abrirNuevaVentana();
+		abrirNuevaVentana();
 		
 	}
 	
-	public void CertificacionSaldoActivaCxcFianza(String numRadicado) {
+	public void CertificacionSaldoActivaCxcFianza(String numRadicado) throws SQLException {
 		log.info("CERTIFICACION CON FIANZA Y ACTIVO Y CUENTAS POR COBRAR");
 		log.info("*************************CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza()*********");		
 		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
 		String rutaPdf = leerPropiedades("RutaArchivosDescargados");
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
 		
-		try {
+		//SaldoInsolutoDto saldoInsolutoDto = query.obtenerSaldoInsoluto(null, rutaPdf, numRadicado, rutaPdf);
+		
+		//ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
+		
+		/*try {
 			while(result.next()) {
-				nombreDoc = result.getString(1);
+				nombreDoc = "certificacion-saldo-"+numRadicado+".pdf";
 				//log.info("************** Buscando valores en la certificacion " + nombreDoc +" *******");
 				//abriPdfNavegador(rutaPdf+nombreDoc);
 				adjuntarCaptura(nombreDoc);
@@ -246,7 +261,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 		} catch (Exception e) {
 			log.error("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e);
 			assertTrue("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e,false);
-		}
+		}*/
 	}
 	
 	public void CertificacionSaldoActivaCxcSinFianza(String numRadicado) {

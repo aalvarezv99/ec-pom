@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/OriginacionCompraCartera.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@DesembolsoCartera,@VisacionCartera,@Desembolso"},
+		tags = {"not @SimuladorAsesor and not @SolicitudCredito and not@AnalisisCredito and not @ClientesBienvenida and not @CreditosVisacion and not @DesembolsoCartera and not @VisacionCartera and not @Desembolso"},
 	    snippets = SnippetType.CAMELCASE
 		)
 
