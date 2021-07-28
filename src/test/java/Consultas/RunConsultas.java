@@ -14,7 +14,7 @@ public class RunConsultas {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		CertificacionSaldoQuery query = new CertificacionSaldoQuery();
-		query.obtenerSaldoInsoluto(134001, "2021-08-24", "2021-08-30", "2021-07-12");
+		//query.obtenerSaldoInsoluto(134001, "2021-08-24", "2021-08-30", "2021-07-12");
 		/*ResultSet result;
 		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
 		result = query.ejecutarFuncion(); 

@@ -3,6 +3,9 @@ package Consultas;
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.apache.log4j.Logger;
 
@@ -23,10 +26,11 @@ public class CertificacionSaldoQuery {
 	 * @param fechaEjecucionCierre    formato yyyy-MM-dd
 	 * @throws SQLException
 	 */
-	public SaldoInsolutoDto obtenerSaldoInsoluto(Integer idCredito, String fechaVencimiento, String periodoFechaVencimiento,
-			String fechaEjecucionCierre) throws SQLException {
+	public SaldoInsolutoDto obtenerSaldoInsoluto(String numRadicado, Date fechaVencimiento) throws SQLException {
 		SaldoInsolutoDto saldoInsolutoDto = new SaldoInsolutoDto();
 		try {
+			ResultSet fechaEjecucionCierreRs;
+			String fechaEjecucionCierre;
 			ResultSet capitalRs;
 			BigDecimal capital;
 			ResultSet interesesMoraRs;
@@ -47,9 +51,33 @@ public class CertificacionSaldoQuery {
 			BigDecimal cxcInteresesFianza;
 			ResultSet fianzaRs;
 			BigDecimal fianza;
+			
+			String periodoFechaVencimiento = "";
+			
+			/**/
+			//Consultar IdCredito
+			StringBuilder query = new StringBuilder();
+			query.append("select id from credito c where numero_radicacion ="+numRadicado+";");
+			ResultSet idCreditoRs = dbconector.conexion(query.toString());
+			BigDecimal idCredito = obtenerValorResultSet(idCreditoRs, "idCredito");
+			
+			periodoFechaVencimiento = calcularPeriodoFechaVencimiento(fechaVencimiento.toString());
+			
+			
+			/*consultar fecha ejecucucion cierre*/
+			//
+			query = new StringBuilder();
+			query.append("select fecha_ejecucion_cierre \r\n"
+					+ "			from historico_cierres hc\r\n"
+					+ "			where 1 = 1	\r\n"
+					+ "			and fecha_ejecucion_cierre is not null\r\n"
+					+ "			order by periodo_cierre	desc\r\n"
+					+ "			limit 1");
+			fechaEjecucionCierreRs = dbconector.conexion(query.toString());
+			fechaEjecucionCierre = obtenerValorResultSetString(fechaEjecucionCierreRs, "Fecha Cierre Ejecucion");
 
 			// Capital
-			StringBuilder query = new StringBuilder();
+			query = new StringBuilder();
 			query.append("select sum(distinct(pdp.capital)) - sum(distinct(dcp.capital)) as saldo_capital\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pdp.id\n");
@@ -171,12 +199,39 @@ public class CertificacionSaldoQuery {
 		}
 		return saldoInsolutoDto;
 	}
+	
+	private String calcularPeriodoFechaVencimiento(String fecha) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
+		Calendar calendar = Calendar.getInstance();  
+		try {
+			 Date date = sdf.parse(fecha);
+		     calendar.setTime(date);  
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+        
+        return String.valueOf(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	}
 
 	private BigDecimal obtenerValorResultSet(ResultSet resultSet, String concepto) {
 		BigDecimal valor = BigDecimal.ZERO;
 		try {
 			while (resultSet.next()) {
 				valor = resultSet.getBigDecimal(1);
+				log.info(concepto + ": " + valor);
+				break;
+			}
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return valor;
+	}
+	
+	private String obtenerValorResultSetString(ResultSet resultSet, String concepto) {
+		String valor = "";
+		try {
+			while (resultSet.next()) {
+				valor = resultSet.getString(1);
 				log.info(concepto + ": " + valor);
 				break;
 			}

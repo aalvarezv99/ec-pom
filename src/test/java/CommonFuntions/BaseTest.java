@@ -869,7 +869,7 @@ public void clickvarios(By locator) {
 
 		} catch (Exception e) {
 			log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + "|" + e);
-			assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
+			assertTrue("########## BASETEST - extraerValorPDF() ########"+ e,false);
 			
 		}
 		return result;
