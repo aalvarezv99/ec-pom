@@ -4,13 +4,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
-import java.text.NumberFormat;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
+import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
 import Consultas.RecaudoQuery;

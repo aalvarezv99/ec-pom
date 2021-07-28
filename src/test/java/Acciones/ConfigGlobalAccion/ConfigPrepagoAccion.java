@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-import Acciones.PanelPrincipalAccion;
+import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Pages.ConfigGlobalPage.ConfigGlobalPrepagoPage;
 

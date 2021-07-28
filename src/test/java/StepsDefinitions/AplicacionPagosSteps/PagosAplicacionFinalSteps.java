@@ -4,8 +4,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import Acciones.AplicacionCierreAccion.AplicacionCierreAccion;
-import StepsDefinitions.Driver;
-import cucumber.api.PendingException;
+import StepsDefinitions.CommunSteps.Driver;
 import cucumber.api.java.es.Entonces;
 import cucumber.api.java.es.Y;
 

@@ -5,12 +5,10 @@ import static org.junit.Assert.assertTrue;
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.record.TopMarginRecord;
-import org.apache.poi.ss.formula.functions.Replace;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import Acciones.PanelPrincipalAccion;
+import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.AplicacionCierreQuery;
 import Pages.AplicacionCierrePage.PagoAplicacionFinalPage;

@@ -12,13 +12,12 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
-import Acciones.PanelPrincipalAccion;
 import Acciones.RecaudosAccion;
+import Acciones.ComunesAccion.PanelPrincipalAccion;
 import Acciones.ConfigGlobalAccion.ConfigPrepagoAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
 import Pages.Prepago.CertificacionSaldoPage;
-import dto.SaldoInsolutoDto;
 
 public class CertificacionSaldosAccion extends BaseTest {
 
