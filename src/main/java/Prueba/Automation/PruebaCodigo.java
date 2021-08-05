@@ -14,8 +14,34 @@ public class PruebaCodigo {
 	public static void main(String[] args) {
 		//String valor = extraerValorPDF("C:\\Users\\User\\Downloads\\CertificacionSaldos\\","certificacion-saldo-47152.pdf","Total a pagar $");
 		//System.out.println(valor);
-		prueba();
+		periodo(151);
 	}
+	
+	public static void periodo(int vlr) {
+		System.out.println((double)vlr/30);
+		
+		System.out.println((int)Math.ceil((double)vlr/30));
+	}
+	
+	public static void pruebaFormula() {
+		
+		/*System.out.println(Math.round(  1560000*((Math.pow((1+0.018), 48)-1)/(0.018*Math.pow((1+0.018), 48))+ 
+				(1560000*( Math.pow((1+0.0075), (60-48))-1)/(0.0075*Math.pow((1+0.0075), (60-48)))   )
+				)) );*/
+		
+		System.out.println(Math.round(
+				1560000*((Math.pow((1+0.018), 48))-1)/(0.018* Math.pow((1+0.018),48))
+				+(1560000*((Math.pow((1+0.0075), (60-48)))-1)/(0.0075* Math.pow((1+0.0075), (60-48))   ))/ Math.pow((1+0.018), 48) ));
+		
+	
+		/*System.out.println(Math.round(6215450/
+								((Math.pow((1+0.018), 48)-1)/
+							  (0.018*Math.pow((1+0.018), 48))+
+							  (((Math.pow((1+0.0075) ,(60-48))-1)/
+							 (0.0075*Math.pow((1+0.0075), (60-48)))
+							 )/(Math.pow((1+0.018), 48))
+									  ))));*/
+	} 
 	
 	public static void prueba() {
 		String[] valor = {"1","2","3","4","5","6","7","8","9","10","11","12"};

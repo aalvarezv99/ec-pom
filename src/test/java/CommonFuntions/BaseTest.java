@@ -295,37 +295,50 @@ public class BaseTest {
                           
                           
                           
-	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon) {
+	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
                           
-		double Valor =valorCredito/(1-(tasaPorMillon/1000000)*primaAnticipada);		
+		//double Valor =valorCredito/(1-(tasaPorMillon/1000000)*primaAnticipada);		
+		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
+		log.info("MontoaSolicitar "+ redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
                           
-	public double CuotaCorriente (int valorCredito,double Tasa,int plazo) {
-        double Valor= valorCredito*((Tasa/100)/(1-(Math.pow((1+(Tasa/100)),(0-plazo)))));
+	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
+		double Valor= Math.round(valorCredito/
+				((Math.pow((1+tasaUno),mesDos)-1)/
+						  (tasaUno*Math.pow((1+tasaUno), mesDos))+
+						  (((Math.pow((1+tasaDos) ,(plazo-mesDos))-1)/
+						 (tasaDos*Math.pow((1+tasaDos), (plazo-mesDos)))
+						 )/(Math.pow((1+tasaUno), mesDos))
+								  )));
+		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
                           
 	public double EstudioCreditoIva (int TotalMontoSoli, double porcentajeEstudioCredito) {
                           
 		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
 	}
                           
 	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
 		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
+		log.info("Capacidad Pagaduria" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
 	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
  
 		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
+		log.info("VlrFianza " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
  
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
+		log.info("Vlr Gmf4100" + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
@@ -333,26 +346,37 @@ public class BaseTest {
 	public double ValorInteresesIniciales(int TotalMontoSoli,double Tasa,int DiasIniciales,int diasMes) {
  
 		double Valor = ((TotalMontoSoli*Tasa)/100)*((double)DiasIniciales/diasMes);
+		log.info("Vlr Intereses Iniciales" + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
  
 	public double PrimaAnticipadaSeguro (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
 		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+		log.info("Prima Seguro Anticipado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
    
-	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada ) {
-        double Valor=TotalMontoSoli-CompraCartera-Gravamento4100-DescuentoPrimaAnticipada;
+	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza ) {
+        double Valor=TotalMontoSoli-(CompraCartera+Gravamento4100+DescuentoPrimaAnticipada+estudioCredito+ValorFianza);
+        log.info("Remanente estimado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
    
-	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey,int DescuentosNomina,int Colchon,double tasa,int plazo,double TasaxMillon,int ParametroPrimaSeguro) {
+	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey,int DescuentosNomina,int Colchon,double tasaUno,int plazo,double TasaxMillon,int ParametroPrimaSeguro,double tasaDos,int  mesDos) {
    
+		
 		double Capacidad=((double)((IngresosCliente-DescuentosLey)/2))-DescuentosNomina-Colchon;
-		double ValorK=((Math.pow((1+(tasa/100)),(0-plazo)))-1)/(tasa/100);
+		/*double ValorK=((Math.pow((1+(tasa/100)),(0-plazo)))-1)/(tasa/100);
 		double MontoMaxCredito=(-Capacidad*ValorK);
-		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);		
+		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);*/
+		
+		double Valor = Math.round(
+				Capacidad*((Math.pow((1+tasaUno), mesDos))-1)/(tasaUno* Math.pow((1+tasaUno),mesDos))
+				+(Capacidad*((Math.pow((1+tasaDos), (plazo-mesDos)))-1)/
+			  (tasaDos* Math.pow((1+tasaDos), (plazo-mesDos))   ))/ 
+				Math.pow((1+tasaUno), mesDos) );
+		log.info("Monto Maximo Desembolsar " +redondearDecimales(Valor=(Valor<0)?0:Valor,0));		
 		return redondearDecimales(Valor,0);
 	}
  

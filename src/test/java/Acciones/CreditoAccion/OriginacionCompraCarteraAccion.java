@@ -47,6 +47,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 	PagesCreditosDesembolso pagescreditosdesembolso;
 	LoginAccion loginaccion;
 	LeerArchivo archivo;
+	double vlrIva = 1.19;
 	
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 	
@@ -234,6 +235,22 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
       // Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;
 		double variableFianza = 1.19;
+		
+		//Valores CXC capitalizadas				
+		int mesDos = 0;
+		double tasaDos = 0;
+		
+		
+		resultado = query.consultarValoresMesCapitalizadas();
+		while (resultado.next()) {
+			mesDos = resultado.getInt(1);			
+		}
+		
+		resultado = query.consultarValoresTasaDosCapitalizadas();
+		while (resultado.next()) {
+			tasaDos = Double.parseDouble(resultado.getString(1));			
+		}
+		double tasaUno = Double.parseDouble(Tasa)/100;
 
 		// Validar resultados de simulacion
 
@@ -242,30 +259,33 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
 
-		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
-		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapitalTotal), String.valueOf(calculoMontoSoli));
+		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
+		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapitalTotal), String.valueOf(calculoMontoSoli));
 
-		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
+		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", ""), String.valueOf(CuotaCorriente));
 
-		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
+		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
 				DesPrimaAntic);
 		// revisar calculo
 		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
 
-		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
+		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
+				Integer.parseInt(descNomina), colchon, tasaUno,
+				Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic,tasaDos, mesDos);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
    		
-	    int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
+		int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC), String.valueOf(EstudioCreditoIva));
 		
-		int ValorFianza = (int) ValorFianza(calculoMontoSoli,TasaFianza, variableFianza);
+		int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC), String.valueOf(ValorFianza));
 
 		int Gmf4100 = (int) Gmf4100(Integer.parseInt(cartera), 0.004);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
 		
 		int DescuentosPorCartera = ((Gmf4100 + Integer.parseInt(cartera)));
+		//Validar remanente 
 		int Remanente = (Integer.parseInt(Monto));
 		Remanente = Remanente - DescuentosPorCartera;
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar), String.valueOf( Remanente ));
