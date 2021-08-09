@@ -71,6 +71,31 @@ public class OriginacionCreditoQuery {
 
 		return r;
 	}
+	
+	public ResultSet CalculoPrima(String Credito) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select \r\n"
+					+ "case when c.numero_radicacion = null then 'true'\r\n"
+					+ "else 'false' end as Prima\r\n"
+					+ "from credito c \r\n"
+					+ "inner join desglose d on d.id_credito = c.id \r\n"
+					+ "inner join prima_seguro_anticipada ps on ps.id_desglose = d.id \r\n"
+					+ "where 1=1\r\n"
+					+ "and d.desglose_seleccionado is true \r\n"
+					+ "and c.credito_activo is true\r\n"
+					+ "and c.numero_radicacion ='"+Credito+"'");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	
+	
 	}
 
 

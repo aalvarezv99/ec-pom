@@ -17,7 +17,7 @@ Característica: Retanqueo de creditos
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -43,14 +43,14 @@ Característica: Retanqueo de creditos
    Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
    Y ingresa los valores guardando <Ingresos><descLey><descNomina>
    Y pasa a la siguiente pestana del simulador analista
-   Entonces Valida los valores del simulador retanqueos <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><cartera>
+   Entonces Valida los valores del simulador retanqueos <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><cartera><Credito><DiasHabilesIntereses>
    Y Guarda los datos del simulador
    Y Pasa a la pestana endeudamiento global aprobando
    Y Aprueba la tarea del credito<Cedula>
     
    Ejemplos: 
-   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|fecha       |Mes    |DiasHabilesIntereses|Ingresos |descLey |descNomina|TipoDesen |entidad                               |cartera  |Banco                                            |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|Celular     |Correo              |fechaActual |colchon|
-   |"8231342" |"EMIRO DE JESUS" |"51823" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"22/07/2021"|"Julio"|"25"                |"4500000"|"300000"|"50000"   |"Efectivo"|"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"3127650699"|"rosa2016@gmail.com"|"22/07/2021"|"0"    |
+   |Cedula    |NombreCredito    |Credito |Retanqueo|Tasa |Plazo|fecha       |Mes     |DiasHabilesIntereses|Ingresos |descLey |descNomina|cartera  |DiasHabilesIntereses|
+   |"8231342" |"EMIRO DE JESUS" |"51823" |"3000000"|"1.8"|"60" |"22/07/2021"|"Agosto"|"10"                |"4500000"|"300000"|"50000"   |"1500000"| "10"               |
  
   @ClientesBienvenida 
    Esquema del escenario: Clientes para Bienvenida

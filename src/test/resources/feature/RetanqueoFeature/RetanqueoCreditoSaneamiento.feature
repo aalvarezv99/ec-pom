@@ -17,7 +17,7 @@ Característica: Retanqueo de credito saneamiento
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -38,13 +38,13 @@ Característica: Retanqueo de credito saneamiento
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con saneamiento <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Saneamiento>
+    Entonces Valida los valores del simulador retanqueos con saneamiento <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Saneamiento><Credito><DiasHabilesIntereses>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       | Saneamiento |
-    |"4000000"|"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"22/07/2021"| "450000"    |
+    |Retanqueo|Credito |Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha         | Saneamiento |DiasHabilesIntereses|
+    |"4000000"|"69124" |"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"     |"Julio"|"1.8" |"60" |"280000" |"50000"   |"22/07/2021"| "450000"   |"10"                |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoSaneamiento 

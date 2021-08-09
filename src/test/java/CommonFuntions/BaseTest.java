@@ -118,6 +118,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
+			esperaExplicita(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -508,8 +509,8 @@ public class BaseTest {
 		
 	}
 
-    public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
-	
+	public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
+		
 		List<WebElement> DptList = driver.findElements(DepartamentoList);		
 		List<WebElement> CdaList = driver.findElements(CiudadList);	
 		List<WebElement> CdaLabel = driver.findElements(By.xpath("//label[starts-with(@id,'form:j_idt156:') and contains(@id,'ciudad_label')]"));
@@ -538,7 +539,6 @@ public class BaseTest {
 		ElementVisible();
     
 	}
-    
     
 	public void MarcarCheckCorrecto() throws InterruptedException {
 		Thread.sleep(1000);
@@ -726,7 +726,7 @@ public void clickvarios(By locator) {
 	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(6000);
+		Thread.sleep(8000);
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -971,9 +971,11 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-    		assertTrue(true);
+        	System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor TRUE "+" Valor a "+a+" Valor b "+b,true);
     	}else {
-    		assertTrue(false);
+    		System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor FALSE "+" Valor a "+a+" Valor b "+b,false);
     	}
     }
   

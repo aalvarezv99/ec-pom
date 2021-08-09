@@ -235,7 +235,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
 						DesPrimaAntic);
 				// revisar calculo
-				//assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
+				assertvalidarEquals(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
 
 				int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 						Gmf4100, PrimaAnticipadaSeguro);
@@ -402,7 +402,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			double variableFianza = 1.19;
 
 			// Validar resultados de simulacion
-
+            
 			int edad = (int) edad(Fecha);
 			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.edad), String.valueOf(edad));
 
@@ -508,11 +508,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 		Hacer_scroll(pestanaformulariopage.Guardar);
 		hacerClick(pestanaformulariopage.Guardar);
-		ElementVisible();
-		//esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		//hacerClickVariasNotificaciones();
-		// hacerClicknotificacion();
-		// hacerClicknotificacion();
+		ElementVisible();	
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 	}
 
@@ -568,9 +564,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void DigitalizacionVerificacion() {
 		recorerpestanas("DIGITALIZACIÓN");
 		esperaExplicita(pestanadigitalizacionPage.Titulo);		
-		  hacerClick(pestanadigitalizacionPage.EnVerificacion); ElementVisible();
+		  hacerClick(pestanadigitalizacionPage.EnVerificacion); 
+		  ElementVisible();
 		  esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		  hacerClicknotificacion();
 		  esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		 
 	}
@@ -778,9 +774,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void EndeudamientoGlobal() throws InterruptedException {
 		recorerpestanas("ENDEUDAMIENTO GLOBAL");
 		hacerClick(pestanasimuladorinternopage.Aprobar);
+		ElementVisible();
 		hacerClick(pestanasimuladorinternopage.Aprobar);
-		assertTextonotificacion(simuladorasesorpage.notificacion,
-				"Este crédito se ha enviado a flujo de aprobación de analisis.");
+		//assertTextonotificacion(simuladorasesorpage.notificacion,
+				//"Este crédito se ha enviado a flujo de aprobación de analisis.");
 		ElementVisible();
 
 	}
