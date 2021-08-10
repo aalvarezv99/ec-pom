@@ -379,10 +379,10 @@ public class BaseTest {
 			valor = Math.round(Capacidad*((Math.pow((1+tasaUno), (plazo)) )-1)/(tasaUno*Math.pow((1+tasaUno),(plazo))));	
 		}else {
 			//plazo mayor a mes dos
-			System.out.println(Math.round(
+			valor = Math.round(
 			Capacidad*((Math.pow((1+tasaUno), (mesDos-1)))-1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)) )+
 			(Capacidad*(( Math.pow((1+tasaDos), (plazo-(mesDos-1))) )-1)/(tasaDos* Math.pow((1+tasaDos), (plazo-(mesDos-1))) ))/
-			Math.pow((1+tasaUno), (mesDos-1)) ));
+			Math.pow((1+tasaUno), (mesDos-1)) );
 		}
 		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
 		return redondearDecimales(valor,0);
