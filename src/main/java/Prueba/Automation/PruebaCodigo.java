@@ -14,7 +14,7 @@ public class PruebaCodigo {
 	public static void main(String[] args) {
 		//String valor = extraerValorPDF("C:\\Users\\User\\Downloads\\CertificacionSaldos\\","certificacion-saldo-47152.pdf","Total a pagar $");
 		//System.out.println(valor);
-		periodo(151);
+		pruebaFormula();
 	}
 	
 	public static void periodo(int vlr) {
@@ -24,23 +24,24 @@ public class PruebaCodigo {
 	}
 	
 	public static void pruebaFormula() {
+		/*
+		//plazo menos a mes dos
+		System.out.println(Math.round(2020000*((Math.pow((1+0.018), (12)) )-1)/(0.018*Math.pow((1+0.018),(12)))));
 		
-		/*System.out.println(Math.round(  1560000*((Math.pow((1+0.018), 48)-1)/(0.018*Math.pow((1+0.018), 48))+ 
-				(1560000*( Math.pow((1+0.0075), (60-48))-1)/(0.0075*Math.pow((1+0.0075), (60-48)))   )
-				)) );*/
-		
+		//plazo mayor a mes dos
 		System.out.println(Math.round(
-				1560000*((Math.pow((1+0.018), 48))-1)/(0.018* Math.pow((1+0.018),48))
-				+(1560000*((Math.pow((1+0.0075), (60-48)))-1)/(0.0075* Math.pow((1+0.0075), (60-48))   ))/ Math.pow((1+0.018), 48) ));
+		2020000*((Math.pow((1+0.018), (49-1)))-1)/(0.018*Math.pow((1+0.018), (49-1)) )+
+		(2020000*(( Math.pow((1+0.0075), (120-(49-1))) )-1)/(0.0075* Math.pow((1+0.0075), (120-(49-1))) ))/Math.pow((1+0.018), (49-1)) ));
+		*/
 		
-	
-		/*System.out.println(Math.round(6215450/
-								((Math.pow((1+0.018), 48)-1)/
-							  (0.018*Math.pow((1+0.018), 48))+
-							  (((Math.pow((1+0.0075) ,(60-48))-1)/
-							 (0.0075*Math.pow((1+0.0075), (60-48)))
-							 )/(Math.pow((1+0.018), 48))
-									  ))));*/
+		//Cuota > segundo mes
+		System.out.println(Math.round(31077250/((Math.pow((1+0.018),(49-1)) -1)/(0.018*Math.pow((1+0.018), (49-1)))
+				+((Math.pow((1+0.0075), (120-(49-1)))-1)/(0.0075*Math.pow((1+0.0075), (120-(49-1) )) ))/(Math.pow((1+0.018), (49-1))))));
+		
+		//cuota < segundo mes
+		System.out.println(Math.round(31077250/((Math.pow((1+0.018), (12)) -1)/(0.018* Math.pow((1+0.018), (12))))));
+		
+		
 	} 
 	
 	public static void prueba() {

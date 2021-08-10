@@ -297,20 +297,23 @@ public class BaseTest {
                           
 	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
                           
-		//double Valor =valorCredito/(1-(tasaPorMillon/1000000)*primaAnticipada);		
 		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
 		log.info("MontoaSolicitar "+ redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
                           
 	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
-		double Valor= Math.round(valorCredito/
-				((Math.pow((1+tasaUno),mesDos)-1)/
-						  (tasaUno*Math.pow((1+tasaUno), mesDos))+
-						  (((Math.pow((1+tasaDos) ,(plazo-mesDos))-1)/
-						 (tasaDos*Math.pow((1+tasaDos), (plazo-mesDos)))
-						 )/(Math.pow((1+tasaUno), mesDos))
-								  )));
+		double Valor = 0;
+		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
+		if(plazo < mesDos) {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
+		}
+		else {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
+					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
+					/(Math.pow((1+tasaUno), (mesDos-1)))));
+		
+		}
 		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
@@ -363,21 +366,26 @@ public class BaseTest {
 		return redondearDecimales(Valor,0);
 	}
    
-	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey,int DescuentosNomina,int Colchon,double tasaUno,int plazo,double TasaxMillon,int ParametroPrimaSeguro,double tasaDos,int  mesDos) {
-   
-		
+	/*
+	 * TP 06/08/2021
+	 * Se actualiza el metodo para que trabaje con la capacidad del cliente - tasa uno -plazo
+	 * -mesdos y tasa dos*/
+	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey, int DescuentosNomina, int Colchon,
+						double tasaUno,int plazo,double tasaDos,int mesDos) {
 		double Capacidad=((double)((IngresosCliente-DescuentosLey)/2))-DescuentosNomina-Colchon;
-		/*double ValorK=((Math.pow((1+(tasa/100)),(0-plazo)))-1)/(tasa/100);
-		double MontoMaxCredito=(-Capacidad*ValorK);
-		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);*/
-		
-		double Valor = Math.round(
-				Capacidad*((Math.pow((1+tasaUno), mesDos))-1)/(tasaUno* Math.pow((1+tasaUno),mesDos))
-				+(Capacidad*((Math.pow((1+tasaDos), (plazo-mesDos)))-1)/
-			  (tasaDos* Math.pow((1+tasaDos), (plazo-mesDos))   ))/ 
-				Math.pow((1+tasaUno), mesDos) );
-		log.info("Monto Maximo Desembolsar " +redondearDecimales(Valor=(Valor<0)?0:Valor,0));		
-		return redondearDecimales(Valor,0);
+		double valor = 0;
+		if(plazo<mesDos) {
+			//plazo menos a mes dos
+			valor = Math.round(Capacidad*((Math.pow((1+tasaUno), (plazo)) )-1)/(tasaUno*Math.pow((1+tasaUno),(plazo))));	
+		}else {
+			//plazo mayor a mes dos
+			System.out.println(Math.round(
+			Capacidad*((Math.pow((1+tasaUno), (mesDos-1)))-1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)) )+
+			(Capacidad*(( Math.pow((1+tasaDos), (plazo-(mesDos-1))) )-1)/(tasaDos* Math.pow((1+tasaDos), (plazo-(mesDos-1))) ))/
+			Math.pow((1+tasaUno), (mesDos-1)) ));
+		}
+		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
+		return redondearDecimales(valor,0);
 	}
  
 	/************* FIN FUNC Assert Selenium ****************/
