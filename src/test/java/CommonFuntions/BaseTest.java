@@ -301,7 +301,9 @@ public class BaseTest {
 		log.info("MontoaSolicitar "+ redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
-                          
+    
+	/*TP 10/08/2021 Se actualiza al nuevo calculo con la tasa dos y el mes dos
+	 * */
 	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
 		double Valor = 0;
 		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
@@ -317,10 +319,13 @@ public class BaseTest {
 		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
+               
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double EstudioCreditoIva (int MontoSoli, double porcentajeEstudioCredito) {
                           
-	public double EstudioCreditoIva (int TotalMontoSoli, double porcentajeEstudioCredito) {
-                          
-		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		double Valor= ((MontoSoli*porcentajeEstudioCredito)/100)+(((MontoSoli*porcentajeEstudioCredito)/100)*0.19);	
 		log.info("Estudio Credito" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
@@ -331,9 +336,12 @@ public class BaseTest {
 		log.info("Capacidad Pagaduria" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
-	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double ValorFianza (int MontoSoli,double TasaFianza, double Variable ){
  
-		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
+		double Valor=((MontoSoli*TasaFianza)/100)*Variable;
 		log.info("VlrFianza " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
@@ -354,12 +362,16 @@ public class BaseTest {
  
 	}
  
-	public double PrimaAnticipadaSeguro (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
-		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+	/* 
+	 * TP 10/08/2021 Se actualiza para que calcule con el monto Neto, no con el monto total de la solicitud
+	 * */
+	public double PrimaAnticipadaSeguro (int MontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
+		double Valor=((double)MontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
 		log.info("Prima Seguro Anticipado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
    
+	
 	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza ) {
         double Valor=TotalMontoSoli-(CompraCartera+Gravamento4100+DescuentoPrimaAnticipada+estudioCredito+ValorFianza);
         log.info("Remanente estimado " + redondearDecimales(Valor,0));
@@ -367,9 +379,8 @@ public class BaseTest {
 	}
    
 	/*
-	 * TP 06/08/2021
-	 * Se actualiza el metodo para que trabaje con la capacidad del cliente - tasa uno -plazo
-	 * -mesdos y tasa dos*/
+	 * TP 06/08/2021 Se actualiza el metodo para que trabaje con la capacidad del cliente - tasa uno -plazo -mesdos y tasa dos
+	 * */
 	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey, int DescuentosNomina, int Colchon,
 						double tasaUno,int plazo,double tasaDos,int mesDos) {
 		double Capacidad=((double)((IngresosCliente-DescuentosLey)/2))-DescuentosNomina-Colchon;

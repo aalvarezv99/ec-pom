@@ -213,6 +213,16 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 		while (resultado.next()) {
 			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
 		}
+		log.info("******** Valor de prima **** " + DesPrimaAntic);
+		
+		int DiasHabilesIntereses =0;
+		
+		if(Integer.valueOf(Plazo)<DesPrimaAntic) {
+			int periodoGracia = (int)Math.ceil((double)DiasHabilesIntereses/30);
+			DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
+			log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
+		} 
+				
 
 		double EstudioCredito = 0;
 		ResultSet resultado2 = query.EstudioCredito();
@@ -272,7 +282,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 
 		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 				Integer.parseInt(descNomina), colchon, tasaUno,
-				Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic,tasaDos, mesDos);
+				Integer.parseInt(Plazo), tasaDos, mesDos);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
    		
 		int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
