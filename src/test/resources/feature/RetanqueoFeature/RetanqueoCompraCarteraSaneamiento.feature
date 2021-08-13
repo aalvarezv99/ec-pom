@@ -16,8 +16,8 @@ Característica: Retanqueo de creditos
    Y cargar archivos nuevos <rutaPDF>
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
-   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses>
+   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -30,8 +30,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  	|Retanqueo|Cedula       |Credito   |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  | descNomina | IngresosMes |codigo|Competidor1             | Cartera1   | VlrCuota1    | FechaVencimiento1   | NumObligacion1  | Competidor2            | Saneamiento2   | VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
-    |"3000000"|"8534688"    |"54188"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"13" |"13"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"|"8600068225 - ACORE"    | "650000"   | "50000"      | "26/07/2021"        | "9123"          | "8110315267 - AMAR"    | "450000"       | "40000"      | "30/07/2021"        | "9321"          |
+  	|Retanqueo|Cedula       |Credito   |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  | descNomina | IngresosMes |codigo|Competidor1             |  VlrCuota1    | FechaVencimiento1   | NumObligacion1  | Competidor2            |Cartera1          | Saneamiento2   |VlrCompraSaneamiento| VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
+    |"3000000"|"8534688"    |"54188"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"13" |"13"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"|"8600068225 - ACORE"    | "50000"       | "26/07/2021"        | "9123"          | "8110315267 - AMAR"    | "650000"         |"450000"        |"1100000"           | "40000"      | "30/07/2021"        | "9321"          |
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
   Esquema del escenario: Analisis del credito
@@ -51,6 +51,7 @@ Característica: Retanqueo de creditos
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    # Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     Ejemplos: 
     |Cedula         |Celular     |Correo                     |TipoDesen  |

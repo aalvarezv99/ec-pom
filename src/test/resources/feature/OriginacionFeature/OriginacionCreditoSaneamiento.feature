@@ -65,6 +65,7 @@ Característica: Originación de Creditos con saneamientos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check corretos junto con el celular correo para saneamiento <Celular><Correo>
+    #Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito se marcan los check acepta saneamiento y se acepta condiciones<TipoDesen>
 
   Ejemplos: 

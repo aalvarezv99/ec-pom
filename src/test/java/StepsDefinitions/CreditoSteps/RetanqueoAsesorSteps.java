@@ -70,14 +70,14 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.Seguridad();
 	}
 	
-	@Y("ingresar al simulador interno y llenar los campos {string}{string}{string}{string}{string}{string}{string}")
-	public void ingresaralsimuladorinternoyllenarloscampos(String retanqueo,String Tasa, String Plazo,String DiasHabilesIntereses ,String Ingresos ,String descLey,String descNomina) throws NumberFormatException, SQLException {
-		retanqueocreditos.Simulador(retanqueo,Tasa, Plazo, DiasHabilesIntereses, Ingresos, descLey, descNomina);
+	@Y("ingresar al simulador interno y llenar los campos {string}{string}{string}{string}{string}{string}{string}{string}")
+	public void ingresaralsimuladorinternoyllenarloscampos(String retanqueo,String Tasa, String Plazo,String DiasHabilesIntereses ,String Ingresos ,String descLey,String descNomina,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
+		retanqueocreditos.Simulador(retanqueo,Tasa, Plazo, DiasHabilesIntereses, Ingresos, descLey, descNomina,VlrCompraSaneamiento);
 	}
 	
-	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}{string}{string}")
-	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String Credito,String DiasHabilesIntereses) throws NumberFormatException, SQLException {
-		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,Tasa,Plazo,Credito,DiasHabilesIntereses);
+	@Y("se validan los datos del simulador {string}{string}{string}{string}{string}{string}{string}{string}")
+	public void sevalidanlosdatosdelsimulador(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String Credito,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarSimulador(Ingresos, descLey, descNomina,Tasa,Plazo,Credito,DiasHabilesIntereses,VlrCompraSaneamiento);
 	}
 	
 	@Y("se da clic en solicitar")
