@@ -94,7 +94,35 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
-	
+	/*
+	* TP - 02/08/2021
+	* Se crea la consulta que retorna los valores de mes dos y tasaDos
+	* Para realizar los calculos en los simuladores de Cuentas por cobrar capitalizadas*/
+	public ResultSet consultarValoresMesCapitalizadas() {
+	log.info("*********************** OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()");
+	ResultSet r= null;
+	try {
+	r = dbconector.conexion("select valor::integer from configuracion_credito c\r\n"
+	+ " where 1=1 \r\n"
+	+ " and tipo = 'CAPITALIZACION' and tipo_valor = 'NUMERO_CUOTA';");
+	} catch (Exception e) {
+	log.error("#################### ERROR - OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()#############");
+	}
+	return r;
+	}
+
+	public ResultSet consultarValoresTasaDosCapitalizadas() {
+	log.info("*********************** OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()");
+	ResultSet r= null;
+	try {
+	r = dbconector.conexion("select valor from configuracion_credito cc\r\n"
+	+ "where 1=1 \r\n"
+	+ "and tipo = 'CAPITALIZACION' and tipo_valor = 'SEGUNDA_TASA';");
+	} catch (Exception e) {
+	log.error("#################### ERROR - OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()#############");
+	}
+	return r;
+	}
 	
 	}
 

@@ -4,11 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.List;
 import java.util.Locale;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
@@ -50,7 +52,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	LeerArchivo archivo;
 	// BaseTest baseTest;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
-
+	double vlrIva = 1.19;
+	
 	public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
 		/// this.driver = driver;
 		super(driver);
@@ -367,7 +370,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 	
 	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
-	      
+	      /*
 	       // consulta base de datos
 			int DesPrimaAntic = 0;
 			OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -440,7 +443,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 					Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido),
 					String.valueOf(MontoMaxDesembolsar));
-			
+			*/
 			Hacer_scroll(pestanasimuladorinternopage.Solicitar);
 			hacerClick(pestanasimuladorinternopage.Solicitar);
 			esperaExplicita(simuladorasesorpage.notificacion);
@@ -815,6 +818,106 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 
 	}
+	
+	public void ValidarValoresLlamadoBienvenida() throws NumberFormatException, SQLException {
+		recorerpestanas("CONDICIONES DEL CRÉDITO");	
+	
+		
+		ResultSet resultado;
+		
+		String [] ValoresCredito=RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
+		
+		// consulta base de datos
+		int DesPrimaAntic = 0;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		resultado = query.ConsultaDescuentoPrimaAntic();
+		while (resultado.next()) {
+			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+		}
+		
+        //consulta para validar  prima menor a 24 meses
+		
+        if(Integer.parseInt(ValoresCredito[1])<DesPrimaAntic) {
+		int periodoGracia = (int)Math.ceil((double)Integer.parseInt(ValoresCredito[7])/30);
+		DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito[1]);
+		}
+        		
+		log.info("******** Valor de prima **** " + DesPrimaAntic);
+		
+		//Tasa fianza
+		double TasaFianza =0;
+		resultado = query.porcentajefianza();
+		while (resultado.next()) {
+			TasaFianza = Double.parseDouble(resultado.getString(1));
+		}
+		log.info("TasaFianza "+ TasaFianza);
+		//Estudio Credito
+		double EstudioCredito = 0;
+		resultado = query.EstudioCredito();
+		while (resultado.next()) {
+			EstudioCredito = Double.parseDouble(resultado.getString(1));
+		}
+		log.info("EstudioCredito "+ EstudioCredito);
+		//Valores CXC capitalizadas				
+		int mesDos = 0;
+		double tasaDos = 0;
+
+
+		resultado = query.consultarValoresMesCapitalizadas();
+		while (resultado.next()) {
+		mesDos = resultado.getInt(1);
+		}
+		log.info("Mes Dos "+ mesDos);
+
+		resultado = query.consultarValoresTasaDosCapitalizadas();
+		while (resultado.next()) {
+		tasaDos = Double.parseDouble(resultado.getString(1))/100;
+		}
+		log.info("TasaFianza "+ tasaDos);
+		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
+
+		
+		// Valores para la funciones estaticos
+		int Tasaxmillonseguro = 4625;				
+		double variableFianza = 1.19;
+		int SaldoAlDia=0;	
+		
+		if(ValidarElementoPresente(pagesclienteparabienvenida.SaldoAlDia)==false) {
+			int coma = 	GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
+			GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
+			if(coma==-1) {
+				GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",",".");	
+	        	}
+	        	else {
+	        		SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0,coma).replace(".",""));
+	            	System.out.println(" Resultado de valor SALDO AL DIA "+SaldoAlDia);
+	        	}
+		}
+		
+		log.info("suma retanqueo y saldo al dia  "+ (Integer.parseInt(ValoresCredito[11])+SaldoAlDia));
+		
+		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
+				
+		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[10].isEmpty()+" "+DesPrimaAntic);
+	
+			
+		if(ValoresCredito[10].isEmpty()==true) {
+		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
+		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		}else {
+		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		}
+		
+		int ValorFianza = (int) ValorFianza(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, TasaFianza, variableFianza);
+		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[14]),ValorFianza);				
+		int EstudioCreditoIva = (int) EstudioCreditoIvacxc(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, EstudioCredito);
+		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[16]),EstudioCreditoIva);
+	
+		
+		
+	}
+	
 
 	public void Correctocondiciones(String Telefono, String Correo) throws InterruptedException {
 		MarcarCheck(pagesclienteparabienvenida.Check);
@@ -830,6 +933,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 
 	}
+	
+	
 
 	public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
 		recorerpestanas("CONDICIONES DEL CRÉDITO");
@@ -902,6 +1007,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 
 	public void DescargarMediosdedispercion(String Monto, String Banco, String Pdf) {
+		
 		panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 		esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 		EscribirElemento(PagesCreditosDesembolso.FiltroMonto, Monto);

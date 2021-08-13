@@ -330,7 +330,7 @@ public class RetanqueoCreditos extends BaseTest {
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
-    	
+    	/*
 		// consulta base de datos calculo de prima true o false
 		String prima = "";
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -369,8 +369,7 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
 			System.out.println("dentro del else que no contiene punto");
 		}
-    	
-    	
+    	*/
     }
 	
 	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera, String Credito,String DiasHabilesIntereses) throws InterruptedException, SQLException{
@@ -507,16 +506,16 @@ public class RetanqueoCreditos extends BaseTest {
 	
 	
 
-	public void DescargarMediosdedispercionRetanqueo(String Retanqueo,String Banco, String Pdf) {
+	public void DescargarMediosdedispercionRetanqueo(String Monto,String Banco, String Pdf) {
 
-		Monto = (Integer.parseInt(Retanqueo));
+		
 		panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 		esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 		EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(Monto));
 		ElementVisible();	
 		
 		String pattern = "###,###,###.###";
-		double value = Double.parseDouble(String.valueOf(Remanente));
+		double value = Double.parseDouble(Monto);
 
 		DecimalFormat myFormatter = new DecimalFormat(pattern);
 		myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));

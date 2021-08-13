@@ -10,7 +10,7 @@ Característica: Originacion de Creditos
     Cuando el agente ingresa a la pestana de simulador asesor
      #Y cambia la fecha del servidor <FechaServidor>
      Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
-     Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+     #Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
      Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
@@ -44,7 +44,7 @@ Característica: Originacion de Creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos>
+   # Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
@@ -59,7 +59,8 @@ Característica: Originacion de Creditos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
+    Y se validan los valores de las condiciones del credito
+   #Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
 
        Ejemplos: 
       | Pagaduria   | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido  | Correo                     | Celular      | Dpto           | Ciudad     | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion         | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes     | TipoDesen  | fechaActual  | Banco                                  |

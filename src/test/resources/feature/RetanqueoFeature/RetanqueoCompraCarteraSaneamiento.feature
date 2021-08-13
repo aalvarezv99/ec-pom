@@ -89,8 +89,8 @@ Característica: Retanqueo de creditos
     Y se descargadescargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
 
     Ejemplos: 
-    |Cedula      |Saneamiento2|Banco                                  |rutaPDF                                    |
-    |"82330226"   |"450000"    |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |Cedula    |Saneamiento2|Banco                                 |rutaPDF                                    |
+    |"82330226"|"450000"    |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
         
         
     @DesembolsoRetanqueosCarteraSaneamiento 

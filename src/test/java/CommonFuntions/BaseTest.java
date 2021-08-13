@@ -356,6 +356,41 @@ public class BaseTest {
 		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);		
 		return redondearDecimales(Valor,0);
 	}
+	
+    /*************************Formulas de CXC *******************************/
+	
+	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
+        
+		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
+		log.info("MontoaSolicitar "+ (int) redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+	}
+                          
+	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
+		double Valor = 0;
+		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
+		if(plazo < mesDos) {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
+		}
+		else {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
+					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
+					/(Math.pow((1+tasaUno), (mesDos-1)))));
+		
+		}
+		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+	}
+                          
+	public double EstudioCreditoIvacxc (int TotalMontoSoli, double porcentajeEstudioCredito) {
+                          
+		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito" + redondearDecimales(Valor,0));
+		return (int) redondearDecimales(Valor,0);
+                          
+	}
+	
+	/*************************Fin Formula de CXC*****************************/
  
 	/************* FIN FUNC Assert Selenium ****************/
    
@@ -396,6 +431,11 @@ public class BaseTest {
 	 public void assertVisibleElemento(By locator) {		
 		assertTrue(driver.findElement(locator).isDisplayed());
 	}
+	 //Metodo que retorna true o false si esta o no presente un elemento
+	 public boolean ValidarElementoPresente(By locator) {
+		 
+		 return driver.findElements(locator).isEmpty();
+	 }
 	
 	public void ClicUltimoElemento(By lista) {
 		List<WebElement> ListaElement = driver.findElements(lista);		
@@ -622,6 +662,7 @@ public class BaseTest {
 		for (WebElement contenido : BtnCheck) {
 
 			contenido.click();
+			ElementVisible();
 			count = count + 1;
 			hacerScrollAbajo();
 		}
@@ -979,6 +1020,52 @@ public WebDriver chromeDriverConnection() {
     	}
     }
   
+    
+    public void  ToleranciaPesoMensaje(String mensaje,int a,int b){
+    	int Tolerancia=a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if(Tolerancia<=1 && Tolerancia>=0){
+        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,true);
+    	}else {
+    		System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,false);
+    	}
+    }
+    
+    public String[] RetornarStringListWebElemen(By locator) {
+    	
+    	String[] Valores = new String[20];
+    	int valor=0;
+    	List<WebElement> ListaElement = driver.findElements(locator);
+    	
+        for(int i=0;i<ListaElement.size();i++) {
+        	if(i<3) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}else {
+        	String ValorNumerico =	ListaElement.get(i).getText().replace(".","");
+        	System.out.println(i+" valor numerico  " + ValorNumerico);
+        	int coma = 	ValorNumerico.indexOf(",");
+        	
+        	if(coma==-1) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}
+        	else {
+        		Valores[i]=	ValorNumerico.substring(0,coma);
+            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
+        	}
+        
+        	}
+        	
+        
+        }
+        
+        return Valores;
+    }
+    
+    
 	/**************************************/
 //backup metodo de carteras y saneamientos
     public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,

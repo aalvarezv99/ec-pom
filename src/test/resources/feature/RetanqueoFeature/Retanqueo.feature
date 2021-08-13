@@ -17,7 +17,7 @@ Característica: Retanqueo de creditos
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses>
+   #Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -28,8 +28,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  |Retanqueo|Cedula     |Credito   |rutaPDF                                    | Tasa  | Plazo  |DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes |codigo|         
-  |"2000000"|"9093524"  |"56908"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"| "1.8" | "14"   |"10"                 | "4500000" | "280000" | "50000"    | "3500000"   |"2258"|
+  |Retanqueo|Cedula     |Credito  |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina | IngresosMes |codigo|         
+  |"2000000"|"8631561" |"62929"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"14" |"10"                |"8500000"|"280000"| "50000"    | "8500000"   |"2258"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -41,19 +41,20 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Cedula   |Credito     |NombreCredito    |Ingresos |decLey    |descNomina|Mes     |Tasa  |Plazo|descLey  |descNomina|fecha       |DiasHabilesIntereses|
-    |"2000000"|"9093524"|"56908"     |"EUCLIDES"       |"8500000"| "280000" |"50000"   |"Agosto"|"1.8" |"14" |"280000" |"50000"   |"06/08/2021"|"10"                |
+    |Retanqueo|Cedula    |Credito|NombreCredito|Ingresos |decLey  |descNomina|Mes     |Tasa  |Plazo|descLey  |descNomina|fecha       |DiasHabilesIntereses|
+    |"2000000"|"8631561"|"62929"|"ISAAC"    |"8500000"|"280000"|"50000"   |"Agosto"|"1.8" |"14" |"280000" |"50000"   |"06/08/2021"|"10"                |
 
 
    @ClientesBienvenidaRetanqueos 
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
+   # Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    Y se validan los valores de las condiciones del credito
+    #Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
 
     Ejemplos: 
     |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"8684362"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |"8631561"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueos
@@ -63,7 +64,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"8684362"|"30/07/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"86057081"|"30/07/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos
     Esquema del escenario: Creditos para Desembolso
@@ -72,7 +73,7 @@ Característica: Retanqueo de creditos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
    
     Ejemplos: 
-   |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |
-   |"2000000"  |"8684362"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |Retanqueo  |Cedula     |Banco                                  |rutaPDF                                    |
+   |"2000000"  |"86057081" |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
    
    

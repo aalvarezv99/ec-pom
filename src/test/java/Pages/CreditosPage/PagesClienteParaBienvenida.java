@@ -27,6 +27,9 @@ public class PagesClienteParaBienvenida {
 	public By CxCSeguroInicial;
 	public By AceptarCartera;
 	public By AceptarSaneamiento;
+	public By ValoresCondicionesCredito;
+	public By SaldoAlDia;
+	public By ValorSaldoAlDia;
 	
 	public PagesClienteParaBienvenida(WebDriver driver) {
 		filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -52,5 +55,9 @@ public class PagesClienteParaBienvenida {
 	    AceptarCartera = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:0_clone') and contains (@value,'true')]");
 	    AceptarSaneamiento = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:2_clone') and contains (@value,'true')]");
 
+	    //valores validados condiciones del credito
+	    ValoresCondicionesCredito= By.xpath("//span[@class='form-control fecha-inline']");
+	    SaldoAlDia = By.id("formCondicionCredito:j_idt272");
+	    ValorSaldoAlDia = By.xpath("//*[@id=\"formCondicionCredito:j_idt272\"]/div[2]/label");
 	}
 }
