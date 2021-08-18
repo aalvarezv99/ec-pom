@@ -1,6 +1,8 @@
 package Acciones.CreditoAccion;
 
 
+import static org.junit.Assert.assertTrue;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -74,21 +76,28 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 	/************ INICIO ACCIONES PARA SOLICITUD DE CREDITO SANEAMIENTO ***************/
 	
 	public void DatosSaneamiento(String entidad_san, String saneamiento, String vlr_cuota_san, String fecha_vencimiento, String num_obligacion_San) throws InterruptedException {
-		recorerpestanas("DIGITALIZACIÓN");
-		Hacer_scroll(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
-		hacerClick(pestanadigitalizacionPage.AgregarCartera);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Entidad);
-		hacerClick(pestanadigitalizacionPage.Entidad);
-		EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad_san);
-		EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
-		EscribirElemento(pestanadigitalizacionPage.MontoCartera, saneamiento);
-		EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota_san);
-		EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
-		EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion_San);
-		ElementVisible();		
+		log.info("********** OriginacionCreditoSaneamientoAccion - DatosSaneamiento()*******************");
+		try {
+			recorerpestanas("DIGITALIZACIÓN");
+			Hacer_scroll(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
+			hacerClick(pestanadigitalizacionPage.AgregarCartera);
+			ElementVisible();
+			esperaExplicita(pestanadigitalizacionPage.Entidad);
+			hacerClick(pestanadigitalizacionPage.Entidad);
+			EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad_san);
+			EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
+			EscribirElemento(pestanadigitalizacionPage.MontoCartera, saneamiento);
+			EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota_san);
+			EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
+			EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion_San);
+			ElementVisible();	
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditoSaneamientoAccion  - DatosSaneamiento()* #######" + e);
+			assertTrue("########## Error - OriginacionCreditoSaneamientoAccion - DatosSaneamiento()*########"+ e,false);
+		}
+			
 	}
 	
 	public void SeleccionSaneamiento() {
@@ -177,7 +186,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
      * @throws SQLException 
      * @throws NumberFormatException ***************/
 
-       public void ValidarSimuladorAnalistaSaneamiento(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String saneamiento) throws NumberFormatException, SQLException {
+      /* public void ValidarSimuladorAnalistaSaneamiento(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String saneamiento) throws NumberFormatException, SQLException {
     	   esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
        	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
        	ElementVisible(); 
@@ -260,7 +269,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosLey).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosLey).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descLey);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
        }
-       
+       */
     /************FINALIZA ACCIONES ANALISTA DE CREDITO SANEAMIENTO*************/
        
 

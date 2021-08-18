@@ -48,6 +48,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	PagesClienteParaVisacion pagesclienteparavisacion;
 	JSchSSHConnection jSchSSHConnection;
 	PagesCreditosDesembolso pagescreditosdesembolso;
+	double vlrIva = 1.19;
 	
 	LoginAccion loginaccion;
 	LeerArchivo archivo;
@@ -228,42 +229,59 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		double variableFianza = 1.19;
 
     		// Validar resultados de simulacion
+    		//Valores CXC capitalizadas				
+    		int mesDos = 0;
+    		double tasaDos = 0;
+    		
+    		
+    		resultado = query.consultarValoresMesCapitalizadas();
+    		while (resultado.next()) {
+    			mesDos = resultado.getInt(1);			
+    		}
+    		log.info("Mes Dos "+ mesDos);
+    		
+    		resultado = query.consultarValoresTasaDosCapitalizadas();
+    		while (resultado.next()) {
+    			tasaDos = Double.parseDouble(resultado.getString(1))/100;			
+    		}				
+    		log.info("TasaFianza "+ tasaDos);
+    		double tasaUno = Double.parseDouble(Tasa)/100;
 
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
     		
     		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
+    		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
 
-    		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro);
+    		int calculoMontoSoli = (int)  MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.CapitalTotal), String.valueOf(calculoMontoSoli));
 
-    		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, Double.parseDouble(Tasa), Integer.parseInt(Plazo));
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", ""), String.valueOf(CuotaCorriente));
+    		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
+    		assertValidarEqualsImprimeMensaje("######### ERROR SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############", TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", ""), String.valueOf(CuotaCorriente));
 
-    		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
+    		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
     				DesPrimaAntic);
-    		// revisar calculo 
-    		//assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
+    		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO PRIMA SEGURO ########",TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
 
-    		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
+    		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
+    				Integer.parseInt(descNomina), colchon, tasaUno,
+    				Integer.parseInt(Plazo), tasaDos, mesDos);
+    		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
        		
-    	    int EstudioCreditoIva = (int) EstudioCreditoIva(calculoMontoSoli, EstudioCredito);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC), String.valueOf(EstudioCreditoIva));
+    	    int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
+    	    assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC), String.valueOf(EstudioCreditoIva));
     		
-    		int ValorFianza = (int) ValorFianza(calculoMontoSoli,TasaFianza, variableFianza);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC), String.valueOf(ValorFianza));
+    		int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
+    		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO FIANZA ########",TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC), String.valueOf(ValorFianza));
     		
     		int TotalCarteras = (Integer.parseInt(Cartera1)+Integer.parseInt(Saneamiento2));
     		
     		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
+    		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO 4X1000 ########",TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
     		
     		
-    		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));
-    		int Remanente = (Integer.parseInt(Monto));
-    		Remanente = Remanente - DescuentosPorCartera;
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar), String.valueOf( Remanente ));
+    		int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, TotalCarteras,
+    				Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
+    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar), String.valueOf(RemanenteEstimado));
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCompraCartera), String.valueOf(TotalCarteras));
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoAsesor),Monto);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PlazoAsesor),Plazo);
