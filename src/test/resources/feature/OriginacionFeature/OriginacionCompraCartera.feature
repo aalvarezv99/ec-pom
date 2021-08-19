@@ -64,6 +64,7 @@ Característica: Originacion Compra Cartera
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    # Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito se marcan los check acepta cartera y se acepta condiciones<TipoDesen>
 
     Ejemplos: 

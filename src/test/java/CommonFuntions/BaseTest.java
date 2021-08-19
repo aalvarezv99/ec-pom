@@ -118,6 +118,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
+			esperaExplicita(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -398,6 +399,16 @@ public class BaseTest {
 		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
 		return redondearDecimales(valor,0);
 	}
+	
+	public double EstudioCreditoIvacxc (int TotalMontoSoli, double porcentajeEstudioCredito) {
+                          
+		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito" + redondearDecimales(Valor,0));
+		return (int) redondearDecimales(Valor,0);
+                          
+	}
+	
+	/*************************Fin Formula de CXC*****************************/
  
 	/************* FIN FUNC Assert Selenium ****************/
    
@@ -438,6 +449,11 @@ public class BaseTest {
 	 public void assertVisibleElemento(By locator) {		
 		assertTrue(driver.findElement(locator).isDisplayed());
 	}
+	 //Metodo que retorna true o false si esta o no presente un elemento
+	 public boolean ValidarElementoPresente(By locator) {
+		 
+		 return driver.findElements(locator).isEmpty();
+	 }
 	
 	public void ClicUltimoElemento(By lista) {
 		List<WebElement> ListaElement = driver.findElements(lista);		
@@ -551,8 +567,8 @@ public class BaseTest {
 		
 	}
 
-    public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
-	
+	public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
+		
 		List<WebElement> DptList = driver.findElements(DepartamentoList);		
 		List<WebElement> CdaList = driver.findElements(CiudadList);	
 		List<WebElement> CdaLabel = driver.findElements(By.xpath("//label[starts-with(@id,'form:j_idt156:') and contains(@id,'ciudad_label')]"));
@@ -581,7 +597,6 @@ public class BaseTest {
 		ElementVisible();
     
 	}
-    
     
 	public void MarcarCheckCorrecto() throws InterruptedException {
 		Thread.sleep(1000);
@@ -665,6 +680,7 @@ public class BaseTest {
 		for (WebElement contenido : BtnCheck) {
 
 			contenido.click();
+			ElementVisible();
 			count = count + 1;
 			hacerScrollAbajo();
 		}
@@ -769,7 +785,7 @@ public void clickvarios(By locator) {
 	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(6000);
+		Thread.sleep(8000);
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -1014,12 +1030,60 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-    		assertTrue(true);
+        	System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor TRUE "+" Valor a "+a+" Valor b "+b,true);
     	}else {
-    		assertTrue(false);
+    		System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor FALSE "+" Valor a "+a+" Valor b "+b,false);
     	}
     }
   
+    
+    public void  ToleranciaPesoMensaje(String mensaje,int a,int b){
+    	int Tolerancia=a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if(Tolerancia<=1 && Tolerancia>=0){
+        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,true);
+    	}else {
+    		System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,false);
+    	}
+    }
+    
+    public String[] RetornarStringListWebElemen(By locator) {
+    	
+    	String[] Valores = new String[20];
+    	int valor=0;
+    	List<WebElement> ListaElement = driver.findElements(locator);
+    	
+        for(int i=0;i<ListaElement.size();i++) {
+        	if(i<3) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}else {
+        	String ValorNumerico =	ListaElement.get(i).getText().replace(".","");
+        	System.out.println(i+" valor numerico  " + ValorNumerico);
+        	int coma = 	ValorNumerico.indexOf(",");
+        	
+        	if(coma==-1) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}
+        	else {
+        		Valores[i]=	ValorNumerico.substring(0,coma);
+            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
+        	}
+        
+        	}
+        	
+        
+        }
+        
+        return Valores;
+    }
+    
+    
 	/**************************************/
 //backup metodo de carteras y saneamientos
     public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,

@@ -51,6 +51,8 @@ public class PestanaSimuladorInternoPage {
 	public By CompraSaneamiento;
 	public By ValorCompraCartera;
 	public By Monto;
+	public By SimuladorInternorValoraDesembolsar;
+	public By InteresesInicialesSimuladorAnalista;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -91,6 +93,7 @@ public class PestanaSimuladorInternoPage {
 	    ValorFianzaCXC = By.id("formSimulador:valorFianza_hinput");
 	    Gravamento4x1000 = By.id("formSimulador:cuatroPorMil_hinput");
 	    ValoraDesembolsar = By.id("formSimulador:valorDesembolsar_hinput");
+	    SimuladorInternorValoraDesembolsar =   By.id("formSimuladorCredito:remanenteCr_hinput");
 	    MontoAsesor = By.id("formSimulador:monto_hinput");
 	    PlazoAsesor = By.id("formSimulador:plazo");
 	    TasaAsesor = By.id("formSimulador:tasaExcepcion_hinput");
@@ -100,6 +103,7 @@ public class PestanaSimuladorInternoPage {
 	    GuardarSimulacion=By.id("formSimulador:guardar");
 	    Aprobar = By.id("form:aprobar");
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
+	    InteresesInicialesSimuladorAnalista= By.id("formSimulador:diasInteresInicial_hinput");
 	    
 	    
 	}
