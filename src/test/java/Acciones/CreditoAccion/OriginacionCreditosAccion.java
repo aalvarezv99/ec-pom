@@ -370,7 +370,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 	
 	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
-	      
+	      /*
 	       // consulta base de datos
 			int DesPrimaAntic = 0;
 			OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -443,7 +443,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 					Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 			assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido),
 					String.valueOf(MontoMaxDesembolsar));
-			
+			*/
 			Hacer_scroll(pestanasimuladorinternopage.Solicitar);
 			hacerClick(pestanasimuladorinternopage.Solicitar);
 			esperaExplicita(simuladorasesorpage.notificacion);
@@ -639,9 +639,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 	/************ INICIA ACCIONES ANALISTA ***************/
 	public void ingresarAnalisisCredito(String Cedula, String Nombre) throws InterruptedException {
 
-		panelnavegacionaccion.navegarCreditoAnalisis();
-		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedula, Cedula);
+		panelnavegacionaccion.navegarCreditoAnalisis();	
+		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedula, Cedula);		
 		ElementVisible();
+		Thread.sleep(1000);
 		esperaExplicitaTexto(Nombre);
 		Thread.sleep(1000);		
 		esperaExplicita(pestanasimuladorinternopage.EditarVer);
@@ -939,6 +940,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void Aceptacondiconesdelcredito(String TipoDesen) throws InterruptedException {
 		recorerpestanas("CONDICIONES DEL CRÉDITO");
 		Refrescar();
+		Thread.sleep(1000);
 		MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
 		// assertvalidarEquals(TextoElemento(pagesclienteparabienvenida.ValorDesembolsar),
 		// String.valueOf(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoTotalAprobado))-(pestanasimuladorinternopage.SaldoAlDia)));
