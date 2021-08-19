@@ -7,13 +7,13 @@ Característica: Retanqueo de creditos
 
  @Retanqueo
  Esquema del escenario:  Retanqueo libre inversion
-   Cuando El agente ingrese a la pestana retanqueo 
-   Y se filtra por <Cedula><Credito>
-   Y se da clic a retanquear   
+   #Cuando El agente ingrese a la pestana retanqueo 
+   #Y se filtra por <Cedula><Credito>
+   #Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-   Y borrar archivos
-   Y cargar archivos nuevos <rutaPDF>
+   #Y borrar archivos
+   #Y cargar archivos nuevos <rutaPDF>
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
@@ -29,7 +29,7 @@ Característica: Retanqueo de creditos
    
   Ejemplos: 
   |Retanqueo|Cedula     |Credito  |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|         
-  |"2000000"|"12963589" |"55808"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"14" |"10"                |"8500000"|"280000"| "50000"   |"100000"            |"2258"|
+  |"2000000"|"22456887" |"74223"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"120" |"10"                |"8500000"|"280000"| "50000"   |"100000"            |"2258"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -42,7 +42,7 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo|Cedula     |Credito|NombreCredito|Ingresos |decLey  |descNomina|Mes     |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|
-    |"2000000"|"12963589" |"55808"|"GUILLERMO MANUEL"|"8500000"|"280000"|"50000"   |"Agosto"|"1.8" |"14" |"280000" |"18/08/2021"|"10"                |
+    |"2000000"|"22456887" |"74223"|"MONICA DE JESUS"|"8500000"|"280000"|"50000"   |"Agosto"|"1.8" |"120" |"280000" |"18/08/2021"|"10"                |
 
 
    @ClientesBienvenidaRetanqueos 
@@ -54,7 +54,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula    |Celular     |Correo                     |TipoDesen  |
-    |"12963589"|"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |"22456887"|"3125699666"|"JEANARLAND@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueos
@@ -64,7 +64,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"12963589"|"18/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"22456887"|"19/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos
     Esquema del escenario: Creditos para Desembolso
@@ -74,6 +74,6 @@ Característica: Retanqueo de creditos
    
     Ejemplos: 
    |Retanqueo  |Cedula     |Banco                                  |rutaPDF                                    |
-   |"2000000"  |"12963589" |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |"2000000"  |"22456887" |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
    
    
