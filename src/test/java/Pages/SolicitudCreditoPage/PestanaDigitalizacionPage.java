@@ -56,9 +56,9 @@ public class PestanaDigitalizacionPage {
 		//Compra cartera
 		Entidad = By.id("formRadicacion:j_idt93:0:competidorSO_label");	
 		FiltroEntidad =  By.id("formRadicacion:j_idt93:0:competidorSO_filter");
-		ValorCuota = By.id("formRadicacion:j_idt93:0:valorCuotaSO_input");
-		FechaVencimiento = By.id("formRadicacion:j_idt93:0:fechaVencimientoSO_input");
-		NumObligacion = By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
+		ValorCuota = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'valorCuotaSO_input')]");
+		FechaVencimiento = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'fechaVencimientoSO_input')]");
+		NumObligacion = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'numeroObligacionSO')]");
 		
 		//Datos saneamineto
 		EntidadCompetidor = By.id("formRadicacion:j_idt93:0:competidorSO_label");
@@ -75,8 +75,8 @@ public class PestanaDigitalizacionPage {
 		EntidadCompetidorCartera = By.id("formRadicacion:j_idt93:1:competidorSO_label");
 		FiltroListaCartera = By.id("formRadicacion:j_idt93:1:competidorSO_filter");
 		RadioCompra = By.id("formRadicacion:j_idt93:1:tipoCarteraSO:1");
-		MontoCartera = By.id("formRadicacion:j_idt93:1:montoSO_input");
-		ValorCuotaCartera = By.id("formRadicacion:j_idt93:1:valorCuotaSO_input");
+		MontoCartera = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'montoSO_input')]");
+		ValorCuotaCartera = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'valorCuotaSO_input')]");
 		FechaVencimientoCartera = By.id("formRadicacion:j_idt93:1:fechaVencimientoSO_input");
 		NumeroObligacionCartera	= By.id("formRadicacion:j_idt93:1:numeroObligacionSO");
 		BotonGuardarCartera = By.id("formRadicacion:j_idt166");

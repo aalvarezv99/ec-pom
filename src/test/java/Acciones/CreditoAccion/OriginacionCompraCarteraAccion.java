@@ -1,5 +1,7 @@
 package Acciones.CreditoAccion;
 
+import static org.junit.Assert.assertTrue;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -49,7 +51,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 	LeerArchivo archivo;
 	double vlrIva = 1.19;
 	
-	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
+	private static Logger log = Logger.getLogger(OriginacionCompraCarteraAccion.class);
 	
 	public OriginacionCompraCarteraAccion (WebDriver driver) throws InterruptedException {
 		///this.driver = driver;
@@ -74,118 +76,190 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 	}
 	
 	public void DatosCartera(String entidad, String cartera, String vlr_cuota, String fecha_vencimiento, String num_obligacion) throws InterruptedException {
-		recorerpestanas("DIGITALIZACIÓN");
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
-		hacerClick(pestanadigitalizacionPage.AgregarCartera);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Entidad);
-		hacerClick(pestanadigitalizacionPage.Entidad);
-		EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad);
-		EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
-		EscribirElemento(pestanadigitalizacionPage.MontoCartera, cartera);
-		EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota);
-		EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
-		EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion);
-		ElementVisible();		
+		log.info("********** OriginacionCompraCarteraAccion - DatosCartera()**********");
+		try {
+			recorerpestanas("DIGITALIZACIÓN");
+			Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
+			hacerClick(pestanadigitalizacionPage.AgregarCartera);
+			ElementVisible();
+			esperaExplicita(pestanadigitalizacionPage.Entidad);
+			hacerClick(pestanadigitalizacionPage.Entidad);
+			EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad);
+			EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
+			EscribirElemento(pestanadigitalizacionPage.MontoCartera, cartera);
+			EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota);
+			EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
+			EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - DatosCartera() #######" + e);
+			assertTrue("########## Error - OriginacionCompraCarteraAccion - DatosCartera() ########"+ e,false);
+		}
+				
 	}
 	
 	public void GuardarCartera () throws InterruptedException {
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.Guardar);
-		hacerClick(pestanadigitalizacionPage.Guardar);
-		ElementVisible();		
+		log.info("******** OriginacionCompraCarteraAccion - GuardarCartera()**********");
+		try {
+			Hacer_scroll_Abajo(pestanadigitalizacionPage.Guardar);
+			hacerClick(pestanadigitalizacionPage.Guardar);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - GuardarCartera() #######" + e);
+			assertTrue("########## Error - OriginacionCompraCarteraAccion - GuardarCartera()########"+ e,false);
+		}
+				
 	}
 	
 	public void ConfirmarEntidad(String entidad) throws InterruptedException {
-		recorerpestanas("REFERENCIACIÓN");
-		esperaExplicita(pestanareferenciacionpage.Aprobar);
-		Hacer_scroll_Abajo(pestanareferenciacionpage.Aprobar);
-		hacerClick(pestanareferenciacionpage.Entidad);
-		EscribirElemento(pestanareferenciacionpage.FiltroEntidad, entidad);
-		EnviarEnter(pestanareferenciacionpage.FiltroEntidad);
-		ElementVisible();		
+		log.info("**************OriginacionCompraCarteraAccion - ConfirmarEntidad() ****************");
+		try {
+			recorerpestanas("REFERENCIACIÓN");
+			esperaExplicita(pestanareferenciacionpage.Aprobar);
+			Hacer_scroll_Abajo(pestanareferenciacionpage.Aprobar);
+			hacerClick(pestanareferenciacionpage.Entidad);
+			EscribirElemento(pestanareferenciacionpage.FiltroEntidad, entidad);
+			EnviarEnter(pestanareferenciacionpage.FiltroEntidad);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - ConfirmarEntidad() #######" + e);
+			assertTrue("########## Error - OriginacionCompraCarteraAccion - ConfirmarEntidad()########"+ e,false);
+		}
+				
 	}
 	
 	public void ConfirmarObligacion(String num_obligacion) {
-		esperaExplicita(pestanareferenciacionpage.Entidad);
-		EscribirElemento(pestanareferenciacionpage.NumObligacion, num_obligacion);
-		ElementVisible();		
+		log.info("*************** OriginacionCompraCarteraAccion - ConfirmarObligacion()*********");
+		try {
+			esperaExplicita(pestanareferenciacionpage.Entidad);
+			EscribirElemento(pestanareferenciacionpage.NumObligacion, num_obligacion);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - ConfirmarObligacion() #######" + e);
+			assertTrue("########## Error - OriginacionCompraCarteraAccion - ConfirmarObligacion()########"+ e,false);
+		}
+				
 	}
 	
 	public void AprobarCartera () {
-		hacerClick(pestanareferenciacionpage.Aprobar);
-		ElementVisible();	
+		log.info("*********** OriginacionCompraCarteraAccion - AprobarCartera()********** ");
+		try {
+			esperaExplicita(pestanareferenciacionpage.Aprobar);
+			hacerClick(pestanareferenciacionpage.Aprobar);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - AprobarCartera() #######" + e);
+			assertTrue("########## Error - OriginacionCompraCarteraAccion - AprobarCartera() ########"+ e,false);
+		}
+			
 	}
 	
 	public void Guardar () {
-		hacerClick(pestanareferenciacionpage.Guardar);
-		ElementVisible();		
+		log.info("*********** Guardar Referencia, OriginacionCompraCarteraAccion -  Guardar()**********");
+		try {
+			esperaExplicita(pestanareferenciacionpage.Guardar);
+			hacerClick(pestanareferenciacionpage.Guardar);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion -  Guardar()#######" + e);
+			assertTrue("########## Error -  OriginacionCompraCarteraAccion -  Guardar()########"+ e,false);
+		}
+				
 	}
 	
-	public void MarcarCartera () throws InterruptedException {
-		hacerClick(pestanadigitalizacionPage.MarcarCartera);
-		hacerClick(pestanadigitalizacionPage.Guardar);
-		ElementVisible();
+	public void MarcarCartera() throws InterruptedException {
+		log.info("*********** Marcar Cartera Si, OriginacionCompraCarteraAccion -  MarcarCartera()**********");
+		try {
+			hacerClick(pestanadigitalizacionPage.MarcarCartera);
+			hacerClick(pestanadigitalizacionPage.Guardar);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion -  MarcarCartera()#######" + e);
+			assertTrue("########## Error -  OriginacionCompraCarteraAccion -  MarcarCartera()########"+ e,false);
+		}
+		
 	}
 	
     public void Referenciaspositivas(String codigo) throws InterruptedException {
-    	recorerpestanas("DIGITALIZACIÓN");
-    	ElementVisible();
-		recorerpestanas("REFERENCIACIÓN");
-		hacerClick(pestanareferenciacionpage.SalarioCheck);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.FechaIngreso);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.TipoContrato);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.CargoCheck);
-		ElementVisible();
-		Hacer_scroll(pestanareferenciacionpage.Guardar);
-		hacerClick(pestanareferenciacionpage.Guardar);
-		ElementVisible();
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
-		ElementVisible();
-		Hacer_scroll(pestanareferenciacionpage.Titulo);
-		clickvarios(pestanareferenciacionpage.CheckSI);
-		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
-		hacerClick(pestanareferenciacionpage.GuardarReferencias);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		hacerClicknotificacion();		
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		recorerpestanas("DIGITALIZACIÓN");
-		esperaExplicita(pestanadigitalizacionPage.Titulo);
-		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);	
-		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
-	    EscribirElemento(pestanadigitalizacionPage.CodigoProforenses,codigo);
-		ElementVisible();
-		hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
-		ElementVisible();
-		hacerClick(pestanadigitalizacionPage.Guardar);
-		//hacerClick(pestanadigitalizacionPage.Guardar);
-		ElementVisible();
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);			
+    	log.info("*********** Marcar Referencias positivas Compra cartera, OriginacionCompraCarteraAccion -  Referenciaspositivas()**********");
+    	try {
+    		recorerpestanas("DIGITALIZACIÓN");
+        	ElementVisible();
+    		recorerpestanas("REFERENCIACIÓN");
+    		hacerClick(pestanareferenciacionpage.SalarioCheck);
+    		ElementVisible();
+    		hacerClick(pestanareferenciacionpage.FechaIngreso);
+    		ElementVisible();
+    		hacerClick(pestanareferenciacionpage.TipoContrato);
+    		ElementVisible();
+    		hacerClick(pestanareferenciacionpage.CargoCheck);
+    		ElementVisible();
+    		Hacer_scroll(pestanareferenciacionpage.Guardar);
+    		hacerClick(pestanareferenciacionpage.Guardar);
+    		ElementVisible();
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+    		ElementVisible();
+    		Hacer_scroll(pestanareferenciacionpage.Titulo);
+    		clickvarios(pestanareferenciacionpage.CheckSI);
+    		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+    		hacerClick(pestanareferenciacionpage.GuardarReferencias);
+    		ElementVisible();
+    		esperaExplicita(pestanadigitalizacionPage.Notificacion);
+    		hacerClicknotificacion();		
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    		recorerpestanas("DIGITALIZACIÓN");
+    		esperaExplicita(pestanadigitalizacionPage.Titulo);
+    		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);	
+    		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
+    	    EscribirElemento(pestanadigitalizacionPage.CodigoProforenses,codigo);
+    		ElementVisible();
+    		hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
+    		ElementVisible();
+    		hacerClick(pestanadigitalizacionPage.Guardar);
+    		//hacerClick(pestanadigitalizacionPage.Guardar);
+    		ElementVisible();
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion -  Referenciaspositivas()#######" + e);
+			assertTrue("########## Error -  OriginacionCompraCarteraAccion -  Referenciaspositivas()########"+ e,false);
+		}
+    			
 	}
 
     public void Radicar() throws InterruptedException {	
-    	hacerClick(pestanadigitalizacionPage.Radicar);
-    	ElementVisible();
-    	esperaExplicita(pestanadigitalizacionPage.Notificacion);
-    	hacerClicknotificacion();
-    	hacerClicknotificacion();
-    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    	log.info("**********Radicar Compra Cartera, OriginacionCompraCarteraAccion - Radicar() ************");
+    	try {
+    		hacerClick(pestanadigitalizacionPage.Radicar);
+        	ElementVisible();
+        	esperaExplicita(pestanadigitalizacionPage.Notificacion);
+        	hacerClicknotificacion();
+        	hacerClicknotificacion();
+        	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - Radicar()#######" + e);
+			assertTrue("########## Error -  OriginacionCompraCarteraAccion - Radicar()########"+ e,false);
+		}
+    	
     	}
     
     public void ReferenciacionSolicitarAnalisis() throws InterruptedException {
-		recorerpestanas("REFERENCIACIÓN");
-		Hacer_scroll(pestanareferenciacionpage.SolicitarAnalisis);
-		hacerClick(pestanareferenciacionpage.SolicitarAnalisis);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		hacerClicknotificacion();
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);		
+    	log.info("***********Presionar boton Analisis, OriginacionCompraCarteraAccion - ReferenciacionSolicitarAnalisis() ****************");
+    	try {
+    		recorerpestanas("REFERENCIACIÓN");
+    		Hacer_scroll(pestanareferenciacionpage.SolicitarAnalisis);
+    		hacerClick(pestanareferenciacionpage.SolicitarAnalisis);
+    		ElementVisible();
+    		esperaExplicita(pestanadigitalizacionPage.Notificacion);
+    		hacerClicknotificacion();
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCompraCarteraAccion - ReferenciacionSolicitarAnalisis()#######" + e);
+			assertTrue("########## Error -  OriginacionCompraCarteraAccion - ReferenciacionSolicitarAnalisis()########"+ e,false);
+		}
+				
 	}
 
 

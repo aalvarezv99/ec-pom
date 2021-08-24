@@ -73,7 +73,7 @@ public class PestanaReferenciacionPage {
 		//BtnAprobar1 = By.id("formConsultas:j_idt170:0:j_idt218");
 		Competidor2 = By.id("formConsultas:j_idt170:2:j_idt203_label");
 		FiltroCompetidor2 =  By.id("formConsultas:j_idt170:2:j_idt203_filter");
-		Cartera2 = By.name("formConsultas:j_idt170:2:j_idt207");
+		Cartera2 = By.name("formConsultas:j_idt170:2:j_idt207"); 
 		VlrCuota2 = By.name("formConsultas:j_idt170:2:j_idt213");
 		FechaVencimiento2 = By.id("formConsultas:j_idt170:2:j_idt210_input");
 		NumObligacion2 = By.name("formConsultas:j_idt170:2:j_idt216");
