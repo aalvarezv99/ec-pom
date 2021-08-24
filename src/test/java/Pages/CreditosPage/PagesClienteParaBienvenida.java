@@ -58,6 +58,7 @@ public class PagesClienteParaBienvenida {
 	    //valores validados condiciones del credito
 	    ValoresCondicionesCredito= By.xpath("//span[@class='form-control fecha-inline']");
 	    SaldoAlDia = By.id("formCondicionCredito:j_idt272");
-	    ValorSaldoAlDia = By.xpath("//*[@id=\"formCondicionCredito:j_idt272\"]/div[2]/label");
+	    ValorSaldoAlDia = By.xpath("/html/body/div[2]/div/div[2]/div/form/div/div[2]/div[3]/div[2]/label"); 
+	                              
 	}
 }

@@ -166,7 +166,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 		LimpiarConTeclado(simuladorasesorpage.vlrCompra);
 		EscribirElemento(simuladorasesorpage.vlrCompra, vlrCompasSaneamientos);
-		hacerClick(simuladorasesorpage.inputIngresos);
+		ElementVisible();
+		hacerClick(simuladorasesorpage.inputdDescNomina);
 		ElementVisible();
 
 	}	
@@ -887,11 +888,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 			int coma = 	GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
 			GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
 			if(coma==-1) {
-				GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",",".");	
+				SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",","."));	
+				System.out.println(" Resultado de valor SALDO AL DIA IF "+SaldoAlDia);
 	        	}
 	        	else {
 	        		SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0,coma).replace(".",""));
-	            	System.out.println(" Resultado de valor SALDO AL DIA "+SaldoAlDia);
+	            	System.out.println(" Resultado de valor SALDO AL DIA ELSE "+SaldoAlDia);
 	        	}
 		}
 		
@@ -941,10 +943,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 		recorerpestanas("CONDICIONES DEL CRÉDITO");
 		Refrescar();
 		Thread.sleep(1000);
+		hacerClicknotificacion();
 		MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
-		// assertvalidarEquals(TextoElemento(pagesclienteparabienvenida.ValorDesembolsar),
-		// String.valueOf(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoTotalAprobado))-(pestanasimuladorinternopage.SaldoAlDia)));
-		Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
+        Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
 		Thread.sleep(1000);
 		hacerClick(pagesclienteparabienvenida.Desembolso);
 		selectValorLista(pagesclienteparabienvenida.ListDesembolso, TipoDesen);
