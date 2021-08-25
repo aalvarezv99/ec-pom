@@ -11,11 +11,11 @@ Característica: Retanqueo de creditos
    #Y se filtra por <Cedula><Credito>
    #Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
-   Y se selecciona el retanqueo
+   #Y se selecciona el retanqueo
    #Y borrar archivos
    #Y cargar archivos nuevos <rutaPDF>
-   Y se solicita la consulta a centrales de riesgo
-   Y marcar el credito viable
+   #Y se solicita la consulta a centrales de riesgo
+   #Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
@@ -36,7 +36,7 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Credito><DiasHabilesIntereses>
+    Entonces Valida los valores del simulador retanqueos <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Credito><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>

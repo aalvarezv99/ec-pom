@@ -30,10 +30,8 @@ Característica: Solicitud combra de cartera
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
     Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
-    
     Y se pasa a la segunda pestana de digitalizacion se compra cartera y saneamiento <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
     Y se guarda cartera
-    
     Y se pasa a la primera pestana de referenciacion para confirmar la entidad <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud

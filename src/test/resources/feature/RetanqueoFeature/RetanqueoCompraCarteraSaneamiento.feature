@@ -38,7 +38,7 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses>
+    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>

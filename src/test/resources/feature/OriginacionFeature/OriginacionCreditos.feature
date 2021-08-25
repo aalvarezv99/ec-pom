@@ -10,7 +10,7 @@ Característica: Originacion de Creditos
     Cuando el agente ingresa a la pestana de simulador asesor
      #Y cambia la fecha del servidor <FechaServidor>
      Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
-    # Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+     Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
      Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
@@ -51,7 +51,7 @@ Característica: Originacion de Creditos
 
       Ejemplos: 
       | Pagaduria  | Cedula     | Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|
-      | "COLFONDOS" | "93239420" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "360000"                   | "CARLOS"      |  "Agosto" |
+      | "COLFONDOS" | "93239420" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "0"                   | "CARLOS"      |  "Agosto" |
 
   
   @ClientesBienvenida 
@@ -72,7 +72,7 @@ Característica: Originacion de Creditos
 
         Ejemplos: 
       | Cedula     |  fechaActual         | rutaPDF         |
-      |"93239420" |  "16/07/2021" 			  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      |"93239420" |  "24/08/2021" 			  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
 
   @Desembolso
   Esquema del escenario: Creditos para Desembolso
