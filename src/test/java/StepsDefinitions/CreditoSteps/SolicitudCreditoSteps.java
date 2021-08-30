@@ -96,9 +96,9 @@ public class SolicitudCreditoSteps {
 		originacionaccion.SegundaPestanaSimuladorAnalista();
 	}
 
-	@Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void validaLosValoresDelSimulador(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
-	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos);
+	@Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void validaLosValoresDelSimulador(String Credito, String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+	  originacionaccion.ValidarSimuladorAnalista(Credito,Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos);
 	}
 	
 	

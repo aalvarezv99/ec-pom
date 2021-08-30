@@ -83,7 +83,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 		hacerClick(pestanadigitalizacionPage.Entidad);
 		EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad);
 		EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
-		EscribirElemento(pestanadigitalizacionPage.MontoCartera, cartera);
+		EscribirElemento(pestanadigitalizacionPage.MontoSaneamiento, cartera);
 		EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota);
 		EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
 		EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion);

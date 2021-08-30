@@ -338,7 +338,20 @@ public class BaseTest {
  
 	}
  
-	public double PrimaAnticipadaSeguro (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
+	public double PrimaNeta (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+	  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		Valor=PrimaHijo-redondearDecimales(Valor,0);		
+	    log.info(" ###### Valor prima ##### " + Valor );
+	    if(Valor<=0)
+	    	Valor=0;	        
+		return redondearDecimales(Valor,0);
+	}
+	
+	public double PrimaAnticipadaSeguro  (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
 		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
 		return redondearDecimales(Valor,0);
 	}

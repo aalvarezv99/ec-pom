@@ -96,13 +96,13 @@ public class RetanqueoAsesorSteps {
 	}
 	
 	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina,String Credito,String DiasHabilesIntereses) throws InterruptedException, SQLException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,Credito,DiasHabilesIntereses);
+	public void Validalosvaloresdelsimuladorretanqueos(String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,DiasHabilesIntereses);
 	}
 	
 	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String Credito,String DiasHabilesIntereses) throws InterruptedException, SQLException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,Credito,DiasHabilesIntereses);
+	public void Validalosvaloresdelsimuladorretanqueos(String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,DiasHabilesIntereses);
 	}
 	
     @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")

@@ -681,7 +681,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Credito,String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible (); 
@@ -717,6 +717,25 @@ public class OriginacionCreditosAccion extends BaseTest {
 		while (resultado3.next()) {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
 		}
+		
+		
+		 int PrimaPadre =0;
+			ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
+			while (resultado4.next()) {
+				PrimaPadre = Integer.parseInt(resultado4.getString(1));
+			}
+			
+			int MontoPadre =0;
+				ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
+				while (resultado5.next()) {
+					MontoPadre = Integer.parseInt(resultado5.getString(1));
+		    }
+			
+			int MesesActivoPadre =0;
+				ResultSet resultado6 = query.MesesActivoPadre(Credito);
+				while (resultado6.next()) {
+					MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
+		    }	
 
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;

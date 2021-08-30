@@ -53,6 +53,8 @@ public class PestanaSimuladorInternoPage {
 	public By Monto;
 	public By SimuladorInternorValoraDesembolsar;
 	public By InteresesInicialesSimuladorAnalista;
+	public By PrimaNeta;
+	public By PrimaNetaSimuladorAnalista;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -104,7 +106,8 @@ public class PestanaSimuladorInternoPage {
 	    Aprobar = By.id("form:aprobar");
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
 	    InteresesInicialesSimuladorAnalista= By.id("formSimulador:diasInteresInicial_hinput");
-	    
+	    PrimaNeta=By.id("formSimuladorCredito:primaNetaSeguro_hinput");
+	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");                 
 	    
 	}
 }
