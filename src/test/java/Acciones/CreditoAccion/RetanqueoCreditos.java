@@ -296,11 +296,11 @@ public class RetanqueoCreditos extends BaseTest {
 					TasaFianza, vlrIva);
 			// (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro);
 
-			ToleranciaPesoMensaje("########### ERROR CALCULANDO - Monto Solicitado ##########",
+			ToleranciaPesoMensaje("Monto Solicitado ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculoMontoSoli);
 
 			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Monto, 1000000, Tasaxmillonseguro, DesPrimaAntic);
-			ToleranciaPesoMensaje("########### ERROR CALCULANDO - Prima Anticipada de seguro ###########",
+			ToleranciaPesoMensaje("Prima Anticipada de seguro ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),
 					PrimaAnticipadaSeguro);
 
@@ -308,11 +308,11 @@ public class RetanqueoCreditos extends BaseTest {
 
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos,
 					mesDos);
-			ToleranciaPesoMensaje("####### ERROR CALCULANDO - Cuota corriente #########",
+			ToleranciaPesoMensaje(" Cuota corriente ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), CuotaCorriente);
 
 			int EstudioCreditoIva = (int) EstudioCreditoIva(Monto, EstudioCredito);
-			ToleranciaPesoMensaje("####### ERROR CALCULANDO - Estudio Credito IVA #########",
+			ToleranciaPesoMensaje("Estudio Credito IVA ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)), EstudioCreditoIva);
 
 			int ValorFianza = (int) ValorFianza(Monto, TasaFianza, variableFianza);
@@ -321,7 +321,7 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);
-			ToleranciaPesoMensaje("###### ERROR CALCULANDO - Valor Desembolsar #######",
+			ToleranciaPesoMensaje(" Valor Desembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
 					VlrRetanqueo - (Gmf4100 + Integer.parseInt(VlrCompraSaneamiento)));
 
@@ -330,11 +330,11 @@ public class RetanqueoCreditos extends BaseTest {
 
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
 					TasaFianza, vlrIva);
-			ToleranciaPesoMensaje("########### ERROR CALCULANDO - Monto Solicitado ##########\"",
+			ToleranciaPesoMensaje("Monto Solicitado ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculoMontoSoli);
 
 			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Monto, 1000000, Tasaxmillonseguro, DesPrimaAntic);
-			ToleranciaPesoMensaje("########### ERROR CALCULANDO - Prima Anticipada de seguro ##########",
+			ToleranciaPesoMensaje("Prima Anticipada de seguro ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),
 					PrimaAnticipadaSeguro);
 

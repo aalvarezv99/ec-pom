@@ -1045,11 +1045,9 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
-    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,true);
+        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);    		
     	}else {
-    		System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
-    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,false);
+    		assertTrue("########### ERROR CALCULANDO" +mensaje+" ########"+" Valor a "+a+" Valor b "+b,false);
     	}
     }
     
