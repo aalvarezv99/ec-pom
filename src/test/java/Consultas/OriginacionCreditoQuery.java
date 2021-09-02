@@ -125,6 +125,20 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet consultarPagaduriaRetanq(String numRadicado) {
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select p.nombre from credito c \r\n"
+					+ "join pagaduria p on c.id_pagaduria = p.id \r\n"
+					+ "where c.numero_radicacion ="+numRadicado+";");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarPagaduriaRetanq() ********");
+			log.error(e.getMessage());			
+		}
+		return r;
+	}
+	
 	}
 
 

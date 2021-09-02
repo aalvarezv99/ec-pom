@@ -246,44 +246,43 @@ public class OriginacionCreditosAccion extends BaseTest {
 				// Validar resultados de simulacion
 
 				int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina),colchon);
-				assertValidarEqualsImprimeMensaje("###### ERROR SIM ASESOR - CALCULANDO CAPACIDAD ########",TextoElemento(simuladorasesorpage.CapacidadAproximada), String.valueOf(Capacidad));
+				ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO CAPACIDAD ########",Integer.parseInt(TextoElemento(simuladorasesorpage.CapacidadAproximada)) ,Capacidad);
 				
 				int edad = (int) edad(Fecha);
 				//assertvalidarEquals(TextoElemento(simuladorasesorpage.edad), String.valueOf(edad));
 
 				int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-				assertValidarEqualsImprimeMensaje("###### ERROR SIM ASESOR - CALCULANDO MONTO SOLICITUD ########",TextoElemento(simuladorasesorpage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
-				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)),calculoMontoSoli);
+				ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO MONTO SOLICITUD ########",Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)) , calculoMontoSoli);
 
 				int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-				assertValidarEqualsImprimeMensaje("###### ERROR SIM ASESOR -CALCULANDO CUOTA CORRIENTE ########",TextoElemento(simuladorasesorpage.CuotaCorriente), String.valueOf(CuotaCorriente));
+				ToleranciaPesoMensaje("###### ERROR SIM ASESOR -CALCULANDO CUOTA CORRIENTE ########",Integer.parseInt(TextoElemento(simuladorasesorpage.CuotaCorriente)) , CuotaCorriente);
 
 				int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
-				assertValidarEqualsImprimeMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",TextoElemento(simuladorasesorpage.EstudioCreditoIVA), String.valueOf(EstudioCreditoIva));
+				ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(TextoElemento(simuladorasesorpage.EstudioCreditoIVA)) , EstudioCreditoIva);
 
 				int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
-				assertValidarEqualsImprimeMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",TextoElemento(simuladorasesorpage.ValorFianza), String.valueOf(ValorFianza));
+				ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(TextoElemento(simuladorasesorpage.ValorFianza)) , ValorFianza);
 
 				int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
-				assertValidarEqualsImprimeMensaje("######## ERROR  SIM ASESOR - CALCULO GMF4100 #######", TextoElemento(simuladorasesorpage.Gmf4100), String.valueOf(Gmf4100));
+				ToleranciaPesoMensaje("######## ERROR  SIM ASESOR - CALCULO GMF4100 #######", Integer.parseInt(TextoElemento(simuladorasesorpage.Gmf4100)) , Gmf4100);
 
 				int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
 						Integer.parseInt(DiasHabilesIntereses), 30);
-				assertValidarEqualsImprimeMensaje("######## ERROR SIM ASESOR - CALCULO VLR INT INICIALES #######", TextoElemento(simuladorasesorpage.Valorinteresesini),
-						String.valueOf(ValorInteresesIniciales));
+				ToleranciaPesoMensaje("######## ERROR SIM ASESOR - CALCULO VLR INT INICIALES #######", Integer.parseInt(TextoElemento(simuladorasesorpage.Valorinteresesini)),
+						ValorInteresesIniciales);
 
 				int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
 						DesPrimaAntic);
-				assertValidarEqualsImprimeMensaje("######## ERROR SIM ASESOR - CALCULO PRIMA SEGURO ANTICIPADO #######", TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
+				ToleranciaPesoMensaje("######## ERROR SIM ASESOR - CALCULO PRIMA SEGURO ANTICIPADO #######", Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)),PrimaAnticipadaSeguro);
 
 				int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 						Gmf4100, PrimaAnticipadaSeguro,EstudioCreditoIva,ValorFianza);
-				assertValidarEqualsImprimeMensaje("######## ERROR SIM ASESOR - CALCULO REMANENTE ESTIMADO #######", TextoElemento(simuladorasesorpage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
+				ToleranciaPesoMensaje("######## ERROR SIM ASESOR - CALCULO REMANENTE ESTIMADO #######", Integer.parseInt(TextoElemento(simuladorasesorpage.RemanenteEstimado)) , RemanenteEstimado);
 
 				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 						Integer.parseInt(descNomina), colchon, tasaUno,
 						Integer.parseInt(Plazo), tasaDos, mesDos);
-				assertValidarEqualsImprimeMensaje("######## ERROR SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR #######", TextoElemento(simuladorasesorpage.MontoMaximoSugerido),String.valueOf(MontoMaxDesembolsar));
+				ToleranciaPesoMensaje("######## ERROR SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR #######", Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)) ,MontoMaxDesembolsar);
 				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
 		
 	}
@@ -508,37 +507,36 @@ public class OriginacionCreditosAccion extends BaseTest {
 			// Validar resultados de simulacion
             
 			int edad = (int) edad(Fecha);
-			assertValidarEqualsImprimeMensaje("###### ERROR CALCULANDO LA EDAD DEL CLIENTE ########",TextoElemento(pestanasimuladorinternopage.edad), String.valueOf(edad));
+			ToleranciaPesoMensaje("###### ERROR CALCULANDO LA EDAD DEL CLIENTE ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.edad)) , edad);
 
 			int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO MONTO SOLICITUD ########",TextoElemento(pestanasimuladorinternopage.ResultMontoSoli), String.valueOf(calculoMontoSoli));
-
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO MONTO SOLICITUD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)) , calculoMontoSoli);
+			ToleranciaPeso(edad, calculoMontoSoli);
 
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			//(int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO CUOTA CORRIENTE ########",TextoElemento(pestanasimuladorinternopage.CuotaCorriente), String.valueOf(CuotaCorriente));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO CUOTA CORRIENTE ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)) , CuotaCorriente);
 
 			int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO ESTUDIO CREDITO ########",TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA), String.valueOf(EstudioCreditoIva));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)) , EstudioCreditoIva);
 
 			int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto),TasaFianza, variableFianza);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR FIANZA ########",TextoElemento(pestanasimuladorinternopage.ValorFianza), String.valueOf(ValorFianza));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR FIANZA ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)) , ValorFianza);
 
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR GMF 4X1000 ########",TextoElemento(pestanasimuladorinternopage.Gmf4100), String.valueOf(Gmf4100));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR GMF 4X1000 ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)) , Gmf4100);
 
 			int ValorInteresesIniciales = (int) ValorInteresesIniciales(calculoMontoSoli, Double.parseDouble(Tasa),
 					Integer.parseInt(DiasHabilesIntereses), 30);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR INT INICIALES ########",TextoElemento(pestanasimuladorinternopage.Valorinteresesini),
-					String.valueOf(ValorInteresesIniciales));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR INT INICIALES ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Valorinteresesini)) ,ValorInteresesIniciales);
 
 			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
 					DesPrimaAntic);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR PRIMA SEGURO ANTICIPADA ########",TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro),String.valueOf(PrimaAnticipadaSeguro));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR PRIMA SEGURO ANTICIPADA ########",Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)),PrimaAnticipadaSeguro);
 
 			int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 					Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
-			assertValidarEqualsImprimeMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ########",TextoElemento(pestanasimuladorinternopage.RemanenteEstimado), String.valueOf(RemanenteEstimado));
+			ToleranciaPesoMensaje("###### ERROR SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado)) , RemanenteEstimado);
 
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 					Integer.parseInt(descNomina), colchon, tasaUno,
@@ -928,32 +926,32 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
 		
 		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",TextoElemento(pestanasimuladorinternopage.CapacidadAsesor), String.valueOf(Capacidad));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)) , Capacidad);
 
 		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO SOLICITUD ########",TextoElemento(pestanasimuladorinternopage.CapitalTotal), String.valueOf(calculoMontoSoli));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO SOLICITUD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal)) , calculoMontoSoli);
 
 
 		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-		assertValidarEqualsImprimeMensaje("######### ERROR SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############", TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", ""), String.valueOf(CuotaCorriente));
+		ToleranciaPesoMensaje("######### ERROR SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", "")) , CuotaCorriente);
 		
 		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
 				DesPrimaAntic);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO PRIMA SEGURO ########",TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor),String.valueOf(PrimaAnticipadaSeguro));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO PRIMA SEGURO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)) ,PrimaAnticipadaSeguro);
 
 		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 				Integer.parseInt(descNomina), colchon, tasaUno,
 				Integer.parseInt(Plazo), tasaDos, mesDos);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor),String.valueOf(MontoMaxDesembolsar));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor)) ,MontoMaxDesembolsar);
     		
 	    int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
-	    assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC), String.valueOf(EstudioCreditoIva));
+	    ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC)) , EstudioCreditoIva);
 		
 		int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO FIANZA ########",TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC), String.valueOf(ValorFianza));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO FIANZA ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC)) , ValorFianza);
 
 		int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
-		assertValidarEqualsImprimeMensaje("###### ERROR SIM ANALISTA - CALCULANDO 4X1000 ########",TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
+		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO 4X1000 ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000)) , Gmf4100);
 
 		int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 				Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
