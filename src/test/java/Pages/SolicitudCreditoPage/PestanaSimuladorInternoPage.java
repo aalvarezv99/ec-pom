@@ -16,6 +16,7 @@ public class PestanaSimuladorInternoPage {
 	public By CuotaCorriente;
 	public By edad;
 	public By MontoMaximoSugerido;
+	public By btnGuardar;
 	public By Solicitar;
 	public By FiltroCedula;
 	public By EditarVer;
@@ -66,6 +67,7 @@ public class PestanaSimuladorInternoPage {
         CuotaCorriente = By.id("formSimuladorCredito:cuotaCr_hinput");
         edad = By.id("formSimuladorCredito:edad_hinput");
         MontoMaximoSugerido = By.id("formSimuladorCredito:montoMax_hinput");
+        btnGuardar = By.id("formSimuladorCredito:guardar_simulador_boton");
         Solicitar=By.id("formSimuladorCredito:solicitar_boton");
         FiltroCedula=By.id("form:listaCreditos:identificacion_analisis_filtro:filter");
         EditarVer=By.id("form:listaCreditos:0:j_idt98");

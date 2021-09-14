@@ -538,6 +538,7 @@ public class BaseTest {
 		    hacerScrollAbajo();
 		    ElementVisible();
 		}
+		adjuntarCaptura("CargueDocumentos");
 		ElementVisible();
 		Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
     
@@ -613,6 +614,7 @@ public class BaseTest {
 			String a = "//div[@id='"+BtnCheck2.get(count).getAttribute("id")+"']";
 			hacerScrollAbajo();			
 		}
+        	adjuntarCaptura("MarcacionCheck");
         }
         
         /************* INICIO FUNC REPORTES ***********************/
@@ -637,7 +639,7 @@ public class BaseTest {
 	public byte[] adjuntarCapturaReporte(String descripcion) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");		
 		byte[] captura = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-		log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		//log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		Allure.addAttachment(descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()),
 				new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 		return captura;
@@ -651,7 +653,7 @@ public class BaseTest {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");
 		       String imageNombre = leerPropiedades("CapturasPath") +"\\" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime());
 		       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		       log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		       //log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		       FileUtils.copyFile(scrFile, new File(String.format("%s.png", imageNombre)));
 		} catch (Exception e) {
 			log.error("############## ERROR,  BaseTest - adjuntarCapturaLocal() #########" + e);

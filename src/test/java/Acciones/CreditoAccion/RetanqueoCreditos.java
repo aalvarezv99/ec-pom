@@ -228,7 +228,7 @@ public class RetanqueoCreditos extends BaseTest {
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
 		while (resultado.next()) {
-			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+			DesPrimaAntic = Integer.parseInt(resultado.getString(1));			
 		}
 		
 		String pagaduria = "";
@@ -251,6 +251,7 @@ public class RetanqueoCreditos extends BaseTest {
 			int periodoGracia = (int)Math.ceil((double)Integer.parseInt(DiasHabilesIntereses)/30);
 			DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 		}
+		log.info("********* Valor de prima " + DesPrimaAntic);
 		
 		// consulta base de datos calculo de prima true o false
 		String prima ="" ;
@@ -266,12 +267,14 @@ public class RetanqueoCreditos extends BaseTest {
 		while (resultado2.next()) {
 			EstudioCredito = Double.parseDouble(resultado2.getString(1));
 		}
+		log.info("****** Estudio de Credito" + EstudioCredito);
 		
 		double TasaFianza =0;
 		ResultSet resultado3 = query.porcentajefianza();
 		while (resultado3.next()) {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
 		}
+		log.info("****** Tasa Fianza" + TasaFianza);
 		
 		//Valores CXC capitalizadas		
 		int mesDos = 0;
@@ -411,8 +414,9 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
+		//ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
     	
+		/*
 		// consulta base de datos calculo de prima true o false
 		String prima = "";
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -463,7 +467,7 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje(" Prima Valor Desembolsar ELSE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)));
 			System.out.println("dentro del else que no contiene punto");
 		}
-            
+        */    
     }
 	
 	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera, String Credito,String DiasHabilesIntereses, String tasa) throws InterruptedException, SQLException{

@@ -171,7 +171,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		EscribirElemento(simuladorasesorpage.vlrCompra, vlrCompasSaneamientos);
 		hacerClick(simuladorasesorpage.inputIngresos);
 		ElementVisible();
-
+		adjuntarCaptura("SimuladorDeligenciado");
 	}	
 	
 	/* 
@@ -295,6 +295,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			assertEstaPresenteElemento(simuladorasesorpage.notificacionGuardado);
 			hacerClicknotificacion();/////////////////////////////////////////////////////////////////
 			esperaExplicita(simuladorasesorpage.notificacionGuardado);
+			adjuntarCaptura("SimulacionGuardada");
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - GuardarSimulacion() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - GuardarSimulacion() ########"+ e,false);
@@ -330,6 +331,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ElementVisible();
 			assertEstaPresenteElemento(simuladorasesorpage.inputSeApellido);
 			EscribirElemento(simuladorasesorpage.inputSeApellido, Sapellido);
+			adjuntarCaptura("CreacionCliente");
 			ElementVisible();
 			assertEstaPresenteElemento(simuladorasesorpage.inputCorreo);
 			EscribirElemento(simuladorasesorpage.inputCorreo, Correo);
@@ -345,11 +347,13 @@ public class OriginacionCreditosAccion extends BaseTest {
 			selectValorLista(simuladorasesorpage.contCiudad, simuladorasesorpage.listCiudad, Ciudad);
 			ElementVisible();
 			assertEstaPresenteElemento(simuladorasesorpage.btnCrear);
+			adjuntarCaptura("CreacionCliente");
 			hacerClick(simuladorasesorpage.btnCrear);
-			assertEstaPresenteElemento(simuladorasesorpage.notificacionCreacionCliente);
+			adjuntarCaptura("NotificacionCreacionCliente");
+			assertEstaPresenteElemento(simuladorasesorpage.notificacionCreacionCliente);			
 			hacerClicknotificacion();////////////////////////////////////////////////////////
 			esperaExplicitaNopresente(simuladorasesorpage.notificacionCreacionCliente);
-			ElementVisible();
+			ElementVisible();			
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - CrearCliente() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - CrearCliente() ########"+ e,false);
@@ -363,6 +367,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			cargarPdf(simuladorasesorpage.fileAutorizacion, simuladorasesorpage.fileCedula, simuladorasesorpage.fileNomina,
 					ruta);
 			ElementVisible();
+			adjuntarCaptura("CargueDeDocumentos");
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - SubirDocumentos() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - SubirDocumentos() ########"+ e,false);
@@ -383,12 +388,15 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(simuladorasesorpage.btnSoliConsulta);
 			ElementVisible();		
 			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
+			adjuntarCaptura("ConsultaCentrales");
 			hacerClicknotificacion();
 			}else 
 			{
 			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
+			adjuntarCaptura("ConsultaCentrales");
 			hacerClicknotificacion();
 			}
+			
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - ConsultaCentrales() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - ConsultaCentrales() ########"+ e,false);
@@ -408,6 +416,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
 			esperaExplicitaTexto(NombreCredito);
 			ElementVisible();
+			adjuntarCaptura("FiltroSolicitudCliente");
 			esperaExplicita(creditocolicitudpage.selectVerEditar);
 			hacerClick(creditocolicitudpage.selectVerEditar);
 			ElementVisible();
@@ -428,6 +437,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanaSeguridadPage.Viable);
 			hacerClick(pestanaSeguridadPage.BotonGuardar);
 			assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
+			adjuntarCaptura("GuardarViable");
 			esperaExplicitaNopresente(simuladorasesorpage.notificacion);
 			esperaExplicita(pestanaSeguridadPage.Concepto);
 			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
@@ -446,7 +456,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	
 	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
 		log.info("******************** OriginacionCreditosAccion - assertSimuladorinterno()  ***************");
-	       // consulta base de datos
+			
+	      /* // consulta base de datos
 			int DesPrimaAntic = 0;
 			OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 			ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
@@ -540,10 +551,13 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 					Integer.parseInt(descNomina), colchon, tasaUno,
-					Integer.parseInt(Plazo), tasaDos, mesDos);
+					Integer.parseInt(Plazo), tasaDos, mesDos);*/
+			Hacer_scroll(pestanasimuladorinternopage.btnGuardar);
+			adjuntarCaptura("SimuladorInterno");
 			Hacer_scroll(pestanasimuladorinternopage.Solicitar);
 			hacerClick(pestanasimuladorinternopage.Solicitar);
 			esperaExplicita(simuladorasesorpage.notificacion);
+			adjuntarCaptura("SolicitarRadicacion");
 			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la radicación para el crédito");
 			ElementVisible();  
 	
@@ -591,7 +605,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			selectValorLista(pestanaformulariopage.ListaDestinoCredito, DestinoCredito);
 			ElementVisible();
 			Hacer_scroll(pestanaformulariopage.AgregarCuenta);
-
+			adjuntarCaptura("LlenarFormulario");
 			if (Sexo == "M") {
 				hacerClick(pestanaformulariopage.SexoM);
 			} else {
@@ -616,12 +630,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ElementVisible();
 			hacerClick(pestanaformulariopage.Ciudad);
 			selectValorLista(pestanaformulariopage.Ciudadlist, Ciudad);
+			adjuntarCaptura("LlenarFormulario");
 			ElementVisible();
 			hacerClick(pestanaformulariopage.Correspondencia);
 			ElementVisible();
 			hacerClick(pestanaformulariopage.Tipovivienda);
 			selectValorLista(pestanaformulariopage.Tipoviviendalist, TipoVivienda);
 			ElementVisible();
+			adjuntarCaptura("LlenarFormulario");
 			Hacer_scroll(pestanaformulariopage.Guardar);
 			hacerClick(pestanaformulariopage.Guardar);
 			ElementVisible();
@@ -678,6 +694,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			llenarInputMultiples(pestanaformulariopage.TelefonoResidencia, TelefonoResidencia);
 			llenarInputMultiples(pestanaformulariopage.TelefonoTrabajo, TelefonoTrabajo);
 			ElementVisible();
+			adjuntarCaptura("Referencias");
 			Hacer_scroll(pestanaformulariopage.GuardarRefer);
 			hacerClick(pestanaformulariopage.GuardarRefer);
 			hacerClick(pestanaformulariopage.GuardarRefer);
@@ -700,6 +717,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			esperaExplicita(pestanadigitalizacionPage.Titulo);		
 			hacerClick(pestanadigitalizacionPage.EnVerificacion); ElementVisible();
 			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			adjuntarCaptura("EnVerificacion");
 			hacerClicknotificacion();
 			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		} catch (Exception e) {
@@ -721,7 +739,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanareferenciacionpage.TipoContrato);
 			ElementVisible();
 			hacerClick(pestanareferenciacionpage.CargoCheck);
-			ElementVisible();
+			ElementVisible(); 
+			adjuntarCaptura("Referencias");
 			Hacer_scroll(pestanareferenciacionpage.Guardar);
 			hacerClick(pestanareferenciacionpage.Guardar);
 			ElementVisible();
@@ -744,6 +763,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ElementVisible();
 			hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
 			ElementVisible();
+			adjuntarCaptura("CodigoPreforences");
 			hacerClick(pestanadigitalizacionPage.Guardar);
 			// hacerClick(pestanadigitalizacionPage.Guardar);
 			ElementVisible();
@@ -762,6 +782,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanadigitalizacionPage.Radicar);
 			ElementVisible();
 			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			adjuntarCaptura("RadicarCredito");
 			hacerClicknotificacion();
 			hacerClicknotificacion();
 			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
@@ -780,6 +801,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanareferenciacionpage.SolicitarAnalisis);
 			ElementVisible();
 			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			adjuntarCaptura("AnalisisCredito");
 			hacerClicknotificacion();
 			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		} catch (Exception e) {
@@ -1054,7 +1076,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void ValidarValoresLlamadoBienvenida() throws NumberFormatException, SQLException {
 		recorerpestanas("CONDICIONES DEL CRÉDITO");	
 	
-		
+		/*
 		ResultSet resultado;
 		
 		String [] ValoresCredito=RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
@@ -1147,7 +1169,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[16]),EstudioCreditoIva);
 	
 		
-		
+		*/
 	}
 	
 
