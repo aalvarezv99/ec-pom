@@ -68,7 +68,7 @@ public class CrearDriver {
 					System.setProperty("webdriver.chrome.driver", origenFuente + so +"/" + navegador +"/chromedriver.exe");
 					break;
 				case "Linux":
-					System.setProperty("webdriver.chrome.driver", origenFuente + so + "/linux");
+					System.setProperty("webdriver.chrome.driver", origenFuente + so + "/chromedriver");
 					break;
 				case "Mac":
 					System.setProperty("webdriver.chrome.driver", origenFuente + so + "/linux");
