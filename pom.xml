@@ -146,8 +146,8 @@
 				<version>${maven.compiler.version}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>3.8.0</source>
-					<target>3.8.0</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 
