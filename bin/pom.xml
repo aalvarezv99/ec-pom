@@ -146,8 +146,8 @@
 				<version>${maven.compiler.version}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 
@@ -185,8 +185,8 @@
                    	</argLine>
 					<includes>
 						<!-- <include>**/*Steps.java</include> -->
-						<include>**/*Runner.java</include>
-					<!--<include>**/OriginacionCreditosRunner.java</include> -->
+<!-- 						<include>**/*Runner.java</include> -->
+					<include>**/CertificacionSaldosRunner.java</include>
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
 				</configuration>
