@@ -131,7 +131,9 @@ public class CrearDriver {
 			ChromeOptions options = new ChromeOptions();			
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.setHeadless(true);
+			options.setBinary("/usr/bin/google-chrome"); 
 			options.addArguments("headless");
+			
 			options.addArguments("--disable-gpu");
 			options.addArguments("disable-infobars");
 			options.addArguments("--disable-extensions");
