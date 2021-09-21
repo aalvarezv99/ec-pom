@@ -130,6 +130,12 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();			
 			options.setExperimentalOption("prefs", chromePrefs);
+			options.addArguments("headless");
+			options.addArguments("--disable-gpu");
+			options.addArguments("disable-infobars");
+			options.addArguments("--disable-extensions");
+			options.addArguments("window-size=1200x600");
+			options.addArguments("--no-sandbox");
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
 		} catch (Exception e) {
