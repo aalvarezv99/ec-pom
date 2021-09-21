@@ -128,6 +128,11 @@ public class SolicitudCreditoSteps {
 		originacionaccion.Correctocondiciones(Celular,Correo);
 	}
 	
+	@Y("se validan los valores de las condiciones del credito")
+	public void sevalidanlosvaloresdelascondicionesdelcredito() throws NumberFormatException, SQLException {
+		originacionaccion.ValidarValoresLlamadoBienvenida();
+	}
+	
 	
 	@Entonces("se pasa a la pestana condiciones de credito se marcan los chech y se acepta{string}")
 	public void sepasaalapestanacondicionesdecreditosemarcanloschechyseacepta (String TipoDesen) throws InterruptedException {

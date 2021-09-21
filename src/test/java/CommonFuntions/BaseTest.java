@@ -118,6 +118,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
+			esperaExplicita(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -337,7 +338,32 @@ public class BaseTest {
  
 	}
  
-	public double PrimaAnticipadaSeguro (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
+	public double PrimaNeta (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+	  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		Valor=PrimaHijo-redondearDecimales(Valor,0);		
+	    log.info(" ###### Valor prima ##### " + Valor );
+	    if(Valor<=0)
+	    	Valor=0;	        
+		return redondearDecimales(Valor,0);
+	}
+	
+	public double PrimaNoDevengadaCPadre (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+		  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		        
+		return redondearDecimales(Valor,0);
+	}
+	
+	
+	
+	public double PrimaAnticipadaSeguro  (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
 		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
 		return redondearDecimales(Valor,0);
 	}
@@ -355,6 +381,41 @@ public class BaseTest {
 		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);		
 		return redondearDecimales(Valor,0);
 	}
+	
+    /*************************Formulas de CXC *******************************/
+	
+	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
+        
+		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
+		log.info("MontoaSolicitar "+ (int) redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+	}
+                          
+	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
+		double Valor = 0;
+		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
+		if(plazo < mesDos) {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
+		}
+		else {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
+					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
+					/(Math.pow((1+tasaUno), (mesDos-1)))));
+		
+		}
+		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+	}
+                          
+	public double EstudioCreditoIvacxc (int TotalMontoSoli, double porcentajeEstudioCredito) {
+                          
+		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito" + redondearDecimales(Valor,0));
+		return (int) redondearDecimales(Valor,0);
+                          
+	}
+	
+	/*************************Fin Formula de CXC*****************************/
  
 	/************* FIN FUNC Assert Selenium ****************/
    
@@ -395,6 +456,11 @@ public class BaseTest {
 	 public void assertVisibleElemento(By locator) {		
 		assertTrue(driver.findElement(locator).isDisplayed());
 	}
+	 //Metodo que retorna true o false si esta o no presente un elemento
+	 public boolean ValidarElementoPresente(By locator) {
+		 
+		 return driver.findElements(locator).isEmpty();
+	 }
 	
 	public void ClicUltimoElemento(By lista) {
 		List<WebElement> ListaElement = driver.findElements(lista);		
@@ -508,8 +574,8 @@ public class BaseTest {
 		
 	}
 
-    public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
-	
+	public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
+		
 		List<WebElement> DptList = driver.findElements(DepartamentoList);		
 		List<WebElement> CdaList = driver.findElements(CiudadList);	
 		List<WebElement> CdaLabel = driver.findElements(By.xpath("//label[starts-with(@id,'form:j_idt156:') and contains(@id,'ciudad_label')]"));
@@ -538,7 +604,6 @@ public class BaseTest {
 		ElementVisible();
     
 	}
-    
     
 	public void MarcarCheckCorrecto() throws InterruptedException {
 		Thread.sleep(1000);
@@ -622,6 +687,7 @@ public class BaseTest {
 		for (WebElement contenido : BtnCheck) {
 
 			contenido.click();
+			ElementVisible();
 			count = count + 1;
 			hacerScrollAbajo();
 		}
@@ -726,7 +792,7 @@ public void clickvarios(By locator) {
 	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(6000);
+		Thread.sleep(8000);
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -806,8 +872,8 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
-		
-		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+		//assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))
+		if(driver.findElements(By.xpath("//*[@class='ui-growl-title']")).isEmpty()==false) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
@@ -971,12 +1037,60 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-    		assertTrue(true);
+        	System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor TRUE "+" Valor a "+a+" Valor b "+b,true);
     	}else {
-    		assertTrue(false);
+    		System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor FALSE "+" Valor a "+a+" Valor b "+b,false);
     	}
     }
   
+    
+    public void  ToleranciaPesoMensaje(String mensaje,int a,int b){
+    	int Tolerancia=a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if(Tolerancia<=1 && Tolerancia>=0){
+        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,true);
+    	}else {
+    		System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
+    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,false);
+    	}
+    }
+    
+    public String[] RetornarStringListWebElemen(By locator) {
+    	
+    	String[] Valores = new String[21];
+    	int valor=0;
+    	List<WebElement> ListaElement = driver.findElements(locator);
+    	
+        for(int i=0;i<ListaElement.size();i++) {
+        	if(i<3) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}else {
+        	String ValorNumerico =	ListaElement.get(i).getText().replace(".","");
+        	System.out.println(i+" valor numerico  " + ValorNumerico);
+        	int coma = 	ValorNumerico.indexOf(",");
+        	
+        	if(coma==-1) {
+        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	}
+        	else {
+        		Valores[i]=	ValorNumerico.substring(0,coma);
+            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
+        	}
+        
+        	}
+        	
+        
+        }
+        
+        return Valores;
+    }
+    
+    
 	/**************************************/
 //backup metodo de carteras y saneamientos
     public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,

@@ -10,11 +10,12 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/RetanqueoFeature/Retanqueo.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos"},
+		plugin= {"html:target/cucumber-html-report","json:target/cucumber.json"},
+		tags = {"@Retanqueo"},
 	    snippets = SnippetType.CAMELCASE
 		)
 public class RetanqueoRunner {
    
 }
-//,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
+//@Retanqueo,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
 //tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida"},

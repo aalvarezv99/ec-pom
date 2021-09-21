@@ -83,7 +83,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 		hacerClick(pestanadigitalizacionPage.Entidad);
 		EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad);
 		EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
-		EscribirElemento(pestanadigitalizacionPage.MontoCartera, cartera);
+		EscribirElemento(pestanadigitalizacionPage.MontoSaneamiento, cartera);
 		EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota);
 		EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
 		EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion);
@@ -204,7 +204,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
    	ElementVisible(); 
    	hacerClicknotificacion();
    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-   	
+   	/*
    	 // consulta base de datos
 		int DesPrimaAntic = 0;
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -276,7 +276,7 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.IngresosAsesor).substring(0,TextoElemento(pestanasimuladorinternopage.IngresosAsesor).length()-2).replaceAll("[^a-zA-Z0-9]", ""),Ingresos);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosLey).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosLey).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descLey);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
-   }
+  */ }
    
 /************FINALIZA ACCIONES ANALISTA DE CREDITO COMPRA DE CARTERA*************/
    
