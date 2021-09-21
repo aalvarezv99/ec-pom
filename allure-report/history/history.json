@@ -1,0 +1,62 @@
+{
+  "bfb2dfcc4e188f7321655478142b2a28" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 1,
+      "skipped" : 1,
+      "passed" : 0,
+      "unknown" : 0,
+      "total" : 2
+    },
+    "items" : [ {
+      "uid" : "47cdd224d4c16af5",
+      "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/9/allure/#testresult/47cdd224d4c16af5",
+      "status" : "broken",
+      "statusDetails" : "Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a",
+      "time" : {
+        "start" : 1631728860974,
+        "stop" : 1631728910369,
+        "duration" : 49395
+      }
+    }, {
+      "uid" : "ec683b053ca1b12",
+      "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/8/allure/#testresult/ec683b053ca1b12",
+      "status" : "skipped",
+      "statusDetails" : "java.lang.NullPointerException",
+      "time" : {
+        "start" : 1631728786534,
+        "stop" : 1631728791826,
+        "duration" : 5292
+      }
+    } ]
+  },
+  "7502e01e23d6342f3b241ed3d0cc0c53" : {
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
+    },
+    "items" : [ {
+      "uid" : "342c5a30761879d4",
+      "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/3/allure/#testresult/342c5a30761879d4",
+      "status" : "passed",
+      "time" : {
+        "start" : 1631721183729,
+        "stop" : 1631721200260,
+        "duration" : 16531
+      }
+    }, {
+      "uid" : "40579065456fe827",
+      "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/2/allure/#testresult/40579065456fe827",
+      "status" : "passed",
+      "time" : {
+        "start" : 1631626217871,
+        "stop" : 1631626232683,
+        "duration" : 14812
+      }
+    } ]
+  }
+}

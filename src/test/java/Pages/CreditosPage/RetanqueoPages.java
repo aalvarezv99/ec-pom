@@ -32,6 +32,7 @@ public class RetanqueoPages {
 		public By inputdDescNomina;
 		public By vlrCompra;
 		public By MontoSolicitar;
+		public By inputMontoValor;
 		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
@@ -57,6 +58,7 @@ public class RetanqueoPages {
 			inputTasa = By.id("formSimuladorCredito:tasaCr_input");
 			inputPlazo = By.id("formSimuladorCredito:plazoCr_input");		
 			inputMonto = By.id("formSimuladorCredito:montoCr_input");	
+			inputMontoValor = By.id("formSimuladorCredito:montoCr_hinput");	
 			diasIntInicial = By.id("formSimuladorCredito:iInicialesCr_input");
 			inputIngresos = By.id("formSimuladorCredito:ingresosCr");
 			inputDescLey = By.id("formSimuladorCredito:leyCr");

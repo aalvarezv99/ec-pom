@@ -1,5 +1,7 @@
 package Acciones.CreditoAccion;
 
+import java.sql.ResultSet;
+
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -7,6 +9,7 @@ import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
 import Archivo.LeerArchivo;
 import CommonFuntions.BaseTest;
+import Consultas.OriginacionCreditoQuery;
 import JSch.JSchSSHConnection;
 import Pages.ComunesPage.PanelNavegacionPage;
 import Pages.CreditosPage.PagesClienteParaBienvenida;
@@ -146,36 +149,7 @@ public void ReferenciasPositivasRetanqueoSaneamiento(String Codigo) throws Inter
     }
 /************FIN ACCIONES RETANQUEO CREDITO CON SANEAMIENTO ***************/
 /************ INICIA ACCIONES ANALISTA ***************/
-public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Saneamiento) throws InterruptedException{
-	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
-	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
-	Clear(pestanasimuladorinternopage.FechaDesembolso);
-	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);  
-	EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
-	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);    	
-	ElementVisible();
-	selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
-	ElementVisible();
-	hacerClick(pestanasimuladorinternopage.FechasManuales);
-	ElementVisible();
-	hacerClick(pestanasimuladorinternopage.CalcularDesglose);
-	ElementVisible();
-	hacerClicknotificacion();
-	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);		
-	int Gmf4100 = (int) Gmf4100(Integer.parseInt(Saneamiento), 0.004);
-	int DescuentosPorSaneamiento = ((Gmf4100 + Integer.parseInt(Saneamiento)));		
-		
-	//ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
-	
-		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorSaneamiento));
-		System.out.println("dentro del if que contiene punto");
-		}
-		else {
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorSaneamiento));
-		System.out.println("dentro del else que no contiene punto");
-		}
-	}
+
 /************ FINALIZA ACCIONES ANALISTA ***************/
 /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
 

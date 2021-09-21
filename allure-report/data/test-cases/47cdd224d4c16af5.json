@@ -1,0 +1,399 @@
+{
+  "uid" : "47cdd224d4c16af5",
+  "name" : "Simulador Asesor",
+  "fullName" : "Originacion de Creditos: Simulador Asesor",
+  "historyId" : "bfb2dfcc4e188f7321655478142b2a28",
+  "time" : {
+    "start" : 1631728860974,
+    "stop" : 1631728910369,
+    "duration" : 49395
+  },
+  "status" : "broken",
+  "statusMessage" : "Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a",
+  "statusTrace" : "org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a\r\n\tat org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:81)\r\n\tat org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:271)\r\n\tat CommonFuntions.BaseTest.esperaExplicita(BaseTest.java:803)\r\n\tat Acciones.CreditoAccion.OriginacionCreditosAccion.CrearCliente(OriginacionCreditosAccion.java:272)\r\n\tat StepsDefinitions.CreditoSteps.SimuladorAsesorSteps.se_permite_crear_el_cliente(SimuladorAsesorSteps.java:71)\r\n\tat ✽.se permite crear el cliente \"Pensionado por Tiempo (Vejez)\"\"10/03/2000\"\"ALEYDA\"\"RODRIGUEZ\"\"GONZALEZ\"\"dandresabogadog@mail.com\"\"3115128152\"\"Cundinamarca\"\"Anapoima\"(file:src/test/resources/feature/OriginacionFeature/OriginacionCreditos.feature:15)\r\n",
+  "flaky" : false,
+  "beforeStages" : [ {
+    "name" : "Driver.before(Scenario)",
+    "time" : {
+      "start" : 1631728860976,
+      "stop" : 1631728861008,
+      "duration" : 32
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "Driver.iniciarDriver()",
+    "time" : {
+      "start" : 1631728861009,
+      "stop" : 1631728866495,
+      "duration" : 5486
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "status" : "broken",
+    "statusMessage" : "Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a",
+    "statusTrace" : "org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a\r\n\tat org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:81)\r\n\tat org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:271)\r\n\tat CommonFuntions.BaseTest.esperaExplicita(BaseTest.java:803)\r\n\tat Acciones.CreditoAccion.OriginacionCreditosAccion.CrearCliente(OriginacionCreditosAccion.java:272)\r\n\tat StepsDefinitions.CreditoSteps.SimuladorAsesorSteps.se_permite_crear_el_cliente(SimuladorAsesorSteps.java:71)\r\n\tat ✽.se permite crear el cliente \"Pensionado por Tiempo (Vejez)\"\"10/03/2000\"\"ALEYDA\"\"RODRIGUEZ\"\"GONZALEZ\"\"dandresabogadog@mail.com\"\"3115128152\"\"Cundinamarca\"\"Anapoima\"(file:src/test/resources/feature/OriginacionFeature/OriginacionCreditos.feature:15)\r\n",
+    "steps" : [ {
+      "name" : "Dado  Un agente en el sistema core abacus con sesion iniciada",
+      "time" : {
+        "start" : 1631728866497,
+        "stop" : 1631728873401,
+        "duration" : 6904
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ {
+        "uid" : "772ba6019df4fb3a",
+        "name" : "InisioSesionExitoso15-septiembre-2021 01.01.13",
+        "source" : "772ba6019df4fb3a.png",
+        "type" : "image/png",
+        "size" : 257583
+      } ],
+      "parameters" : [ ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 1,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Cuando  el agente ingresa a la pestana de simulador asesor",
+      "time" : {
+        "start" : 1631728873402,
+        "stop" : 1631728876642,
+        "duration" : 3240
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ {
+        "uid" : "8fd62076761d013f",
+        "name" : "IngresoSimulador15-septiembre-2021 01.01.16",
+        "source" : "8fd62076761d013f.png",
+        "type" : "image/png",
+        "size" : 222783
+      } ],
+      "parameters" : [ ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 1,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Y  cree la simulacion con la informacion del archivo contenida en la tabla \"COLFONDOS\"\"52912399\"\"01/Ago/1971\"\"Cartagena\"\"Pensionado\"\"1.8\"\"120\"\"5000000\"\"30\"\"3500000\"\"280000\"\"50000\"\"0\"\"xx\"\"0\"",
+      "time" : {
+        "start" : 1631728876643,
+        "stop" : 1631728895793,
+        "duration" : 19150
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Y  guarda la simulacion presionando el boton guardar",
+      "time" : {
+        "start" : 1631728895794,
+        "stop" : 1631728899820,
+        "duration" : 4026
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Entonces  se permite crear el cliente \"Pensionado por Tiempo (Vejez)\"\"10/03/2000\"\"ALEYDA\"\"RODRIGUEZ\"\"GONZALEZ\"\"dandresabogadog@mail.com\"\"3115128152\"\"Cundinamarca\"\"Anapoima\"",
+      "time" : {
+        "start" : 1631728899820,
+        "stop" : 1631728910361,
+        "duration" : 10541
+      },
+      "status" : "broken",
+      "statusMessage" : "Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a",
+      "statusTrace" : "org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a\r\n\tat org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:81)\r\n\tat org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:271)\r\n\tat CommonFuntions.BaseTest.esperaExplicita(BaseTest.java:803)\r\n\tat Acciones.CreditoAccion.OriginacionCreditosAccion.CrearCliente(OriginacionCreditosAccion.java:272)\r\n\tat StepsDefinitions.CreditoSteps.SimuladorAsesorSteps.se_permite_crear_el_cliente(SimuladorAsesorSteps.java:71)\r\n\tat ✽.se permite crear el cliente \"Pensionado por Tiempo (Vejez)\"\"10/03/2000\"\"ALEYDA\"\"RODRIGUEZ\"\"GONZALEZ\"\"dandresabogadog@mail.com\"\"3115128152\"\"Cundinamarca\"\"Anapoima\"(file:src/test/resources/feature/OriginacionFeature/OriginacionCreditos.feature:15)\r\n",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : true
+    }, {
+      "name" : "Y  el sistema habilita el cargue de documentos para el cliente \"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf\"",
+      "time" : {
+        "start" : 1631728910361,
+        "stop" : 1631728910361,
+        "duration" : 0
+      },
+      "status" : "skipped",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "Y  se finaliza con la consulta a centrales",
+      "time" : {
+        "start" : 1631728910362,
+        "stop" : 1631728910362,
+        "duration" : 0
+      },
+      "status" : "skipped",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ ],
+      "hasContent" : false,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 7,
+    "attachmentsCount" : 2,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ {
+    "name" : "Driver.salirDriver()",
+    "time" : {
+      "start" : 1631728910363,
+      "stop" : 1631728910364,
+      "duration" : 1
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "labels" : [ {
+    "name" : "tag",
+    "value" : "SimuladorAsesor"
+  }, {
+    "name" : "host",
+    "value" : "BPRO62"
+  }, {
+    "name" : "thread",
+    "value" : "9440@BPRO62.main(1)"
+  }, {
+    "name" : "feature",
+    "value" : "Originacion de Creditos"
+  }, {
+    "name" : "story",
+    "value" : "Simulador Asesor"
+  }, {
+    "name" : "suite",
+    "value" : "Originacion de Creditos"
+  }, {
+    "name" : "testClass",
+    "value" : "Simulador Asesor"
+  }, {
+    "name" : "framework",
+    "value" : "cucumber4jvm"
+  }, {
+    "name" : "language",
+    "value" : "java"
+  }, {
+    "name" : "gherkin_uri",
+    "value" : "file:src/test/resources/feature/OriginacionFeature/OriginacionCreditos.feature"
+  }, {
+    "name" : "package",
+    "value" : "src.test.resources.feature.OriginacionFeature.OriginacionCreditos_feature.Originacion de Creditos"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ {
+    "name" : "Actividad",
+    "value" : "\"Pensionado\""
+  }, {
+    "name" : "Banco",
+    "value" : "\"Remanentes - 60237038927 - REMANENTE\""
+  }, {
+    "name" : "Cedula",
+    "value" : "\"52912399\""
+  }, {
+    "name" : "Celular",
+    "value" : "\"3115128152\""
+  }, {
+    "name" : "Ciudad",
+    "value" : "\"Anapoima\""
+  }, {
+    "name" : "Codigo",
+    "value" : "\"3112\""
+  }, {
+    "name" : "Correo",
+    "value" : "\"dandresabogadog@mail.com\""
+  }, {
+    "name" : "DestinoCredito",
+    "value" : "\"Educacion propia\""
+  }, {
+    "name" : "DiasHabilesIntereses",
+    "value" : "\"30\""
+  }, {
+    "name" : "Direccion",
+    "value" : "\"Calle 2d #22-52\""
+  }, {
+    "name" : "Dpto",
+    "value" : "\"Cundinamarca\""
+  }, {
+    "name" : "EstadoCivil",
+    "value" : "\"Soltero\""
+  }, {
+    "name" : "FechaIngreso",
+    "value" : "\"10/03/2000\""
+  }, {
+    "name" : "FechaServidor",
+    "value" : "\"2021-04-20\""
+  }, {
+    "name" : "Ingresos",
+    "value" : "\"3500000\""
+  }, {
+    "name" : "IngresosMes",
+    "value" : "\"3500000\""
+  }, {
+    "name" : "Mes",
+    "value" : "\"Agosto\""
+  }, {
+    "name" : "Monto",
+    "value" : "\"5000000\""
+  }, {
+    "name" : "NombreCredito",
+    "value" : "\"ALEYDA\""
+  }, {
+    "name" : "Oficina",
+    "value" : "\"Cartagena\""
+  }, {
+    "name" : "Pagaduria",
+    "value" : "\"COLFONDOS\""
+  }, {
+    "name" : "Papellido",
+    "value" : "\"RODRIGUEZ\""
+  }, {
+    "name" : "PapellidoReferencia",
+    "value" : "\"perez\""
+  }, {
+    "name" : "Plazo",
+    "value" : "\"120\""
+  }, {
+    "name" : "Pnombre",
+    "value" : "\"ALEYDA\""
+  }, {
+    "name" : "PnombreReferencia",
+    "value" : "\"alejandro\""
+  }, {
+    "name" : "Sapellido",
+    "value" : "\"GONZALEZ\""
+  }, {
+    "name" : "Sexo",
+    "value" : "\"F\""
+  }, {
+    "name" : "Tasa",
+    "value" : "\"1.8\""
+  }, {
+    "name" : "TelefonoResidencia",
+    "value" : "\"7210273\""
+  }, {
+    "name" : "TelefonoTrabajo",
+    "value" : "\"9007146\""
+  }, {
+    "name" : "TipoContrato",
+    "value" : "\"Pensionado por Tiempo (Vejez)\""
+  }, {
+    "name" : "TipoDesen",
+    "value" : "\"Efectivo\""
+  }, {
+    "name" : "TipoVivienda",
+    "value" : "\"FAMILIAR\""
+  }, {
+    "name" : "TotalActivos",
+    "value" : "\"20500000\""
+  }, {
+    "name" : "colchon",
+    "value" : "\"0\""
+  }, {
+    "name" : "descLey",
+    "value" : "\"280000\""
+  }, {
+    "name" : "descNomina",
+    "value" : "\"50000\""
+  }, {
+    "name" : "fecha",
+    "value" : "\"01/Ago/1971\""
+  }, {
+    "name" : "fecha",
+    "value" : "\"12/Ago/1982\""
+  }, {
+    "name" : "fechaActual",
+    "value" : "\"04/08/2021\""
+  }, {
+    "name" : "rutaPDF",
+    "value" : "\"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf\""
+  }, {
+    "name" : "tipo",
+    "value" : "\"xx\""
+  }, {
+    "name" : "vlrCompasSaneamientos",
+    "value" : "\"0\""
+  } ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ {
+      "name" : "Test defects",
+      "matchedStatuses" : [ ],
+      "flaky" : false
+    } ],
+    "history" : {
+      "statistic" : {
+        "failed" : 0,
+        "broken" : 1,
+        "skipped" : 1,
+        "passed" : 0,
+        "unknown" : 0,
+        "total" : 2
+      },
+      "items" : [ {
+        "uid" : "ec683b053ca1b12",
+        "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/8/allure/#testresult/ec683b053ca1b12",
+        "status" : "skipped",
+        "statusDetails" : "java.lang.NullPointerException",
+        "time" : {
+          "start" : 1631728786534,
+          "stop" : 1631728791826,
+          "duration" : 5292
+        }
+      } ]
+    },
+    "tags" : [ "SimuladorAsesor" ]
+  },
+  "source" : "47cdd224d4c16af5.json",
+  "parameterValues" : [ "\"Pensionado\"", "\"Remanentes - 60237038927 - REMANENTE\"", "\"52912399\"", "\"3115128152\"", "\"Anapoima\"", "\"3112\"", "\"dandresabogadog@mail.com\"", "\"Educacion propia\"", "\"30\"", "\"Calle 2d #22-52\"", "\"Cundinamarca\"", "\"Soltero\"", "\"10/03/2000\"", "\"2021-04-20\"", "\"3500000\"", "\"3500000\"", "\"Agosto\"", "\"5000000\"", "\"ALEYDA\"", "\"Cartagena\"", "\"COLFONDOS\"", "\"RODRIGUEZ\"", "\"perez\"", "\"120\"", "\"ALEYDA\"", "\"alejandro\"", "\"GONZALEZ\"", "\"F\"", "\"1.8\"", "\"7210273\"", "\"9007146\"", "\"Pensionado por Tiempo (Vejez)\"", "\"Efectivo\"", "\"FAMILIAR\"", "\"20500000\"", "\"0\"", "\"280000\"", "\"50000\"", "\"01/Ago/1971\"", "\"12/Ago/1982\"", "\"04/08/2021\"", "\"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf\"", "\"xx\"", "\"0\"" ]
+}
