@@ -42,7 +42,7 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo|Cedula         |NombreCredito|Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       |
-    |"1000000"|"80226849"     |"JAIVER"      |"8500000"| "280000" |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"16/07/2021"|
+    |"1000000"|"10227444"     |"JESUS ALONSO"      |"8500000"| "280000" |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"16/07/2021"|
 
 
    @ClientesBienvenidaRetanqueos 

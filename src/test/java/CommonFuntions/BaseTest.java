@@ -806,8 +806,8 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
-		
-		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+		//assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))
+		if(driver.findElements(By.xpath("//*[@class='ui-growl-title']")).isEmpty()==false) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
@@ -1030,5 +1030,37 @@ public WebDriver chromeDriverConnection() {
 			hacerClicknotificacion();
 		}
 	}
+
+    public void Hacer_scroll_centrado(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView({inline: \"center\", block: \"center\", behavior: \"smooth\"});", Element);
+    }
+
+    public List<String> parseWebElementsToList(List<WebElement> list) {
+    	int totalElementos = list.size();
+		List<String> listString = new ArrayList<>();
+		for(int i = 0; i < totalElementos; i++) {
+			listString.add(list.get(i).getAttribute("id"));
+		}
+		return listString;
+    }
     
+    public void clickVariosReferenciasPositivas(By locator) throws InterruptedException {
+		Thread.sleep(1000);
+		List<WebElement> clickvarios = driver.findElements(locator);
+		int totalElementos = clickvarios.size();
+		List<String> botones = this.parseWebElementsToList(clickvarios);
+		if (totalElementos != 0) {
+			for(int i = 0; i < totalElementos; i++) {
+				Thread.sleep(3000);
+				String item = botones.get(i);
+				this.esperaExplicita(By.id(item));
+				this.Hacer_scroll_centrado(By.id(item));
+				this.hacerClick(By.id(item));
+				this.esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+				this.hacerClicknotificacion();
+			}
+		}
+	}
 }

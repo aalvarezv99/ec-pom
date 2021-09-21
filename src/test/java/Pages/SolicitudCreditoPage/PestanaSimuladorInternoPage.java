@@ -51,6 +51,7 @@ public class PestanaSimuladorInternoPage {
 	public By CompraSaneamiento;
 	public By ValorCompraCartera;
 	public By Monto;
+	public By FiltroCedulaCredito;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -100,7 +101,7 @@ public class PestanaSimuladorInternoPage {
 	    GuardarSimulacion=By.id("formSimulador:guardar");
 	    Aprobar = By.id("form:aprobar");
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
-	    
+	    FiltroCedulaCredito=By.id("form:listaCreditos:identificacion_cred_filtro:filter");
 	    
 	}
 }
