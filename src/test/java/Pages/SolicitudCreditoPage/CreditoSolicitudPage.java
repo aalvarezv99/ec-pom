@@ -125,10 +125,6 @@ public class CreditoSolicitudPage {
 	public By checkCargoSi;
 	public By btnSoliAnalisis;
 	
-	public By SegundaPestana;
-	public By ListBtnAddReference;
-	public By notificacion;
-	
 	public CreditoSolicitudPage(WebDriver driver) {
 		this.driver = driver;
 		
@@ -138,8 +134,9 @@ public class CreditoSolicitudPage {
 		contFecha = By.id("ui-datepicker-div");
 		listFecha = By.xpath("/html/body/div[11]/table/tbody/tr/td/a");
 		countFilas = By.xpath("//*[@id=\"form:listaCreditos_data\"]/tr");
+		
 		selectVerEditar = By.xpath("//a[contains(@id,'ver_editar_cred')]");
-
+		
 		//Componentes seleccionar Formularios
 		contPestanas = By.xpath("/html/body/div[2]/form/nav/div[2]/div[2]/div/ul");
 		listPestanas = By.xpath("/html/body/div[2]/form/nav/div[2]/div[2]/div/ul/li/a");
@@ -252,10 +249,6 @@ public class CreditoSolicitudPage {
 		checkContratoSi = By.xpath("//*[@id=\"formConsultas:tipoContrato:0_clone\"]");
 		checkCargoSi = By.xpath("//*[@id=\"formConsultas:cargo:0_clone\"]");
 		btnSoliAnalisis = By.id("formConsultas:analisis");
-
-		SegundaPestana = By.xpath("//a[starts-with(@onclick,'mojarra') and @class='link-circle']");
-		ListBtnAddReference = By.xpath("//a[starts-with(@class, 'ui-commandlink ui-widget iconoMatematicos3X')]");
-		notificacion = By.xpath("//*[@class='ui-growl-title']");
 	}
 		
 }
