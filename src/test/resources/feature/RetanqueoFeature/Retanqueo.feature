@@ -40,9 +40,9 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador                     
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
-    |Retanqueo |Cedula     |Credito|NombreCredito    |Ingresos |decLey  |descNomina|Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
-    |"1200000" |"19350535" |"78615"|"HECTOR EZEQUIEL"|"5000000"|"360000"|"80000"   |"Septiembre"|"1.8" |"22" |"360000" |"16/09/2021"|"30"                |"2021"         |
+   Ejemplos:
+    |Retanqueo|Cedula         |NombreCredito|Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       |
+    |"1000000"|"10227444"     |"JESUS ALONSO"      |"8500000"| "280000" |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"16/07/2021"|
 
 
    @ClientesBienvenidaRetanqueos 
