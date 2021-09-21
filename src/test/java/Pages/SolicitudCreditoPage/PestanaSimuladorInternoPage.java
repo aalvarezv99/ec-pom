@@ -58,6 +58,7 @@ public class PestanaSimuladorInternoPage {
 	public By PrimaNetaSimuladorAnalista;
 	public By PrimaNoDevengadaSimuladorInterno;
 	public By PrimaNoDevengadaSimuladorAnalista;
+	public By FiltroCedulaCredito;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -114,7 +115,6 @@ public class PestanaSimuladorInternoPage {
 	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");    
 	    PrimaNoDevengadaSimuladorInterno=By.id("formSimuladorCredito:primaNoConsumidaCreditoPadre_hinput");
 	    PrimaNoDevengadaSimuladorAnalista=By.id("formSimulador:primaNoDevengadaCreditoPadre_hinput");
-	    
-	    
+	    FiltroCedulaCredito = By.id("form:listaCreditos:identificacion_cred_filtro:filter");
 	}
 }

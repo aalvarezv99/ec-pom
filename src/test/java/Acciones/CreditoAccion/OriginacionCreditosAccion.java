@@ -53,6 +53,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	// BaseTest baseTest;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 	double vlrIva = 1.19;
+	String Cedula;
+	String NombreCredito;
 	
 	public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
 		/// this.driver = driver;
@@ -639,7 +641,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	/************ INICIA ACCIONES ANALISTA ***************/
 	public void ingresarAnalisisCredito(String Cedula, String Nombre) throws InterruptedException {
-
+		this.Cedula = Cedula;
+		this.NombreCredito = Nombre;
 		panelnavegacionaccion.navegarCreditoAnalisis();	
 		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedula, Cedula);		
 		ElementVisible();
@@ -781,12 +784,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void EndeudamientoGlobal() throws InterruptedException {
 		recorerpestanas("ENDEUDAMIENTO GLOBAL");
 		hacerClick(pestanasimuladorinternopage.Aprobar);
-		ElementVisible();
-		hacerClick(pestanasimuladorinternopage.Aprobar);
-		//assertTextonotificacion(simuladorasesorpage.notificacion,
-				//"Este crédito se ha enviado a flujo de aprobación de analisis.");
-		ElementVisible();
-
+		// hacerClick(pestanasimuladorinternopage.Aprobar);
+		// assertTextonotificacion(simuladorasesorpage.notificacion, "Este crédito se ha enviado a flujo de aprobación de analisis.");
+		esperaExplicita(simuladorasesorpage.notificacion);
+		String notificacion = GetText(simuladorasesorpage.notificacion);
+		ElementVisible();			
+		if (!notificacion.equals("Este crédito se ha enviado a flujo de aprobación de analisis.")) {
+			this.MostrarReferencias();
+		}
 	}
 
 	public void AprobarTareaCredito(String Cedula) throws InterruptedException {
@@ -1045,4 +1050,35 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 
 	/************ FIN Creditos Para Desembolso **********/
+
+	public void MostrarReferencias() throws InterruptedException {
+		panelnavegacionaccion.navegarCreditoSolicitud();
+		esperaExplicita(pestanasimuladorinternopage.FiltroCedulaCredito);
+		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedulaCredito, this.Cedula);
+		Thread.sleep(2000);
+		ElementVisible();
+		esperaExplicita(creditocolicitudpage.selectVerEditar);
+		ClicUltimoElemento(creditocolicitudpage.selectVerEditar);
+		ElementVisible();
+		recorerpestanas("REFERENCIACIÓN");
+		Hacer_scroll(creditocolicitudpage.SegundaPestana);
+		esperaExplicita(creditocolicitudpage.SegundaPestana);
+		hacerClick(creditocolicitudpage.SegundaPestana);
+		ElementVisible();
+		this.AgregarReferencias();
+	}
+
+	public void AgregarReferencias() throws InterruptedException {
+		clickVariosReferenciasPositivas(creditocolicitudpage.ListBtnAddReference);
+		Hacer_scroll(pestanareferenciacionpage.Titulo);
+		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+		ElementVisible();
+		Hacer_scroll(pestanareferenciacionpage.Titulo);
+		clickvarios(pestanareferenciacionpage.CheckSI);
+		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+		hacerClick(pestanareferenciacionpage.GuardarReferencias);
+		ElementVisible();
+		this.ingresarAnalisisCredito(this.Cedula, this.NombreCredito);
+		this.EndeudamientoGlobal();
+	}
 }
