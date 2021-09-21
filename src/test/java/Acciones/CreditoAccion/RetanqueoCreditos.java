@@ -455,7 +455,8 @@ public class RetanqueoCreditos extends BaseTest {
 			System.out.println("dentro del else que no contiene punto");
 		}
 		
-		adjuntarCaptura("Validar valores del simulador analista ");
+		adjuntarCaptura("Validar valores del simulador analista ");	
+            
     }
 	
 	public void ValidarSimuladorAnalistaRetanqueos(String anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses) throws InterruptedException, SQLException{
