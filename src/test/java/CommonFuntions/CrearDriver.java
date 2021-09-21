@@ -129,13 +129,22 @@ public class CrearDriver {
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
 			ChromeOptions options = new ChromeOptions();			
-			options.setExperimentalOption("prefs", chromePrefs);
 			options.addArguments("--no-sandbox");
-			options.addArguments("start-maximized");
-			options.addArguments("disable-notifications");
-			options.addArguments("allow-running-insecure-content");
+            options.addArguments("--disable-dev-shm-usage");
+            options.setExperimentalOption("useAutomationExtension", false);
+            options.addArguments("--window-size=1920,1080");            
+            options.addArguments("--start-maximized");
+            options.addArguments("--headless");
+            options.setExperimentalOption("useAutomationExtension", false);
+        	options.addArguments("--disable-gpu");
+
+            
 			caps = new DesiredCapabilities();
+			caps.setCapability("chrome.binary", "<Path to binary>");
+			caps.setCapability("acceptSslCerts", true);
+			caps.setCapability("acceptInsecureCerts", true);
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
+			
 		} catch (Exception e) {
 			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
 		}
