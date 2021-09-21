@@ -79,14 +79,22 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
 		esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
 		hacerClick(pestanadigitalizacionPage.AgregarCartera);
+		System.out.println("############## Agregar Cartera ");
 		ElementVisible();
+		Hacer_scroll_Abajo(pestanadigitalizacionPage.Entidad);
 		esperaExplicita(pestanadigitalizacionPage.Entidad);
+		System.out.println("############## Entidad ");
 		hacerClick(pestanadigitalizacionPage.Entidad);
+		System.out.println("############## Filtro Entidad ");
 		EscribirElemento(pestanadigitalizacionPage.FiltroEntidad, entidad_san);
 		EnviarEnter(pestanadigitalizacionPage.FiltroEntidad);
+		System.out.println("############## Saneamiento ");
 		EscribirElemento(pestanadigitalizacionPage.MontoCartera, saneamiento);
+		System.out.println("############## Valor Cuota ");
 		EscribirElemento(pestanadigitalizacionPage.ValorCuota, vlr_cuota_san);
+		System.out.println("############## Fecha Vencimiento ");
 		EscribirElemento(pestanadigitalizacionPage.FechaVencimiento, fecha_vencimiento);
+		System.out.println("############## No Obligacion ");
 		EscribirElemento(pestanadigitalizacionPage.NumObligacion, num_obligacion_San);
 		ElementVisible();		
 	}
@@ -187,7 +195,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
        	ElementVisible(); 
        	hacerClicknotificacion();
        	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-       	
+       	/*
        	 // consulta base de datos
     		int DesPrimaAntic = 0;
     		OriginacionCreditoQuery query = new OriginacionCreditoQuery();

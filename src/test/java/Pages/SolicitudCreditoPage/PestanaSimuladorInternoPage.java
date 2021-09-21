@@ -25,6 +25,7 @@ public class PestanaSimuladorInternoPage {
 	public By SgdPestana;
 	public By MesDeAfecatcion;
 	public By ListaMes;
+	public By Anno;
 	public By CalcularDesglose;
 	public By FechaDesembolso;
 	public By FechasManuales;
@@ -55,6 +56,8 @@ public class PestanaSimuladorInternoPage {
 	public By InteresesInicialesSimuladorAnalista;
 	public By PrimaNeta;
 	public By PrimaNetaSimuladorAnalista;
+	public By PrimaNoDevengadaSimuladorInterno;
+	public By PrimaNoDevengadaSimuladorAnalista;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -77,6 +80,7 @@ public class PestanaSimuladorInternoPage {
 	    SgdPestana = By.id("simuladorAnalista:vista_siguiente_analista_a");
 	    MesDeAfecatcion = By.id("formSimulador:mesAfectacion_label");
 	    ListaMes= By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
+	    Anno=By.id("formSimulador:anioAfectacion");
 	    CalcularDesglose = By.id("formSimulador:calcular_desglose_analista_b_boton");
 	    CompraSaneamiento = By.id("formSimulador:valorCompraCartera_hinput");
 	    ValorCompraCartera = By.id("formSimulador:valorCompraCartera_hinput");  
@@ -107,7 +111,10 @@ public class PestanaSimuladorInternoPage {
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
 	    InteresesInicialesSimuladorAnalista= By.id("formSimulador:diasInteresInicial_hinput");
 	    PrimaNeta=By.id("formSimuladorCredito:primaNetaSeguro_hinput");
-	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");                 
+	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");    
+	    PrimaNoDevengadaSimuladorInterno=By.id("formSimuladorCredito:primaNoConsumidaCreditoPadre_hinput");
+	    PrimaNoDevengadaSimuladorAnalista=By.id("formSimulador:primaNoDevengadaCreditoPadre_hinput");
+	    
 	    
 	}
 }

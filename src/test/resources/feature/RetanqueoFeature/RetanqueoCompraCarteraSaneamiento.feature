@@ -17,7 +17,7 @@ Característica: Retanqueo de creditos
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
+  # Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -30,10 +30,9 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  	|Retanqueo|Cedula    |Credito|rutaPDF                                    |Tasa |Plazo |DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo|Competidor1         |VlrCuota1|FechaVencimiento1|NumObligacion1  |Competidor2        |Cartera1  | Saneamiento2   |VlrCompraSaneamiento| VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
-    |"3450000"|"37255232"|"53026"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"65"  |"21"                |"4250000"|"210000" |"350000"  |"4250000"  |"2258"|"8600068225 - ACORE"|"70000"  |"26/09/2021"     |"9123"          |"8110315267 - AMAR"|"300000"  |"400000"        |"700000"            | "80000"      | "30/09/2021"        | "9321"          |
+  	|Retanqueo|Cedula    |Credito|rutaPDF                                    |Tasa |Plazo  |DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo|Competidor1         |VlrCuota1|FechaVencimiento1|NumObligacion1  |Competidor2        |Cartera1  | Saneamiento2   |VlrCompraSaneamiento| VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
+    |"800000" |"77006163"|"57244"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"12"   |"21"                |"5100000"|"210000" |"350000"  |"5100000"  |"2258"|"8600068225 - ACORE"|"70000"  |"26/09/2021"     |"9123"          |"8110315267 - AMAR"|"300000"  |"400000"        |"700000"            | "80000"      | "30/09/2021"        | "9321"          |
  
-     
      
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
@@ -41,13 +40,13 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses>
-    Y Guarda los datos del simulador
-    Y Pasa a la pestana endeudamiento global aprobando
-    Y Aprueba la tarea del credito<Cedula>
+    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses>
+   # Y Guarda los datos del simulador
+   # Y Pasa a la pestana endeudamiento global aprobando
+   # Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Credito|Cedula    |NombreCredito  |Ingresos  |descNomina |Mes     |Tasa    |Plazo|descLey |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|
-    |"3450000"|"53026"|"37255232"|"LUCY YANETH"  |"4250000" |"350000"   |"Agosto"|"1.8"   |"65" |"210000"|"26/08/2021"|"300000" |"400000"    |"21"                |
+    |Retanqueo|Credito|Cedula     |NombreCredito  |Ingresos  |descNomina |Mes      |Tasa    |Plazo |descLey |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
+    |"800000" |"57244"|"77006163" |"DAIRO ANTONIO"|"5100000" |"350000"   |"Octubre"|"1.8"  |"12"  |"210000"|"10/09/2021"|"300000" |"400000"    |"21"                |"2022"         |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 
@@ -57,8 +56,8 @@ Característica: Retanqueo de creditos
     # Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     Ejemplos: 
-    |Cedula   |Celular     |Correo                     |TipoDesen  |
-    |"37255232"|"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |Cedula    |Celular     |Correo                     |TipoDesen  |
+    |"77006163"|"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueosCarteraSaneamiento 
@@ -68,7 +67,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"37255232"|"26/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"88214447"|"26/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoCarteraCarteraSaneamiento 
     Esquema del escenario: Carteras para Desembolso
@@ -77,7 +76,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula      |Cartera1 |Banco                                 |rutaPDF                                    |
-    |"37255232"  |"300000" |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"94310649"  |"300000" |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
        
     @VisacionCarteraCarteraSaneamiento 
     Esquema del escenario: Visacion de la cartera
@@ -85,7 +84,7 @@ Característica: Retanqueo de creditos
     Y se navega hasta carteras <rutaPDF>
     Ejemplos: 
     |Cedula     |rutaPDF                                    |
-    |"37255232" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"94310649" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoSaneamientoCarteraSaneamiento 
     Esquema del escenario: Saneamiento para Desembolso
@@ -94,7 +93,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula    |Saneamiento2|Banco                                 |rutaPDF                                    |
-    |"37255232"|"400000"    |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"94310649"|"400000"    |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
         
         
     @DesembolsoRetanqueosCarteraSaneamiento 
@@ -105,6 +104,6 @@ Característica: Retanqueo de creditos
    
     Ejemplos: 
    |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |Cartera1|Saneamiento2|
-   |"3450000"  |"37255232"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"300000"|"400000"    |
+   |"800000"  |"94310649"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"300000"|"400000"    |
    
    

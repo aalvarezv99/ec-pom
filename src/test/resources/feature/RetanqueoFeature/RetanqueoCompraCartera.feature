@@ -43,14 +43,14 @@ Característica: Retanqueo de creditos
    Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
    Y ingresa los valores guardando <Ingresos><descLey><descNomina>
    Y pasa a la siguiente pestana del simulador analista
-   Entonces Valida los valores del simulador retanqueos <Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><cartera><DiasHabilesIntereses>
-   Y Guarda los datos del simulador
-   Y Pasa a la pestana endeudamiento global aprobando
-   Y Aprueba la tarea del credito<Cedula>
+   Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><cartera><DiasHabilesIntereses>
+   #Y Guarda los datos del simulador
+   #Y Pasa a la pestana endeudamiento global aprobando
+   #Y Aprueba la tarea del credito<Cedula>
     
    Ejemplos: 
-   |Cedula    |NombreCredito    |Credito |Retanqueo|Tasa |Plazo|fecha       |Mes     |DiasHabilesIntereses|Ingresos |descLey |descNomina|cartera  |DiasHabilesIntereses|
-   |"8231342" |"EMIRO DE JESUS" |"51823" |"3000000"|"1.8"|"60" |"22/07/2021"|"Agosto"|"10"                |"4500000"|"300000"|"50000"   |"1500000"| "10"               |
+   |Cedula    |NombreCredito  |Credito |Retanqueo|Tasa |Plazo|fecha       |Mes     |DiasHabilesIntereses|Ingresos |descLey |descNomina|cartera  |DiasHabilesIntereses|AnnoAfetacion  |
+   |"77006163"|"DAIRO ANTONIO"|"57244" |"3000000"|"1.8"|"60" |"22/07/2021"|"Agosto"|"10"                |"4500000"|"300000"|"50000"   |"1500000"| "10"               |"2022"         |
  
   @ClientesBienvenida 
    Esquema del escenario: Clientes para Bienvenida

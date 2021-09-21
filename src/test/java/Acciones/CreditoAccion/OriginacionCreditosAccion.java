@@ -135,7 +135,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		hacerClick(simuladorasesorpage.inputPlazo);
 		ElementVisible();
 		LimpiarConTeclado(simuladorasesorpage.inputPlazo);
-		EscribirElemento(simuladorasesorpage.inputPlazo, Plazo);
+		EscribirElemento(simuladorasesorpage.inputPlazo, Plazo);		
 		ElementVisible();
 		hacerClick(simuladorasesorpage.inputMonto);
 		ElementVisible();
@@ -249,7 +249,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 						Integer.parseInt(descNomina), colchon, Double.parseDouble(Tasa),
 						Integer.parseInt(Plazo), Tasaxmillonseguro, DesPrimaAntic);
 				//assertvalidarEquals(TextoElemento(simuladorasesorpage.MontoMaximoSugerido),String.valueOf(MontoMaxDesembolsar));
-				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
+				//ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
 		
 	}
 	
@@ -681,7 +681,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Credito,String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible (); 
@@ -719,23 +719,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 		
 		
-		 int PrimaPadre =0;
-			ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
-			while (resultado4.next()) {
-				PrimaPadre = Integer.parseInt(resultado4.getString(1));
-			}
-			
-			int MontoPadre =0;
-				ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
-				while (resultado5.next()) {
-					MontoPadre = Integer.parseInt(resultado5.getString(1));
-		    }
-			
-			int MesesActivoPadre =0;
-				ResultSet resultado6 = query.MesesActivoPadre(Credito);
-				while (resultado6.next()) {
-					MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
-		    }	
 
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;
@@ -898,6 +881,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
 
 		
+		
+		
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;				
 		double variableFianza = 1.19;
@@ -922,7 +907,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				
 		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[10].isEmpty()+" "+DesPrimaAntic);
-	
+	  
 			
 		if(ValoresCredito[10].isEmpty()==true) {
 		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
@@ -939,6 +924,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 		
 	}
+	
+	
 	
 
 	public void Correctocondiciones(String Telefono, String Correo) throws InterruptedException {

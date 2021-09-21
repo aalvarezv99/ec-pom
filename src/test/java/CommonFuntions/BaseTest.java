@@ -351,6 +351,18 @@ public class BaseTest {
 		return redondearDecimales(Valor,0);
 	}
 	
+	public double PrimaNoDevengadaCPadre (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+		  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		        
+		return redondearDecimales(Valor,0);
+	}
+	
+	
+	
 	public double PrimaAnticipadaSeguro  (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
 		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
 		return redondearDecimales(Valor,0);
@@ -860,8 +872,8 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
-		
-		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+		//assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))
+		if(driver.findElements(By.xpath("//*[@class='ui-growl-title']")).isEmpty()==false) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
@@ -1050,7 +1062,7 @@ public WebDriver chromeDriverConnection() {
     
     public String[] RetornarStringListWebElemen(By locator) {
     	
-    	String[] Valores = new String[20];
+    	String[] Valores = new String[21];
     	int valor=0;
     	List<WebElement> ListaElement = driver.findElements(locator);
     	
