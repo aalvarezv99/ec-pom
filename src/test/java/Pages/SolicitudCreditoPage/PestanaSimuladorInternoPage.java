@@ -59,6 +59,11 @@ public class PestanaSimuladorInternoPage {
 	public By PrimaNoDevengadaSimuladorInterno;
 	public By PrimaNoDevengadaSimuladorAnalista;
 	public By FiltroCedulaCredito;
+	public By ModalExcepciones;
+	public By DetalleExcepciones;
+	public By SoportePdfExcepciones;
+	public By Notificacion;
+	public By SolicitarAprobacion;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -116,5 +121,11 @@ public class PestanaSimuladorInternoPage {
 	    PrimaNoDevengadaSimuladorInterno=By.id("formSimuladorCredito:primaNoConsumidaCreditoPadre_hinput");
 	    PrimaNoDevengadaSimuladorAnalista=By.id("formSimulador:primaNoDevengadaCreditoPadre_hinput");
 	    FiltroCedulaCredito = By.id("form:listaCreditos:identificacion_cred_filtro:filter");
+	    ModalExcepciones = By.xpath("//div[@id='formSimuladorCredito:frmEx']");
+	    DetalleExcepciones = By.id("formSimuladorCredito:ver_det_excepciones");
+	    SoportePdfExcepciones = By.xpath("//input[starts-with(@id,'formularioExcepciones:j_idt') and @type='file' ]");
+        Notificacion = By.xpath("//*[@class='ui-growl-title']");
+        SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");
+        
 	}
 }

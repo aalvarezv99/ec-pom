@@ -515,15 +515,18 @@ public class BaseTest {
 
 		driver.findElement(AutorizacionConsulta).sendKeys(Pdf);
 		esperaExplicitaNopresente(AutorizacionConsulta);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(CopiaCedula).sendKeys(Pdf);
 		esperaExplicitaNopresente(CopiaCedula);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(DesprendibleNomina).sendKeys(Pdf);
 		esperaExplicitaNopresente(DesprendibleNomina);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 
 	}
@@ -811,7 +814,7 @@ public void clickvarios(By locator) {
 	}
     
   public void esperaExplicita(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
@@ -1177,4 +1180,12 @@ public WebDriver chromeDriverConnection() {
 			}
 		}
 	}
+    
+    public boolean EncontrarElementoVisibleCss(By locator) {
+    	
+    	WebElement element = driver.findElement(locator);    	
+		return element.getCssValue("display").equalsIgnoreCase("none");
+    	
+    }
+    
 }

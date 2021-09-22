@@ -28,8 +28,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  |Retanqueo|Cedula       |Credito|rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|         
-  |"1200000"|"3598510"    |"78351"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"22" |"30"                |"5000000"|"360000"| "80000"   |"0"                 |"2258"|
+  |Retanqueo  |Cedula       |Credito|rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|         
+  |"10000000" |"74752396"   |"79670"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"90" |"30"                |"8000000"|"360000"| "80000"   |"0"                 |"2258"|
   
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito

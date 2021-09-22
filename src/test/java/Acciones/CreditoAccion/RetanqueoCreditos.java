@@ -1,5 +1,7 @@
 package Acciones.CreditoAccion;
 
+import static org.junit.Assert.assertTrue;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -9,6 +11,7 @@ import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
@@ -18,6 +21,7 @@ import Consultas.OriginacionCreditoQuery;
 import Pages.ComunesPage.PanelNavegacionPage;
 import Pages.CreditosPage.PagesClienteParaBienvenida;
 import Pages.CreditosPage.PagesCreditosDesembolso;
+import Pages.CreditosPage.PagesTareas;
 import Pages.CreditosPage.RetanqueoPages;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
@@ -34,6 +38,7 @@ public class RetanqueoCreditos extends BaseTest {
 	PestanaDigitalizacionPage pestanadigitalizacionPage;
 	PestanaReferenciacionPage pestanareferenciacionpage;
 	PagesClienteParaBienvenida pagesclienteparabienvenida;
+	PagesTareas pagestareas;
 	Pages.SolicitudCreditoPage.pestanaSeguridadPage pestanaSeguridadPage;
 
 	LoginAccion loginaccion;
@@ -45,8 +50,10 @@ public class RetanqueoCreditos extends BaseTest {
 	static int SaldoAlDia;
 	static int VlrRetanqueo;
 	double vlrIva = 1.19;
+	static String CedulaCliente;
+	static String Rutapdf;
 
-	public RetanqueoCreditos(WebDriver driver) {
+	public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
 		// this.driver = driver;
 		super(driver);
 		// baseTest = new BaseTest(driver);
@@ -60,6 +67,7 @@ public class RetanqueoCreditos extends BaseTest {
 		pagesclienteparabienvenida = new PagesClienteParaBienvenida(driver);
 		pestanaSeguridadPage = new Pages.SolicitudCreditoPage.pestanaSeguridadPage(driver);
 		archivo = new LeerArchivo();
+		pagestareas = new PagesTareas(driver);
 	}
 
 	/************ INICIO ACCIONES RETANQUEO CREDITOS ***************/
@@ -96,6 +104,7 @@ public class RetanqueoCreditos extends BaseTest {
 		panelnavegacionaccion.navegarCreditoSolicitud();
 		BuscarenGrilla(retanqueopages.inputCedula, Cedula);
 		ElementVisible();
+		CedulaCliente=Cedula;
 		esperaExplicitaTexto(Cedula);
 	}
 
@@ -112,6 +121,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 	public void CargarArchivos(String pdf) throws InterruptedException {
 		Thread.sleep(1000);
+		Rutapdf=pdf;
 		cargarpdf(retanqueopages.ImputAutorizacion, pdf);
 		esperaExplicitaNopresente(retanqueopages.BarraCarga);
 		hacerClickVariasNotificaciones();
@@ -335,7 +345,15 @@ public class RetanqueoCreditos extends BaseTest {
 		Hacer_scroll_Abajo(pestanasimuladorinternopage.Solicitar);
 		hacerClick(pestanasimuladorinternopage.Solicitar);
 		ElementVisible();
-		hacerClickVariasNotificaciones();
+		hacerClicknotificacion();
+			
+		if(!EncontrarElementoVisibleCss(pestanasimuladorinternopage.ModalExcepciones)) {
+			AprobarExcepciones(Rutapdf,CedulaCliente);
+			Credito(CedulaCliente);
+			seleccionarRetanqueo();
+		}
+	    
+		
 	}
 
 	public void Confirmaidentidad(String codigo) {
@@ -807,9 +825,11 @@ public class RetanqueoCreditos extends BaseTest {
 		
 		if(ValoresCredito[11].isEmpty()==true) {
 		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
-		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		 //cambiar por CXC
+		// ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
 		}else {
-		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		 //cambiar por CXC
+		// ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
 		}
 		
 		int ValorFianza = (int) ValorFianza(Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12]), TasaFianza, variableFianza);
@@ -821,7 +841,41 @@ public class RetanqueoCreditos extends BaseTest {
 		
 	}
 
-	
+     public void AprobarExcepciones(String Pdf,String Cedula) throws InterruptedException {
+    	 hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
+    	 ElementVisible();
+    	 esperaExplicita(pestanasimuladorinternopage.SolicitarAprobacion);
+    	 cargarpdf(pestanasimuladorinternopage.SoportePdfExcepciones,Pdf);
+    	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+    	 hacerClicknotificacion();
+    	 hacerClick(pestanasimuladorinternopage.SolicitarAprobacion);
+    	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+    	 String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
+    	 if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
+    		 hacerClicknotificacion();
+    		 panelnavegacionaccion.navegarTareas();
+    		 esperaExplicita(pagestareas.filtroDescipcion);
+    	     EscribirElemento(pagestareas.filtroDescipcion, Cedula);
+    	     ElementVisible();
+    	     EscribirElemento(pagestareas.filtroTarea,"Revisar Aprobación excepción");
+    	     ElementVisible();
+    	     hacerClick(pagestareas.EditarVer);
+    		 ElementVisible();
+    		 esperaExplicita(pagestareas.Aprobar);
+    		 Hacer_scroll_centrado(pagestareas.Aprobar);
+    		 hacerClick(pagestareas.Aprobar);
+    		 ElementVisible();
+    		 hacerClickVariasNotificaciones();
+    		 esperaExplicita(pagestareas.Guardar);
+    		 Hacer_scroll(pagestareas.Guardar);
+    		 hacerClick(pagestareas.Guardar);
+    		 hacerClicknotificacion();
+    	     
+ 		}else {
+ 			assertTrue("#### Error Aprobar excepcion por Perfil "+notificacion ,false);
+ 		}
+    
+     }
 
 	/************ FIN RETANQUEO CREDITOS **********/
 }
