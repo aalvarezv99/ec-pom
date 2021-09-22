@@ -19,7 +19,7 @@ public class RetanqueoAsesorSteps {
 	RetanqueoCreditos retanqueocreditos;	
 	BaseTest baseTest;
 	
-	public RetanqueoAsesorSteps() {		
+	public RetanqueoAsesorSteps() throws InterruptedException {		
 		//super(driver);
 		this.driver = Driver.driver;				
 		retanqueocreditos = new RetanqueoCreditos(driver);		
