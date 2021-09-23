@@ -130,7 +130,7 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();			
 			//options.setExperimentalOption("prefs", chromePrefs);
-			//options.setHeadless(true);
+			options.setHeadless(true);
 			options.setBinary("/usr/bin/google-chrome"); 
 			options.addArguments("--no-sandbox"); // Bypass OS security model	
 			options.addArguments("--headless");								
