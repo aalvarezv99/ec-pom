@@ -132,8 +132,9 @@ public class CrearDriver {
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.setHeadless(true);
 			options.setBinary("/usr/bin/google-chrome"); 
+			
+			options.addArguments("--headless");				
 			options.addArguments("--no-sandbox"); // Bypass OS security model	
-			options.addArguments("--headless");								
 			options.addArguments("start-maximized"); // open Browser in maximized mode
 			options.addArguments("disable-infobars"); // disabling infobars
 			options.addArguments("--disable-extensions"); // disabling extensions
