@@ -129,7 +129,7 @@ public class CrearDriver {
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
 			ChromeOptions options = new ChromeOptions();			
-			options.setExperimentalOption("prefs", chromePrefs);
+			//options.setExperimentalOption("prefs", chromePrefs);
 			options.setHeadless(true);
 			options.setBinary("/usr/bin/google-chrome"); 
 			options.addArguments("headless");
