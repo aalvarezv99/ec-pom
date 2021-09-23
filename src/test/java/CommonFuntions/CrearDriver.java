@@ -75,6 +75,7 @@ public class CrearDriver {
 					break;	
 				}
 				ruta = setDownloadsPath();
+				System.out.println("ruta: "+ ruta);
 				driver = new ChromeDriver(ruta);
 				break;
 
@@ -130,7 +131,7 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();			
 			//options.setExperimentalOption("prefs", chromePrefs);
-			//options.setHeadless(true);		
+			options.setHeadless(true);		
 			options.addArguments("--headless");				
 			options.addArguments("--no-sandbox"); // Bypass OS security model				
 			options.addArguments("start-maximized"); // open Browser in maximized mode
