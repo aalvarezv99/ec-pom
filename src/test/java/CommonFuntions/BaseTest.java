@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -49,6 +52,7 @@ import com.google.common.base.Function;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
+import Consultas.OriginacionCreditoQuery;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.pestanaSeguridadPage;
 import io.qameta.allure.Allure;
@@ -792,10 +796,35 @@ public void clickvarios(By locator) {
 	}
     
     
-	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
+	public void esperaExplicitaSeguridad(By locator, String Cedula) throws InterruptedException, NumberFormatException, SQLException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(8000);
+		//Thread.sleep(8000);
+		
+		String Concepto = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		long start_time = System.currentTimeMillis();
+		long wait_time = 20000;
+		long end_time = start_time + wait_time;
+
+		while (System.currentTimeMillis() < end_time && (Concepto=="" || Concepto==null)) {			
+			resultado = query.ConsultaProspeccion(Cedula);
+			while(resultado.next()) {
+			Concepto = resultado.getString(1);
+			}
+			System.out.println("############### Valor de Concepto "+Concepto);
+			
+		}
+	    if(Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
+	    	assertTrue(" Consulta prospeccion Exitosa igual a: "+Concepto, true);
+	    	System.out.println("### entro al if ##");
+	    }else {
+	    	assertTrue(" Consulta prospeccion fallo a igual a: "+Concepto, false);
+	    	System.out.println("### entro al else ##");
+	    }
+	    
+		
 	}
     
     public void esperaExplicitaNopresente() {		

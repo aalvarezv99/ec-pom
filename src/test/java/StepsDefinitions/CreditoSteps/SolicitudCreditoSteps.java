@@ -31,7 +31,7 @@ public class SolicitudCreditoSteps {
 	}
 
 	@Y("consulta la pestana seguridad dejando el cliente viable")
-	public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException {
+	public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException, NumberFormatException, SQLException {
 		originacionaccion.Seguridad();
 	}
 

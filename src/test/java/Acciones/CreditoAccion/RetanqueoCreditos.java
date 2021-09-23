@@ -141,21 +141,20 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		hacerClick(retanqueopages.BtnConsultaCentrales);
 		ElementVisible();
-		Thread.sleep(5000);
+		esperaExplicita(retanqueopages.notificacion);
 	}
 
-	public void Seguridad() throws InterruptedException {
+	public void Seguridad() throws InterruptedException, NumberFormatException, SQLException {
 		recorerpestanas("SEGURIDAD");
 		hacerClick(retanqueopages.Viable);
 		hacerClick(retanqueopages.Guardar);
 		ElementVisible();
 		esperaExplicita(retanqueopages.Concepto);
-		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
+		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,CedulaCliente);
 		Refrescar();
 		esperaExplicita(pestanaSeguridadPage.Concepto);
 		Hacer_scroll(pestanaSeguridadPage.Concepto);
-		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
-		Thread.sleep(10000);
+		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,CedulaCliente);	
 		adjuntarCaptura("Se marca el credito viable ");	
 	}
 
@@ -352,7 +351,7 @@ public class RetanqueoCreditos extends BaseTest {
 			Credito(CedulaCliente);
 			seleccionarRetanqueo();
 		}
-	    
+		ElementVisible();
 		
 	}
 

@@ -66,7 +66,7 @@ public class RetanqueoAsesorSteps {
 	}
 	
 	@Y("marcar el credito viable")
-	public void marcarelcreditoviable() throws InterruptedException{
+	public void marcarelcreditoviable() throws InterruptedException, NumberFormatException, SQLException{
 		retanqueocreditos.Seguridad();
 	}
 	
