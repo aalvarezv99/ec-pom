@@ -129,16 +129,17 @@ public class CrearDriver {
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
 			ChromeOptions options = new ChromeOptions();			
-			//options.setExperimentalOption("prefs", chromePrefs);
-			options.setHeadless(true);
+			options.setExperimentalOption("prefs", chromePrefs);
+			/*options.setHeadless(true);
 			options.setBinary("/usr/bin/google-chrome"); 
 			options.addArguments("headless");
 			
 			options.addArguments("--disable-gpu");
 			options.addArguments("disable-infobars");
 			options.addArguments("--disable-extensions");
-			options.addArguments("window-size=1200x600");
-			options.addArguments("--no-sandbox");
+			options.addArguments("--disable-dev-shm-usage");
+			options.addArguments("start-maximized");
+			options.addArguments("--no-sandbox");*/
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
 		} catch (Exception e) {
