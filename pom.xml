@@ -186,7 +186,7 @@
 					<includes>
 						 
 							<!-- <include>**/*Runner.java</include> -->
-							<include>**/OriginacionCompraCarteraSaneamientoRunner.java</include>
+							<include>**/OriginacionCreditosRunner.java</include>
 							<!-- <include>**/*Steps.java</include> -->
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
