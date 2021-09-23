@@ -130,7 +130,7 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();			
 			options.setExperimentalOption("prefs", chromePrefs);
-			/*options.setHeadless(true);
+			options.setHeadless(true);
 			options.setBinary("/usr/bin/google-chrome"); 
 			options.addArguments("headless");
 			
@@ -139,7 +139,7 @@ public class CrearDriver {
 			options.addArguments("--disable-extensions");
 			options.addArguments("--disable-dev-shm-usage");
 			options.addArguments("start-maximized");
-			options.addArguments("--no-sandbox");*/
+			options.addArguments("--no-sandbox");
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
 		} catch (Exception e) {
