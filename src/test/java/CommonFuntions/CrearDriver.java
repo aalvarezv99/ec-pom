@@ -131,7 +131,7 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();			
 			//options.setExperimentalOption("prefs", chromePrefs);
-			//options.setHeadless(true);		
+			options.setHeadless(true);		
 			options.addArguments("--no-sandbox"); // Bypass OS security model
 			options.addArguments("--headless");										
 			options.addArguments("start-maximized"); // open Browser in maximized mode
@@ -139,7 +139,7 @@ public class CrearDriver {
 			options.addArguments("--disable-extensions"); // disabling extensions
 			options.addArguments("--disable-gpu"); // applicable to windows os only					
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-			options.setBinary("/usr/bin/google-chrome");
+			//options.setBinary("/usr/bin/google-chrome");
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
 		} catch (Exception e) {
