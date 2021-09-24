@@ -1,5 +1,7 @@
 package Acciones.CreditoAccion;
 
+import static org.junit.Assert.assertTrue;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -131,8 +133,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertTextoelemento(simuladorasesorpage.desOcupacion, Actividad);
 
 		// Llenar formulario campos del credito
-		LimpiarConTeclado(simuladorasesorpage.inputTasa);
-		EscribirElemento(simuladorasesorpage.inputTasa, Tasa);
+		hacerClick(simuladorasesorpage.inputTasa);
+		EscribirElemento(simuladorasesorpage.inputTasaFiltro,Tasa);
+		EnviarEnter(simuladorasesorpage.inputTasaFiltro);
 		ElementVisible();
 		hacerClick(simuladorasesorpage.inputPlazo);
 		ElementVisible();
@@ -344,7 +347,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	/************ INICIA ACCIONES SOLICITUD CREDITO ***************/
 
 	public void ingresarSolicitudCredito(String Cedula, String NombreCredito) throws InterruptedException {
-
+		this.Cedula = Cedula;
+		this.NombreCredito = NombreCredito;
 		panelnavegacionaccion.navegarCreditoSolicitud();
 		BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
 		esperaExplicitaTexto(NombreCredito);
@@ -372,7 +376,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 	}
 	
-	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
+	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria, String rutaPdf) throws NumberFormatException, SQLException, InterruptedException{
 	      /*
 	       // consulta base de datos
 			int DesPrimaAntic = 0;
@@ -450,9 +454,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 			Hacer_scroll(pestanasimuladorinternopage.Solicitar);
 			hacerClick(pestanasimuladorinternopage.Solicitar);
 			esperaExplicita(simuladorasesorpage.notificacion);
-			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la radicación para el crédito");
-			ElementVisible();  
-	
+			ElementVisible();
+			hacerClicknotificacion();
+			if(!EncontrarElementoVisibleCss(pestanasimuladorinternopage.ModalExcepciones)) {
+				// esperaExplicita(pestanasimuladorinternopage.DetalleExcepciones);
+				this.AprobarExcepciones(rutaPdf, this.Cedula);
+				this.ingresarSolicitudCredito(this.Cedula, this.NombreCredito);
+			}
+			ElementVisible();
 }
 	
 	public void Digitalizacion(String Pdf) throws InterruptedException  {
@@ -1081,4 +1090,39 @@ public class OriginacionCreditosAccion extends BaseTest {
 		this.ingresarAnalisisCredito(this.Cedula, this.NombreCredito);
 		this.EndeudamientoGlobal();
 	}
+
+	public void AprobarExcepciones(String Pdf,String Cedula) throws InterruptedException {
+   	 hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
+   	 ElementVisible();
+   	 esperaExplicita(pestanasimuladorinternopage.SolicitarAprobacion);
+   	 cargarpdf(pestanasimuladorinternopage.SoportePdfExcepciones,Pdf);
+   	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+   	 hacerClicknotificacion();
+   	 hacerClick(pestanasimuladorinternopage.SolicitarAprobacion);
+   	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+   	 String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
+   	 if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
+   		 hacerClicknotificacion();
+   		 panelnavegacionaccion.navegarTareas();
+   		 esperaExplicita(pagestareas.filtroDescipcion);
+   	     EscribirElemento(pagestareas.filtroDescipcion, Cedula);
+   	     ElementVisible();
+   	     EscribirElemento(pagestareas.filtroTarea,"Revisar Aprobación excepción");
+   	     ElementVisible();
+   	     hacerClick(pagestareas.EditarVer);
+   		 ElementVisible();
+   		 esperaExplicita(pagestareas.Aprobar);
+   		 Hacer_scroll(pagestareas.Aprobar);
+   		 hacerClick(pagestareas.Aprobar);
+   		 ElementVisible();
+   		 hacerClickVariasNotificaciones();
+   		 esperaExplicita(pagestareas.Guardar);
+   		 Hacer_scroll(pagestareas.Guardar);
+   		 hacerClick(pagestareas.Guardar);
+   		 hacerClicknotificacion();
+		} else {
+			assertTrue("#### Error Aprobar excepcion por Perfil " + notificacion, false);
+		}
+   
+    }
 }

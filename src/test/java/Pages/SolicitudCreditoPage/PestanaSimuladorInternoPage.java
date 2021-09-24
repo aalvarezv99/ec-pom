@@ -126,6 +126,5 @@ public class PestanaSimuladorInternoPage {
 	    SoportePdfExcepciones = By.xpath("//input[starts-with(@id,'formularioExcepciones:j_idt') and @type='file' ]");
         Notificacion = By.xpath("//*[@class='ui-growl-title']");
         SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");
-        
 	}
 }
