@@ -147,6 +147,7 @@ public class CrearDriver {
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
 			System.out.println("caps: "+caps);
 			System.out.println("options: "+options);
+			System.out.println("ChromeOptions.CAPABILITY: "+ChromeOptions.CAPABILITY);
 		} catch (Exception e) {
 			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
 		}
