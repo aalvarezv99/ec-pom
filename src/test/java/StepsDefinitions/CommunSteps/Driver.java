@@ -71,7 +71,10 @@ public class Driver {
 		try {			
 			String url = baseTest.leerPropiedades("UrlAmbiente");
 			log.info("******************** NAVEGANDO EN LA URL " + url + " **********************");
-			driver.get(url);			
+			log.toString();
+			driver.get(url);	
+			log.toString();
+			log.error("error");
 		} catch (Exception e) {
 			log.error("================== ERROR EN LA URL ================" + e);
 		}
