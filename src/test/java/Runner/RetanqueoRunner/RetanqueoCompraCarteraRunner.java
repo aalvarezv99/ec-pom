@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 		features = "src/test/resources/feature/RetanqueoFeature/RetanqueoCompraCartera.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@Retanqueo,@AnalisisCreditoRetanqueo"},
+		tags = {"@Retanqueo, @AnalisisCreditoRetanqueo, @ClientesBienvenida, @CreditosVisacion, @DesembolsoCartera, @VisacionCartera,  @Desembolso"},
 	    snippets = SnippetType.CAMELCASE
 		)
 
@@ -19,4 +19,4 @@ public class RetanqueoCompraCarteraRunner {
 
 }
 
-//"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@DesembolsoCartera,@VisacionCartera,@Desembolso"
+//"@Retanqueo, @AnalisisCreditoRetanqueo, @ClientesBienvenida, @CreditosVisacion, @DesembolsoCartera, @VisacionCartera,  @Desembolso"

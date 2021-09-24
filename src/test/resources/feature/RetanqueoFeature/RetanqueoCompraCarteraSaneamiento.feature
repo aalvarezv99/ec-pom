@@ -6,32 +6,38 @@ Característica: Retanqueo de creditos
   
 
  @RetanqueoCompraCarteraSaneamiento
- Esquema del escenario:  Retanqueo libre inversion
-   #Cuando El agente ingrese a la pestana retanqueo 
-   #Y se filtra por <Cedula><Credito>
-   #Y se da clic a retanquear   
+ Esquema del escenario:  Retanqueo Compra de cartera y saneamiento
+   Cuando El agente ingrese a la pestana retanqueo 
+   Y se filtra por <Cedula><Credito>
+   Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-   #Y borrar archivos
-   #Y cargar archivos nuevos <rutaPDF>
-   #Y se solicita la consulta a centrales de riesgo
-   #Y marcar el credito viable
+   Y borrar archivos
+   Y cargar archivos nuevos <rutaPDF>
+   Y se solicita la consulta a centrales de riesgo
+   Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-  #Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
    Y se presiona en verificacion en la pestana digitalizacion
-   Y se pasa a la segunda pestana de digitalizacion se compra cartera y saneamiento <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
+   Y se crean los tipos de cartera o saneamiento a recoger 
+   		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
+   		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
+   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
    Y se guarda cartera
-   Y se pasa a la primera pestana de referenciacion para confirmar la entidad <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
+   Y se pasa a la primera pestana de referenciacion para confirmar la entidad
+    	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
+    	|Cartera    		|8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
+    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
    Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
    Y se marca identidida confirmada radicando la solicitud
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  	|Retanqueo|Cedula    |Credito|rutaPDF                                    |Tasa |Plazo |DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo|Competidor1         |VlrCuota1|FechaVencimiento1|NumObligacion1  |Competidor2        |Cartera1  | Saneamiento2   |VlrCompraSaneamiento| VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
-    |"5000000"|"6865014" |"51585"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"120" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"8600068225 - ACORE"|"70000"  |"26/07/2021"     |"9123"          |"8110315267 - AMAR"| "1000000"|"150000"        |"1150000"           | "80000"      | "30/09/2021"        | "9321"          |
+  	|Retanqueo|Cedula    |Credito|rutaPDF                                    |Tasa |Plazo |DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo|         
+    |"5000000"|"22389717" |"79396"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"120" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
   Esquema del escenario: Analisis del credito
@@ -44,7 +50,7 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo|Credito|Cedula      |NombreCredito          |Ingresos  |decLey   |descNomina |Mes     |Tasa    |Plazo |descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|
-    |"5000000"|"51585"|"6865014"   |"LUIS FERNANDO"        |"6500000" |"380000" |"100000"   |"Agosto"|"1.8"   |"120" |"380000" |"100000"   |"13/08/2021"|"1000000"|"150000"    |"13"                |
+    |"5000000"|"79396"|"22389717"   |"ELVIRA ESTHER"        |"6500000" |"380000" |"100000"   |"Agosto"|"1.8"   |"120" |"380000" |"100000"   |"13/08/2021"|"1000000"|"150000"    |"13"                |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 
@@ -55,7 +61,7 @@ Característica: Retanqueo de creditos
     Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     Ejemplos: 
     |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"6865014"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |"22389717"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueosCarteraSaneamiento 
@@ -65,7 +71,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"6865014"|"13/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"22389717"|"13/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoCarteraCarteraSaneamiento 
     Esquema del escenario: Carteras para Desembolso
@@ -74,7 +80,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula      |Cartera1 |Banco                                  |rutaPDF                                    |
-    |"6865014"   |"1000000"|"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"22389717"   |"1000000"|"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
        
     @VisacionCarteraCarteraSaneamiento 
     Esquema del escenario: Visacion de la cartera
@@ -82,7 +88,7 @@ Característica: Retanqueo de creditos
     Y se navega hasta carteras <rutaPDF>
     Ejemplos: 
     |Cedula      |rutaPDF                                    |
-    |"6865014"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"22389717"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoSaneamientoCarteraSaneamiento 
     Esquema del escenario: Saneamiento para Desembolso
@@ -91,7 +97,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula    |Saneamiento2|Banco                                 |rutaPDF                                    |
-    |"6865014" |"150000"    |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"22389717" |"150000"    |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
         
         
     @DesembolsoRetanqueosCarteraSaneamiento 
@@ -102,6 +108,6 @@ Característica: Retanqueo de creditos
    
     Ejemplos: 
    |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |Cartera1 |Saneamiento2|
-   |"5000000"  |"6865014" |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1000000"|"150000"    |
+   |"5000000"  |"22389717" |"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1000000"|"150000"    |
    
    

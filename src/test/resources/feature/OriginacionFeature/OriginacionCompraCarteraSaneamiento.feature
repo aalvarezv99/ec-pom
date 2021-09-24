@@ -10,7 +10,7 @@ Característica: Solicitud combra de cartera
     Cuando el agente ingresa a la pestana de simulador asesor
      #Y cambia la fecha del servidor <FechaServidor>
      Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
-     Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+     #Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
      Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
@@ -30,30 +30,36 @@ Característica: Solicitud combra de cartera
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
     Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
-    Y se pasa a la segunda pestana de digitalizacion se compra cartera y saneamiento <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
+    Y se crean los tipos de cartera o saneamiento a recoger 
+   		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
+   		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
+   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
     Y se guarda cartera
-    Y se pasa a la primera pestana de referenciacion para confirmar la entidad <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
+    Y se pasa a la primera pestana de referenciacion para confirmar la entidad
+    	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
+    	|Cartera    		|8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
+    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
           Ejemplos: 
-       | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Competidor1             | Cartera1   | VlrCuota1    | FechaVencimiento1   | NumObligacion1  | Competidor2               | Saneamiento2   | VlrCuota2    | FechaVencimiento2   | NumObligacion2  | estadopago |
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "31/Mar/1969" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "8000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "NANCY"  | "MORENO"    | "LOZANO"    | "nancypatriciamoreno@mail.com"  | "3123505607" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "31/Mar/1969" | "Calle 2d #22-52"  | "FAMILIAR"   | "NANCY"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"   | "50000"      | "26/07/2021"        | "9123"          | "8110315267 - AMAR"       | "450000"       | "40000"      | "30/07/2021"        | "9321"          |"Habilitado"|
+       | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   |
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "31/Mar/1969" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "8000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "NANCY"  | "MORENO"    | "LOZANO"    | "nancypatriciamoreno@mail.com"  | "3123505607" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "31/Mar/1969" | "Calle 2d #22-52"  | "FAMILIAR"   | "NANCY"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
         
   @AnalisisCredito
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador para compra de cartera con saneamiento <Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><Cartera1><Saneamiento2>
+    Entonces Valida los valores del simulador para compra de cartera con saneamiento <Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><Cartera1><Saneamiento2><anoAnalisis>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 
           Ejemplos: 
-       | Pagaduria                                          | Cedula     |Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|Cartera1|Saneamiento2|
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "1.8" | "120"  | "8000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "HILDA"      |"Agosto"|"3502000"|"300000"|
+       | Pagaduria                                          | Cedula     |Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|anoAnalisis|Cartera1|Saneamiento2|
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "1.8" | "120"  | "8000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "HILDA"      |"Agosto"|"2022"|"3502000"|"300000"|
         
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida

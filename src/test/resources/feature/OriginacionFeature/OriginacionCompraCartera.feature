@@ -49,14 +49,14 @@ Característica: Originacion Compra Cartera
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista    
-    Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos>    
+    Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos><AnoAnalisis>  
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-      | Pagaduria                                          | Cedula     |  Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|
-      | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "79524937" | "1.8" | "120"  | "25000000"   | "35"                 | "4500000" | "360000" | "50000"    | "4500000"   | "20500000"   | "2000000"              | "GERMAN"      |"Agosto"|
+      | Pagaduria                                          | Cedula     |  Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|AnoAnalisis|
+      | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "79524937" | "1.8" | "120"  | "25000000"   | "35"                 | "4500000" | "360000" | "50000"    | "4500000"   | "20500000"   | "2000000"              | "GERMAN"      |"Agosto"|"2022"|
 
 
   @ClientesBienvenida

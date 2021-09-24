@@ -26,6 +26,7 @@ public class PestanaSimuladorInternoPage {
 	public By SgdPestana;
 	public By MesDeAfecatcion;
 	public By ListaMes;
+	public By anoAfectacion;
 	public By CalcularDesglose;
 	public By FechaDesembolso;
 	public By FechasManuales;
@@ -63,7 +64,7 @@ public class PestanaSimuladorInternoPage {
         Gmf4100 = By.id("formSimuladorCredito:gmfCr_hinput");
         Valorinteresesini = By.id("formSimuladorCredito:diasICr_hinput");
         PrimaAnticipadaSeguro = By.id("formSimuladorCredito:primaSeguro_hinput");
-        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput"); 
+        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput");         						   
         CuotaCorriente = By.id("formSimuladorCredito:cuotaCr_hinput");
         edad = By.id("formSimuladorCredito:edad_hinput");
         MontoMaximoSugerido = By.id("formSimuladorCredito:montoMax_hinput");
@@ -77,6 +78,7 @@ public class PestanaSimuladorInternoPage {
 	    SgdPestana = By.id("simuladorAnalista:vista_siguiente_analista_a");
 	    MesDeAfecatcion = By.id("formSimulador:mesAfectacion_label");
 	    ListaMes= By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
+	    anoAfectacion = By.id("formSimulador:anioAfectacion");
 	    CalcularDesglose = By.id("formSimulador:calcular_desglose_analista_b_boton");
 	    CompraSaneamiento = By.id("formSimulador:valorCompraCartera_hinput");
 	    ValorCompraCartera = By.id("formSimulador:valorCompraCartera_hinput");  

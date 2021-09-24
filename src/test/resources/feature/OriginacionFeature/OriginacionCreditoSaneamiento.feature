@@ -51,14 +51,14 @@ Característica: Originación de Creditos con saneamientos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos>    
+    Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos><AnoAnalisis>  
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
  
   Ejemplos: 
-     | Pagaduria                                          | Cedula     | Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|
-     | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"  | "28378037" | "1.8" | "120"  | "8000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "HILDA"      |"Agosto"|
+     | Pagaduria                                          | Cedula     | Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|AnoAnalisis|
+     | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"  | "28378037" | "1.8" | "120"  | "8000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "HILDA"      |"Agosto"|"2022"|
  
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida

@@ -6,7 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -29,6 +34,7 @@ import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.PestanaFormularioPage;
 import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
 import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
+import io.cucumber.datatable.DataTable;
 //import StepsDefinitions.string;
 
 public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
@@ -79,75 +85,62 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	/********* INICIO ACCIONES PARA COMPRA CARTERA SANEAMIENTO *****
 	********************** @throws InterruptedException ***************/
 	
-	public void DatosCarteraSaneamiento( String Competidor1, String Cartera1, String VlrCuota1, String FechaVencimiento1, String NumObligacion1, String Competidor2, String Saneamiento2, String VlrCuota2, String FechaVencimiento2, String NumObligacion2) throws InterruptedException {
-		recorerpestanas("DIGITALIZACIÓN");
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
-		hacerClick(pestanadigitalizacionPage.AgregarCartera);
-		ElementVisible();
-		hacerClick(pestanadigitalizacionPage.AgregarCartera);
-		ElementVisible();
-		Thread.sleep(5000);
-		//Diligenciar datos Saneamiento
-		esperaExplicita(pestanadigitalizacionPage.RadioSaneamiento);
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.RadioSaneamiento);
-		hacerClick(pestanadigitalizacionPage.RadioSaneamiento);
-		//esperaExplicita(pestanadigitalizacionPage.EntidadCompetidor);
-		hacerClick(pestanadigitalizacionPage.EntidadCompetidor);
-		EscribirElemento(pestanadigitalizacionPage.FiltroLista, Competidor2);
-		EnviarEnter(pestanadigitalizacionPage.FiltroLista);
-		EscribirElemento(pestanadigitalizacionPage.FechaVencimientoSaneamiento, FechaVencimiento2);
-		EnviarEnter(pestanadigitalizacionPage.FechaVencimientoSaneamiento);
-		EscribirElemento(pestanadigitalizacionPage.MontoSaneamiento, Saneamiento2);
-		EscribirElemento(pestanadigitalizacionPage.ValorCuotaSaneamiento, VlrCuota2);
-		EscribirElemento(pestanadigitalizacionPage.NumeroObligacionSaneamiento, NumObligacion2);
-		//Diligenciar datos Cartera
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.RadioCompra);
-		hacerClick(pestanadigitalizacionPage.RadioCompra);
-		hacerClick(pestanadigitalizacionPage.EntidadCompetidorCartera);
-		EscribirElemento(pestanadigitalizacionPage.FiltroListaCartera, Competidor1);
-		EnviarEnter(pestanadigitalizacionPage.FiltroListaCartera);
-		EscribirElemento(pestanadigitalizacionPage.FechaVencimientoCartera, FechaVencimiento1);
-		EnviarEnter(pestanadigitalizacionPage.FechaVencimientoCartera);
-		EscribirElemento(pestanadigitalizacionPage.MontoCartera, Cartera1);
-		EscribirElemento(pestanadigitalizacionPage.ValorCuotaCartera, VlrCuota1);
-		EscribirElemento(pestanadigitalizacionPage.NumeroObligacionCartera, NumObligacion1);
-		ElementVisible();
-	}
+	
 	public void GuardarDatosSaneamiento() throws InterruptedException {
 		Hacer_scroll_Abajo(pestanadigitalizacionPage.Guardar);
 		hacerClick(pestanadigitalizacionPage.Guardar);
 		ElementVisible();
 	}
 	
-	public void ConfirmarEntidad(String Competidor1, String Cartera1, String VlrCuota1, String FechaVencimiento1, String NumObligacion1, String Competidor2, String Saneamineto1, String VlrCuota2, String FechaVencimiento2, String NumObligacion2) throws InterruptedException {
-		recorerpestanas("REFERENCIACIÓN");
-		hacerClick(pestanareferenciacionpage.SalarioCheck);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.FechaIngreso);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.TipoContrato);
-		ElementVisible();
-		hacerClick(pestanareferenciacionpage.CargoCheck);
-		ElementVisible();
+	/*ThainerPerez 22/sep/2021 - Se actualiza el metodo donde recibe la tabla de (Cartera - Saneamiento) para manipular la data
+	 * */
+	public void ConfirmarEntidad(DataTable tabla) throws InterruptedException {
+		log.info("************ se confirman las carteras y saneamientos, SolicitudCompraCarteraSaneamientoAccion - ConfirmarEntidad() **********");
+		try {
+			recorerpestanas("REFERENCIACIÓN");
+			hacerClick(pestanareferenciacionpage.SalarioCheck);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.FechaIngreso);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.TipoContrato);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.CargoCheck);
+			ElementVisible();
+			
+			List<Map<String, String>> data = tabla.asMaps(String.class, String.class); 
+
+			String ListCompetidores[]= new String[data.size()];
+			String ListMonto[]  =  new String[data.size()];
+			String ListCuota[] =  new String[data.size()];
+			String ListFecha[] =  new String[data.size()];
+			String ListVlrObligacion[] =  new String[data.size()];
+			
+			
+			int contador = 0;
+			for (Map<String, String> dataFeature : data) {
+				ListCompetidores[contador] = dataFeature.get("Entidad");
+				ListMonto[contador] = dataFeature.get("Monto");	
+				ListCuota[contador] = dataFeature.get("VlrCuota");;
+				ListFecha[contador] = dataFeature.get("FechaVencimiento");
+				ListVlrObligacion[contador] = dataFeature.get("NumObligacion");
+				contador++;
+			}
+			
+			ClickBtnMultiples(
+					pestanareferenciacionpage.ListLabelEntidad,pestanareferenciacionpage.ListFiltroEntidad,
+					pestanareferenciacionpage.ListMonto,pestanareferenciacionpage.ListValorCuota,
+					pestanareferenciacionpage.ListFecha,pestanareferenciacionpage.ListNumObligacion,pestanareferenciacionpage.ListRadioSaneamiento,
+					pestanareferenciacionpage.ListBtnAprobar,pestanareferenciacionpage.ListTipo, pestanareferenciacionpage.ListRadioCompra,
+					ListCompetidores,ListMonto,ListCuota,
+					ListFecha,ListVlrObligacion);
+			
+			hacerClicknotificacion();
+			hacerClick(pestanareferenciacionpage.GuardarReferencias);
+			ElementVisible();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
-		String ListCompetidores[]= {Competidor1,Competidor2};
-		String ListMonto[]= {Cartera1,Saneamineto1};
-		String ListCuota[]= {VlrCuota1,VlrCuota2};
-		String ListFecha[]= {FechaVencimiento1,FechaVencimiento2};
-		String ListVlrObligacion[]= {NumObligacion1,NumObligacion2};
-		ClickBtnMultiples(
-				pestanareferenciacionpage.ListLabelEntidad,pestanareferenciacionpage.ListFiltroEntidad,
-				pestanareferenciacionpage.ListMonto,pestanareferenciacionpage.ListValorCuota,
-				pestanareferenciacionpage.ListFecha,pestanareferenciacionpage.ListNumObligacion,pestanareferenciacionpage.ListRadioSaneamiento,
-				pestanareferenciacionpage.ListBtnAprobar,
-				ListCompetidores,ListMonto,ListCuota,
-				ListFecha,ListVlrObligacion);
-		
-		hacerClicknotificacion();
-		hacerClick(pestanareferenciacionpage.GuardarReferencias);
-		ElementVisible();
 	}
 	
     public void Referenciaspositivas(String Codigo) throws InterruptedException {
@@ -170,8 +163,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
 		Hacer_scroll_Abajo(pestanadigitalizacionPage.CodigoProforenses);
     	EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, Codigo);
-    	hacerClick(pestanadigitalizacionPage.MarcarCartera1);
-    	hacerClick(pestanadigitalizacionPage.MarcarCartera2);
+    	clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
     	hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
     	ElementVisible();
     	hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
@@ -184,7 +176,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
      * @throws SQLException 
      * @throws NumberFormatException ***************/
     
-       public void ValidarSimuladorAnalistaCompraCartera(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2) throws NumberFormatException, SQLException {
+       public void ValidarSimuladorAnalistaCompraCartera(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2, String anoAnalisis) throws NumberFormatException, SQLException {
     	   
     	log.info("***************** AplicacionCierreAccion - ValidarSimuladorAnalistaCompraCartera()");
     	try {   
@@ -193,6 +185,9 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
        	ElementVisible(); 
        	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);
        	ElementVisible(); 
+       	Clear(pestanasimuladorinternopage.anoAfectacion);
+       	EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anoAnalisis);
+       	ElementVisible();
        	hacerClick(pestanasimuladorinternopage.CalcularDesglose);
        	ElementVisible(); 
        	hacerClicknotificacion();

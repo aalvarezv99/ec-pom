@@ -90,6 +90,7 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	/*Thainer Perez - 02/08/2021 Consultar valor Tasa dos Capitalizacion*/
 	public ResultSet consultarValoresTasaDosCapitalizadas() {
 		log.info("*********************** OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()");
 		ResultSet r= null;
@@ -100,6 +101,60 @@ public class OriginacionCreditoQuery {
 		} catch (Exception e) {
 			log.error("#################### ERROR - OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()#############");
 		}
+		return r;
+	}
+	
+	/*Thainer perez - 17/sep/2021 Consultar el estudio credito del credito padre*/
+	public ResultSet consultaEstudioCreditoPadre(String numeroradicado) {
+		ResultSet r=null;
+		int idCredito = 0;
+		int idPagaduria = 0;
+		try {
+			ResultSet result = this.consultarIdCreditoIdPagaduria(numeroradicado);
+			while (result.next()) {
+				 idCredito = result.getInt(1);
+				 idPagaduria = result.getInt(2);
+			}
+			r = dbconector.conexion("select round(obtener_valor_estudio_credito(current_date,"+ idCredito +","+ idPagaduria+", false)) estudiCreditoPadre;");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA  - consultaEstudioCredito() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	/*ThainerPerez - 17/Sep/2021, Se consulta la fianza del credito padre para capitalizacion de retanqueos*/
+	public ResultSet consultaFianzaCreditoPadre(String numeroradicado) {
+		ResultSet r=null;
+		int idCredito = 0;
+		int idPagaduria = 0;
+		try {
+			r = dbconector.conexion("select round(d.valor_fianza) fianzaPadre from desglose d \r\n"
+					+ "where id_credito in (select  id from credito where numero_radicacion ="+ numeroradicado+")\r\n"
+					+ "and desglose_seleccionado is true\r\n"
+					+ "limit 1;");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA  - consultaFianzaCreditoPadre() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	/*Thainer Perez - 17/09/2021 se crea la consulta para extraer el Id credito y pagaduria*/
+	public ResultSet consultarIdCreditoIdPagaduria(String numeroRadicado) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select c.id, c.id_pagaduria from credito c where numero_radicacion ="+ numeroRadicado+";");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA  - consultarIdCreditoIdPagaduria() ********");
+			log.error(e.getMessage());			
+		}
+
 		return r;
 	}
 

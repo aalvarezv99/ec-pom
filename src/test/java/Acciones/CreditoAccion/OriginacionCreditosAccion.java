@@ -8,11 +8,11 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
@@ -31,6 +31,7 @@ import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.PestanaFormularioPage;
 import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
 import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
+import io.cucumber.datatable.DataTable;
 
 public class OriginacionCreditosAccion extends BaseTest {
 
@@ -262,7 +263,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 				int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
 				ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO VALOR FIANZA ",Integer.parseInt(TextoElemento(simuladorasesorpage.ValorFianza)) , ValorFianza);
-
+				
 				int Gmf4100 = (int) Gmf4100(Integer.parseInt(vlrCompasSaneamientos), 0.004);
 				ToleranciaPesoMensaje("SIM ASESOR - CALCULO GMF4100 ", Integer.parseInt(TextoElemento(simuladorasesorpage.Gmf4100)) , Gmf4100);
 
@@ -522,7 +523,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 			int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
 			ToleranciaPesoMensaje("IM INTERNO - CALCULANDO MONTO SOLICITUD ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)) , calculoMontoSoli);
-			ToleranciaPeso(edad, calculoMontoSoli);
 
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			//(int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos
@@ -876,18 +876,21 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos, String anoAnalisis) throws InterruptedException, NumberFormatException, SQLException {
     	log.info("******************** OriginacionCreditosAccion validar Calculos - ValidarSimuladorAnalista()  ***************");
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible (); 
-    	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);
+    	selectValorLista(pestanasimuladorinternopage.ListaMes,Mes);    	
     	ElementVisible(); 
+    	Clear(pestanasimuladorinternopage.anoAfectacion);
+    	EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anoAnalisis);
+    	ElementVisible();
     	hacerClick(pestanasimuladorinternopage.CalcularDesglose);
     	ElementVisible(); 
     	hacerClicknotificacion();
     	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-    	
+    	/*
     	 // consulta base de datos
 		int DesPrimaAntic = 0;
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -991,7 +994,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina)
 				.substring(0, TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length() - 2)
 				.replaceAll("[^a-zA-Z0-9]", ""), descNomina);
-
+*/
 	}
 
 	public void GuardarSimulacionAnalista() throws InterruptedException {
@@ -1016,6 +1019,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanasimuladorinternopage.Aprobar);
 			assertTextonotificacion(simuladorasesorpage.notificacion,
 					"Este crédito se ha enviado a flujo de aprobación de analisis.");
+			
+			
 			ElementVisible();
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - EndeudamientoGlobal() #######" + e);
@@ -1333,6 +1338,66 @@ public class OriginacionCreditosAccion extends BaseTest {
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - DescargarMediosdedispercion() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - DescargarMediosdedispercion()########"+ e,false);
+		}
+		
+	}
+	
+	/*ThainerPerez 21/09/2021 - Se agrega el metodo dinamico por medio de la tabla que agrega X cantidad de registros saneamiento o carteras*/
+	public void agregarSaneamientosCarteras(DataTable tabla) {
+		log.info("********** Agregar saneamientos o carteras, OriginacionCreditosAccion - agregarSaneamientosCarteras() *********** ");
+		try {
+			recorerpestanas("DIGITALIZACIÓN");
+			Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			esperaExplicita(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);			
+			List<Map<String, String>> data = tabla.asMaps(String.class, String.class);
+			int contador = 0;
+			for (Map<String, String> e : data) {
+				Hacer_scroll_Abajo(pestanadigitalizacionPage.AgregarCartera);
+				esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
+				hacerClick(pestanadigitalizacionPage.AgregarCartera);
+				ElementVisible();
+				//formRadicacion:j_idt93:1:tipoCarteraSO:1
+				String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento).replaceAll("By.id: ","");
+				String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ","");
+				String competidor = String.valueOf(pestanadigitalizacionPage.EntidadCompetidor).replaceAll("By.id: ","");
+				String filtroCompetidor = String.valueOf(pestanadigitalizacionPage.FiltroEntidad).replaceAll("By.id: ","");
+				String monto = String.valueOf(pestanadigitalizacionPage.MontoSaneamiento).replaceAll("By.id: ","");
+			    String valorCuota = String.valueOf(pestanadigitalizacionPage.ValorCuotaSaneamiento).replaceAll("By.id: ","");
+			    String fechaVencimiento = String.valueOf(pestanadigitalizacionPage.FechaVencimientoSaneamiento).replaceAll("By.id: ","");
+			    String numOblogacion = String.valueOf(pestanadigitalizacionPage.NumeroObligacionSaneamiento).replaceAll("By.id: ","");
+				
+				
+				switch (e.get("Tipo")) {
+				case "Saneamiento":
+					log.info("********* Se ha seleccionado senamiento ***");
+					Hacer_scroll_Abajo(By.id(RadioSaneamiento.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					esperaExplicita(By.id(RadioSaneamiento.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					hacerClick(By.id(RadioSaneamiento.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					ElementVisible();
+					break;
+				case "Cartera":
+					log.info("********* Se ha seleccionado Cartera ***");
+					Hacer_scroll_Abajo(By.id(radioCompra.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					esperaExplicita(By.id(radioCompra.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					hacerClick(By.id(radioCompra.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+					ElementVisible();
+					break;
+				}
+				
+				esperaExplicita(By.id(competidor.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+				hacerClick(By.id(competidor.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+				EscribirElemento(By.id(filtroCompetidor.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")), e.get("Entidad"));
+				EnviarEnter(By.id(filtroCompetidor.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")));
+				EscribirElemento(By.id(monto.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")), e.get("Monto"));
+				EscribirElemento(By.id(valorCuota.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")), e.get("VlrCuota"));
+				EscribirElemento(By.id(fechaVencimiento.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")), e.get("FechaVencimiento"));
+				EscribirElemento(By.id(numOblogacion.replaceAll(":"+String.valueOf(contador)+":", ":"+String.valueOf(contador)+":")), e.get("NumObligacion"));
+				contador = contador + 1;
+			}
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras() #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras()########"+ e,false);
 		}
 		
 	}

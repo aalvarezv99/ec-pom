@@ -408,6 +408,15 @@ public class BaseTest {
                           
 	}
 	
+	/*ThainerPerez 20-sep-2021, Se crea el metodo que devuelve el remanente estimado para retanqueos*/
+	public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito, int comprasCartera, int gmf4x100, int primaSeguro) {
+		double valor = 0;
+		valor = TotalMontoSoli - (saldoDia+fianza+estudioCredito+comprasCartera+gmf4x100+primaSeguro);
+		log.info("Remanente estimado Retanqueo " + redondearDecimales(valor,0));
+		return redondearDecimales(valor,0);
+		
+	}
+	
 	/*************************Fin Formula de CXC*****************************/
  
 	/************* FIN FUNC Assert Selenium ****************/
@@ -974,8 +983,10 @@ public WebDriver chromeDriverConnection() {
 		return driver;
 	}
     
+    /*ThainerPerez 22/Sep/2021 - Se actualiza el metodo para que seleccione el tipo (Cartera - saneamiento) en los radio button
+     * */
 	public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
-			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra, String[] EntidadSaneamiento,
 			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
 			throws InterruptedException {
 		List<WebElement> Entidad = driver.findElements(ListEntidad);
@@ -986,11 +997,22 @@ public WebDriver chromeDriverConnection() {
 		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
 		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
 		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-		String a[] = new String[2];
-
+		List<WebElement> Tipo = driver.findElements(ListTipo);
+		List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
+		String a[] = new String[VlrCuota.length];
+		
 		for (int i = 0; i < Entidad.size(); i++) {
-			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));			
 			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+			
+			if(Tipo.get(i).getText().trim().contains("SANEAMIENTO")){
+				driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
+			}
+			else {
+				driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
+			}
+			
            //Llenar la entidad
 			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
 			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
@@ -1010,9 +1032,6 @@ public WebDriver chromeDriverConnection() {
 			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
 			a[i] = BtnAprobar.get(i).getAttribute("id");
 		}
-        
-		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(1).getAttribute("id")));
-		driver.findElement(By.id(RadioSaneamiento.get(1).getAttribute("id"))).click();
 
         //Aprobar las compras
 		for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -1047,9 +1066,9 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);    		
+        	log.info(mensaje+" - Valor a "+a+" Valor b "+b);
     	}else {
-    		assertTrue("########### ERROR CALCULANDO" +mensaje+" ########"+" Valor a "+a+" Valor b "+b,false);
+    		assertTrue("########### ERROR CALCULANDO " +mensaje+" ########"+" Valor a "+a+" Valor b "+b,false);
     	}
     }
     

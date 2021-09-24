@@ -11,6 +11,7 @@ import StepsDefinitions.CommunSteps.Driver;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import cucumber.api.java.es.Y;
+import io.cucumber.datatable.DataTable;
 
 public class SolicitudCompraCarteraSaneamientoSteps {
 
@@ -24,23 +25,18 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 		solicitudcompracarterasaneamientoaccion = new SolicitudCompraCarteraSaneamientoAccion(driver);
 		baseTest = new BaseTest(driver);
 	}
-	//####################### SeContinuaSolicitudCreditoParaCompraDeCartera #####################################################################
-	
-	@Y("se pasa a la segunda pestana de digitalizacion se compra cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void SePasaAlaSegundaPestanaDeDigitalizacionSeCompraCarteraSaneamiento(String Competidor1, String Cartera1, String VlrCuota1, String FechaVencimiento1, String NumObligacion1,String Competidor2, String Saneamiento2, String VlrCuota2, String FechaVencimiento2, String NumObligacion2) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.DatosCarteraSaneamiento(Competidor1, Cartera1, VlrCuota1, FechaVencimiento1, NumObligacion1,Competidor2, Saneamiento2, VlrCuota2, FechaVencimiento2, NumObligacion2);
-	}
+	//####################### SeContinuaSolicitudCreditoParaCompraDeCartera #####################################################################	
 	
 	@Y("se guarda cartera")
 	public void SeGuardaCartera() throws InterruptedException {
 		solicitudcompracarterasaneamientoaccion.GuardarDatosSaneamiento();
 	}
 	
-	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void SePasaALaPrimeraPestanaDeReferenciacionParaConfirmarLaEntidad(String Competidor1, String Cartera1, String VlrCuota1, String FechaVencimiento1, String NumObligacion1,String Competidor2, String Saneamineto1, String VlrCuota2, String FechaVencimiento2, String NumObligacion2) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.ConfirmarEntidad(Competidor1, Cartera1, VlrCuota1, FechaVencimiento1, NumObligacion1,Competidor2, Saneamineto1, VlrCuota2, FechaVencimiento2, NumObligacion2);
+	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad")
+	public void SePasaALaPrimeraPestanaDeReferenciacionParaConfirmarLaEntidad(DataTable table) throws InterruptedException {
+		solicitudcompracarterasaneamientoaccion.ConfirmarEntidad(table);
 	}
-
+		
 	@Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences {string}")
 	public void SePasaALaSegundaPestanaDeDigitalizacionParaAgregarElCodigoProforencesApruebaReferencias(String Codigo) throws InterruptedException {
 		solicitudcompracarterasaneamientoaccion.Referenciaspositivas(Codigo);
@@ -50,9 +46,9 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 
 	//####################### IniciaAnalisisCreditoParaCompraDeCartera ###########################################################################
 	
-	@Y("Valida los valores del simulador para compra de cartera con saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	   public void ValidaLosValoresDelSimuladorParaCompraDeCarteraConSaneamiento (String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2) throws NumberFormatException, SQLException {
-		solicitudcompracarterasaneamientoaccion.ValidarSimuladorAnalistaCompraCartera(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,Cartera1,Saneamiento2);
+	@Y("Valida los valores del simulador para compra de cartera con saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	   public void ValidaLosValoresDelSimuladorParaCompraDeCarteraConSaneamiento (String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2,String anoAnalisis) throws NumberFormatException, SQLException {
+		solicitudcompracarterasaneamientoaccion.ValidarSimuladorAnalistaCompraCartera(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,Cartera1,Saneamiento2,anoAnalisis);
 	}
 	//####################### FinalizaAnalisisCreditoParaCompraDeCartera ########################################################################
 

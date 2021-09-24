@@ -31,7 +31,7 @@ Característica: Retanqueo de credito saneamiento
    
   Ejemplos: 
   	|Retanqueo|Cedula     |Credito   |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  | descNomina | IngresosMes |codigo| Competidor             | Saneamiento    | VlrCuota     | FechaVencimiento    | NumObligacion   |         
-    |"4000000"|"79496499" |"69124"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"60" |"10"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"| "8110315267 - AMAR"    | "450000"       | "40000"      | "30/07/2021"        | "9321"          |
+    |"4000000"|"79496499" |"69124"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"60" |"10"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"| "8110315267 - AMAR"    | "200000"       | "20000"      | "30/08/2021"        | "9321"          |
       
   @AnalisisCreditoRetanqueoSaneamiento
   Esquema del escenario: Analisis del credito
@@ -44,7 +44,7 @@ Característica: Retanqueo de credito saneamiento
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo|Credito |Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha         | Saneamiento |DiasHabilesIntereses|
-    |"4000000"|"69124" |"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"     |"Julio"|"1.8" |"60" |"280000" |"50000"   |"22/07/2021"| "450000"   |"10"                |
+    |"4000000"|"69124" |"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"     |"Julio"|"1.8" |"60" |"280000" |"50000"   |"06/09/2021"| "450000"   |"10"                |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoSaneamiento 
