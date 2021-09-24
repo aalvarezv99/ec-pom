@@ -142,8 +142,11 @@ public class CrearDriver {
 			options.addArguments("--disable-gpu"); // applicable to windows os only					
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
 			options.setBinary("/usr/bin/google-chrome");
+			
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);
+			System.out.println("caps: "+caps);
+			System.out.println("options: "+options);
 		} catch (Exception e) {
 			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
 		}

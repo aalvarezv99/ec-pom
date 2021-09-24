@@ -46,8 +46,8 @@ public class Driver {
 	
 	@Before
 	public void before(Scenario scenario) {
-		this.scenario = scenario;		
 		System.out.println("scenario: "+scenario);
+		this.scenario = scenario;				
 	}
 	
 	
