@@ -75,7 +75,6 @@ public class CrearDriver {
 					break;	
 				}
 				ruta = setDownloadsPath();
-				System.out.println("ruta: "+ ruta);
 				driver = new ChromeDriver(ruta);
 				break;
 
@@ -132,22 +131,14 @@ public class CrearDriver {
 			ChromeOptions options = new ChromeOptions();			
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.setHeadless(true);		
-			options.addArguments("--no-sandbox"); // Bypass OS security model							
-			options.addArguments("start-maximized"); // open Browser in maximized mode
-			options.addArguments("disable-infobars"); // disabling infobars
-			options.addArguments("--disable-web-security"); // disabling infobars
-			options.addArguments("--ignore-certificate-errors"); // disabling infobars
-			options.addArguments("--allow-running-insecure-content"); // disabling infobars
-			options.addArguments("--disable-extensions"); // disabling extensions			
-			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
-			options.addArguments("window-size=1400,2100");
-			options.setBinary("/usr/bin/google-chrome");
+			options.addArguments("--headless");
+			options.addArguments("--disable-extensions");
+			options.addArguments("--disable-dev-shm-usage");
+			options.addArguments("--no-sandbox");
+			//options.setBinary("/usr/bin/google-chrome");
 			
 			caps = new DesiredCapabilities();
-			caps.setCapability(ChromeOptions.CAPABILITY, options);
-			System.out.println("caps: "+caps);
-			System.out.println("options: "+options);
-			System.out.println("ChromeOptions.CAPABILITY: "+ChromeOptions.CAPABILITY);
+			caps.setCapability(ChromeOptions.CAPABILITY, options);			
 		} catch (Exception e) {
 			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
 		}
