@@ -122,7 +122,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
-			esperaExplicita(locator);
+			esperaExplicitaPestana(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -209,16 +209,13 @@ public class BaseTest {
 	}
     
 	public void recorerpestanas(String Dato) {
-    
 		By locator = By.xpath("//a[text()='"+Dato+"']");
-		while(assertEstaPresenteElemento(locator)==false){
+		while(assertEstaPresenteElemento(locator)==false) {
 			hacerClick(pestanaSeguridadPage.Siguiente);
 		}
 		hacerClick(locator);
 	}
-    
-	
-   
+
 	public void EnviarEnter(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ENTER);
 	}
@@ -800,7 +797,7 @@ public void clickvarios(By locator) {
 		WebDriverWait wait = new WebDriverWait(driver,200);
 		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
 		//Thread.sleep(8000);
-		
+
 		String Concepto = "";
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado;
@@ -808,23 +805,19 @@ public void clickvarios(By locator) {
 		long wait_time = 20000;
 		long end_time = start_time + wait_time;
 
+		// si en 20 segundos no obtiene respuesta el test falla
 		while (System.currentTimeMillis() < end_time && (Concepto=="" || Concepto==null)) {			
 			resultado = query.ConsultaProspeccion(Cedula);
 			while(resultado.next()) {
-			Concepto = resultado.getString(1);
+				Concepto = resultado.getString(1);
 			}
-			System.out.println("############### Valor de Concepto "+Concepto);
-			
 		}
-	    if(Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
-	    	assertTrue(" Consulta prospeccion Exitosa igual a: "+Concepto, true);
-	    	System.out.println("### entro al if ##");
-	    }else {
-	    	assertTrue(" Consulta prospeccion fallo a igual a: "+Concepto, false);
-	    	System.out.println("### entro al else ##");
+
+	    if (Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
+	    	assertTrue(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto, true);
+	    } else {
+	    	assertTrue(" Consulta prospeccion falló, Concepto igual a: " + Concepto, false);
 	    }
-	    
-		
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -843,7 +836,7 @@ public void clickvarios(By locator) {
 	}
     
   public void esperaExplicita(By locator) {
-		WebDriverWait wait = new WebDriverWait(driver, 20);
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
@@ -1216,5 +1209,9 @@ public WebDriver chromeDriverConnection() {
 		return element.getCssValue("display").equalsIgnoreCase("none");
     	
     }
-    
+
+    public void esperaExplicitaPestana(By locator) {
+		WebDriverWait wait = new WebDriverWait(driver, 2);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
 }

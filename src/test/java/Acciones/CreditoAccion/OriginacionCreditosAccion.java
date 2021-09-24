@@ -368,10 +368,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		//Refrescar();
 		//esperaExplicita(pestanaSeguridadPage.Concepto);
 		Hacer_scroll(pestanaSeguridadPage.Concepto);
-		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);		
-		System.out.println("### PASO ANTES DEL SIMULADOR ####");
+		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 		recorerpestanas("SIMULADOR");
-		
 	}
 	
 	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
