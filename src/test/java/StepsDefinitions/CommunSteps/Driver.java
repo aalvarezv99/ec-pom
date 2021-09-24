@@ -57,7 +57,9 @@ public class Driver {
 		log.info("***********************************************************************************************************");
 		log.info("[ Configuracion ] - Inicializando la configuracion del Driver");
 		log.info("***********************************************************************************************************");
-	    driver = CrearDriver.inicialConfig();
+		log.toString();
+		driver = CrearDriver.inicialConfig();
+	    log.toString();
 		levantarURL();
     	log.info("***********************************************************************************************************");
 		log.info("[ Scenario Ejecuadando ] - "+ scenario.getName().toUpperCase());
