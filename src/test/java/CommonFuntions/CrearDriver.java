@@ -138,9 +138,9 @@ public class CrearDriver {
 			options.addArguments("--disable-web-security"); // disabling infobars
 			options.addArguments("--ignore-certificate-errors"); // disabling infobars
 			options.addArguments("--allow-running-insecure-content"); // disabling infobars
-			options.addArguments("--disable-extensions"); // disabling extensions
-			options.addArguments("--disable-gpu"); // applicable to windows os only					
+			options.addArguments("--disable-extensions"); // disabling extensions			
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+			options.addArguments("window-size=1400,2100");
 			options.setBinary("/usr/bin/google-chrome");
 			
 			caps = new DesiredCapabilities();

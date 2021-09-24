@@ -70,11 +70,8 @@ public class Driver {
 	public void levantarURL() {
 		try {			
 			String url = baseTest.leerPropiedades("UrlAmbiente");
-			log.info("******************** NAVEGANDO EN LA URL " + url + " **********************");
-			log.toString();
-			driver.get(url);	
-			log.toString();
-			log.error("error");
+			log.info("******************** NAVEGANDO EN LA URL " + url + " **********************");			
+			driver.get(url);							
 		} catch (Exception e) {
 			log.error("================== ERROR EN LA URL ================" + e);
 		}
