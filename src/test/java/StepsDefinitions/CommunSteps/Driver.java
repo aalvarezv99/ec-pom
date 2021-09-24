@@ -47,6 +47,7 @@ public class Driver {
 	@Before
 	public void before(Scenario scenario) {
 		this.scenario = scenario;		
+		System.out.println("scenario: "+scenario);
 	}
 	
 	
@@ -60,6 +61,7 @@ public class Driver {
 		levantarURL();
     	log.info("***********************************************************************************************************");
 		log.info("[ Scenario Ejecuadando ] - "+ scenario.getName().toUpperCase());
+		System.out.println("scenario.getName(): "+scenario.getName());
 		log.info("***********************************************************************************************************");
 	}
 	
