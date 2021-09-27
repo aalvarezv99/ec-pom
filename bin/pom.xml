@@ -180,13 +180,21 @@
 						<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
 					</systemPropertyVariables>
 					<argLine>
-                       -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                       -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
-                   	</argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
+                    </argLine>
+                    
+                    <systemProperties>
+                       <property>
+                          <name>allure.results.directory</name>
+                          <value>D:\Usuarios\analista.pruebas6\Documents\TestAutomationPOM\testautomationpom\target\allure-results</value>                       
+                       </property>
+                    </systemProperties>
+                    
 					<includes>
 						<!-- <include>**/*Steps.java</include> -->
-						<include>**/*Runner.java</include>
-					<!--<include>**/OriginacionCreditosRunner.java</include> -->
+<!-- 						<include>**/*Runner.java</include> -->
+					<include>**/OriginacionCreditosRunner.java</include>
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
 				</configuration>

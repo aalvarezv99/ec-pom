@@ -329,11 +329,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 	    hacerClicknotificacion();
 		hacerClick(simuladorasesorpage.btnSoliConsulta);
 		ElementVisible();		
-		assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
-		hacerClicknotificacion();
-		}else 
-		{
-		assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
 		hacerClicknotificacion();
 		}
 	}
@@ -344,7 +339,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	/************ INICIA ACCIONES SOLICITUD CREDITO ***************/
 
 	public void ingresarSolicitudCredito(String Cedula, String NombreCredito) throws InterruptedException {
-
+		this.Cedula = Cedula;
+		this.NombreCredito = NombreCredito;
 		panelnavegacionaccion.navegarCreditoSolicitud();
 		BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
 		esperaExplicitaTexto(NombreCredito);
@@ -354,22 +350,23 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 	}
 
-	public void Seguridad() throws InterruptedException {
+	public void Seguridad() throws InterruptedException, NumberFormatException, SQLException {
 		Refrescar();
 		hacerClick(pestanaSeguridadPage.PestanaSeguridad);
 		esperaExplicita(pestanaSeguridadPage.BotonGuardar);
 		hacerClick(pestanaSeguridadPage.Viable);
 		hacerClick(pestanaSeguridadPage.BotonGuardar);
+		ElementVisible();
+		String notificacion = GetText(simuladorasesorpage.notificacion);		
+		if (!notificacion.equals("Proceso Realizado Correctamente")) {
+			hacerClick(pestanaSeguridadPage.BotonGuardar);
+			ElementVisible();	
+		}
 		assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
 		esperaExplicitaNopresente(simuladorasesorpage.notificacion);
-		esperaExplicita(pestanaSeguridadPage.Concepto);
-		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
-		Refrescar();
-		esperaExplicita(pestanaSeguridadPage.Concepto);
 		Hacer_scroll(pestanaSeguridadPage.Concepto);
-		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
+		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 		recorerpestanas("SIMULADOR");
-		
 	}
 	
 	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{

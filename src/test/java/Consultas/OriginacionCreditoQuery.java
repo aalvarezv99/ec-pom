@@ -187,6 +187,24 @@ public class OriginacionCreditoQuery {
 	}
 	
 	
+	public ResultSet ConsultaProspeccion(String Cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select c.concepto from central_consulta c\r\n"
+					+ "join cliente cl on  cl.id = c.id_cliente \r\n"
+					+ "where cl.identificacion = '"+Cedula+"'\r\n"
+					+ "and fecha::date=current_date\r\n"
+					+ "order by fecha desc limit 1;");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
 	}
 
 
