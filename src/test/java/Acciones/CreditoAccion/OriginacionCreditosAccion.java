@@ -133,9 +133,13 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertTextoelemento(simuladorasesorpage.desOcupacion, Actividad);
 
 		// Llenar formulario campos del credito
-		LimpiarConTeclado(simuladorasesorpage.inputTasa);
+		/*LimpiarConTeclado(simuladorasesorpage.inputTasa);
 		EscribirElemento(simuladorasesorpage.inputTasa, Tasa);
-		ElementVisible();
+		ElementVisible();*/
+		hacerClick(simuladorasesorpage.labelTasa);
+		EscribirElemento(simuladorasesorpage.inputTasaFiltro,Tasa);
+				EnviarEnter(simuladorasesorpage.inputTasaFiltro);
+		
 		hacerClick(simuladorasesorpage.inputPlazo);
 		ElementVisible();
 		LimpiarConTeclado(simuladorasesorpage.inputPlazo);

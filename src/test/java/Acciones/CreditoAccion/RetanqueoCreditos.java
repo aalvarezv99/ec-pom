@@ -223,9 +223,12 @@ public class RetanqueoCreditos extends BaseTest {
 				DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 			}
 			
-			esperaExplicita(retanqueopages.inputTasa);
+			/*esperaExplicita(retanqueopages.inputTasa);
 			LimpiarConTeclado(retanqueopages.inputTasa);
-			EscribirElemento(retanqueopages.inputTasa, Tasa);
+			EscribirElemento(retanqueopages.inputTasa, Tasa);*/
+			hacerClick(retanqueopages.labelTasa);
+			EscribirElemento(retanqueopages.inputTasaFiltro,Tasa);
+					EnviarEnter(retanqueopages.inputTasaFiltro);
 
 			hacerClicknotificacion();
 			ElementVisible();
@@ -667,7 +670,7 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		
+		/*
 		int TotalCarteras = (Integer.parseInt(Cartera)+Integer.parseInt(Saneamiento));		
 		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
 		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));		
@@ -727,7 +730,7 @@ public class RetanqueoCreditos extends BaseTest {
 		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
 		System.out.println("dentro del else que no contiene punto");
 		}
-		
+		*/
     }
 	
 	
