@@ -795,14 +795,13 @@ public void clickvarios(By locator) {
     
 	public void esperaExplicitaSeguridad(By locator, String Cedula) throws InterruptedException, NumberFormatException, SQLException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		//Thread.sleep(8000);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));		
 
 		String Concepto = "";
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado;
 		long start_time = System.currentTimeMillis();
-		long wait_time = 20000;
+		long wait_time = 30000;
 		long end_time = start_time + wait_time;
 
 		// si en 20 segundos no obtiene respuesta el test falla
@@ -812,7 +811,7 @@ public void clickvarios(By locator) {
 				Concepto = resultado.getString(1);
 			}
 		}
-
+        log.info(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto);
 	    if (Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
 	    	assertTrue(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto, true);
 	    } else {

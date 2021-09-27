@@ -364,9 +364,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 		assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
 		esperaExplicitaNopresente(simuladorasesorpage.notificacion);
-		//esperaExplicita(pestanaSeguridadPage.Concepto);
-		//Refrescar();
-		//esperaExplicita(pestanaSeguridadPage.Concepto);
 		Hacer_scroll(pestanaSeguridadPage.Concepto);
 		esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 		recorerpestanas("SIMULADOR");
