@@ -17,11 +17,10 @@ public class PagesTareas {
 	
 	public PagesTareas (WebDriver driver) throws InterruptedException {
 		filtroDescipcion = By.id("form:listaTarea:descripcion:filter");
-		filtroTarea=By.id("form:listaTarea:tarea:filter");
+		filtroTarea  =By.id("form:listaTarea:tarea:filter");
 		EditarVer = By.id("form:listaTarea:0:accesoRapido");
 	    Aprobar = By.xpath("//*[text()='Aprobar']");
 	    Guardar = By.xpath("//*[text()='Guardar']");
-	    
 	}
 }
 

@@ -79,6 +79,7 @@ public class SimuladorAsesorPages {
 		public By ElementosCarga;
 		
 		public By notificacion;
+		public By inputTasaFiltro;
 		
 		
 		public SimuladorAsesorPages(WebDriver driver) {
@@ -99,14 +100,17 @@ public class SimuladorAsesorPages {
 			desOcupacion = By.id("formSimuladorCredito:actividad_label");
 			//contOcupacion = By.xpath("/html/body/div[11]/div/ul");		
 			contOcupacion = By.xpath("//*[@id=\"formSimuladorCredito:actividad_items\"]");
-			listOcupacion = By.xpath("/html/body/div[11]/div/ul/li");		
+			listOcupacion = By.xpath("//li[starts-with(@id, 'formSimuladorCredito:actividad')]");		
 			notificacionGuardado = By.xpath("//*[starts-with(@class,'ui-growl-title')]");			
 			checkLibre = By.id("formSimuladorCredito:j_idt98:0");
 			checkControlado = By.id("formSimuladorCredito:j_idt98:1");
 			
 			
 			//Componentes valores
-			inputTasa = By.id("formSimuladorCredito:tasa_input");
+			inputTasa = By.id("formSimuladorCredito:tasa_label");
+			inputTasaFiltro = By.id("formSimuladorCredito:tasa_filter");
+
+			// inputTasa = By.id("formSimuladorCredito:tasa_input");
 			inputPlazo = By.id("formSimuladorCredito:plazo_input");		
 			inputMonto = By.id("formSimuladorCredito:monto_input");	
 			diasIntInicial = By.id("formSimuladorCredito:iIniciales_input");
