@@ -18,7 +18,7 @@ Característica: Solicitud combra de cartera
    
    Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           
-			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "31/Mar/1969" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "8000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "NANCY"  | "MORENO"    | "LOZANO"    | "nancypatriciamoreno@mail.com"  | "3123505607" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "31/Mar/1969" | "Calle 2d #22-52"  | "FAMILIAR"   | "NANCY"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
+			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
                   
   @SolicitudCredito
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
@@ -30,22 +30,22 @@ Característica: Solicitud combra de cartera
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
     Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
-    Y se crean los tipos de cartera o saneamiento a recoger 
+   	Y se crean los tipos de cartera o saneamiento a recoger 
    		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
    		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
-   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-    Y se guarda cartera
-    Y se pasa a la primera pestana de referenciacion para confirmar la entidad
+   		#|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
+   	Y se guarda cartera
+   	Y se pasa a la primera pestana de referenciacion para confirmar la entidad
     	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-    	|Cartera    		|8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
-    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|10000|70000  	|30/09/2021     	|2222   			|
+    	#|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
+    	|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   |
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "31/Mar/1969" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "8000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "NANCY"  | "MORENO"    | "LOZANO"    | "nancypatriciamoreno@mail.com"  | "3123505607" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "31/Mar/1969" | "Calle 2d #22-52"  | "FAMILIAR"   | "NANCY"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
         
   @AnalisisCredito
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
@@ -59,7 +59,7 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     |Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|anoAnalisis|Cartera1|Saneamiento2|
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "65697134" | "1.8" | "120"  | "8000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "HILDA"      |"Agosto"|"2022"|"3502000"|"300000"|
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "1.8" | "120"  | "25000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "GABRIEL"      |"Agosto"|"2022"|"3502000"|"300000"|
         
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida
@@ -70,7 +70,7 @@ Característica: Solicitud combra de cartera
     
           Ejemplos: 
        | Cedula     |Celular         | Correo         | TipoDesen    |
-       | "65697134" | "3104884378" | "hildaui@hotmail.com" | "Efectivo" |
+       | "1014262729" | "3104884378" | "hildaui@hotmail.com" | "Efectivo" |
         
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion
@@ -79,7 +79,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
       | Cedula     | fechaActual         | rutaPDF         |
-      | "65697134" | "16/07/2021" 			 | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      | "1014262729" | "16/07/2021" 			 | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
         
   @DesembolsoCartera
     Esquema del escenario: Carteras para Desembolso
@@ -88,7 +88,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
        | Cedula     |Monto       | Cartera1 | rutaPDF                                     |Banco                                      |
-       | "65697134" | "8000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
+       | "1014262729" | "25000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
         
   @VisacionCartera
     Esquema del escenario: Visacion de la cartera
@@ -97,7 +97,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
         | Cedula     |  rutaPDF         |
-      | "65697134" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      | "1014262729" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
         
   @DesembolsoSaneamiento
   Esquema del escenario: Saneamiento para Desembolso
@@ -106,7 +106,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
       | Cedula     | Monto       | Saneamiento2 | rutaPDF                                     |Banco                                      |
-      | "65697134" | "8000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
+      | "1014262729" | "25000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
           
   @Desembolso
   Esquema del escenario: Remanente para Desembolso
@@ -115,5 +115,5 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
      | Cedula     | Monto       | Cartera1|Saneamiento2 | rutaPDF                                     |Banco                                      | entidad                                                    |
-     | "65697134" |"8000000"    |  "350000"|     "350000"             | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |"8300538122 -  FIDEICOMISO SOLUCIONES"                      |
+     | "1014262729" |"25000000"    |  "350000"|     "350000"             | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |"8300538122 -  FIDEICOMISO SOLUCIONES"                      |
         

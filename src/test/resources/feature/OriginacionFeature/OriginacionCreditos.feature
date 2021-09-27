@@ -17,7 +17,7 @@ Característica: Originacion de Creditos
      Y se finaliza con la consulta a centrales
    Ejemplos: 
        | Pagaduria   | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido  | Correo                     | Celular      | Dpto           | Ciudad     | rutaPDF                                     | FechaServidor |                                
-       | "COLFONDOS" | "93239420" | "02/Jun/1985" | "Cartagena" | "Pensionado" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "360000"                   | "xx" | "360000"    | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "CARLOS" | "ROJAS" | "OLAYA" | "CARLOSmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-20"  |
+       | "COLFONDOS" | "10087953" | "26/Jul/1956" | "Cartagena" | "Pensionado" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "360000"                   | "xx" | "360000"    | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ARBEY" | "QUEBRADA" | "" | "ARBEYmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-20"  |
   
   @SolicitudCredito
   Esquema del escenario: Solicitar credito sin saneamientos
@@ -35,7 +35,7 @@ Característica: Originacion de Creditos
 
         Ejemplos: 
       | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido  | Correo                     | Celular      | Dpto           | Ciudad     | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion         | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |
-      | "93239420" | "02/Jun/1985" | "Cartagena" | "Pensionado" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "360000"                   | "xx" | "360000"    | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "CARLOS" | "ROJAS" | "OLAYA" | "CARLOSmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-20"  | "Educacion propia" | "F"  | "Soltero"   | "93239420" | "02/Jun/1985" | "Calle 2d #22-52" | "FAMILIAR"   | "CARLOS"      | "alejandro"           | "perez"             | "7210273"          | "9007146"       | "3112" |
+      | "10087953" | "02/Jun/1985" | "Cartagena" | "Pensionado" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "360000"                   | "xx" | "360000"    | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ARBEY" | "QUEBRADA" | "OLAYA" | "ARBEYmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-20"  | "Educacion propia" | "F"  | "Soltero"   | "10087953" | "02/Jun/1985" | "Calle 2d #22-52" | "FAMILIAR"   | "ARBEY"      | "alejandro"           | "perez"             | "7210273"          | "9007146"       | "3112" |
      
   @AnalisisCredito
   Esquema del escenario: Analisis del credito
@@ -49,7 +49,7 @@ Característica: Originacion de Creditos
 
       Ejemplos: 
       | Pagaduria  | Cedula     | Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|AnoAnalisis|
-      | "COLFONDOS" | "93239420" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "0"                   | "CARLOS"      |  "Agosto" |"2022"|
+      | "COLFONDOS" | "10087953" | "1.8" | "120"  | "3600000"  | "10"                 | "3600000" | "360000" | "0"    | "3600000"   | "20500000"   | "0"                   | "ARBEY"      |  "Agosto" |"2022"|
 
   
   @ClientesBienvenida 
@@ -61,7 +61,7 @@ Característica: Originacion de Creditos
 
        Ejemplos: 
       | Cedula     |Celular         | Correo         | TipoDesen    |
-      | "93239420" |"3115128156" | "CARLOSmail@mail.com" | "Efectivo" |
+      | "10087953" |"3115128156" | "ARBEYmail@mail.com" | "Efectivo" |
 
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion
@@ -70,7 +70,7 @@ Característica: Originacion de Creditos
 
         Ejemplos: 
       | Cedula     |  fechaActual         | rutaPDF         |
-      |"93239420" |  "24/08/2021" 			  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      |"10087953" |  "24/08/2021" 			  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
 
   @Desembolso
   Esquema del escenario: Creditos para Desembolso
@@ -80,4 +80,4 @@ Característica: Originacion de Creditos
 
       Ejemplos: 
       | Cedula     | Monto      | rutaPDF 																		| Banco  | 
-      | "93239420" | "3600000"  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE" |
+      | "10087953" | "3600000"  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE" |

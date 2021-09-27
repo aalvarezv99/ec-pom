@@ -29,8 +29,9 @@ Característica: Retanqueo de creditos
    
   Ejemplos: 
   |Retanqueo|Cedula     |Credito  |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|         
-  |"2000000"|"3598510" |"78351"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"120" |"0"                |"4500000"|"360000"| "200000"   |"100000"            |"2258"|
-
+  #|"2000000"|"92523248" |"56511"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"120" |"0"                |"4500000"|"360000"| "200000"   |"100000"            |"2258"|
+	|"2000000"|"92523248" |"56511"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"16" |"0"                |"4500000"|"360000"| "200000"   |"100000"            |"2258"|
+  
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
@@ -42,7 +43,7 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo|Cedula     |Credito|NombreCredito|Ingresos |decLey  |descNomina|Mes     |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|
-    |"2000000"|"3598510" |"78351"|"JAIRO DE JESUS"|"4500000"|"360000"|"200000"   |"Noviembre"|"1.8" |"120" |"360000" |"31/08/2021"|"0"                |
+    |"2000000"|"92523248" |"56511"|"MIGUEL ANTONIO"|"4500000"|"360000"|"200000"   |"Noviembre"|"1.8" |"16" |"360000" |"31/08/2021"|"0"                |
 
 
    @ClientesBienvenidaRetanqueos 
@@ -54,7 +55,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula    |Celular     |Correo                     |TipoDesen  |
-    |"3598510"|"3173215456"|"emilianouribe025@gmail.com" |"Efectivo" |
+    |"92523248"|"3173215456"|"emilianouribe025@gmail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueos
@@ -64,7 +65,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"3598510"|"19/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"92523248"|"19/08/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos
     Esquema del escenario: Creditos para Desembolso
@@ -74,6 +75,6 @@ Característica: Retanqueo de creditos
    
     Ejemplos: 
    |Retanqueo  |Cedula     |Banco                                  |rutaPDF                                    |
-   |"2000000"  |"3598510" |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |"2000000"  |"92523248" |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
    
    
