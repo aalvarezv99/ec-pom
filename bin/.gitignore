@@ -48,5 +48,11 @@ Thumbs.db
 *.mov
 *.wmv
 
-# IntelliJ files
-*.iml
+/.allure/
+/.gitignore
+/.project
+/.settings/
+/README.md
+/allure-report/
+/pom.xml
+/src/
