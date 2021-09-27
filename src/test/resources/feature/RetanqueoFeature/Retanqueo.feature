@@ -7,9 +7,9 @@ Característica: Retanqueo de creditos
 
  @Retanqueo
  Esquema del escenario:  Retanqueo libre inversion
-   Cuando El agente ingrese a la pestana retanqueo 
-   Y se filtra por <Cedula><Credito>
-   Y se da clic a retanquear   
+   #Cuando El agente ingrese a la pestana retanqueo 
+   #Y se filtra por <Cedula><Credito>
+   #Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
    Y borrar archivos
@@ -17,7 +17,7 @@ Característica: Retanqueo de creditos
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
+   #Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion

@@ -30,7 +30,8 @@ public class SimuladorAsesorPages {
 		
 		//Componentes valores
 		public By inputTasa;
-		public By inputPlazo;		
+		public By inputPlazo;	
+		public By labelTasa;
 		public By inputMonto;	
 		public By diasIntInicial;
 		public By inputIngresos;
@@ -107,11 +108,10 @@ public class SimuladorAsesorPages {
 			
 			
 			//Componentes valores
-			inputTasa = By.id("formSimuladorCredito:tasa_label");
+			inputTasa = By.id("formSimuladorCredito:tasa_input");
+			inputPlazo = By.id("formSimuladorCredito:plazo_input");	
+			labelTasa = By.id("formSimuladorCredito:tasa_label");
 			inputTasaFiltro = By.id("formSimuladorCredito:tasa_filter");
-
-			// inputTasa = By.id("formSimuladorCredito:tasa_input");
-			inputPlazo = By.id("formSimuladorCredito:plazo_input");		
 			inputMonto = By.id("formSimuladorCredito:monto_input");	
 			diasIntInicial = By.id("formSimuladorCredito:iIniciales_input");
 			inputIngresos = By.id("formSimuladorCredito:ingresos");

@@ -297,37 +297,61 @@ public class BaseTest {
                           
                           
                           
-	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon) {
+	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
                           
-		double Valor =valorCredito/(1-(tasaPorMillon/1000000)*primaAnticipada);		
+		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
+		log.info("MontoaSolicitar "+ redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
-                          
-	public double CuotaCorriente (int valorCredito,double Tasa,int plazo) {
-        double Valor= valorCredito*((Tasa/100)/(1-(Math.pow((1+(Tasa/100)),(0-plazo)))));
+    
+	/*TP 10/08/2021 Se actualiza al nuevo calculo con la tasa dos y el mes dos
+	 * */
+	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
+		double Valor = 0;
+		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
+		if(plazo < mesDos) {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
+		}
+		else {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
+					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
+					/(Math.pow((1+tasaUno), (mesDos-1)))));
+		
+		}
+		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
+               
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double EstudioCreditoIva (int MontoSoli, double porcentajeEstudioCredito) {
                           
-	public double EstudioCreditoIva (int TotalMontoSoli, double porcentajeEstudioCredito) {
-                          
-		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		double Valor= ((MontoSoli*porcentajeEstudioCredito)/100)+(((MontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
 	}
                           
 	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
 		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
+		log.info("Capacidad Pagaduria" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
-	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double ValorFianza (int MontoSoli,double TasaFianza, double Variable ){
  
-		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
+		double Valor=((MontoSoli*TasaFianza)/100)*Variable;
+		log.info("VlrFianza " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
  
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
+		log.info("Vlr Gmf4100" + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
@@ -335,10 +359,20 @@ public class BaseTest {
 	public double ValorInteresesIniciales(int TotalMontoSoli,double Tasa,int DiasIniciales,int diasMes) {
  
 		double Valor = ((TotalMontoSoli*Tasa)/100)*((double)DiasIniciales/diasMes);
+		log.info("Vlr Intereses Iniciales" + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
  
+	/* 
+	 * TP 10/08/2021 Se actualiza para que calcule con el monto Neto, no con el monto total de la solicitud
+	 * */
+	public double PrimaAnticipadaSeguro (int MontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
+		double Valor=((double)MontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+		log.info("Prima Seguro Anticipado " + redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+		}
+		
 	public double PrimaNeta (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
 	  
 		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
@@ -364,56 +398,51 @@ public class BaseTest {
 	
 	
 	
-	public double PrimaAnticipadaSeguro  (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
-		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+	
+   
+	
+	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza ) {
+        double Valor=TotalMontoSoli-(CompraCartera+Gravamento4100+DescuentoPrimaAnticipada+estudioCredito+ValorFianza);
+        log.info("Remanente estimado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
    
-	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada ) {
-        double Valor=TotalMontoSoli-CompraCartera-Gravamento4100-DescuentoPrimaAnticipada;
-		return redondearDecimales(Valor,0);
-	}
-   
-	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey,int DescuentosNomina,int Colchon,double tasa,int plazo,double TasaxMillon,int ParametroPrimaSeguro) {
-   
+	/*
+	 * TP 06/08/2021 Se actualiza el metodo para que trabaje con la capacidad del cliente - tasa uno -plazo -mesdos y tasa dos
+	 * */
+	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey, int DescuentosNomina, int Colchon,
+						double tasaUno,int plazo,double tasaDos,int mesDos) {
 		double Capacidad=((double)((IngresosCliente-DescuentosLey)/2))-DescuentosNomina-Colchon;
-		double ValorK=((Math.pow((1+(tasa/100)),(0-plazo)))-1)/(tasa/100);
-		double MontoMaxCredito=(-Capacidad*ValorK);
-		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);		
-		return redondearDecimales(Valor,0);
+		double valor = 0;
+		if(plazo<mesDos) {
+			//plazo menos a mes dos
+			valor = Math.round(Capacidad*((Math.pow((1+tasaUno), (plazo)) )-1)/(tasaUno*Math.pow((1+tasaUno),(plazo))));	
+		}else {
+			//plazo mayor a mes dos
+			valor = Math.round(
+			Capacidad*((Math.pow((1+tasaUno), (mesDos-1)))-1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)) )+
+			(Capacidad*(( Math.pow((1+tasaDos), (plazo-(mesDos-1))) )-1)/(tasaDos* Math.pow((1+tasaDos), (plazo-(mesDos-1))) ))/
+			Math.pow((1+tasaUno), (mesDos-1)) );
+		}
+		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
+		return redondearDecimales(valor,0);
 	}
 	
-    /*************************Formulas de CXC *******************************/
-	
-	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
-        
-		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
-		log.info("MontoaSolicitar "+ (int) redondearDecimales(Valor,0));
-		return redondearDecimales(Valor,0);
-	}
-                          
-	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
-		double Valor = 0;
-		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
-		if(plazo < mesDos) {
-			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
-		}
-		else {
-			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
-					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
-					/(Math.pow((1+tasaUno), (mesDos-1)))));
-		
-		}
-		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
-		return redondearDecimales(Valor,0);
-	}
-                          
 	public double EstudioCreditoIvacxc (int TotalMontoSoli, double porcentajeEstudioCredito) {
                           
 		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
 		log.info("Estudio Credito" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
+	}
+	
+	/*ThainerPerez 20-sep-2021, Se crea el metodo que devuelve el remanente estimado para retanqueos*/
+	public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito, int comprasCartera, int gmf4x100, int primaSeguro) {
+		double valor = 0;
+		valor = TotalMontoSoli - (saldoDia+fianza+estudioCredito+comprasCartera+gmf4x100+primaSeguro);
+		log.info("Remanente estimado Retanqueo " + redondearDecimales(valor,0));
+		return redondearDecimales(valor,0);
+		
 	}
 	
 	/*************************Fin Formula de CXC*****************************/
@@ -549,6 +578,7 @@ public class BaseTest {
 		    hacerScrollAbajo();
 		    ElementVisible();
 		}
+		adjuntarCaptura("CargueDocumentos");
 		ElementVisible();
 		Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
     
@@ -624,6 +654,7 @@ public class BaseTest {
 			String a = "//div[@id='"+BtnCheck2.get(count).getAttribute("id")+"']";
 			hacerScrollAbajo();			
 		}
+        	adjuntarCaptura("MarcacionCheck");
         }
         
         /************* INICIO FUNC REPORTES ***********************/
@@ -648,7 +679,7 @@ public class BaseTest {
 	public byte[] adjuntarCapturaReporte(String descripcion) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");		
 		byte[] captura = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-		log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		//log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		Allure.addAttachment(descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()),
 				new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 		return captura;
@@ -662,7 +693,7 @@ public class BaseTest {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");
 		       String imageNombre = leerPropiedades("CapturasPath") +"\\" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime());
 		       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		       log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		       //log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		       FileUtils.copyFile(scrFile, new File(String.format("%s.png", imageNombre)));
 		} catch (Exception e) {
 			log.error("############## ERROR,  BaseTest - adjuntarCapturaLocal() #########" + e);
@@ -1003,8 +1034,10 @@ public WebDriver chromeDriverConnection() {
 		return driver;
 	}
     
+    /*ThainerPerez 22/Sep/2021 - Se actualiza el metodo para que seleccione el tipo (Cartera - saneamiento) en los radio button
+     * */
 	public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
-			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra, String[] EntidadSaneamiento,
 			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
 			throws InterruptedException {
 		List<WebElement> Entidad = driver.findElements(ListEntidad);
@@ -1015,11 +1048,22 @@ public WebDriver chromeDriverConnection() {
 		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
 		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
 		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-		String a[] = new String[2];
-
+		List<WebElement> Tipo = driver.findElements(ListTipo);
+		List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
+		String a[] = new String[VlrCuota.length];
+		
 		for (int i = 0; i < Entidad.size(); i++) {
-			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));			
 			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+			
+			if(Tipo.get(i).getText().trim().contains("SANEAMIENTO")){
+				driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
+			}
+			else {
+				driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
+			}
+			
            //Llenar la entidad
 			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
 			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
@@ -1039,9 +1083,6 @@ public WebDriver chromeDriverConnection() {
 			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
 			a[i] = BtnAprobar.get(i).getAttribute("id");
 		}
-        
-		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(1).getAttribute("id")));
-		driver.findElement(By.id(RadioSaneamiento.get(1).getAttribute("id"))).click();
 
         //Aprobar las compras
 		for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -1076,11 +1117,9 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-        	System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
-    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,true);
+        	log.info(mensaje+" - Valor a "+a+" Valor b "+b);
     	}else {
-    		System.out.println(mensaje+" Valor a "+a+" Valor b "+b);
-    		assertTrue(mensaje+" Valor a "+a+" Valor b "+b,false);
+    		assertTrue("########### ERROR CALCULANDO " +mensaje+" ########"+" Valor a "+a+" Valor b "+b,false);
     	}
     }
     

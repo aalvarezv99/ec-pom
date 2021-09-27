@@ -36,7 +36,7 @@ Característica: Retanqueo de creditos
    
    Ejemplos: 
    |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey |descNomina|entidad                               |cartera  |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|fechaActual |
-   |"8231342" |"EMIRO DE JESUS" |"51823" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"25"                |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/07/2021"     |"2007"        |"1037"|"22/07/2021"|
+   |"93376715" |"LUIS AUGUSTO" |"54811" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"25"                |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/08/2021"     |"2007"        |"1037"|"25/08/2021"|
  
   @AnalisisCreditoRetanqueo
    Esquema del escenario: Analisis del credito
@@ -56,12 +56,12 @@ Característica: Retanqueo de creditos
    Esquema del escenario: Clientes para Bienvenida
    Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-   #Y se validan los valores de las condiciones del credito
+   Y se validan los valores de las condiciones del credito
    Entonces se pasa a la pestana condiciones de credito se marcan los check acepta cartera y se acepta condiciones<TipoDesen>
   
    Ejemplos: 
    |Cedula    |TipoDesen |Celular     |Correo              |
-   |"8231342" |"Efectivo"|"3127650699"|"rosa2016@gmail.com"|
+   |"93376715" |"Efectivo"|"3165328218"|"luis.cubillos715@casur.gov.co"|
   
   @CreditosVisacion
    Esquema del escenario: Creditos para Visacion
@@ -70,7 +70,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula    |rutaPDF                                    |fechaActual |
-   |"8231342" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"22/07/2021"|
+   |"93376715" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"25/08/2021"|
    
   @DesembolsoCartera
    Esquema del escenario: Carteras para Desembolso
@@ -79,7 +79,7 @@ Característica: Retanqueo de creditos
 
    Ejemplos: 
    |Cedula     |rutaPDF                                    |cartera  |Banco                                            |
-   |"8231342"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
+   |"93376715"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
  
  @VisacionCartera
     Esquema del escenario: Visacion de la cartera
@@ -88,7 +88,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula      |rutaPDF                                    |
-   |"8231342"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |"93376715"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
  
   @Desembolso
    Esquema del escenario: Remanente para Desembolso
@@ -97,7 +97,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula      |rutaPDF                                    |Retanqueo|cartera  |Banco                                            |
-   |"8231342"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
+   |"93376715"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
   
   
     

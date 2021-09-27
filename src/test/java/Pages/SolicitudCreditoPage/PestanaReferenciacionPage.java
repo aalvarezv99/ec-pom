@@ -40,6 +40,8 @@ public class PestanaReferenciacionPage {
 	public By ListNumObligacion;
 	public By ListBtnAprobar;
 	public By ListRadioSaneamiento;
+	public By ListTipo;
+	public By ListRadioCompra;
 	public By Aprobar;
 	public By Entidad;
 	public By FiltroEntidad;
@@ -63,6 +65,8 @@ public class PestanaReferenciacionPage {
 		ListFecha=By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt210')]");
 		ListNumObligacion= By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt216')]");
 		ListBtnAprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt170:') and contains(@id,'j_idt218')]");
+		ListTipo = By.xpath("//label[contains(text(),'SANEAMIENTO') or contains(text(),'COMPRA')]");
+		ListRadioCompra = By.xpath("//input[starts-with(@id,'formConsultas:j_idt170:') and contains(@name,'j_idt198') and contains(@value,'COMPRA') and not (contains(@value,'LIBRANZA'))]");
 		ListRadioSaneamiento = By.xpath("//input[starts-with(@id,'formConsultas:j_idt170:') and contains(@name,'j_idt198') and contains(@value,'SANEAMIENTO') and not (contains(@value,'LIBRANZA'))]");
 		Competidor1 = By.id("formConsultas:j_idt170:0:j_idt203_label"); 
 		FiltroCompetidor1 =  By.id("formConsultas:j_idt170:0:j_idt203_filter");
@@ -73,7 +77,7 @@ public class PestanaReferenciacionPage {
 		//BtnAprobar1 = By.id("formConsultas:j_idt170:0:j_idt218");
 		Competidor2 = By.id("formConsultas:j_idt170:2:j_idt203_label");
 		FiltroCompetidor2 =  By.id("formConsultas:j_idt170:2:j_idt203_filter");
-		Cartera2 = By.name("formConsultas:j_idt170:2:j_idt207");
+		Cartera2 = By.name("formConsultas:j_idt170:2:j_idt207"); 
 		VlrCuota2 = By.name("formConsultas:j_idt170:2:j_idt213");
 		FechaVencimiento2 = By.id("formConsultas:j_idt170:2:j_idt210_input");
 		NumObligacion2 = By.name("formConsultas:j_idt170:2:j_idt216");
