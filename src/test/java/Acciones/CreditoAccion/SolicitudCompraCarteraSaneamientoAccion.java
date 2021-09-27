@@ -299,10 +299,10 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
       	 recorerpestanas("CONDICIONES DEL CRÉDITO");
       	 Refrescar();
            hacerClick(pagesclienteparabienvenida.AceptarCartera);
-           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);
-           MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
+           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
+           MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
            Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-           Thread.sleep(3000);
+           Thread.sleep(3000);           
            hacerClick(pagesclienteparabienvenida.Desembolso);
            selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
            hacerClick(pagesclienteparabienvenida.CalificacionProceso);

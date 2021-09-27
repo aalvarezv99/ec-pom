@@ -19,7 +19,7 @@ public class RetanqueoAsesorSteps {
 	RetanqueoCreditos retanqueocreditos;	
 	BaseTest baseTest;
 	
-	public RetanqueoAsesorSteps() {		
+	public RetanqueoAsesorSteps() throws InterruptedException {		
 		//super(driver);
 		this.driver = Driver.driver;				
 		retanqueocreditos = new RetanqueoCreditos(driver);		
@@ -66,7 +66,7 @@ public class RetanqueoAsesorSteps {
 	}
 	
 	@Y("marcar el credito viable")
-	public void marcarelcreditoviable() throws InterruptedException{
+	public void marcarelcreditoviable() throws InterruptedException, NumberFormatException, SQLException{
 		retanqueocreditos.Seguridad();
 	}
 	
@@ -96,18 +96,18 @@ public class RetanqueoAsesorSteps {
 	}
 	
 	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina,String Credito,String DiasHabilesIntereses,String tasa) throws InterruptedException, SQLException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,Credito,DiasHabilesIntereses,tasa);
+	public void Validalosvaloresdelsimuladorretanqueos(String Anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,DiasHabilesIntereses);
 	}
 	
 	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String Credito,String DiasHabilesIntereses, String tasa) throws InterruptedException, SQLException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,Credito,DiasHabilesIntereses,tasa);
+	public void Validalosvaloresdelsimuladorretanqueos(String Anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,DiasHabilesIntereses);
 	}
 	
     @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Credito,String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2,String DiasHabilesIntereses,String tasa) throws InterruptedException, SQLException {
-    	retanqueocreditos.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Credito,Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Cartera1, Saneamiento2,DiasHabilesIntereses, tasa);
+    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Anno,String Credito,String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+    	retanqueocreditos.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Anno,Credito,Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Cartera1, Saneamiento2,DiasHabilesIntereses, DiasHabilesIntereses);
 	}
     
 	
@@ -116,5 +116,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);
 	}
 	
+	@Y("se validan los valores de las condiciones del credito {string}")
+	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito);
+	}
 	
 }

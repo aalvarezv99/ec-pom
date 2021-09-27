@@ -196,7 +196,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
        	ElementVisible(); 
        	hacerClicknotificacion();
        	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-       	
+       	/*
        	 // consulta base de datos
     		int DesPrimaAntic = 0;
     		OriginacionCreditoQuery query = new OriginacionCreditoQuery();

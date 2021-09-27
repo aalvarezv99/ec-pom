@@ -56,6 +56,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 	// BaseTest baseTest;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
 	double vlrIva = 1.19;
+	String Cedula;
+	String NombreCredito;
 	
 	public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
 		/// this.driver = driver;
@@ -133,17 +135,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertTextoelemento(simuladorasesorpage.desOcupacion, Actividad);
 
 		// Llenar formulario campos del credito
-		/*LimpiarConTeclado(simuladorasesorpage.inputTasa);
-		EscribirElemento(simuladorasesorpage.inputTasa, Tasa);
-		ElementVisible();*/
-		hacerClick(simuladorasesorpage.labelTasa);
+		hacerClick(simuladorasesorpage.inputTasa);
 		EscribirElemento(simuladorasesorpage.inputTasaFiltro,Tasa);
-				EnviarEnter(simuladorasesorpage.inputTasaFiltro);
-		
+		EnviarEnter(simuladorasesorpage.inputTasaFiltro);
+		ElementVisible();
 		hacerClick(simuladorasesorpage.inputPlazo);
 		ElementVisible();
 		LimpiarConTeclado(simuladorasesorpage.inputPlazo);
-		EscribirElemento(simuladorasesorpage.inputPlazo, Plazo);
+		EscribirElemento(simuladorasesorpage.inputPlazo, Plazo);		
 		ElementVisible();
 		hacerClick(simuladorasesorpage.inputMonto);
 		ElementVisible();
@@ -174,7 +173,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ElementVisible();
 		LimpiarConTeclado(simuladorasesorpage.vlrCompra);
 		EscribirElemento(simuladorasesorpage.vlrCompra, vlrCompasSaneamientos);
-		hacerClick(simuladorasesorpage.inputIngresos);
+		ElementVisible();
+		hacerClick(simuladorasesorpage.inputdDescNomina);
 		ElementVisible();
 		adjuntarCaptura("SimuladorDeligenciado");
 	}	
@@ -389,9 +389,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 			String TextoNotificacion=GetText(simuladorasesorpage.notificacion);
 			
 			if(TextoNotificacion.contains("OCURRIÓ UN ERROR")==true){
-		    hacerClicknotificacion();
+			hacerClicknotificacion();
 			hacerClick(simuladorasesorpage.btnSoliConsulta);
 			ElementVisible();		
+			hacerClicknotificacion();
 			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
 			adjuntarCaptura("ConsultaCentrales");
 			hacerClicknotificacion();
@@ -417,14 +418,15 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void ingresarSolicitudCredito(String Cedula, String NombreCredito) throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion - ingresarSolicitudCredito()  ***************");
 		try {
-			panelnavegacionaccion.navegarCreditoSolicitud();
-			BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
-			esperaExplicitaTexto(NombreCredito);
-			ElementVisible();
-			adjuntarCaptura("FiltroSolicitudCliente");
-			esperaExplicita(creditocolicitudpage.selectVerEditar);
-			hacerClick(creditocolicitudpage.selectVerEditar);
-			ElementVisible();
+		this.Cedula = Cedula;
+		this.NombreCredito = NombreCredito;
+		panelnavegacionaccion.navegarCreditoSolicitud();
+		BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
+		esperaExplicitaTexto(NombreCredito);
+		ElementVisible();
+		esperaExplicita(creditocolicitudpage.selectVerEditar);
+		hacerClick(creditocolicitudpage.selectVerEditar);
+		ElementVisible();
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() ########"+ e,false);
@@ -433,7 +435,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 
 	public void Seguridad() throws InterruptedException {
-
 		log.info("******************** OriginacionCreditosAccion - Seguridad()  ***************");	
 		try {
 			Refrescar();
@@ -441,15 +442,16 @@ public class OriginacionCreditosAccion extends BaseTest {
 			esperaExplicita(pestanaSeguridadPage.BotonGuardar);
 			hacerClick(pestanaSeguridadPage.Viable);
 			hacerClick(pestanaSeguridadPage.BotonGuardar);
+			ElementVisible();
+			String notificacion = GetText(simuladorasesorpage.notificacion);		
+			if (!notificacion.equals("Proceso Realizado Correctamente")) {
+				hacerClick(pestanaSeguridadPage.BotonGuardar);
+				ElementVisible();	
+			}
 			assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
-			adjuntarCaptura("GuardarViable");
 			esperaExplicitaNopresente(simuladorasesorpage.notificacion);
-			esperaExplicita(pestanaSeguridadPage.Concepto);
-			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
-			Refrescar();
-			esperaExplicita(pestanaSeguridadPage.Concepto);
 			Hacer_scroll(pestanaSeguridadPage.Concepto);
-			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
+			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 			recorerpestanas("SIMULADOR");
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - Seguridad() #######" + e);
@@ -459,7 +461,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 	}
 	
-	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException{
+	public void assertSimuladorinterno( String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria,String rutaPdf) throws NumberFormatException, SQLException, InterruptedException{
 		log.info("******************** OriginacionCreditosAccion - assertSimuladorinterno()  ***************");
 			
 	      /* // consulta base de datos
@@ -563,8 +565,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 			esperaExplicita(simuladorasesorpage.notificacion);
 			adjuntarCaptura("SolicitarRadicacion");
 			assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la radicación para el crédito");
-			ElementVisible();  
-	
+			ElementVisible(); 
+			hacerClicknotificacion();
+			if(!EncontrarElementoVisibleCss(pestanasimuladorinternopage.ModalExcepciones)) {
+				// esperaExplicita(pestanasimuladorinternopage.DetalleExcepciones);
+				this.AprobarExcepciones(rutaPdf, this.Cedula);
+				this.ingresarSolicitudCredito(this.Cedula, this.NombreCredito);
+			}
+			ElementVisible();
 }
 	
 	public void Digitalizacion(String Pdf) throws InterruptedException  {
@@ -822,15 +830,18 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void ingresarAnalisisCredito(String Cedula, String Nombre) throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion - ingresarAnalisisCredito()  ***************");
 		try {
-			panelnavegacionaccion.navegarCreditoAnalisis();
-			BuscarenGrilla(pestanasimuladorinternopage.FiltroCedula, Cedula);
-			ElementVisible();
-			esperaExplicitaTexto(Nombre);
-			Thread.sleep(1000);		
-			esperaExplicita(pestanasimuladorinternopage.EditarVer);
-			ClicUltimoElemento(pestanasimuladorinternopage.EditarVer);
-			ElementVisible();
-			esperaExplicita(pestanasimuladorinternopage.inputMesada);
+		this.Cedula = Cedula;
+		this.NombreCredito = Nombre;
+		panelnavegacionaccion.navegarCreditoAnalisis();	
+		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedula, Cedula);		
+		ElementVisible();
+		Thread.sleep(1000);
+		esperaExplicitaTexto(Nombre);
+		Thread.sleep(1000);		
+		esperaExplicita(pestanasimuladorinternopage.EditarVer);
+		ClicUltimoElemento(pestanasimuladorinternopage.EditarVer);
+		ElementVisible();
+		esperaExplicita(pestanasimuladorinternopage.inputMesada);;
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - ingresarAnalisisCredito() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - ingresarAnalisisCredito()########"+ e,false);
@@ -927,6 +938,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		while (resultado3.next()) {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
 		}
+		
+		
 
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;
@@ -1019,13 +1032,15 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("***********Cambiar pestana, OriginacionCreditosAccion - EndeudamientoGlobal()**********");
 		try {
 			recorerpestanas("ENDEUDAMIENTO GLOBAL");
-			hacerClick(pestanasimuladorinternopage.Aprobar);
-			hacerClick(pestanasimuladorinternopage.Aprobar);
-			assertTextonotificacion(simuladorasesorpage.notificacion,
-					"Este crédito se ha enviado a flujo de aprobación de analisis.");
-			
-			
-			ElementVisible();
+		hacerClick(pestanasimuladorinternopage.Aprobar);
+		// hacerClick(pestanasimuladorinternopage.Aprobar);
+		// assertTextonotificacion(simuladorasesorpage.notificacion, "Este crédito se ha enviado a flujo de aprobación de analisis.");
+		esperaExplicita(simuladorasesorpage.notificacion);
+		String notificacion = GetText(simuladorasesorpage.notificacion);
+		ElementVisible();			
+		if (!notificacion.equals("Este crédito se ha enviado a flujo de aprobación de analisis.")) {
+			this.MostrarReferencias();
+		}
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - EndeudamientoGlobal() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - EndeudamientoGlobal()########"+ e,false);
@@ -1140,6 +1155,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
 
 		
+		
+		
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;				
 		double variableFianza = 1.19;
@@ -1149,11 +1166,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 			int coma = 	GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
 			GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
 			if(coma==-1) {
-				GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",",".");	
+				SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",","."));	
+				System.out.println(" Resultado de valor SALDO AL DIA IF "+SaldoAlDia);
 	        	}
 	        	else {
 	        		SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0,coma).replace(".",""));
-	            	System.out.println(" Resultado de valor SALDO AL DIA "+SaldoAlDia);
+	            	System.out.println(" Resultado de valor SALDO AL DIA ELSE "+SaldoAlDia);
 	        	}
 		}
 		
@@ -1163,7 +1181,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				
 		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[10].isEmpty()+" "+DesPrimaAntic);
-	
+	  
 			
 		if(ValoresCredito[10].isEmpty()==true) {
 		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
@@ -1180,6 +1198,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 		*/
 	}
+	
+	
 	
 
 	public void Correctocondiciones(String Telefono, String Correo) throws InterruptedException {
@@ -1407,4 +1427,70 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 
 	/************ FIN Creditos Para Desembolso **********/
+
+	public void MostrarReferencias() throws InterruptedException {
+		panelnavegacionaccion.navegarCreditoSolicitud();
+		esperaExplicita(pestanasimuladorinternopage.FiltroCedulaCredito);
+		BuscarenGrilla(pestanasimuladorinternopage.FiltroCedulaCredito, this.Cedula);
+		Thread.sleep(2000);
+		ElementVisible();
+		esperaExplicita(creditocolicitudpage.selectVerEditar);
+		ClicUltimoElemento(creditocolicitudpage.selectVerEditar);
+		ElementVisible();
+		recorerpestanas("REFERENCIACIÓN");
+		Hacer_scroll(creditocolicitudpage.SegundaPestana);
+		esperaExplicita(creditocolicitudpage.SegundaPestana);
+		hacerClick(creditocolicitudpage.SegundaPestana);
+		ElementVisible();
+		this.AgregarReferencias();
+	}
+
+	public void AgregarReferencias() throws InterruptedException {
+		clickVariosReferenciasPositivas(creditocolicitudpage.ListBtnAddReference);
+		Hacer_scroll(pestanareferenciacionpage.Titulo);
+		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+		ElementVisible();
+		Hacer_scroll(pestanareferenciacionpage.Titulo);
+		clickvarios(pestanareferenciacionpage.CheckSI);
+		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+		hacerClick(pestanareferenciacionpage.GuardarReferencias);
+		ElementVisible();
+		this.ingresarAnalisisCredito(this.Cedula, this.NombreCredito);
+		this.EndeudamientoGlobal();
+	}
+
+	public void AprobarExcepciones(String Pdf,String Cedula) throws InterruptedException {
+   	 hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
+   	 ElementVisible();
+   	 esperaExplicita(pestanasimuladorinternopage.SolicitarAprobacion);
+   	 cargarpdf(pestanasimuladorinternopage.SoportePdfExcepciones,Pdf);
+   	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+   	 hacerClicknotificacion();
+   	 hacerClick(pestanasimuladorinternopage.SolicitarAprobacion);
+   	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+   	 String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
+   	 if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
+   		 hacerClicknotificacion();
+   		 panelnavegacionaccion.navegarTareas();
+   		 esperaExplicita(pagestareas.filtroDescipcion);
+   	     EscribirElemento(pagestareas.filtroDescipcion, Cedula);
+   	     ElementVisible();
+   	     EscribirElemento(pagestareas.filtroTarea,"Revisar Aprobación excepción");
+   	     ElementVisible();
+   	     hacerClick(pagestareas.EditarVer);
+   		 ElementVisible();
+   		 esperaExplicita(pagestareas.Aprobar);
+   		 Hacer_scroll(pagestareas.Aprobar);
+   		 hacerClick(pagestareas.Aprobar);
+   		 ElementVisible();
+   		 hacerClickVariasNotificaciones();
+   		 esperaExplicita(pagestareas.Guardar);
+   		 Hacer_scroll(pagestareas.Guardar);
+   		 hacerClick(pagestareas.Guardar);
+   		 hacerClicknotificacion();
+		} else {
+			assertTrue("#### Error Aprobar excepcion por Perfil " + notificacion, false);
+		}
+   
+    }
 }

@@ -24,7 +24,7 @@ Característica: Solicitud combra de cartera
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
     Cuando el agente ingrese a la pestana solicitud credito con la cedula del cliente <Cedula><NombreCredito>
     Y consulta la pestana seguridad dejando el cliente viable
-    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon><rutaPDF>
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>

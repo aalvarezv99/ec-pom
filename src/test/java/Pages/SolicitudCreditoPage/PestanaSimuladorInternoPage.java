@@ -55,6 +55,16 @@ public class PestanaSimuladorInternoPage {
 	public By Monto;
 	public By SimuladorInternorValoraDesembolsar;
 	public By InteresesInicialesSimuladorAnalista;
+	public By PrimaNeta;
+	public By PrimaNetaSimuladorAnalista;
+	public By PrimaNoDevengadaSimuladorInterno;
+	public By PrimaNoDevengadaSimuladorAnalista;
+	public By FiltroCedulaCredito;
+	public By ModalExcepciones;
+	public By DetalleExcepciones;
+	public By SoportePdfExcepciones;
+	public By Notificacion;
+	public By SolicitarAprobacion;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -108,7 +118,15 @@ public class PestanaSimuladorInternoPage {
 	    Aprobar = By.id("form:aprobar");
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
 	    InteresesInicialesSimuladorAnalista= By.id("formSimulador:diasInteresInicial_hinput");
-	    
-	    
+	    PrimaNeta=By.id("formSimuladorCredito:primaNetaSeguro_hinput");
+	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");    
+	    PrimaNoDevengadaSimuladorInterno=By.id("formSimuladorCredito:primaNoConsumidaCreditoPadre_hinput");
+	    PrimaNoDevengadaSimuladorAnalista=By.id("formSimulador:primaNoDevengadaCreditoPadre_hinput");
+	    FiltroCedulaCredito = By.id("form:listaCreditos:identificacion_cred_filtro:filter");
+	    ModalExcepciones = By.xpath("//div[@id='formSimuladorCredito:frmEx']");
+	    DetalleExcepciones = By.id("formSimuladorCredito:ver_det_excepciones");
+	    SoportePdfExcepciones = By.xpath("//input[starts-with(@id,'formularioExcepciones:j_idt') and @type='file' ]");
+        Notificacion = By.xpath("//*[@class='ui-growl-title']");
+        SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");
 	}
 }

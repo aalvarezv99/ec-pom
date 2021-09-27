@@ -194,6 +194,87 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet ValorPrimaCreditoPadre(String Credito) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select round(valor) from prima_seguro_anticipada psa\r\n"
+					+ "join desglose d2 \r\n"
+					+ "on d2.id=psa.id_desglose \r\n"
+					+ "join credito c2\r\n"
+					+ "on c2.id = d2.id_credito \r\n"
+					+ "where d2.desglose_seleccionado is true \r\n"
+					+ "and c2.numero_radicacion = '"+Credito+"';");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	
+	public ResultSet ValorMontoCreditoPadre(String Credito) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select round(c2.monto_aprobado) from prima_seguro_anticipada psa\r\n"
+					+ "join desglose d2 \r\n"
+					+ "on d2.id=psa.id_desglose \r\n"
+					+ "join credito c2\r\n"
+					+ "on c2.id = d2.id_credito \r\n"
+					+ "where d2.desglose_seleccionado is true \r\n"
+					+ "and c2.numero_radicacion = '"+Credito+"';");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	public ResultSet MesesActivoPadre(String Credito) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("with ConteoPeriodos as (\r\n"
+					+ "	select (count(fechas)+complemento-1) Periodos_activos\r\n"
+					+ "	from (\r\n"
+					+ "	select id_credito, generate_series(mes_contable, now(), cast('1 month' as interval) )fechas,\r\n"
+					+ "	case when date_part('day', now()) < date_part('day', mes_contable) then 1 else 0 end complemento\r\n"
+					+ "	from movimiento_contable as mc\r\n"
+					+ "	where id_credito in(select c2.id from credito c2 where c2.numero_radicacion = '"+Credito+"')\r\n"
+					+ "	and tipo_transaccion = 'ACTIVACION_CREDITO'\r\n"
+					+ "	) x group by complemento, id_credito\r\n"
+					+ "	)\r\n"
+					+ "	select * from ConteoPeriodos;");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	
+	public ResultSet ConsultaProspeccion(String Cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select c.concepto from central_consulta c\r\n"
+					+ "join cliente cl on  cl.id = c.id_cliente \r\n"
+					+ "where cl.identificacion = '"+Cedula+"'\r\n"
+					+ "and fecha::date=current_date\r\n"
+					+ "order by fecha desc limit 1;");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
 	}
 
 

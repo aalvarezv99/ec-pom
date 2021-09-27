@@ -32,13 +32,13 @@ public class SolicitudCreditoSteps {
 	}
 
 	@Y("consulta la pestana seguridad dejando el cliente viable")
-	public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException {
+	public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException, NumberFormatException, SQLException {
 		originacionaccion.Seguridad();
 	}
 
-	@Y("valida los calculos correctos de la simulacion interna {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
-		originacionaccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, pagaduria);
+	@Y("valida los calculos correctos de la simulacion interna {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa,String Plazo,String Monto,String DiasHabilesIntereses,String Ingresos,String descLey,String descNomina,String vlrCompasSaneamientos,String tipo,String pagaduria, String rutaPdf) throws NumberFormatException, SQLException, InterruptedException {
+		originacionaccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, pagaduria, rutaPdf);
 	}
 
 	@Y("carga todos los archivos en la pestana de digitalizacion {string}")

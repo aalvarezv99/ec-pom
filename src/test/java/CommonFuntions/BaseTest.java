@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -22,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -49,6 +52,7 @@ import com.google.common.base.Function;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
+import Consultas.OriginacionCreditoQuery;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.pestanaSeguridadPage;
 import io.qameta.allure.Allure;
@@ -118,7 +122,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
-			esperaExplicita(locator);
+			esperaExplicitaPestana(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -205,16 +209,13 @@ public class BaseTest {
 	}
     
 	public void recorerpestanas(String Dato) {
-    
 		By locator = By.xpath("//a[text()='"+Dato+"']");
-		while(assertEstaPresenteElemento(locator)==false){
+		while(assertEstaPresenteElemento(locator)==false) {
 			hacerClick(pestanaSeguridadPage.Siguiente);
 		}
 		hacerClick(locator);
 	}
-    
-	
-   
+
 	public void EnviarEnter(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ENTER);
 	}
@@ -370,7 +371,34 @@ public class BaseTest {
 		double Valor=((double)MontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
 		log.info("Prima Seguro Anticipado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
+		}
+		
+	public double PrimaNeta (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+	  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		Valor=PrimaHijo-redondearDecimales(Valor,0);		
+	    log.info(" ###### Valor prima ##### " + Valor );
+	    if(Valor<=0)
+	    	Valor=0;	        
+		return redondearDecimales(Valor,0);
 	}
+	
+	public double PrimaNoDevengadaCPadre (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+		  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		        
+		return redondearDecimales(Valor,0);
+	}
+	
+	
+	
+	
    
 	
 	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza ) {
@@ -517,15 +545,18 @@ public class BaseTest {
 
 		driver.findElement(AutorizacionConsulta).sendKeys(Pdf);
 		esperaExplicitaNopresente(AutorizacionConsulta);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(CopiaCedula).sendKeys(Pdf);
 		esperaExplicitaNopresente(CopiaCedula);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(DesprendibleNomina).sendKeys(Pdf);
 		esperaExplicitaNopresente(DesprendibleNomina);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
+		hacerClicknotificacion();
+		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 
 	}
@@ -793,10 +824,30 @@ public void clickvarios(By locator) {
 	}
     
     
-	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
+	public void esperaExplicitaSeguridad(By locator, String Cedula) throws InterruptedException, NumberFormatException, SQLException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(8000);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));		
+
+		String Concepto = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		long start_time = System.currentTimeMillis();
+		long wait_time = 30000;
+		long end_time = start_time + wait_time;
+
+		// si en 20 segundos no obtiene respuesta el test falla
+		while (System.currentTimeMillis() < end_time && (Concepto=="" || Concepto==null)) {			
+			resultado = query.ConsultaProspeccion(Cedula);
+			while(resultado.next()) {
+				Concepto = resultado.getString(1);
+			}
+		}
+        log.info(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto);
+	    if (Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
+	    	assertTrue(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto, true);
+	    } else {
+	    	assertTrue(" Consulta prospeccion falló, Concepto igual a: " + Concepto, false);
+	    }
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -876,8 +927,8 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
-		
-		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+		//assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))
+		if(driver.findElements(By.xpath("//*[@class='ui-growl-title']")).isEmpty()==false) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
@@ -1074,7 +1125,7 @@ public WebDriver chromeDriverConnection() {
     
     public String[] RetornarStringListWebElemen(By locator) {
     	
-    	String[] Valores = new String[20];
+    	String[] Valores = new String[21];
     	int valor=0;
     	List<WebElement> ListaElement = driver.findElements(locator);
     	
@@ -1156,5 +1207,49 @@ public WebDriver chromeDriverConnection() {
 			hacerClicknotificacion();
 		}
 	}
+
+    public void Hacer_scroll_centrado(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView({inline: \"center\", block: \"center\", behavior: \"smooth\"});", Element);
+    }
+
+    public List<String> parseWebElementsToList(List<WebElement> list) {
+    	int totalElementos = list.size();
+		List<String> listString = new ArrayList<>();
+		for(int i = 0; i < totalElementos; i++) {
+			listString.add(list.get(i).getAttribute("id"));
+		}
+		return listString;
+    }
     
+    public void clickVariosReferenciasPositivas(By locator) throws InterruptedException {
+		Thread.sleep(1000);
+		List<WebElement> clickvarios = driver.findElements(locator);
+		int totalElementos = clickvarios.size();
+		List<String> botones = this.parseWebElementsToList(clickvarios);
+		if (totalElementos != 0) {
+			for(int i = 0; i < totalElementos; i++) {
+				Thread.sleep(3000);
+				String item = botones.get(i);
+				this.esperaExplicita(By.id(item));
+				this.Hacer_scroll_centrado(By.id(item));
+				this.hacerClick(By.id(item));
+				this.esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+				this.hacerClicknotificacion();
+			}
+		}
+	}
+    
+    public boolean EncontrarElementoVisibleCss(By locator) {
+    	
+    	WebElement element = driver.findElement(locator);    	
+		return element.getCssValue("display").equalsIgnoreCase("none");
+    	
+    }
+
+    public void esperaExplicitaPestana(By locator) {
+		WebDriverWait wait = new WebDriverWait(driver, 2);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
 }

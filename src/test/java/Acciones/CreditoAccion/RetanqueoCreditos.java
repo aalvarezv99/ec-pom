@@ -11,6 +11,7 @@ import java.util.Locale;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
@@ -20,6 +21,7 @@ import Consultas.OriginacionCreditoQuery;
 import Pages.ComunesPage.PanelNavegacionPage;
 import Pages.CreditosPage.PagesClienteParaBienvenida;
 import Pages.CreditosPage.PagesCreditosDesembolso;
+import Pages.CreditosPage.PagesTareas;
 import Pages.CreditosPage.RetanqueoPages;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
@@ -36,6 +38,7 @@ public class RetanqueoCreditos extends BaseTest {
 	PestanaDigitalizacionPage pestanadigitalizacionPage;
 	PestanaReferenciacionPage pestanareferenciacionpage;
 	PagesClienteParaBienvenida pagesclienteparabienvenida;
+	PagesTareas pagestareas;
 	Pages.SolicitudCreditoPage.pestanaSeguridadPage pestanaSeguridadPage;
 
 	LoginAccion loginaccion;
@@ -47,8 +50,10 @@ public class RetanqueoCreditos extends BaseTest {
 	static int SaldoAlDia;
 	static int VlrRetanqueo;
 	double vlrIva = 1.19;
+	static String CedulaCliente;
+	static String Rutapdf;
 
-	public RetanqueoCreditos(WebDriver driver) {
+	public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
 		// this.driver = driver;
 		super(driver);
 		// baseTest = new BaseTest(driver);
@@ -62,6 +67,7 @@ public class RetanqueoCreditos extends BaseTest {
 		pagesclienteparabienvenida = new PagesClienteParaBienvenida(driver);
 		pestanaSeguridadPage = new Pages.SolicitudCreditoPage.pestanaSeguridadPage(driver);
 		archivo = new LeerArchivo();
+		pagestareas = new PagesTareas(driver);
 	}
 
 	/************ INICIO ACCIONES RETANQUEO CREDITOS ***************/
@@ -70,7 +76,8 @@ public class RetanqueoCreditos extends BaseTest {
 	}
 
 	public void ingresarRetanqueoAsesor() {
-		panelnavegacionaccion.Retanqueo();		
+		panelnavegacionaccion.Retanqueo();	
+		adjuntarCaptura("Ingresa al modulo de retanqueo  ");
 	}
 
 	public void FiltrarCredito(String Cedula, String Credito) throws InterruptedException {
@@ -83,6 +90,7 @@ public class RetanqueoCreditos extends BaseTest {
 			Thread.sleep(5000);
 			ElementVisible();
 			esperaExplicitaTexto(Credito);
+			adjuntarCaptura("Se filtra el retanqueo ");
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - FiltrarCredito() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - FiltrarCredito() ########"+ e,false);
@@ -97,6 +105,7 @@ public class RetanqueoCreditos extends BaseTest {
 			Thread.sleep(5000);
 			ElementVisible();
 			assertTextonotificacion(retanqueopages.notificacion, "Se ha generado un retanqueo para el");
+			adjuntarCaptura("Se genera el retanqueo para el credito ");
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - Retanquear() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - Retanquear() ########"+ e,false);
@@ -110,6 +119,7 @@ public class RetanqueoCreditos extends BaseTest {
 			panelnavegacionaccion.navegarCreditoSolicitud();
 			BuscarenGrilla(retanqueopages.inputCedula, Cedula);
 			ElementVisible();
+			CedulaCliente=Cedula;
 			esperaExplicitaTexto(Cedula);
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - Credito() ########" + e);
@@ -122,6 +132,7 @@ public class RetanqueoCreditos extends BaseTest {
 		log.info("****** seleccionar continuar retanqueo,  RetanqueoCreditos - seleccionarRetanqueo()******");
 		try {
 			ClicUltimoElemento(retanqueopages.continuar);
+			adjuntarCaptura("Se seleciona el retanqueo ");
 			ElementVisible();
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - seleccionarRetanqueo() ########" + e);
@@ -134,6 +145,7 @@ public class RetanqueoCreditos extends BaseTest {
 		log.info("******** Borrar archivos, RetanqueoCreditos - borrarArchivos()********");
 		try {
 			clickvariosespera(retanqueopages.borrararchivos);	
+			adjuntarCaptura("Se borran los archivos del credito anterior ");
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - borrarArchivos() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - borrarArchivos() ########"+ e,false);
@@ -145,6 +157,7 @@ public class RetanqueoCreditos extends BaseTest {
 		log.info("*********Cargar los nuevod documento, RetanqueoCreditos - CargarArchivos()*******");
 		try {
 			Thread.sleep(1000);
+			Rutapdf=pdf;
 			cargarpdf(retanqueopages.ImputAutorizacion, pdf);
 			esperaExplicitaNopresente(retanqueopages.BarraCarga);
 			hacerClickVariasNotificaciones();
@@ -157,6 +170,7 @@ public class RetanqueoCreditos extends BaseTest {
 			cargarpdf(retanqueopages.ImputOtros, pdf);
 			esperaExplicitaNopresente(retanqueopages.BarraCarga);
 			hacerClickVariasNotificaciones();
+			adjuntarCaptura("Cargar archivos al nuevo credito ");
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - CargarArchivos() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - CargarArchivos() ########"+ e,false);
@@ -171,6 +185,7 @@ public class RetanqueoCreditos extends BaseTest {
 			ElementVisible();
 			hacerClick(retanqueopages.BtnConsultaCentrales);
 			ElementVisible();
+			esperaExplicita(retanqueopages.notificacion);
 			// assertTextonotificacion(retanqueopages.notificacion,"Se ha solicitado la
 			// consulta en listas");
 			//Thread.sleep(5000);
@@ -189,12 +204,12 @@ public class RetanqueoCreditos extends BaseTest {
 			hacerClick(retanqueopages.Guardar);
 			ElementVisible();
 			esperaExplicita(retanqueopages.Concepto);
-			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
+			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,CedulaCliente);
 			Refrescar();
 			esperaExplicita(pestanaSeguridadPage.Concepto);
 			Hacer_scroll(pestanaSeguridadPage.Concepto);
-			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck);
-			Thread.sleep(10000);
+			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,CedulaCliente);
+			adjuntarCaptura("Se marca el credito viable ");
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - Seguridad() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - Seguridad() ########"+ e,false);
@@ -272,6 +287,7 @@ public class RetanqueoCreditos extends BaseTest {
 			ElementVisible();
 			hacerClick(retanqueopages.inputdDescNomina);
 			ElementVisible();
+			adjuntarCaptura("Se llenan los campos del simulador ");	
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - Simulador() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - Simulador() ########"+ e,false);
@@ -342,6 +358,25 @@ public class RetanqueoCreditos extends BaseTest {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
 		}
 		log.info("****** Tasa Fianza" + TasaFianza);
+		
+	    int PrimaPadre =0;
+		ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
+		while (resultado4.next()) {
+			PrimaPadre = Integer.parseInt(resultado4.getString(1));
+		}
+		
+		int MontoPadre =0;
+			ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
+			while (resultado5.next()) {
+				MontoPadre = Integer.parseInt(resultado5.getString(1));
+	    }
+		
+		int MesesActivoPadre =0;
+			ResultSet resultado6 = query.MesesActivoPadre(Credito);
+			while (resultado6.next()) {
+				MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
+	    }	
+			
 		
 		//Valores CXC capitalizadas		
 		int mesDos = 0;
@@ -426,10 +461,16 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje("Monto Solicitado ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculoMontoSoli);
 
-			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Monto, 1000000, Tasaxmillonseguro, DesPrimaAntic);
+			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro, DesPrimaAntic);
 			ToleranciaPesoMensaje("Prima Anticipada de seguro ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),
 					PrimaAnticipadaSeguro);
+			
+			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
+					ToleranciaPesoMensaje(" Prima neta ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)), PrimaNeta);		
+
+			int PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
+					ToleranciaPesoMensaje(" Prima No Devengada ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorInterno)), PrimaNoDevengada);
 
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos,
 					mesDos);
@@ -465,7 +506,14 @@ public class RetanqueoCreditos extends BaseTest {
 			Hacer_scroll_Abajo(pestanasimuladorinternopage.Solicitar);
 			hacerClick(pestanasimuladorinternopage.Solicitar);
 			ElementVisible();
-			hacerClickVariasNotificaciones();
+			hacerClicknotificacion();
+				
+			if(!EncontrarElementoVisibleCss(pestanasimuladorinternopage.ModalExcepciones)) {
+				AprobarExcepciones(Rutapdf,CedulaCliente);
+				Credito(CedulaCliente);
+				seleccionarRetanqueo();
+			}
+			ElementVisible();
 		} catch (Exception e) {
 			log.error("########## ERROR RetanqueoCreditos - SolicitarCredito() ########" + e);
 			assertTrue("########## ERROR RetanqueoCreditos - SolicitarCredito() ########"+ e,false);
@@ -572,7 +620,8 @@ public class RetanqueoCreditos extends BaseTest {
         */    
     }
 	
-	public void ValidarSimuladorAnalistaRetanqueos(String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera, String Credito,String DiasHabilesIntereses, String tasa) throws InterruptedException, SQLException{
+	
+	public void ValidarSimuladorAnalistaRetanqueos(String anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina,String cartera,String DiasHabilesIntereses) throws InterruptedException, SQLException{
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
     	Clear(pestanasimuladorinternopage.FechaDesembolso);
@@ -582,12 +631,15 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
 		ElementVisible();
+		Clear(pestanasimuladorinternopage.anoAfectacion);
+		EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
 		hacerClick(pestanasimuladorinternopage.FechasManuales);
 		ElementVisible();
 		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
 		ElementVisible();
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		Monto=Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
 		
 		int Gmf4100 = (int) Gmf4100(Integer.parseInt(cartera), 0.004);
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000), String.valueOf(Gmf4100));
@@ -633,8 +685,27 @@ public class RetanqueoCreditos extends BaseTest {
 		while (resultado3.next()) {
 			TasaFianza = Double.parseDouble(resultado3.getString(1));
 		}
+
+		int PrimaPadre =0;
+				ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
+				while (resultado4.next()) {
+					PrimaPadre = Integer.parseInt(resultado4.getString(1));
+				}
+				
+				int MontoPadre =0;
+					ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
+					while (resultado5.next()) {
+						MontoPadre = Integer.parseInt(resultado5.getString(1));
+			    }
+				
+				int MesesActivoPadre =0;
+					ResultSet resultado6 = query.MesesActivoPadre(Credito);
+					while (resultado6.next()) {
+						MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
+			    }	
 				
 		int Tasaxmillonseguro = 4625;
+		int PrimaNoDevengada =0;
 
 		if (prima == "") {
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
@@ -643,18 +714,29 @@ public class RetanqueoCreditos extends BaseTest {
 					DesPrimaAntic);
 			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
 					PrimaAnticipadaSeguro);
+		}else {
+			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
+			TasaFianza, vlrIva);
+					int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+					int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+				    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)), PrimaNeta);
+					ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)),PrimaAnticipadaSeguro);
+					PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+					ToleranciaPesoMensaje(" Prima neta No devengada", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)), PrimaNoDevengada);
+					 
 		}
 		
 		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
-			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(VlrDesembolsar));
+			ToleranciaPesoMensaje(" Valor Desembolsar IF ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(VlrDesembolsar)+PrimaNoDevengada);
 	    	   System.out.println("dentro del if que contiene punto");
 		}else {
-	    		   ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(VlrDesembolsar));
+			ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(VlrDesembolsar)+PrimaNoDevengada);
 	    		   System.out.println("dentro del else que no contiene punto");	    
 		}
     }
 	
-	public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Cartera, String Saneamiento,String DiasHabilesIntereses, String tasa) throws InterruptedException, SQLException{
+	
+	public void ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(String anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String Cartera, String Saneamiento,String DiasHabilesIntereses, String tasa) throws InterruptedException, SQLException{
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
     	hacerClick(pestanasimuladorinternopage.FechaDesembolso);
     	Clear(pestanasimuladorinternopage.FechaDesembolso);
@@ -664,13 +746,17 @@ public class RetanqueoCreditos extends BaseTest {
 		ElementVisible();
 		selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
 		ElementVisible();
+		Clear(pestanasimuladorinternopage.anoAfectacion);
+		EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
 		hacerClick(pestanasimuladorinternopage.FechasManuales);
 		ElementVisible();
 		hacerClick(pestanasimuladorinternopage.CalcularDesglose);
 		ElementVisible();
 		hacerClicknotificacion();
 		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		/*
+		Monto=Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
+		
+		
 		int TotalCarteras = (Integer.parseInt(Cartera)+Integer.parseInt(Saneamiento));		
 		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
 		int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));		
@@ -696,6 +782,24 @@ public class RetanqueoCreditos extends BaseTest {
 		    int periodoGracia = (int)Math.ceil((double)Integer.parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista))/30);
 			DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 				}
+		   
+		   int PrimaPadre =0;
+			ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
+			while (resultado4.next()) {
+				PrimaPadre = Integer.parseInt(resultado4.getString(1));
+			}
+			
+			int MontoPadre =0;
+				ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
+				while (resultado5.next()) {
+					MontoPadre = Integer.parseInt(resultado5.getString(1));
+		    }
+			
+			int MesesActivoPadre =0;
+				ResultSet resultado6 = query.MesesActivoPadre(Credito);
+				while (resultado6.next()) {
+					MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
+		    }	
 				
 		   double EstudioCredito = 0;
 			ResultSet resultado2 = query.EstudioCredito();
@@ -711,7 +815,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 			
 		int Tasaxmillonseguro = 4625;
-		
+		int PrimaNoDevengada =0;
 		
 		if(prima=="") {			
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
@@ -719,18 +823,28 @@ public class RetanqueoCreditos extends BaseTest {
 						
 			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
 			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),PrimaAnticipadaSeguro);
-		}
-		
+		}else {
+			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
+					TasaFianza, vlrIva);
+			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+			
+			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
+		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)), PrimaNeta);
+			ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)),PrimaAnticipadaSeguro);
+			PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+			ToleranciaPesoMensaje(" Prima neta No devengada ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)), PrimaNoDevengada);
+
+		}		
 		
 			
 		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+			ToleranciaPesoMensaje(" Valor Desembolsar IF ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera)+PrimaNoDevengada);
 		System.out.println("dentro del if que contiene punto");
 		}else {
-		ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
+			ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera)+PrimaNoDevengada);
 		System.out.println("dentro del else que no contiene punto");
 		}
-		*/
+		
     }
 	
 	
@@ -764,6 +878,179 @@ public class RetanqueoCreditos extends BaseTest {
 		hacerClick(PagesCreditosDesembolso.Guardar);
 		ElementVisible();
 	}
+	
+	
+
+	public void ValidarValoresLlamadoBienvenidaRetanqueo(String Credito) throws NumberFormatException, SQLException {
+		recorerpestanas("CONDICIONES DEL CRÉDITO");	
+	
+		
+		ResultSet resultado;
+		
+		String [] ValoresCredito=RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
+		
+		// consulta base de datos
+		int DesPrimaAntic = 0;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		resultado = query.ConsultaDescuentoPrimaAntic();
+		while (resultado.next()) {
+			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+		}
+		
+        //consulta para validar  prima menor a 24 meses
+		
+        if(Integer.parseInt(ValoresCredito[1])<DesPrimaAntic) {
+		int periodoGracia = (int)Math.ceil((double)Integer.parseInt(ValoresCredito[7])/30);
+		DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito[1]);
+		}
+        		
+		log.info("******** Valor de prima **** " + DesPrimaAntic);
+		
+		//Tasa fianza
+		double TasaFianza =0;
+		resultado = query.porcentajefianza();
+		while (resultado.next()) {
+			TasaFianza = Double.parseDouble(resultado.getString(1));
+		}
+		log.info("TasaFianza "+ TasaFianza);
+		//Estudio Credito
+		double EstudioCredito = 0;
+		resultado = query.EstudioCredito();
+		while (resultado.next()) {
+			EstudioCredito = Double.parseDouble(resultado.getString(1));
+		}
+		log.info("EstudioCredito "+ EstudioCredito);
+		//Valores CXC capitalizadas				
+		int mesDos = 0;
+		double tasaDos = 0;
+
+
+		resultado = query.consultarValoresMesCapitalizadas();
+		while (resultado.next()) {
+		mesDos = resultado.getInt(1);
+		}
+		log.info("Mes Dos "+ mesDos);
+
+		resultado = query.consultarValoresTasaDosCapitalizadas();
+		while (resultado.next()) {
+		tasaDos = Double.parseDouble(resultado.getString(1))/100;
+		}
+		log.info("TasaFianza "+ tasaDos);
+		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
+
+		int PrimaPadre =0;
+		ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
+		while (resultado4.next()) {
+		PrimaPadre = Integer.parseInt(resultado4.getString(1));
+		}
+			
+		int MontoPadre =0;
+		ResultSet resultado5 = query.ValorMontoCreditoPadre(Credito);
+		while (resultado5.next()) {
+		MontoPadre = Integer.parseInt(resultado5.getString(1));
+		}
+			
+		int MesesActivoPadre =0;
+		ResultSet resultado6 = query.MesesActivoPadre(Credito);
+		while (resultado6.next()) {
+		MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
+		}
+		
+		// consulta base de datos calculo de prima true o false
+		String prima = "";
+		ResultSet resultadoPrima = query.CalculoPrima(Credito);
+		while (resultadoPrima.next()) {
+		prima = resultadoPrima.getString(1);
+		}
+		
+		// Valores para la funciones estaticos
+		int Tasaxmillonseguro = 4625;				
+		double variableFianza = 1.19;
+		int SaldoAlDia=0;	
+		
+		if(ValidarElementoPresente(pagesclienteparabienvenida.SaldoAlDia)==false) {
+			int coma = 	GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
+			GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
+			if(coma==-1) {
+				SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".","").replace(",","."));	
+				System.out.println(" Resultado de valor SALDO AL DIA IF "+SaldoAlDia);
+	        	}
+	        	else {
+	        		SaldoAlDia=Integer.parseInt(GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0,coma).replace(".",""));
+	            	System.out.println(" Resultado de valor SALDO AL DIA ELSE "+SaldoAlDia);
+	        	}
+		}
+		
+		log.info("suma retanqueo y saldo al dia mas prima neta "+ (Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12])));
+		//int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12]), DesPrimaAntic, Tasaxmillonseguro);
+		
+		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12]), 1000000, Tasaxmillonseguro,DesPrimaAntic);
+		ToleranciaPesoMensaje(" Prima Anticipada ", Integer.parseInt(ValoresCredito[10]), PrimaAnticipadaSeguro);
+		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[13].isEmpty()+" "+DesPrimaAntic);
+		int PrimaNoDevengada=0;
+		
+		if (prima != "") {
+			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(ValoresCredito[12]), PrimaNeta);
+		    PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+		    ToleranciaPesoMensaje(" Prima neta no Devengada", Integer.parseInt(ValoresCredito[11]), PrimaNoDevengada);
+		}	
+		
+		
+		
+		if(ValoresCredito[11].isEmpty()==true) {
+		// calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
+		 //cambiar por CXC
+		// ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		}else {
+		 //cambiar por CXC
+		// ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		}
+		
+		int ValorFianza = (int) ValorFianza(Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12]), TasaFianza, variableFianza);
+		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[16]),ValorFianza);				
+		int EstudioCreditoIva = (int) EstudioCreditoIvacxc(Integer.parseInt(ValoresCredito[13])+SaldoAlDia+Integer.parseInt(ValoresCredito[12]), EstudioCredito);
+		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[17]),EstudioCreditoIva);
+	
+		
+		
+	}
+
+     public void AprobarExcepciones(String Pdf,String Cedula) throws InterruptedException {
+    	 hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
+    	 ElementVisible();
+    	 esperaExplicita(pestanasimuladorinternopage.SolicitarAprobacion);
+    	 cargarpdf(pestanasimuladorinternopage.SoportePdfExcepciones,Pdf);
+    	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+    	 hacerClicknotificacion();
+    	 hacerClick(pestanasimuladorinternopage.SolicitarAprobacion);
+    	 esperaExplicita(pestanasimuladorinternopage.Notificacion);
+    	 String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
+    	 if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
+    		 hacerClicknotificacion();
+    		 panelnavegacionaccion.navegarTareas();
+    		 esperaExplicita(pagestareas.filtroDescipcion);
+    	     EscribirElemento(pagestareas.filtroDescipcion, Cedula);
+    	     ElementVisible();
+    	     EscribirElemento(pagestareas.filtroTarea,"Revisar Aprobación excepción");
+    	     ElementVisible();
+    	     hacerClick(pagestareas.EditarVer);
+    		 ElementVisible();
+    		 esperaExplicita(pagestareas.Aprobar);
+    		 Hacer_scroll_centrado(pagestareas.Aprobar);
+    		 hacerClick(pagestareas.Aprobar);
+    		 ElementVisible();
+    		 hacerClickVariasNotificaciones();
+    		 esperaExplicita(pagestareas.Guardar);
+    		 Hacer_scroll(pagestareas.Guardar);
+    		 hacerClick(pagestareas.Guardar);
+    		 hacerClicknotificacion();
+    	     
+ 		}else {
+ 			assertTrue("#### Error Aprobar excepcion por Perfil "+notificacion ,false);
+ 		}
+    
+     }
 
 	/************ FIN RETANQUEO CREDITOS **********/
 }

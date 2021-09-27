@@ -44,10 +44,9 @@ public class RetanqueoCreditoSaneamientoSteps {
 	
 	 //####################### AnalisisCredito #####################################################################
 	
-	@Entonces("Valida los valores del simulador retanqueos con saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Saneamiento,String Credito,String DiasHabilesIntereses) throws InterruptedException, SQLException {
-		  //retanqueocreditosaneamientoaccion.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Saneamiento);
-		  retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,Saneamiento,Credito,DiasHabilesIntereses);
+	@Entonces("Valida los valores del simulador retanqueos con saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	    public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Anno,String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Saneamiento,String Credito,String DiasHabilesIntereses) throws InterruptedException, SQLException {
+		   retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,Saneamiento,Credito,DiasHabilesIntereses);
 	}
 	//####################### IniciaClientesBienvenidaCreditoParaCompraDeCartera ################################################################
 	@Entonces("se pasa a la pestana condiciones de credito retanqueo se marcan los check condiciones y de saneamiento y se acepta {string}")
