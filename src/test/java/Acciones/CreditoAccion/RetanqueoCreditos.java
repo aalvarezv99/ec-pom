@@ -1050,7 +1050,7 @@ public class RetanqueoCreditos extends BaseTest {
 		    ToleranciaPesoMensaje(" Prima neta no Devengada", Integer.parseInt(ValoresCredito[11]), PrimaNoDevengada);
 		}	
 		
-		
+		/**/
 		
 		if(ValoresCredito[11].isEmpty()==true) {
 		// calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
