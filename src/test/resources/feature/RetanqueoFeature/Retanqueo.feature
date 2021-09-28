@@ -12,12 +12,12 @@ Característica: Retanqueo de creditos
    #Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-   Y borrar archivos
-   Y cargar archivos nuevos <rutaPDF>
-   Y se solicita la consulta a centrales de riesgo
-   Y marcar el credito viable
+   #Y borrar archivos
+   #Y cargar archivos nuevos <rutaPDF>
+   #Y se solicita la consulta a centrales de riesgo
+   #Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-   #Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -28,8 +28,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  |Retanqueo  |Cedula       |Credito|rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|         
-  |"10000000" |"74752396"   |"79670"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"90" |"30"                |"8000000"|"360000"| "80000"   |"0"                 |"2258"|
+  |Retanqueo  |Cedula       |Credito|rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
+  |"5000000"|"32530184" |"54272"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"		|"1.8"|"16" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|
   
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -42,7 +42,7 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
     |Retanqueo |Cedula     |Credito|NombreCredito    |Ingresos |decLey  |descNomina|Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
-    |"1200000" |"19350535" |"78615"|"HECTOR EZEQUIEL"|"5000000"|"360000"|"80000"   |"Septiembre"|"1.8" |"22" |"360000" |"16/09/2021"|"30"                |"2021"         |
+    |"5000000"|"32530184"|"54272"   |"MARIA BERENICE" |"6500000" |"380000" |"100000"   |"Agosto"|"1.8"  |"16" |"360000" |"16/09/2021"|"30"                |"2021"         |
 
 
    @ClientesBienvenidaRetanqueos 

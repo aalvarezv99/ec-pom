@@ -10,11 +10,11 @@ Característica: Solicitud combra de cartera
     Cuando el agente ingresa a la pestana de simulador asesor
      #Y cambia la fecha del servidor <FechaServidor>
      Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
-     #Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+     Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
-     Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
-     Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
-     Y se finaliza con la consulta a centrales
+     #Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
+     #Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
+     #Y se finaliza con la consulta a centrales
    
    Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           
@@ -59,7 +59,7 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     |Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|anoAnalisis|Cartera1|Saneamiento2|
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "1.8" | "120"  | "25000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "GABRIEL"      |"Agosto"|"2022"|"3502000"|"300000"|
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "1.8" | "120"  | "25000000"   | "35"                 | "4000000" | "360000" | "50000"    | "4500000"   | "20500000"   | "350000"              | "GABRIEL"      |"Enero"|"2022"|"3502000"|"300000"|
         
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida

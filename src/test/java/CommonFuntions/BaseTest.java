@@ -328,7 +328,7 @@ public class BaseTest {
 	public double EstudioCreditoIva (int MontoSoli, double porcentajeEstudioCredito) {
                           
 		double Valor= ((MontoSoli*porcentajeEstudioCredito)/100)+(((MontoSoli*porcentajeEstudioCredito)/100)*0.19);	
-		log.info("Estudio Credito" + redondearDecimales(Valor,0));
+		log.info("Estudio Credito Hijo " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
 	}
@@ -344,10 +344,30 @@ public class BaseTest {
 	public double ValorFianza (int MontoSoli,double TasaFianza, double Variable ){
  
 		double Valor=((MontoSoli*TasaFianza)/100)*Variable;
-		log.info("VlrFianza " + redondearDecimales(Valor,0));
+		log.info("VlrFianza Hijo " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
- 
+	
+	/** ThainerPerez 28/Sept/2021, Se crea el metodo para calcular la fianza de retanqueo
+	 */
+	public double vlrFianzaRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor = montoSoli/(1+((porEstudioCre/100)*iva)+((tasaFianza/100)*iva)+((double)tasaXmillon/1000000)*periodoPrima)*(tasaFianza/100)*iva;
+		log.info("Fianza Hijo " + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
+	public double PrimaSeguroRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor =montoSoli/(1+(porEstudioCre/100)*iva+(tasaFianza/100)*iva+(double)tasaXmillon/1000000*periodoPrima)*tasaXmillon*(double)periodoPrima/1000000;
+		log.info("Prima Seguro Hijo " + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
+	public double EstudioCreditoRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor = montoSoli/(1+(porEstudioCre/100)*iva+(tasaFianza/100)*iva+((double)tasaXmillon/1000000*periodoPrima))*(porEstudioCre/100)*iva;
+		log.info("Estudio Credito Hijo" + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
