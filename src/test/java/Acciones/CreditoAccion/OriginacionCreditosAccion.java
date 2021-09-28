@@ -135,7 +135,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertTextoelemento(simuladorasesorpage.desOcupacion, Actividad);
 
 		// Llenar formulario campos del credito
-		hacerClick(simuladorasesorpage.inputTasa);
+		hacerClick(simuladorasesorpage.labelTasa);
 		EscribirElemento(simuladorasesorpage.inputTasaFiltro,Tasa);
 		EnviarEnter(simuladorasesorpage.inputTasaFiltro);
 		ElementVisible();
@@ -905,7 +905,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     	ElementVisible(); 
     	hacerClicknotificacion();
     	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-    	/**
+    	
     	 // consulta base de datos
 		int DesPrimaAntic = 0;
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1011,7 +1011,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina)
 				.substring(0, TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length() - 2)
 				.replaceAll("[^a-zA-Z0-9]", ""), descNomina);
-*/
+
 	}
 
 	public void GuardarSimulacionAnalista() throws InterruptedException {

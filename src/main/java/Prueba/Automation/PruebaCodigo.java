@@ -33,13 +33,19 @@ public class PruebaCodigo {
 		2020000*((Math.pow((1+0.018), (49-1)))-1)/(0.018*Math.pow((1+0.018), (49-1)) )+
 		(2020000*(( Math.pow((1+0.0075), (120-(49-1))) )-1)/(0.0075* Math.pow((1+0.0075), (120-(49-1))) ))/Math.pow((1+0.018), (49-1)) ));
 		*/
+		//montoSoli/(1+porEstudioCre*iva+tasaFianza*iva+tasaXmillon/1000000*periodoPrima)*tasaFianza*iva;
+		// 38096808/(1+(0.0*1.19)+(8.35*1.19)+(4625/1000000)*17);//*8.35*1.19;
+		double valor = 38096808/(1+((0.0/100)*1.19)+((8.35/100)*1.19)+((double)4625/1000000)*17)*(8.35/100)*1.19;
+		System.out.println( Math.round(valor) );
+		
+		System.out.println( (double)4625);
 		
 		//Cuota > segundo mes
-		System.out.println(Math.round(31077250/((Math.pow((1+0.018),(49-1)) -1)/(0.018*Math.pow((1+0.018), (49-1)))
+		/*System.out.println(Math.round(31077250/((Math.pow((1+0.018),(49-1)) -1)/(0.018*Math.pow((1+0.018), (49-1)))
 				+((Math.pow((1+0.0075), (120-(49-1)))-1)/(0.0075*Math.pow((1+0.0075), (120-(49-1) )) ))/(Math.pow((1+0.018), (49-1))))));
 		
 		//cuota < segundo mes
-		System.out.println(Math.round(31077250/((Math.pow((1+0.018), (12)) -1)/(0.018* Math.pow((1+0.018), (12))))));
+		System.out.println(Math.round(31077250/((Math.pow((1+0.018), (12)) -1)/(0.018* Math.pow((1+0.018), (12))))));*/
 		
 		
 	} 
