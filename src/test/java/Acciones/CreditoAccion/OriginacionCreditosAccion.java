@@ -208,37 +208,25 @@ public class OriginacionCreditosAccion extends BaseTest {
 					colchon = Integer.parseInt(resultado.getString(1));
 				}
 		 
+				/*Consultar los conceptos para el cambio de tasa*/
 				double EstudioCredito = 0;
-				resultado = query.EstudioCredito();
-				while (resultado.next()) {
-					EstudioCredito = Double.parseDouble(resultado.getString(1));
-				}
-				//EstudioCredito = 2.35; //EliminarLinea
-				log.info("TasaEstudioCredito " +EstudioCredito);
-				
 				double TasaFianza =0;
-				resultado = query.porcentajefianza();
-				while (resultado.next()) {
-					TasaFianza = Double.parseDouble(resultado.getString(1));
-				}
-				log.info("TasaFianza "+ TasaFianza);
-				
-				//Valores CXC capitalizadas				
 				int mesDos = 0;
 				double tasaDos = 0;
-				
-				
-				resultado = query.consultarValoresMesCapitalizadas();
+				resultado = query.consultarValoresCapitalizador(Tasa);
 				while (resultado.next()) {
-					mesDos = resultado.getInt(1);			
+					tasaDos  = Double.parseDouble(resultado.getString(2))/100;	
+					EstudioCredito = Double.parseDouble(resultado.getString(3));
+					TasaFianza = Double.parseDouble(resultado.getString(4));
+					mesDos = resultado.getInt(5);							
 				}
-				log.info("Mes Dos "+ mesDos);
+				//EstudioCredito = 2.35; //EliminarLinea
+				log.info("Tasa Estudio Credito " +EstudioCredito);
+				log.info("Tasa Fianza " +TasaFianza);
+				log.info("Valor mes Dos " + mesDos);
+				log.info("Tasa Dos" + tasaDos);
 				
-				resultado = query.consultarValoresTasaDosCapitalizadas();
-				while (resultado.next()) {
-					tasaDos = Double.parseDouble(resultado.getString(1))/100;			
-				}				
-				log.info("TasaFianza "+ tasaDos);
+								
 				double tasaUno = Double.parseDouble(Tasa)/100;
 				
 				//porcentajefianza
@@ -921,11 +909,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
 		} 
 
-		double EstudioCredito = 0;
-		ResultSet resultado2 = query.EstudioCredito();
-		while (resultado2.next()) {
-			EstudioCredito = Double.parseDouble(resultado2.getString(1));
-		}
+		
 		
 		int colchon = 0;
 		ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
@@ -933,11 +917,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 			colchon = Integer.parseInt(resultadocolchon.getString(1));
 		}
 		
-		double TasaFianza =0;
-		ResultSet resultado3 = query.porcentajefianza();
-		while (resultado3.next()) {
-			TasaFianza = Double.parseDouble(resultado3.getString(1));
-		}
 		
 		
 
@@ -946,21 +925,26 @@ public class OriginacionCreditosAccion extends BaseTest {
 		double variableFianza = 1.19;
 		
 		//Valores CXC capitalizadas				
+		/*Consultar los conceptos para el cambio de tasa*/
+		double EstudioCredito = 0;
+		double TasaFianza =0;
 		int mesDos = 0;
 		double tasaDos = 0;
-		
-		
-		resultado = query.consultarValoresMesCapitalizadas();
+		resultado = query.consultarValoresCapitalizador(Tasa);
 		while (resultado.next()) {
-			mesDos = resultado.getInt(1);			
+			tasaDos  = Double.parseDouble(resultado.getString(2))/100;	
+			EstudioCredito = Double.parseDouble(resultado.getString(3));
+			TasaFianza = Double.parseDouble(resultado.getString(4));
+			mesDos = resultado.getInt(5);							
 		}
-		log.info("Mes Dos "+ mesDos);
+		//EstudioCredito = 2.35; //EliminarLinea
+		log.info("Tasa Estudio Credito " +EstudioCredito);
+		log.info("Tasa Fianza " +TasaFianza);
+		log.info("Valor mes Dos " + mesDos);
+		log.info("Tasa Dos" + tasaDos);
 		
-		resultado = query.consultarValoresTasaDosCapitalizadas();
-		while (resultado.next()) {
-			tasaDos = Double.parseDouble(resultado.getString(1))/100;			
-		}				
-		log.info("TasaFianza "+ tasaDos);
+		
+		
 		double tasaUno = Double.parseDouble(Tasa)/100;
 
 		// Validar resultados de simulacion

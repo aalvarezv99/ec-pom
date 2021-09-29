@@ -31,33 +31,6 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 
-	public ResultSet EstudioCredito() {
-		ResultSet r=null;
-		try {
-			r = dbconector.conexion("select valor from configuracion_credito cc where tipo = 'ESTUDIO_CREDITO'");
-			
-			
-		} catch (Exception e) {
-			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
-			log.error(e.getMessage());			
-		}
-
-		return r;
-	}
-    
-	public ResultSet porcentajefianza() {
-		ResultSet r=null;
-		try {
-			r = dbconector.conexion("select max(distinct valor_calculo) from configuracion_fianza");
-			
-			
-		} catch (Exception e) {
-			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
-			log.error(e.getMessage());			
-		}
-
-		return r;
-	}
 	
 	public ResultSet colchonpagaduria(String pagaduria) {
 		ResultSet r=null;
@@ -69,38 +42,6 @@ public class OriginacionCreditoQuery {
 			log.error(e.getMessage());			
 		}
 
-		return r;
-	}
-	
-	
-	/*
-	 * TP - 02/08/2021 
-	 * Se crea la consulta que retorna los valores de mes dos y tasaDos
-	 * Para realizar los calculos en los simuladores de Cuentas por cobrar capitalizadas*/
-	public ResultSet consultarValoresMesCapitalizadas() {
-		log.info("*********************** OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()");
-		ResultSet r= null;
-		try {
-			r = dbconector.conexion("select valor::integer from configuracion_credito c\r\n"
-					+ "					where 1=1 \r\n"
-					+ "					and tipo = 'CAPITALIZACION' and tipo_valor = 'NUMERO_CUOTA';");
-		} catch (Exception e) {
-			log.error("#################### ERROR - OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()#############");
-		}
-		return r;
-	}
-	
-	/*Thainer Perez - 02/08/2021 Consultar valor Tasa dos Capitalizacion*/
-	public ResultSet consultarValoresTasaDosCapitalizadas() {
-		log.info("*********************** OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()");
-		ResultSet r= null;
-		try {
-			r = dbconector.conexion("select valor from configuracion_credito cc\r\n"
-					+ "where 1=1 \r\n"
-					+ "and tipo = 'CAPITALIZACION' and tipo_valor = 'SEGUNDA_TASA';");
-		} catch (Exception e) {
-			log.error("#################### ERROR - OriginacionCreditoQuery - consultarValoresMesTasaCapitalizadas()#############");
-		}
 		return r;
 	}
 	
@@ -272,6 +213,21 @@ public class OriginacionCreditoQuery {
 			log.error(e.getMessage());			
 		}
 
+		return r;
+	}
+	
+	/*
+	 *ThainerPerez 29-Sep-2021, Se crea un unico metodo para consultar los valores de capitalizados segun la tasa  */
+	public ResultSet consultarValoresCapitalizador(String tasa) {
+		log.info("******* consultar valores capitalizados, OriginacionCreditoQuery - consultarValoresCapitalizador()***********");
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select tasa_inicial, segunda_tasa, estudio_credito, fianza, mes_cambio_tasa \r\n"
+					+ "from configuracion_capitalizacion_cxc ccc where tasa_inicial ="+tasa+";");
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarValoresCapitalizador() ********");
+			log.error(e.getMessage());
+		}
 		return r;
 	}
 	
