@@ -1083,12 +1083,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 	
 	public void ValidarValoresLlamadoBienvenida() throws NumberFormatException, SQLException {
 		recorerpestanas("CONDICIONES DEL CRÉDITO");	
-	
-		/*
+
 		ResultSet resultado;
-		
+
 		String [] ValoresCredito=RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
-		
+
 		// consulta base de datos
 		int DesPrimaAntic = 0;
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1103,38 +1102,28 @@ public class OriginacionCreditosAccion extends BaseTest {
 		int periodoGracia = (int)Math.ceil((double)Integer.parseInt(ValoresCredito[7])/30);
 		DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito[1]);
 		}
-        		
+
 		log.info("******** Valor de prima **** " + DesPrimaAntic);
-		
-		//Tasa fianza
-		double TasaFianza =0;
-		resultado = query.porcentajefianza();
-		while (resultado.next()) {
-			TasaFianza = Double.parseDouble(resultado.getString(1));
-		}
-		log.info("TasaFianza "+ TasaFianza);
-		//Estudio Credito
+
 		double EstudioCredito = 0;
-		resultado = query.EstudioCredito();
-		while (resultado.next()) {
-			EstudioCredito = Double.parseDouble(resultado.getString(1));
-		}
-		log.info("EstudioCredito "+ EstudioCredito);
-		//Valores CXC capitalizadas				
+		double TasaFianza =0;
 		int mesDos = 0;
 		double tasaDos = 0;
-
-
-		resultado = query.consultarValoresMesCapitalizadas();
+		String Tasa = ValoresCredito[2].replace(",", ".");
+		log.info("Tasa Creada " + Tasa);
+		resultado = query.consultarValoresCapitalizador(Tasa);
 		while (resultado.next()) {
-		mesDos = resultado.getInt(1);
+			tasaDos  = Double.parseDouble(resultado.getString(2))/100;	
+			EstudioCredito = Double.parseDouble(resultado.getString(3));
+			TasaFianza = Double.parseDouble(resultado.getString(4));
+			mesDos = resultado.getInt(5);							
 		}
-		log.info("Mes Dos "+ mesDos);
+		//EstudioCredito = 2.35; //EliminarLinea
+		log.info("Tasa Estudio Credito " +EstudioCredito);
+		log.info("Tasa Fianza " +TasaFianza);
+		log.info("Valor mes Dos " + mesDos);
+		log.info("Tasa Dos" + tasaDos);
 
-		resultado = query.consultarValoresTasaDosCapitalizadas();
-		while (resultado.next()) {
-		tasaDos = Double.parseDouble(resultado.getString(1))/100;
-		}
 		log.info("TasaFianza "+ tasaDos);
 		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
 
@@ -1178,9 +1167,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[14]),ValorFianza);				
 		int EstudioCreditoIva = (int) EstudioCreditoIvacxc(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, EstudioCredito);
 		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[16]),EstudioCreditoIva);
-	
-		
-		*/
+
 	}
 	
 	
