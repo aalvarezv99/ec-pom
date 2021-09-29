@@ -18,7 +18,7 @@ Característica: Solicitud combra de cartera
    
    Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           
-			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
+			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
                   
   @SolicitudCredito
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
@@ -45,7 +45,7 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   |
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "1014262729" | "08/Feb/1995" | "Bucaramanga"  | "Pensionado"  | "1.8" | "40"  | "25000000"  | "10"                 | "3000000" | "270000" | "80000"    | "3000000"   | "70500000"   | "1100000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "GABRIEL"  | "ALDANA"    | "HERNANDEZ"    | "gabohernandez0895@mail.com"  | "3043972011" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "F"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "GABRIEL"       | "alexandro"           | "mejia"             | "7260123"          | "9000123"       | "3120" |  "Agosto"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
         
   @AnalisisCredito
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
@@ -79,7 +79,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
       | Cedula     | fechaActual         | rutaPDF         |
-      | "1014262729" | "16/07/2021" 			 | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      | "1014262729" | "16/07/2021" 			 | "src/test/resources/Data/PDFPRUEBA.pdf"  |
         
   @DesembolsoCartera
     Esquema del escenario: Carteras para Desembolso
@@ -88,7 +88,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
        | Cedula     |Monto       | Cartera1 | rutaPDF                                     |Banco                                      |
-       | "1014262729" | "25000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
+       | "1014262729" | "25000000"    |  "350000"                  | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
         
   @VisacionCartera
     Esquema del escenario: Visacion de la cartera
@@ -97,7 +97,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
         | Cedula     |  rutaPDF         |
-      | "1014262729" | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"  |
+      | "1014262729" | "src/test/resources/Data/PDFPRUEBA.pdf"  |
         
   @DesembolsoSaneamiento
   Esquema del escenario: Saneamiento para Desembolso
@@ -106,7 +106,7 @@ Característica: Solicitud combra de cartera
 
            Ejemplos: 
       | Cedula     | Monto       | Saneamiento2 | rutaPDF                                     |Banco                                      |
-      | "1014262729" | "25000000"    |  "350000"                  | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
+      | "1014262729" | "25000000"    |  "350000"                  | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
           
   @Desembolso
   Esquema del escenario: Remanente para Desembolso
@@ -115,5 +115,5 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
      | Cedula     | Monto       | Cartera1|Saneamiento2 | rutaPDF                                     |Banco                                      | entidad                                                    |
-     | "1014262729" |"25000000"    |  "350000"|     "350000"             | "C:\\Users\\User\\Documents\\PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |"8300538122 -  FIDEICOMISO SOLUCIONES"                      |
+     | "1014262729" |"25000000"    |  "350000"|     "350000"             | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |"8300538122 -  FIDEICOMISO SOLUCIONES"                      |
         

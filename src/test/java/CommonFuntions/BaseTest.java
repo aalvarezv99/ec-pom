@@ -562,18 +562,19 @@ public class BaseTest {
 }
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {
-
-		driver.findElement(AutorizacionConsulta).sendKeys(Pdf);
+		File fichero = new File(Pdf);
+		System.out.println("--------------ruta pdf: " + fichero.getAbsolutePath());
+		driver.findElement(AutorizacionConsulta).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(AutorizacionConsulta);
 		hacerClicknotificacion();
 		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-		driver.findElement(CopiaCedula).sendKeys(Pdf);
+		driver.findElement(CopiaCedula).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(CopiaCedula);
 		hacerClicknotificacion();
 		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-		driver.findElement(DesprendibleNomina).sendKeys(Pdf);
+		driver.findElement(DesprendibleNomina).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(DesprendibleNomina);
 		hacerClicknotificacion();
 		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
@@ -582,16 +583,15 @@ public class BaseTest {
 	}
 	
 	public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
-    
+		File fichero = new File(Pdf);
 		List<WebElement> BtnCarga = driver.findElements(By.xpath("//input[starts-with(@id,'form:cargarDocumentos')]"));	
-    
 		String [] id = new String[BtnCarga.size()];
 		for(int i=0;i<BtnCarga.size();i++) {
 			id[i]=BtnCarga.get(i).getAttribute("id");
 		}
 		for(int i=0;i<id.length;i++) {		
 			Thread.sleep(450);
-		    driver.findElement(By.id(id[i])).sendKeys(Pdf);		    
+		    driver.findElement(By.id(id[i])).sendKeys(fichero.getAbsolutePath());		    
 		    esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
 		    esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
 		    hacerClicknotificacion();		
@@ -829,7 +829,8 @@ public void clickvarios(By locator) {
 	}
 	
 	public void cargarpdf(By locator,String Pdf) {
-		driver.findElement(locator).sendKeys(Pdf);
+		File fichero = new File(Pdf);
+		driver.findElement(locator).sendKeys(fichero.getAbsolutePath());
 	}
 
 	/************ FIN FUNC JAVASCRIPT ************/
@@ -1151,23 +1152,20 @@ public WebDriver chromeDriverConnection() {
     	
         for(int i=0;i<ListaElement.size();i++) {
         	if(i<3) {
-        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
-        	}else {
-        	String ValorNumerico =	ListaElement.get(i).getText().replace(".","");
-        	System.out.println(i+" valor numerico  " + ValorNumerico);
-        	int coma = 	ValorNumerico.indexOf(",");
-        	
-        	if(coma==-1) {
-        	Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
-        	}
-        	else {
-        		Valores[i]=	ValorNumerico.substring(0,coma);
-            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
-        	}
+        		Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	} else {
+	        	String ValorNumerico = ListaElement.get(i).getText().replace(".","");
+	        	int coma = 	ValorNumerico.indexOf(",");
+	        	
+	        	if(coma==-1) {
+	        		Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+	        	} else {
+	        		Valores[i]=	ValorNumerico.substring(0,coma);
+	            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
+	        	}
         
         	}
-        	
-        
+        	System.out.println("valor " + i + " - " + Valores[i]);
         }
         
         return Valores;

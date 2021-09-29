@@ -36,7 +36,7 @@ Característica: Retanqueo de creditos
    
    Ejemplos: 
    |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey |descNomina|entidad                               |cartera  |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|fechaActual |
-   |"93376715" |"LUIS AUGUSTO" |"54811" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"25"                |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/08/2021"     |"2007"        |"1037"|"25/08/2021"|
+   |"93376715" |"LUIS AUGUSTO" |"54811" |"src/test/resources/Data/PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"25"                |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/08/2021"     |"2007"        |"1037"|"25/08/2021"|
  
   @AnalisisCreditoRetanqueo
    Esquema del escenario: Analisis del credito
@@ -70,7 +70,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula    |rutaPDF                                    |fechaActual |
-   |"93376715" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"25/08/2021"|
+   |"93376715" |"src/test/resources/Data/PDFPRUEBA.pdf"|"25/08/2021"|
    
   @DesembolsoCartera
    Esquema del escenario: Carteras para Desembolso
@@ -79,7 +79,7 @@ Característica: Retanqueo de creditos
 
    Ejemplos: 
    |Cedula     |rutaPDF                                    |cartera  |Banco                                            |
-   |"93376715"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
+   |"93376715"  |"src/test/resources/Data/PDFPRUEBA.pdf"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
  
  @VisacionCartera
     Esquema del escenario: Visacion de la cartera
@@ -88,7 +88,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula      |rutaPDF                                    |
-   |"93376715"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |"93376715"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
  
   @Desembolso
    Esquema del escenario: Remanente para Desembolso
@@ -97,7 +97,7 @@ Característica: Retanqueo de creditos
     
    Ejemplos: 
    |Cedula      |rutaPDF                                    |Retanqueo|cartera  |Banco                                            |
-   |"93376715"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"3000000"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
+   |"93376715"   |"src/test/resources/Data/PDFPRUEBA.pdf"|"3000000"|"1500000"|"Banco de Occidente - 219856622 - COMPRA_CARTERA"|
   
   
     
