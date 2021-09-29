@@ -344,21 +344,6 @@ public class RetanqueoCreditos extends BaseTest {
 		}
 		System.out.println(" Variable prima: "+prima);
 		
-		
-		double EstudioCredito = 0;
-		ResultSet resultado2 = query.EstudioCredito();
-		while (resultado2.next()) {
-			EstudioCredito = Double.parseDouble(resultado2.getString(1));
-		}
-		log.info("****** Estudio de Credito" + EstudioCredito);
-		
-		double TasaFianza =0;
-		ResultSet resultado3 = query.porcentajefianza();
-		while (resultado3.next()) {
-			TasaFianza = Double.parseDouble(resultado3.getString(1));
-		}
-		log.info("****** Tasa Fianza" + TasaFianza);
-		
 	    int PrimaPadre =0;
 		ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
 		while (resultado4.next()) {
@@ -378,22 +363,25 @@ public class RetanqueoCreditos extends BaseTest {
 	    }	
 			
 		
-		//Valores CXC capitalizadas		
+		// Valores CXC capitalizadas
+		/* Consultar los conceptos para el cambio de tasa */
+		double EstudioCredito = 0;
+		double TasaFianza = 0;
 		int mesDos = 0;
 		double tasaDos = 0;
-		
-		resultado = query.consultarValoresMesCapitalizadas();
+		resultado = query.consultarValoresCapitalizador(Tasa);
 		while (resultado.next()) {
-			mesDos = resultado.getInt(1);			
+			tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
+			EstudioCredito = Double.parseDouble(resultado.getString(3));
+			TasaFianza = Double.parseDouble(resultado.getString(4));
+			mesDos = resultado.getInt(5);
 		}
-		log.info("Mes Dos "+ mesDos);
-		
-		resultado = query.consultarValoresTasaDosCapitalizadas();
-		while (resultado.next()) {
-			tasaDos = Double.parseDouble(resultado.getString(1))/100;			
-		}				
-		log.info("TasaFianza "+ tasaDos);
-		double tasaUno = Double.parseDouble(Tasa)/100;
+		// EstudioCredito = 2.35; //EliminarLinea
+		log.info("Tasa Estudio Credito " + EstudioCredito);
+		log.info("Tasa Fianza " + TasaFianza);
+		log.info("Valor mes Dos " + mesDos);
+		log.info("Tasa Dos" + tasaDos);
+		double tasaUno = Double.parseDouble(Tasa) / 100;
 		
 		/*Consultar Estudio Credito Padre*/
 		int estudioCreditoPadre = 0;
