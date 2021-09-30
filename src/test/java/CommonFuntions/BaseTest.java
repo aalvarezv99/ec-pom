@@ -563,23 +563,21 @@ public class BaseTest {
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {
 		File fichero = new File(Pdf);
-		System.out.println("--------------ruta pdf: " + fichero.getAbsolutePath());
 		driver.findElement(AutorizacionConsulta).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(AutorizacionConsulta);
+		ElementVisible();
 		hacerClicknotificacion();
-		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(CopiaCedula).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(CopiaCedula);
+		ElementVisible();
 		hacerClicknotificacion();
-		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
 		driver.findElement(DesprendibleNomina).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(DesprendibleNomina);
-		hacerClicknotificacion();
-		//esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-
+		hacerClicknotificacion();
+		ElementVisible();
 	}
 	
 	public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
@@ -1286,9 +1284,9 @@ public WebDriver chromeDriverConnection() {
 				 break;
 			}
 		}
-       
 	}
-    
-    
-    
+
+    public void EnviarEscape(By locator) {
+		driver.findElement(locator).sendKeys(Keys.ESCAPE);
+	}
 }

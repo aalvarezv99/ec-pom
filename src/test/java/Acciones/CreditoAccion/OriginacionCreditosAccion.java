@@ -272,12 +272,15 @@ public class OriginacionCreditosAccion extends BaseTest {
 						Gmf4100, PrimaAnticipadaSeguro,EstudioCreditoIva,ValorFianza);
 				ToleranciaPesoMensaje(" SIM ASESOR - CALCULO REMANENTE ESTIMADO ", Integer.parseInt(TextoElemento(simuladorasesorpage.RemanenteEstimado)) , RemanenteEstimado);
 
+				if (RemanenteEstimado < 0) {
+					assertBooleanImprimeMensaje("El valor del remanente estimado es negativo, remanente estimado: " + RemanenteEstimado, true);
+				}
+
 				int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 						Integer.parseInt(descNomina), colchon, tasaUno,
 						Integer.parseInt(Plazo), tasaDos, mesDos);
 				ToleranciaPesoMensaje("SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR ", Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)) ,MontoMaxDesembolsar);
 				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
-		
 	}
 	
 	public void GuardarSimulacion() throws InterruptedException {
@@ -870,8 +873,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
     }
     
-    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos, String anoAnalisis) throws InterruptedException, NumberFormatException, SQLException {
+    public void ValidarSimuladorAnalista(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos, String anoAnalisis, String fechaDesembolso) throws InterruptedException, NumberFormatException, SQLException {
     	log.info("******************** OriginacionCreditosAccion validar Calculos - ValidarSimuladorAnalista()  ***************");
+    	Clear(pestanasimuladorinternopage.FechaDesembolso);
+    	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fechaDesembolso);
+    	EnviarEscape(pestanasimuladorinternopage.FechaDesembolso);
     	esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion); 
     	hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
     	ElementVisible (); 
@@ -893,23 +899,19 @@ public class OriginacionCreditosAccion extends BaseTest {
 			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
 		}
 		log.info("******** Valor de prima **** " + DesPrimaAntic);
-		int DiasHabilesIntereses = 0;
+
+		String DiasHabilesIntereses = TextoElemento(pestanasimuladorinternopage.DiasInteresesIniciales);
 		if(Integer.valueOf(Plazo)<DesPrimaAntic) {
-			int periodoGracia = (int)Math.ceil((double)DiasHabilesIntereses/30);
+			int periodoGracia = (int)Math.ceil((double)Integer.parseInt(DiasHabilesIntereses)/30);
 			DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 			log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
-		} 
+		}
 
-		
-		
 		int colchon = 0;
 		ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
 		while (resultadocolchon.next()) {
 			colchon = Integer.parseInt(resultadocolchon.getString(1));
 		}
-		
-		
-		
 
 		// Valores para la funciones estaticos
 		int Tasaxmillonseguro = 4625;
@@ -933,13 +935,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("Tasa Fianza " +TasaFianza);
 		log.info("Valor mes Dos " + mesDos);
 		log.info("Tasa Dos" + tasaDos);
-		
-		
-		
 		double tasaUno = Double.parseDouble(Tasa)/100;
 
 		// Validar resultados de simulacion
-
 		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
 		
 		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);

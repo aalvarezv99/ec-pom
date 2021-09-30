@@ -68,6 +68,7 @@ public class PestanaSimuladorInternoPage {
 	public By Notificacion;
 	public By SolicitarAprobacion;
 	public By PrimaAnticipadaSeguroSInterno;
+	public By DiasInteresesIniciales;
 	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -134,5 +135,6 @@ public class PestanaSimuladorInternoPage {
         SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");        
         EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
         ValorFianzaAnalista = By.id("formSimulador:valorFianza_hinput");
+        DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
 	}
 }
