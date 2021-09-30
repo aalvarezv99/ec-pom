@@ -114,7 +114,7 @@ public class PestanaSimuladorInternoPage {
 	    SimuladorInternorValoraDesembolsar =   By.id("formSimuladorCredito:remanenteCr_hinput");
 	    MontoAsesor = By.id("formSimulador:monto_hinput");
 	    PlazoAsesor = By.id("formSimulador:plazo");
-	    TasaAsesor = By.id("formSimulador:tasaExcepcion_hinput");
+	    TasaAsesor = By.id("formSimulador:tasaExcepcion_label");
 	    IngresosAsesor = By.id("formSimulador:ingresos");
 	    DescuentosLey = By.id("formSimulador:descuentosLey");
 	    DescuentosNomina = By.id("formSimulador:descuentosNomina");

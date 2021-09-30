@@ -1144,17 +1144,25 @@ public class RetanqueoCreditos extends BaseTest {
 		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(ValoresCredito[12]), PrimaNeta);
 		    PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 		    ToleranciaPesoMensaje(" Prima neta no Devengada", Integer.parseInt(ValoresCredito[11]), PrimaNoDevengada);
-		}	
 
+		}	
+		
+		int Gmf4100 = (int) Gmf4100(Integer.parseInt(ValoresCredito[8]), 0.004);			
+		ToleranciaPesoMensaje("Pantalla GMF 4X1000 ",Integer.parseInt(ValoresCredito[9]), Gmf4100);
+		
+		
 		int ValorFianza = (int) vlrFianzaRetanqueoHijo((int) Double.parseDouble(ValoresCredito[0]), TasaFianza, iva, EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
 		int resultFianza = ValorFianza-fianzaPadre;
 		resultFianza=(resultFianza<0)?resultFianza*0:resultFianza;
-		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[16]), resultFianza);				
+		ToleranciaPesoMensaje("######  CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[16]), resultFianza);				
 		int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo((int) Double.parseDouble(ValoresCredito[0]), TasaFianza, iva, EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
 		int resultEstudioCredito = EstudioCreditoIva-estudioCreditoPadre;
 		resultEstudioCredito=(resultEstudioCredito<0)?resultEstudioCredito*0:resultEstudioCredito;
-		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[18]), resultEstudioCredito);
-
+		ToleranciaPesoMensaje("###### CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[18]), resultEstudioCredito);
+		int remantEstimado = (int) remanenteEstimadoRetanqueo((int) Double.parseDouble(ValoresCredito[0]),SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(ValoresCredito[8]),Gmf4100,PrimaAnticipadaSeguro);
+		
+		ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(ValoresCredito[13]),remantEstimado+Integer.parseInt(ValoresCredito[11]));
+		
 	}
 
      public void AprobarExcepciones(String Pdf,String Cedula) throws InterruptedException {
