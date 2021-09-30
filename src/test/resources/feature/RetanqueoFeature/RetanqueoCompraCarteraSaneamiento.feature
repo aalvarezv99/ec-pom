@@ -7,37 +7,37 @@ Característica: Retanqueo de creditos
 
  @RetanqueoCompraCarteraSaneamiento
  Esquema del escenario:  Retanqueo Compra de cartera y saneamiento
-   #Cuando El agente ingrese a la pestana retanqueo 
-   #Y se filtra por <Cedula><Credito>
-   #Y se da clic a retanquear   
+  # Cuando El agente ingrese a la pestana retanqueo 
+  # Y se filtra por <Cedula><Credito>
+  # Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-   #Y borrar archivos
-   #Y cargar archivos nuevos <rutaPDF>
-   #Y se solicita la consulta a centrales de riesgo
-   #Y marcar el credito viable
+  # Y borrar archivos
+  # Y cargar archivos nuevos <rutaPDF>
+  # Y se solicita la consulta a centrales de riesgo
+  # Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
-   #Y se da clic en solicitar
-   #Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
-   #Y marcar los check en correcto guardando en la pestana de digitalizacion
-   #Y se presiona en verificacion en la pestana digitalizacion
-   #Y se crean los tipos de cartera o saneamiento a recoger 
-   #		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-   #		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
-   #		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-   #Y se guarda cartera
-   #Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-   # 	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-   # 	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-   # 	|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
-   #Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
-   #Y se marca identidida confirmada radicando la solicitud
-   #Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
+   Y se da clic en solicitar
+   Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
+   Y marcar los check en correcto guardando en la pestana de digitalizacion
+   Y se presiona en verificacion en la pestana digitalizacion
+   Y se crean los tipos de cartera o saneamiento a recoger 
+   		|Tipo						|Entidad				 				                        |Monto |VlrCuota|FechaVencimiento	|NumObligacion|
+   	#	|Cartera				|8600068225 - ACORE				                      |100000|70000  	|30/09/2021     	|21236   			|
+   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA		|830000|70000  	|30/09/2021     	|29123   			|
+   Y se guarda cartera
+   Y se pasa a la primera pestana de referenciacion para confirmar la entidad
+    	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
+    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
+    #	|Cartera				|8600068225 - ACORE			|100000 |70000   |30/09/2021     	  |21236   			|    	
+   Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
+   Y se marca identidida confirmada radicando la solicitud
+   Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  	|Retanqueo|Cedula    |Credito|rutaPDF                                    |Tasa |Plazo |DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo| VlrCompraSaneamiento|      
-    |"5000000"|"32530184" |"54272"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"16" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"200000"|
+  	|Retanqueo|Cedula     |Credito|rutaPDF                                |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo| VlrCompraSaneamiento|      
+    |"7000000"|"72244446" |"77475"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"25" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"200000"|
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
   Esquema del escenario: Analisis del credito
@@ -49,8 +49,8 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Credito|Cedula      |NombreCredito          |Ingresos  |decLey   |descNomina |Mes     |Tasa    |Plazo |descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
-    |"5000000"|"54272"|"32530184"   |"MARIA BERENICE"        |"6500000" |"380000" |"100000"   |"Agosto"|"1.8"   |"16" |"380000" |"100000"   |"25/09/2021"|"100000"|"830000"    |"0"                | "2021" |
+    |Retanqueo|Credito|Cedula      |NombreCredito    |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
+    |"7000000"|"77475"|"72244446"  |"ALVARO DE JESUS"|"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"0"      |"830000"    |"13"                | "2021"        |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 

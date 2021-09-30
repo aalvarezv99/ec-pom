@@ -1270,4 +1270,25 @@ public WebDriver chromeDriverConnection() {
 		WebDriverWait wait = new WebDriverWait(driver, 2);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
+    
+    public void RepetirConsultaCentrales(By locator, By locator_search) throws InterruptedException{				
+
+		long start_time = System.currentTimeMillis();
+		long wait_time = 10000;
+		long end_time = start_time + wait_time;
+
+		// si en 10 segundos no obtiene respuesta el test falla
+		while (System.currentTimeMillis() < end_time || !ValidarElementoPresente(locator_search) ) {
+			System.out.println("# Resultado de repetir consulta "+ValidarElementoPresente(locator_search));
+			if(ValidarElementoPresente(locator_search)) {
+				hacerClick(locator);		
+			}else {
+				 break;
+			}
+		}
+       
+	}
+    
+    
+    
 }

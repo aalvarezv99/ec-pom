@@ -429,7 +429,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 			hacerClick(pestanaSeguridadPage.PestanaSeguridad);
 			esperaExplicita(pestanaSeguridadPage.BotonGuardar);
 			hacerClick(pestanaSeguridadPage.Viable);
-			hacerClick(pestanaSeguridadPage.BotonGuardar);
+			RepetirConsultaCentrales(pestanaSeguridadPage.BotonGuardar,pestanaSeguridadPage.Concepto);
+			/*hacerClick(pestanaSeguridadPage.BotonGuardar);
 			ElementVisible();
 			String notificacion = GetText(simuladorasesorpage.notificacion);		
 			if (!notificacion.equals("Proceso Realizado Correctamente")) {
@@ -437,7 +438,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				ElementVisible();	
 			}
 			assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
-			esperaExplicitaNopresente(simuladorasesorpage.notificacion);
+			esperaExplicitaNopresente(simuladorasesorpage.notificacion);*/
 			Hacer_scroll(pestanaSeguridadPage.Concepto);
 			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 			recorerpestanas("SIMULADOR");

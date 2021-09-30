@@ -28,8 +28,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  |Retanqueo  |Cedula   |Credito|rutaPDF                                    		|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
-  |"5000000"|"32530184" |"54272"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"16" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|
+  |Retanqueo  |Cedula     |Credito|rutaPDF                                    	|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
+  |"9000000"  |"72130384" |"72864"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"90" |"10"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
   
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -41,8 +41,8 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo |Cedula     |Credito|NombreCredito    |Ingresos |decLey  |descNomina|Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
-    |"5000000"|"32530184"|"54272"   |"MARIA BERENICE" |"6500000" |"380000" |"100000"   |"Octubre"|"1.8"  |"16" |"360000" |"29/09/2021"|"13"                |"2021"         |
+    |Retanqueo |Cedula      |Credito|NombreCredito     |Ingresos |decLey    |descNomina |Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
+    |"9000000" |"72130384"  |"72864"|"MARCIANO HIGINIO"|"6500000" |"380000" |"100000"   |"Octubre"   |"1.8"  |"90" |"360000" |"29/09/2021"|"13"                |"2021"         |
 
 
    @ClientesBienvenidaRetanqueos 
