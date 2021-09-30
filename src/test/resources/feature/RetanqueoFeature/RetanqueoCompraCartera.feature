@@ -35,8 +35,8 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
    Ejemplos: 
-   |Cedula    |NombreCredito    |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey |descNomina|entidad                               |cartera  |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|fechaActual |
-   |"93376715" |"LUIS AUGUSTO" |"54811" |"src/test/resources/Data/PDFPRUEBA.pdf"|"3000000"|"1.8"|"60" |"25"                |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/08/2021"     |"2007"        |"1037"|"25/08/2021"|
+   |Cedula    |NombreCredito     |Credito |rutaPDF                                    |Retanqueo|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey |descNomina|entidad                               |cartera  |vlr_cuota|fecha_vencimiento|num_obligacion|codigo|fechaActual |
+   |"7412777" |"EDUARDO ENRIQUE" |"72740" |"src/test/resources/Data/PDFPRUEBA.pdf"    |"7000000"|"1.8"|"20" |"5"                 |"4500000"|"300000"|"50000"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|"1500000"|"65000"  |"30/08/2021"     |"2007"        |"1037"|"29/09/2021"|
  
   @AnalisisCreditoRetanqueo
    Esquema del escenario: Analisis del credito
@@ -44,20 +44,20 @@ Característica: Retanqueo de creditos
    Y ingresa los valores guardando <Ingresos><descLey><descNomina>
    Y pasa a la siguiente pestana del simulador analista
    Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><cartera><DiasHabilesIntereses>
-   #Y Guarda los datos del simulador
-   #Y Pasa a la pestana endeudamiento global aprobando
-   #Y Aprueba la tarea del credito<Cedula>
+   Y Guarda los datos del simulador
+   Y Pasa a la pestana endeudamiento global aprobando
+   Y Aprueba la tarea del credito<Cedula>
     
    Ejemplos: 
-   |Cedula    |NombreCredito  |Credito |Retanqueo|Tasa |Plazo|fecha       |Mes     |DiasHabilesIntereses|Ingresos |descLey |descNomina|cartera  |DiasHabilesIntereses|AnnoAfetacion  |
-   |"77006163"|"DAIRO ANTONIO"|"57244" |"3000000"|"1.8"|"60" |"22/07/2021"|"Agosto"|"10"                |"4500000"|"300000"|"50000"   |"1500000"| "10"               |"2022"         |
+   |Cedula    |NombreCredito    |Credito |Retanqueo|Tasa |Plazo|fecha        |Mes      |DiasHabilesIntereses|Ingresos |descLey |descNomina|cartera  |AnnoAfetacion  |
+   |"7412777" |"EDUARDO ENRIQUE"|"72740" |"7000000"|"1.8"|"20" |"29/09/2021"|"Octubre"|"5"                |"4500000"|"300000"|"50000"    |"1500000"|"2021"         |
  
   @ClientesBienvenida 
    Esquema del escenario: Clientes para Bienvenida
    Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
    Y se validan los valores de las condiciones del credito
-   Entonces se pasa a la pestana condiciones de credito se marcan los check acepta cartera y se acepta condiciones<TipoDesen>
+  # Entonces se pasa a la pestana condiciones de credito se marcan los check acepta cartera y se acepta condiciones<TipoDesen>
   
    Ejemplos: 
    |Cedula    |TipoDesen |Celular     |Correo              |

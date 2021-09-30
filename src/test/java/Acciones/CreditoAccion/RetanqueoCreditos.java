@@ -199,9 +199,10 @@ public class RetanqueoCreditos extends BaseTest {
 		try {
 			recorerpestanas("SEGURIDAD");
 			hacerClick(retanqueopages.Viable);
-			hacerClick(retanqueopages.Guardar);
+		    //hacerClick(retanqueopages.Guardar);
+			RepetirConsultaCentrales(retanqueopages.Guardar,retanqueopages.Concepto);
 			ElementVisible();
-			esperaExplicita(retanqueopages.Concepto);
+			//esperaExplicita(retanqueopages.Concepto);
 			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,CedulaCliente);
 			Refrescar();
 			esperaExplicita(pestanaSeguridadPage.Concepto);
@@ -412,7 +413,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 			int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
 			ToleranciaPesoMensaje("Prima Anticipada de seguro ",
-					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroSInterno)),
 					PrimaAnticipadaSeguro);
 
 			//////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -441,7 +442,7 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)), MontoMaxDesembolsar);
-
+		
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);			
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
@@ -461,7 +462,7 @@ public class RetanqueoCreditos extends BaseTest {
 
 			int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
 			ToleranciaPesoMensaje("Prima Anticipada de seguro ",
-					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroSInterno)),
 					PrimaAnticipadaSeguro);
 			
 			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
@@ -490,13 +491,13 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)), MontoMaxDesembolsar);
-
+			
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
 			
 			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaAnticipadaSeguro);
-			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado);
+			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado+PrimaNoDevengada);
 
 		}
 	}
@@ -582,6 +583,22 @@ public class RetanqueoCreditos extends BaseTest {
 		while (resultado.next()) {
 			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
 		}
+		
+		/*Consultar fianza Hijo*/		
+		int fianzaPadre = 0;
+		resultado = query.consultaFianzaCreditoPadre(Credito);			
+		while (resultado.next()) {
+			fianzaPadre = Integer.parseInt(resultado.getString(1));
+			log.info("******** vlrFianzaPadre - "+fianzaPadre+" ***********");
+		}
+
+		/*Consultar Estudio Credito Padre*/
+		int estudioCreditoPadre = 0;
+		resultado = query.consultaEstudioCreditoPadre(Credito);			
+		while (resultado.next()) {
+			estudioCreditoPadre = Integer.parseInt(resultado.getString(1));
+			log.info("******** Estudio Credito padre - "+estudioCreditoPadre+" ***********");
+		}
 
 		// Consultar los conceptos para el cambio de tasa
 		double EstudioCredito = 0;
@@ -638,6 +655,20 @@ public class RetanqueoCreditos extends BaseTest {
 			//int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima 
 			int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza,vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
 			ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),PrimaAnticipadaSeguro);
+		
+			int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultEstudioCredito = EstudioCreditoIva-estudioCreditoPadre;
+			resultEstudioCredito=(resultEstudioCredito<0)?resultEstudioCredito*0:resultEstudioCredito;
+			ToleranciaPesoMensaje(" Estudio Credito IVA",
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)), resultEstudioCredito);
+
+			int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultFianza = ValorFianza-fianzaPadre;
+			resultFianza=(resultFianza<0)?resultFianza*0:resultFianza;
+			ToleranciaPesoMensaje(" Valor fianza ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+
+			
+			
 		}else {
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
 					TasaFianza, vlrIva);
@@ -646,10 +677,20 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),PrimaAnticipadaSeguro);
 			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)), PrimaNeta);
-			
 		    PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 		    ToleranciaPesoMensaje(" Prima neta No devengada", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)), PrimaNoDevengada);
 		 
+		    int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultEstudioCredito = EstudioCreditoIva-estudioCreditoPadre;
+			resultEstudioCredito=(resultEstudioCredito<0)?resultEstudioCredito*0:resultEstudioCredito;
+			ToleranciaPesoMensaje(" Estudio Credito IVA",
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)), resultEstudioCredito);
+
+			int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultFianza = ValorFianza-fianzaPadre;
+			resultFianza=(resultFianza<0)?resultFianza*0:resultFianza;
+			ToleranciaPesoMensaje(" Valor fianza ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+
 		}
 
 		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".") == true) {
@@ -848,7 +889,23 @@ public class RetanqueoCreditos extends BaseTest {
 				ResultSet resultado6 = query.MesesActivoPadre(Credito);
 				while (resultado6.next()) {
 					MesesActivoPadre = Integer.parseInt(resultado6.getString(1));
-		    }	
+		    }
+				
+				/*Consultar fianza Hijo*/		
+				int fianzaPadre = 0;
+				resultado = query.consultaFianzaCreditoPadre(Credito);			
+				while (resultado.next()) {
+					fianzaPadre = Integer.parseInt(resultado.getString(1));
+					log.info("******** vlrFianzaPadre - "+fianzaPadre+" ***********");
+				}
+
+				/*Consultar Estudio Credito Padre*/
+				int estudioCreditoPadre = 0;
+				resultado = query.consultaEstudioCreditoPadre(Credito);			
+				while (resultado.next()) {
+					estudioCreditoPadre = Integer.parseInt(resultado.getString(1));
+					log.info("******** Estudio Credito padre - "+estudioCreditoPadre+" ***********");
+				}
 
 		// Consultar los conceptos para el cambio de tasa
 		double EstudioCredito = 0;
@@ -862,7 +919,6 @@ public class RetanqueoCreditos extends BaseTest {
 			TasaFianza = Double.parseDouble(resultado.getString(4));
 			mesDos = resultado.getInt(5);							
 		}
-		//EstudioCredito = 2.35; //EliminarLinea
 		log.info("Tasa Estudio Credito " +EstudioCredito);
 		log.info("Tasa Fianza " +TasaFianza);
 		log.info("Valor mes Dos " + mesDos);
@@ -874,28 +930,62 @@ public class RetanqueoCreditos extends BaseTest {
 		if(prima=="") {			
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
 					TasaFianza, vlrIva);
+			
+		   calculoMontoSoli=Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));		 	
+		   log.info("Monto a solicitar: "+calculoMontoSoli);
 						
-			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
-			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),PrimaAnticipadaSeguro);
+			int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),PrimaAnticipadaSeguro);
+		
+			int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultEstudioCredito = EstudioCreditoIva-estudioCreditoPadre;
+			resultEstudioCredito=(resultEstudioCredito<0)?resultEstudioCredito*0:resultEstudioCredito;
+			ToleranciaPesoMensaje(" Estudio Credito IVA",
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)), resultEstudioCredito);
+
+			int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultFianza = ValorFianza-fianzaPadre;
+			resultFianza=(resultFianza<0)?resultFianza*0:resultFianza;
+			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+
 		}else {
 			int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
 					TasaFianza, vlrIva);
-			int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 			
+			calculoMontoSoli=Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));		 	
+			log.info("Monto a solicitar: "+calculoMontoSoli);
+			
+			int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+		    ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguro)),PrimaAnticipadaSeguro);
+
 			int PrimaNeta = (int) PrimaNeta(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);	
-		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)), PrimaNeta);
-			ToleranciaPesoMensaje(" Prima anticipada de seguro ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)),PrimaAnticipadaSeguro);
+		    ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)), PrimaNeta);
+			
 			PrimaNoDevengada = (int) PrimaNoDevengadaCPadre(PrimaPadre,MontoPadre,MesesActivoPadre,PrimaAnticipadaSeguro, 1000000, Tasaxmillonseguro,DesPrimaAntic);
 			ToleranciaPesoMensaje(" Prima neta No devengada ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)), PrimaNoDevengada);
+			
+			int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultEstudioCredito = EstudioCreditoIva-estudioCreditoPadre;
+			resultEstudioCredito=(resultEstudioCredito<0)?resultEstudioCredito*0:resultEstudioCredito;
+			ToleranciaPesoMensaje(" Estudio Credito IVA",
+					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)), resultEstudioCredito);
 
+			int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
+			int resultFianza = ValorFianza-fianzaPadre;
+			resultFianza=(resultFianza<0)?resultFianza*0:resultFianza;
+			ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+
+			
+			
+			
 		}		
 		
 			
 		if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")==true) {
-			ToleranciaPesoMensaje(" Valor Desembolsar IF ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera)+PrimaNoDevengada);
+			ToleranciaPesoMensaje(" Valor Desembolsar IF ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).substring(0,TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length()-2).replaceAll("[^a-zA-Z0-9]", "")),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
 		System.out.println("dentro del if que contiene punto");
 		}else {
-			ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera)+PrimaNoDevengada);
+			ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),(Integer.parseInt(retanqueo)-DescuentosPorCartera));
 		System.out.println("dentro del else que no contiene punto");
 		}
 		
