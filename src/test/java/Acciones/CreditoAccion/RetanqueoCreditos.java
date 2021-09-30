@@ -237,9 +237,8 @@ public class RetanqueoCreditos extends BaseTest {
 				DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 			}
 			
-			/*esperaExplicita(retanqueopages.inputTasa);
-			LimpiarConTeclado(retanqueopages.inputTasa);
-			EscribirElemento(retanqueopages.inputTasa, Tasa);*/
+			esperaExplicita(retanqueopages.labelTasa);
+			hacerClicknotificacion();
 			hacerClick(retanqueopages.labelTasa);
 			EscribirElemento(retanqueopages.inputTasaFiltro,Tasa);
 					EnviarEnter(retanqueopages.inputTasaFiltro);
