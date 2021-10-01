@@ -231,6 +231,23 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet ConsultaEstado(String Cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select c.estado from credito c \r\n"
+					+ "join cliente cl on c.id_cliente = cl.id \r\n"
+					+ "where 1=1\r\n"
+					+ "and cl.identificacion = '"+Cedula+"'\r\n"
+					+ "order by c.id desc;");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - Consulta Estado credito********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
 	}
 
 

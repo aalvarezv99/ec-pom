@@ -7,15 +7,15 @@ Característica: Retanqueo de creditos
 
  @RetanqueoCompraCarteraSaneamiento
  Esquema del escenario:  Retanqueo Compra de cartera y saneamiento
-  # Cuando El agente ingrese a la pestana retanqueo 
-  # Y se filtra por <Cedula><Credito>
-  # Y se da clic a retanquear   
+   Cuando El agente ingrese a la pestana retanqueo 
+   Y se filtra por <Cedula><Credito>
+   Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-  # Y borrar archivos
-  # Y cargar archivos nuevos <rutaPDF>
-  # Y se solicita la consulta a centrales de riesgo
-  # Y marcar el credito viable
+   Y borrar archivos
+   Y cargar archivos nuevos <rutaPDF>
+   Y se solicita la consulta a centrales de riesgo
+   Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
@@ -57,11 +57,11 @@ Característica: Retanqueo de creditos
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    # Y se validan los valores de las condiciones del credito
+    Y se validan los valores de las condiciones del credito <Credito>
     Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     Ejemplos: 
-    |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"32530184"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |Cedula    |Credito|Celular     |Correo                     |TipoDesen  |
+    |"9077633" |"72864"|"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueosCarteraSaneamiento 

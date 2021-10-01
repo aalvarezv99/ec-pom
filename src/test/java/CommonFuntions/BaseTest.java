@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -371,7 +372,7 @@ public class BaseTest {
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
-		log.info("Vlr Gmf4100" + redondearDecimales(Valor,0));
+		log.info("Vlr Gmf4100 " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
@@ -464,6 +465,8 @@ public class BaseTest {
 		return redondearDecimales(valor,0);
 		
 	}
+	
+	
 	
 	/*************************Fin Formula de CXC*****************************/
  
@@ -578,6 +581,7 @@ public class BaseTest {
 		ElementVisible();
 		hacerClicknotificacion();
 		ElementVisible();
+		hacerClicknotificacion();
 	}
 	
 	public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
@@ -819,7 +823,8 @@ public void clickvarios(By locator) {
 		if (Totaldoc != 0) {
 		String Borrar=clickvarios.get(0).getAttribute("id");
 		for(int i=0;i<Totaldoc;i++) {	
-			Thread.sleep(2000);			
+			Thread.sleep(2000);	
+			Hacer_scroll_centrado(By.id(Borrar));
 			hacerClick(By.id(Borrar));			
 			hacerClickVariasNotificaciones();
 			}
@@ -1288,5 +1293,31 @@ public WebDriver chromeDriverConnection() {
 
     public void EnviarEscape(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ESCAPE);
+	}
+    
+    public void esperaporestadoBD(By locator, String Cedula,String Estado) throws InterruptedException, NumberFormatException, SQLException {
+		String ConsulEstado = "";
+		String notificacion = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		int Contador = 0;
+		// si en la cantida de intentos de contador no pasa el test falla
+		while (Contador < 3 && (notificacion.isEmpty() || (notificacion.contains("pendiente") || notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")))) {
+			resultado = query.ConsultaEstado(Cedula);
+			while(resultado.next()) {
+		 		ConsulEstado = resultado.getString(1);
+			}
+			esperaExplicita(locator);
+			hacerClick(locator);
+			ElementVisible();
+			esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+			notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();				
+			hacerClicknotificacion();
+			Contador++;
+		}
+
+		if (Contador >= 3) {
+	    	assertTrue("Falló al realizar la consulta a centrales, # Intentos: " + Contador, false);
+	    }
 	}
 }
