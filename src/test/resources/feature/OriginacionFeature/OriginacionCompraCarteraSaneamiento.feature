@@ -14,7 +14,7 @@ Característica: Solicitud combra de cartera
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
      Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
-     Y se finaliza con la consulta a centrales
+     Y se finaliza con la consulta a centrales <Cedula>
    
    Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           

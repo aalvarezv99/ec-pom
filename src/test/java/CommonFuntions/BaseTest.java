@@ -578,6 +578,7 @@ public class BaseTest {
 		ElementVisible();
 		hacerClicknotificacion();
 		ElementVisible();
+		hacerClicknotificacion();
 	}
 	
 	public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
@@ -1289,4 +1290,46 @@ public WebDriver chromeDriverConnection() {
     public void EnviarEscape(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ESCAPE);
 	}
+    
+    public void esperaporestadoBD(By locator, String Cedula,String Estado) throws InterruptedException, NumberFormatException, SQLException {
+		
+		String ConsulEstado = "";
+		String notificacion = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		int Contador=0;
+	
+
+		// si en 10 segundos no obtiene respuesta el test falla
+		while (Contador<2 && ConsulEstado.contains(Estado) && ( notificacion.contains("error")|| notificacion.contains("no se pudo crear la tarea"))) {			
+			resultado = query.ConsultaEstado(Cedula);
+			while(resultado.next()) {
+		 		ConsulEstado = resultado.getString(1);
+			}
+			log.info("Adentro Consulta estado del credito Estado: " + ConsulEstado);
+	        log.info("Adentro Consulta estado del credito Notificacion: " + notificacion);
+	        log.info("Adentro Consulta estado del credito Intento: # " + Contador);
+	        
+				//if(notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")) {
+					esperaExplicita(locator);
+					hacerClick(locator);
+					ElementVisible();
+					esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+					notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();
+					ElementVisible();					
+					hacerClicknotificacion();
+					
+				//}
+			Contador++;
+			
+		}
+    
+//	    if (Contador>=3) {
+//	    	assertTrue("Contador Exitoso numero de Intento: # " + Contador, true);
+//	    } else {
+//	    	assertTrue("Contador Fallo numero de  Intento: # " + Contador, false);
+//	    }
+	}
+    
+    
 }

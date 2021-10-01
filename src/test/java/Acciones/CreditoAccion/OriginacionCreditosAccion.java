@@ -371,30 +371,14 @@ public class OriginacionCreditosAccion extends BaseTest {
 		
 	}
 
-	public void ConsultaCentrales() throws InterruptedException {
+	public void ConsultaCentrales(String Cedula) throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion - ConsultaCentrales()  ***************");
 		try {
-			hacerClick(simuladorasesorpage.btnSoliConsulta);
 			ElementVisible();
-			esperaExplicita(simuladorasesorpage.notificacion);
-			String TextoNotificacion=GetText(simuladorasesorpage.notificacion);
-			
-			if(TextoNotificacion.contains("OCURRIÓ UN ERROR")==true){
-			hacerClicknotificacion();
 			hacerClick(simuladorasesorpage.btnSoliConsulta);
-			ElementVisible();		
-			hacerClicknotificacion();
-			//implementar consulta BD y un while por tiempo
-			//assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
-			adjuntarCaptura("ConsultaCentrales");
-			hacerClicknotificacion();
-			}else 
-			{
-            //implementar consulta BD y un while por tiempo	
-			//assertTextonotificacion(simuladorasesorpage.notificacion,"Se ha solicitado la consulta en listas y centrales de riesgo para el crédito:");
-			adjuntarCaptura("ConsultaCentrales");
-			hacerClicknotificacion();
-			}
+			esperaExplicita(simuladorasesorpage.notificacion);
+			esperaporestadoBD(simuladorasesorpage.btnSoliConsulta,Cedula,"PENDIENTE_RESPUESTA_CONSULTA_CENTRALES");			
+			adjuntarCaptura("ConsultaCentrales");			
 			
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - ConsultaCentrales() #######" + e);
@@ -435,15 +419,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 			esperaExplicita(pestanaSeguridadPage.BotonGuardar);
 			hacerClick(pestanaSeguridadPage.Viable);
 			RepetirConsultaCentrales(pestanaSeguridadPage.BotonGuardar,pestanaSeguridadPage.Concepto);
-			/*hacerClick(pestanaSeguridadPage.BotonGuardar);
-			ElementVisible();
-			String notificacion = GetText(simuladorasesorpage.notificacion);		
-			if (!notificacion.equals("Proceso Realizado Correctamente")) {
-				hacerClick(pestanaSeguridadPage.BotonGuardar);
-				ElementVisible();	
-			}
-			assertTextonotificacion(simuladorasesorpage.notificacion, "Proceso Realizado Correctamente");
-			esperaExplicitaNopresente(simuladorasesorpage.notificacion);*/
 			Hacer_scroll(pestanaSeguridadPage.Concepto);
 			esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck,Cedula);
 			recorerpestanas("SIMULADOR");
