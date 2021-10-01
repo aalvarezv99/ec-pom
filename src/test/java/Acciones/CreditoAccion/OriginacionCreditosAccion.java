@@ -375,8 +375,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("******************** OriginacionCreditosAccion - ConsultaCentrales()  ***************");
 		try {
 			ElementVisible();
-			hacerClick(simuladorasesorpage.btnSoliConsulta);
-			esperaExplicita(simuladorasesorpage.notificacion);
+			// hacerClick(simuladorasesorpage.btnSoliConsulta);
+			// esperaExplicita(simuladorasesorpage.notificacion);
 			esperaporestadoBD(simuladorasesorpage.btnSoliConsulta,Cedula,"PENDIENTE_RESPUESTA_CONSULTA_CENTRALES");			
 			adjuntarCaptura("ConsultaCentrales");			
 			

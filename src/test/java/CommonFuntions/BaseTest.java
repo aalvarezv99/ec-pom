@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -1292,44 +1293,31 @@ public WebDriver chromeDriverConnection() {
 	}
     
     public void esperaporestadoBD(By locator, String Cedula,String Estado) throws InterruptedException, NumberFormatException, SQLException {
-		
 		String ConsulEstado = "";
 		String notificacion = "";
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado;
-		int Contador=0;
-	
-
+		int Contador = 0;
 		// si en 10 segundos no obtiene respuesta el test falla
-		while (Contador<2 && ConsulEstado.contains(Estado) && ( notificacion.contains("error")|| notificacion.contains("no se pudo crear la tarea"))) {			
+		while (Contador < 3 && (notificacion.isEmpty() || (notificacion.contains("pendiente") || notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")))) {
 			resultado = query.ConsultaEstado(Cedula);
 			while(resultado.next()) {
 		 		ConsulEstado = resultado.getString(1);
 			}
-			log.info("Adentro Consulta estado del credito Estado: " + ConsulEstado);
-	        log.info("Adentro Consulta estado del credito Notificacion: " + notificacion);
-	        log.info("Adentro Consulta estado del credito Intento: # " + Contador);
-	        
-				//if(notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")) {
-					esperaExplicita(locator);
-					hacerClick(locator);
-					ElementVisible();
-					esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
-					notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();
-					ElementVisible();					
-					hacerClicknotificacion();
-					
-				//}
+			esperaExplicita(locator);
+			hacerClick(locator);
+			ElementVisible();
+			esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+			notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();				
+			hacerClicknotificacion();
 			Contador++;
-			
+			log.info("Adentro Consulta estado del credito Estado: " + ConsulEstado);
+			log.info("Adentro Consulta estado del credito Notificacion: " + notificacion);
+			log.info("Adentro Consulta estado del credito Intento: # " + Contador);
 		}
-    
-//	    if (Contador>=3) {
-//	    	assertTrue("Contador Exitoso numero de Intento: # " + Contador, true);
-//	    } else {
-//	    	assertTrue("Contador Fallo numero de  Intento: # " + Contador, false);
-//	    }
+
+		if (Contador >= 3) {
+	    	assertTrue("Falló al realizar la consulta a centrales, # Intentos: " + Contador, false);
+	    }
 	}
-    
-    
 }

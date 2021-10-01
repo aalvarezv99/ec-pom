@@ -16,8 +16,8 @@ Característica: Originacion de Creditos
     Y se finaliza con la consulta a centrales <Cedula>
 
     Ejemplos: 
-      | Pagaduria   | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre  | Papellido  | Sapellido | Correo                 | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor |
-      | "COLFONDOS" | "59912399" | "12/Ago/1982" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0"            			 | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ALEYDA" | "RODRIGUEZ"| "GONZALEZ"| "apqwerty251@mail.com" | "3015128199" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  |
+      | Pagaduria   | Cedula       | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre  | Papellido  | Sapellido | Correo                 | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor |
+      | "COLFONDOS" | "59912399"   | "12/Ago/1982" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0"            			 | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ALEYDA" | "RODRIGUEZ"| "GONZALES"| "apqwerty251@mail.com" | "3015128199" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  |
 
   @SolicitudCredito
   Esquema del escenario: Solicitar credito sin saneamientos
