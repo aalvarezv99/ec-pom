@@ -29,7 +29,8 @@ Característica: Retanqueo de creditos
    
   Ejemplos: 
   |Retanqueo  |Cedula     |Credito|rutaPDF                                    	|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
-  |"9000000"  |"72130384" |"72864"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"90" |"10"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
+  |"5000000"  |"8663973"  |"73836"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"25" |"15"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
+  #|"7000000"  |"8688167"  |"75261"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"12" |"15"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
   
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -41,8 +42,8 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo |Cedula      |Credito|NombreCredito     |Ingresos |decLey    |descNomina |Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
-    |"9000000" |"72130384"  |"72864"|"MARCIANO HIGINIO"|"6500000" |"380000" |"100000"   |"Octubre"   |"1.8"  |"90" |"360000" |"29/09/2021"|"13"                |"2021"         |
+    |Retanqueo |Cedula     |Credito|NombreCredito   |Ingresos |decLey    |descNomina |Mes           |Tasa  |Plazo|descLey   |fecha        |DiasHabilesIntereses|AnnoAfetacion  |
+    |"7000000" |"8688167"  |"75261"|"PABLO MIGUEL"  |"6500000" |"380000" |"100000"   |"Noviembre"   |"1.8"  |"12" |"360000" |"20/10/2021" |"15"                |"2021"         |
 
 
    @ClientesBienvenidaRetanqueos 

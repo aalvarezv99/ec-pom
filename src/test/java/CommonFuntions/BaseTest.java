@@ -372,7 +372,7 @@ public class BaseTest {
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
-		log.info("Vlr Gmf4100" + redondearDecimales(Valor,0));
+		log.info("Vlr Gmf4100 " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
@@ -465,6 +465,8 @@ public class BaseTest {
 		return redondearDecimales(valor,0);
 		
 	}
+	
+	
 	
 	/*************************Fin Formula de CXC*****************************/
  
@@ -821,7 +823,8 @@ public void clickvarios(By locator) {
 		if (Totaldoc != 0) {
 		String Borrar=clickvarios.get(0).getAttribute("id");
 		for(int i=0;i<Totaldoc;i++) {	
-			Thread.sleep(2000);			
+			Thread.sleep(2000);	
+			Hacer_scroll_centrado(By.id(Borrar));
 			hacerClick(By.id(Borrar));			
 			hacerClickVariasNotificaciones();
 			}
@@ -1298,7 +1301,7 @@ public WebDriver chromeDriverConnection() {
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado;
 		int Contador = 0;
-		// si en 10 segundos no obtiene respuesta el test falla
+		// si en la cantida de intentos de contador no pasa el test falla
 		while (Contador < 3 && (notificacion.isEmpty() || (notificacion.contains("pendiente") || notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")))) {
 			resultado = query.ConsultaEstado(Cedula);
 			while(resultado.next()) {
@@ -1311,9 +1314,6 @@ public WebDriver chromeDriverConnection() {
 			notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();				
 			hacerClicknotificacion();
 			Contador++;
-			log.info("Adentro Consulta estado del credito Estado: " + ConsulEstado);
-			log.info("Adentro Consulta estado del credito Notificacion: " + notificacion);
-			log.info("Adentro Consulta estado del credito Intento: # " + Contador);
 		}
 
 		if (Contador >= 3) {

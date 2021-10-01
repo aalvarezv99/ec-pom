@@ -375,8 +375,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("******************** OriginacionCreditosAccion - ConsultaCentrales()  ***************");
 		try {
 			ElementVisible();
-			// hacerClick(simuladorasesorpage.btnSoliConsulta);
-			// esperaExplicita(simuladorasesorpage.notificacion);
 			esperaporestadoBD(simuladorasesorpage.btnSoliConsulta,Cedula,"PENDIENTE_RESPUESTA_CONSULTA_CENTRALES");			
 			adjuntarCaptura("ConsultaCentrales");			
 			
@@ -1120,11 +1118,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[10].isEmpty()+" "+DesPrimaAntic);
 	  
 			
-		if(ValoresCredito[10].isEmpty()==true) {
+		if(ValoresCredito[10].isEmpty()) {
 		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
-		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",(int) Double.parseDouble(ValoresCredito[0]),calculoMontoSoli);
 		}else {
-		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",Integer.parseInt(ValoresCredito[0]),calculoMontoSoli);
+		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",(int) Double.parseDouble(ValoresCredito[0]),calculoMontoSoli);
 		}
 		
 		int ValorFianza = (int) ValorFianza(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, TasaFianza, variableFianza);

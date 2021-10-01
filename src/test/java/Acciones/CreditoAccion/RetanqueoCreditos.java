@@ -443,7 +443,7 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)), MontoMaxDesembolsar);
 		
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);			
-			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
+			ToleranciaPesoMensaje("Pantalla Gmf 4x1000 ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
 			
 			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaAnticipadaSeguro);
@@ -495,8 +495,8 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
 			
-			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaAnticipadaSeguro);
-			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado+PrimaNoDevengada);
+			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaNeta);
+			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado);
 
 		}
 	}

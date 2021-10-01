@@ -297,17 +297,17 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
        public void Aceptarcondiconesdelcredito(String TipoDesen) throws InterruptedException {
       	 recorerpestanas("CONDICIONES DEL CRÉDITO");
       	 Refrescar();
-           hacerClick(pagesclienteparabienvenida.AceptarCartera);
-           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
-           MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
-           Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-           Thread.sleep(3000);           
-           hacerClick(pagesclienteparabienvenida.Desembolso);
-           selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
-           hacerClick(pagesclienteparabienvenida.CalificacionProceso);
-           hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-           hacerScrollAbajo();
-           hacerClick(pagesclienteparabienvenida.Acepta);
+//           hacerClick(pagesclienteparabienvenida.AceptarCartera);
+//           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
+//           MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
+//           Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
+//           Thread.sleep(3000);           
+//           hacerClick(pagesclienteparabienvenida.Desembolso);
+//           selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
+//           hacerClick(pagesclienteparabienvenida.CalificacionProceso);
+//           hacerClick(pagesclienteparabienvenida.CalificacionCobro);
+//           hacerScrollAbajo();
+//           hacerClick(pagesclienteparabienvenida.Acepta);
            ElementVisible(); 
       }
        
