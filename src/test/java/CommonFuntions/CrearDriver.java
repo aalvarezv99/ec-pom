@@ -133,12 +133,12 @@ public class CrearDriver {
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.addArguments("--no-sandbox");
 			//options.addArguments("--headless");
-			//options.addArguments("start-maximized");
-			options.addArguments("--disable-extensions");
+			options.addArguments("start-maximized");
+			//options.addArguments("--disable-extensions");
 			options.addArguments("--disable-dev-shm-usage");
-			options.addArguments("window-size=1400,2100");
+			//options.addArguments("window-size=1400,2100");
 			//options.addArguments("window-size=1900,1080"); 
-			//options.setBinary("/bin/google-chrome");
+		    options.setBinary("/usr/bin/google-chrome");
 			
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);			
