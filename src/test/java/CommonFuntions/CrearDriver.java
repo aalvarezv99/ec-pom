@@ -138,7 +138,7 @@ public class CrearDriver {
         	options.addArguments("disable-infobars"); // disabling infobars
         	options.addArguments("--disable-extensions"); // disabling extensions        	
         	options.addArguments("--disable-dev-shm-usage");
-			
+			options.addArguments("--remote-debugging-port=9222");
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);			
 		} catch (Exception e) {
