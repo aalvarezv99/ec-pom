@@ -132,7 +132,7 @@ public class CrearDriver {
 			
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.addArguments("--no-sandbox");
-			//options.addArguments("--headless");
+			options.addArguments("--headless");
 			//options.addArguments("start-maximized");
 			options.addArguments("--disable-extensions");
 			options.addArguments("--disable-dev-shm-usage");
