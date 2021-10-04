@@ -32,13 +32,13 @@ Característica: Solicitud combra de cartera
     Y se presiona en verificacion en la pestana digitalizacion
    	Y se crean los tipos de cartera o saneamiento a recoger 
    		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-   		#|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
+   		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
    		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
    	Y se guarda cartera
    	Y se pasa a la primera pestana de referenciacion para confirmar la entidad
     	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
     	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-    	#|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
+    	|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
@@ -65,7 +65,7 @@ Característica: Solicitud combra de cartera
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    #Y se validan los valores de las condiciones del credito
+    Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     
           Ejemplos: 

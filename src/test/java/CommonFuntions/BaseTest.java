@@ -856,7 +856,7 @@ public void clickvarios(By locator) {
 		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
 		ResultSet resultado;
 		long start_time = System.currentTimeMillis();
-		long wait_time = 30000;
+		long wait_time = 50000;
 		long end_time = start_time + wait_time;
 
 		// si en 20 segundos no obtiene respuesta el test falla
