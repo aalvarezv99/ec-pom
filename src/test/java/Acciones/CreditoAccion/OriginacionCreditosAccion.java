@@ -1165,8 +1165,6 @@ public class OriginacionCreditosAccion extends BaseTest {
 			recorerpestanas("CONDICIONES DEL CRÉDITO");
 			Refrescar();
 			MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
-			// assertvalidarEquals(TextoElemento(pagesclienteparabienvenida.ValorDesembolsar),
-			// String.valueOf(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoTotalAprobado))-(pestanasimuladorinternopage.SaldoAlDia)));
 			Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
 			Thread.sleep(1000);
 			hacerClick(pagesclienteparabienvenida.Desembolso);
