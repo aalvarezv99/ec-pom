@@ -132,7 +132,8 @@ public class CrearDriver {
 			
 			//options.setExperimentalOption("prefs", chromePrefs);
 			options.addArguments("--no-sandbox"); // Bypass OS security model, MUST BE THE VERY FIRST OPTION
-        	options.addArguments("--headless");
+        	options.addArguments("headless");
+			options.addArguments("disable-infobars");
         	options.addArguments("start-maximized"); // open Browser in maximized mode
         	options.addArguments("disable-infobars"); // disabling infobars
         	options.addArguments("--disable-extensions"); // disabling extensions        	
