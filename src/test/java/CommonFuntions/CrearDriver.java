@@ -131,14 +131,12 @@ public class CrearDriver {
 			ChromeOptions options = new ChromeOptions();	
 			
 			//options.setExperimentalOption("prefs", chromePrefs);
-			options.addArguments("--no-sandbox");
-			options.addArguments("--headless");
-			options.addArguments("start-maximized");
-			options.addArguments("--disable-extensions");
-			options.addArguments("--disable-dev-shm-usage");
-			//options.addArguments("window-size=1400,2100");
-			//options.addArguments("window-size=1900,1080"); 
-		    options.setBinary("/usr/bin/google-chrome");
+			options.addArguments("--no-sandbox"); // Bypass OS security model, MUST BE THE VERY FIRST OPTION
+        	options.addArguments("--headless");
+        	options.addArguments("start-maximized"); // open Browser in maximized mode
+        	options.addArguments("disable-infobars"); // disabling infobars
+        	options.addArguments("--disable-extensions"); // disabling extensions        	
+        	options.addArguments("--disable-dev-shm-usage");
 			
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);			
