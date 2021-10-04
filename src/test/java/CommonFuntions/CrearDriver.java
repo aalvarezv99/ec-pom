@@ -128,10 +128,11 @@ public class CrearDriver {
 			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
-			ChromeOptions options = new ChromeOptions();			
+			ChromeOptions options = new ChromeOptions();	
+			
 			//options.setExperimentalOption("prefs", chromePrefs);
 			//options.addArguments("no-sandbox");
-			options.addArguments("--headless");
+			//options.addArguments("--headless");
 			//options.addArguments("start-maximized");
 			options.addArguments("--disable-extensions");
 			options.addArguments("--disable-dev-shm-usage");
