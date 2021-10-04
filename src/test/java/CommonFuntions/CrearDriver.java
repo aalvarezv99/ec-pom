@@ -131,7 +131,7 @@ public class CrearDriver {
 			ChromeOptions options = new ChromeOptions();	
 			
 			//options.setExperimentalOption("prefs", chromePrefs);
-			//options.addArguments("no-sandbox");
+			options.addArguments("--no-sandbox");
 			//options.addArguments("--headless");
 			//options.addArguments("start-maximized");
 			options.addArguments("--disable-extensions");
