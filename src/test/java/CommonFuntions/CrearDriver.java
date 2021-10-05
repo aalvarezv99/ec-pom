@@ -84,7 +84,7 @@ public class CrearDriver {
 					System.setProperty("webdriver.gecko.driver", origenFuente + so +"/" + navegador +"/geckodriver.exe");
 					break;
 				case "Linux":
-					System.setProperty("webdriver.gecko.driver", origenFuente + so + "/linux");
+					System.setProperty("webdriver.gecko.driver", origenFuente + "/geckodriver");
 					break;
 				case "Mac":
 					System.setProperty("webdriver.gecko.driver", origenFuente + so + "/linux");
