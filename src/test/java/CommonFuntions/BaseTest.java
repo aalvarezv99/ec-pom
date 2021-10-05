@@ -447,15 +447,7 @@ public class BaseTest {
 		}
 		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
 		return redondearDecimales(valor,0);
-	}
-	
-	public double EstudioCreditoIvacxc (int TotalMontoSoli, double porcentajeEstudioCredito) {
-                          
-		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
-		log.info("Estudio Credito" + redondearDecimales(Valor,0));
-		return (int) redondearDecimales(Valor,0);
-                          
-	}
+	}	
 	
 	/*ThainerPerez 20-sep-2021, Se crea el metodo que devuelve el remanente estimado para retanqueos*/
 	public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito, int comprasCartera, int gmf4x100, int primaSeguro) {

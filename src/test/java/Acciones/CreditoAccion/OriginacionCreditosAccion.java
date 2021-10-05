@@ -1085,9 +1085,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("Tasa Fianza " +TasaFianza);
 		log.info("Valor mes Dos " + mesDos);
 		log.info("Tasa Dos" + tasaDos);
-
-		log.info("TasaFianza "+ tasaDos);
-		double tasaUno = Double.parseDouble(ValoresCredito[2])/100;
+		double tasaUno = Double.parseDouble(Tasa)/100;
 
 		
 		
@@ -1113,22 +1111,23 @@ public class OriginacionCreditosAccion extends BaseTest {
 		log.info("suma retanqueo y saldo al dia  "+ (Integer.parseInt(ValoresCredito[11])+SaldoAlDia));
 		
 		int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-				
-		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, 1000000, Tasaxmillonseguro,DesPrimaAntic);
-		System.out.println("######## CALCULO DE PRIMA ######## "+PrimaAnticipadaSeguro+" "+ValoresCredito[10].isEmpty()+" "+DesPrimaAntic);
+		
+		int monto = Integer.parseInt(ValoresCredito[0]) - Integer.parseInt(ValoresCredito[10])- Integer.parseInt(ValoresCredito[16]);
+		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(monto, 1000000, Tasaxmillonseguro,DesPrimaAntic);
+		ToleranciaPesoMensaje("LLAMADA BIENVENIDA - PRIMA",Integer.parseInt(ValoresCredito[10]),PrimaAnticipadaSeguro);
 	  
 			
-		if(ValoresCredito[10].isEmpty()) {
+		/*if(ValoresCredito[10].isEmpty()) {
 		 calculoMontoSoli=calculoMontoSoli-PrimaAnticipadaSeguro;
 		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",(int) Double.parseDouble(ValoresCredito[0]),calculoMontoSoli);
 		}else {
 		 ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",(int) Double.parseDouble(ValoresCredito[0]),calculoMontoSoli);
-		}
+		}*/
 		
-		int ValorFianza = (int) ValorFianza(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, TasaFianza, variableFianza);
-		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO VALOR FIANZA ########",Integer.parseInt(ValoresCredito[14]),ValorFianza);				
-		int EstudioCreditoIva = (int) EstudioCreditoIvacxc(Integer.parseInt(ValoresCredito[11])+SaldoAlDia, EstudioCredito);
-		ToleranciaPesoMensaje("###### ERROR SIM ASESOR - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(ValoresCredito[16]),EstudioCreditoIva);
+		int ValorFianza = (int) ValorFianza(monto, TasaFianza, variableFianza);
+		ToleranciaPesoMensaje("LLAMADA BIENVENIDA - CALCULANDO VALOR FIANZA",Integer.parseInt(ValoresCredito[16]),ValorFianza);				
+		int EstudioCreditoIva = (int) EstudioCreditoIva(monto, EstudioCredito);
+		ToleranciaPesoMensaje("LLAMADA BIENVENID- CALCULANDO ESTUDIO CREDITO ",Integer.parseInt(ValoresCredito[18]),EstudioCreditoIva);
 
 	}
 	
