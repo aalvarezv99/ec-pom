@@ -130,12 +130,12 @@ public class CrearDriver {
 			
 			ChromeOptions options = new ChromeOptions();	
 			
-			//options.setExperimentalOption("prefs", chromePrefs);
-			options.addArguments("--no-sandbox");
+			options.setExperimentalOption("prefs", chromePrefs);
+			/*options.addArguments("--no-sandbox");
 			options.addArguments("--headless");
 			options.addArguments("disable-infobars");
 			options.addArguments("--disable-extensions"); // disabling extensions        	
-        	options.addArguments("--disable-dev-shm-usage");
+        	options.addArguments("--disable-dev-shm-usage");*/
 
 			caps = new DesiredCapabilities();
 			caps.setCapability(ChromeOptions.CAPABILITY, options);			
