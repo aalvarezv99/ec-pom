@@ -1,5 +1,5 @@
 #language: es
-Característica: Prepago de Creditos
+Caracter¡stica: Prepago de Creditos
 
   Antecedentes: Usuario en el sistema
     Dado Un agente en el sistema core abacus con sesion iniciada
@@ -18,13 +18,13 @@ Característica: Prepago de Creditos
     Y El agente visualice el documento del certificado <RutaDocumento> del credito <NumRadicado>
     Y se realiza la validacion del PDF descargado con el <NumRadicado> en la ruta <RutaDocumento>
     Y Navegue a la pestana pagos de recaudos
-    #Y Realice el recaudo del credito <NumRadicado> con el valor total a pagar <RutaDocumento> para <TipoPago> con los datos del cliente <NumCedula>
-    #Entonces se finaliza verificando el estado del credito <NumRadicado> que cambio a "Prepagado"
+    Y Realice el recaudo del credito <NumRadicado> con el valor total a pagar <RutaDocumento> para <TipoPago> con los datos del cliente <NumCedula>
+    Entonces se finaliza verificando el estado del credito <NumRadicado> que cambio a "Prepagado"
 
     ##Y la amortizacion del prepago y lo movimientos contables en bases de datos
     Ejemplos: 
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento                                       |
-      | 49834 			| 12265718  |              14 	 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
+       | 76756 | 30704650 |               11 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
 
   @CertificacionSaldoActivaCXCSinFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc sin fianza
