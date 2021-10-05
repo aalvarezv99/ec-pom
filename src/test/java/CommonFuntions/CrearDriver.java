@@ -125,20 +125,20 @@ public class CrearDriver {
 		try {
 			pro.load(in);
 			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");			
-			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+			/*HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
 			ChromeOptions options = new ChromeOptions();	
 			
-			options.setExperimentalOption("prefs", chromePrefs);
+			options.setExperimentalOption("prefs", chromePrefs);*/
 			/*options.addArguments("--no-sandbox");
 			options.addArguments("--headless");
 			options.addArguments("disable-infobars");
 			options.addArguments("--disable-extensions"); // disabling extensions        	
         	options.addArguments("--disable-dev-shm-usage");*/
 
-			caps = new DesiredCapabilities();
-			caps.setCapability(ChromeOptions.CAPABILITY, options);			
+			/*caps = new DesiredCapabilities();
+			caps.setCapability(ChromeOptions.CAPABILITY, options);	*/		
 		} catch (Exception e) {
 			log.error("####### ERROR - DesiredCapabilities setDownloadsPath()  ########" + e);
 		}
