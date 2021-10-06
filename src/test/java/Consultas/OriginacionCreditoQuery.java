@@ -56,7 +56,7 @@ public class OriginacionCreditoQuery {
 				 idCredito = result.getInt(1);
 				 idPagaduria = result.getInt(2);
 			}
-			r = dbconector.conexion("select round(obtener_valor_estudio_credito(current_date,"+ idCredito +","+ idPagaduria+", false)) estudiCreditoPadre;");
+			r = dbconector.conexion("select coalesce(round(obtener_valor_estudio_credito(current_date,"+ idCredito +","+ idPagaduria+", false)),0) estudiCreditoPadre;");
 						
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA  - consultaEstudioCredito() ********");
@@ -72,7 +72,7 @@ public class OriginacionCreditoQuery {
 		int idCredito = 0;
 		int idPagaduria = 0;
 		try {
-			r = dbconector.conexion("select round(d.valor_fianza) fianzaPadre from desglose d \r\n"
+			r = dbconector.conexion("select coalesce(round(d.valor_fianza),0) fianzaPadre from desglose d \r\n"
 					+ "where id_credito in (select  id from credito where numero_radicacion ="+ numeroradicado+")\r\n"
 					+ "and desglose_seleccionado is true\r\n"
 					+ "limit 1;");
