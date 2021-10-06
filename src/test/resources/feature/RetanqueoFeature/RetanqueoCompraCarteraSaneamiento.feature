@@ -25,19 +25,19 @@ Característica: Retanqueo de creditos
    Y se crean los tipos de cartera o saneamiento a recoger 
    		|Tipo						|Entidad				 				                        |Monto |VlrCuota|FechaVencimiento	|NumObligacion|
    		|Cartera				|8600068225 - ACORE				                      |100000|70000  	|30/09/2021     	|21236   			|
-   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA		|530000|70000  	|30/09/2021     	|29123   			|
+   		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA		|830000|70000  	|30/09/2021     	|29123   			|
    Y se guarda cartera
    Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-    	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|530000|70000  	|30/09/2021     	|29123   			|
-    	|Cartera				|8600068225 - ACORE			|100000 |70000   |30/09/2021     	  |21236   			|    	
+    	|Tipo						|Entidad				 				                       |Monto	 |VlrCuota|FechaVencimiento	|NumObligacion|
+    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA	 |830000 |70000  	|30/09/2021     	|29123   			|
+    	|Cartera				|8600068225 - ACORE			                       |100000 |70000   |30/09/2021     	|21236   		  |  	
    Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
    Y se marca identidida confirmada radicando la solicitud
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
   	|Retanqueo|Cedula     |Credito|rutaPDF                                |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo| VlrCompraSaneamiento|      
-    |"3000000"|"24478657" |"71039"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"25" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"530000"             |
+    |"7000000"|"79919146" |"71403"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"25" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"930000"|
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
   Esquema del escenario: Analisis del credito
@@ -48,9 +48,9 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
-    |Retanqueo|Credito|Cedula      |NombreCredito    |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
-    |"3000000"|"71039"|"24478657"  |"MARIA LUBIC"    |"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"0"      |"530000"    |"13"                | "2021"        |
+   Ejemplos:
+    |Retanqueo|Credito|Cedula      |NombreCredito      |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
+    |"7000000"|"71403"|"79919146"  |"WILLIAM FRANCISCO"|"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"100000" |"830000"    |"13"                | "2021"        |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 
@@ -58,17 +58,19 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
     Y se validan los valores de las condiciones del credito <Credito>
-    Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
+    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
+    Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
+
     Ejemplos: 
-    |Cedula    |Credito|Celular     |Correo                     |TipoDesen  |
-    |"9056144" |"55952"|"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
+    |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
+    |"79919146" | "71403" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+
+
     @CreditosVisacionRetanqueosCarteraSaneamiento 
     Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
-    
+
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                |
     |"24478657"|"01/10/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|

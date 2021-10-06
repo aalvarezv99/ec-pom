@@ -293,12 +293,14 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     /************FINALIZA ACCIONES ANALISTA DE CREDITO COMPRA DE CARTERA*************/
        
     /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
-       
-       public void Aceptarcondiconesdelcredito(String TipoDesen) throws InterruptedException {
-      	 recorerpestanas("CONDICIONES DEL CRÉDITO");
-      	 Refrescar();
-      	   esperaExplicita(pagesclienteparabienvenida.SaldoAlDia);
-      	   MarcarCheck(pagesclienteparabienvenida.CheckCarterasSaneamientos);    
+
+       public void AceptarcondiconesdelcreditoComSan(String TipoDesen, String cedula) throws InterruptedException {
+    	   this.cambiarPestana(0);
+		   this.ClientesParaBienvenida(cedula);
+      	   recorerpestanas("CONDICIONES DEL CRÉDITO");
+      	   Refrescar();
+           hacerClick(pagesclienteparabienvenida.AceptarCartera);
+           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
            MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
            Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
            Thread.sleep(3000);          
@@ -486,5 +488,21 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
       	  	ElementVisible();    	
     }
 /************FINALIZA ACCIONES DESEMBOLSO SANEAMIENTO*************/
-      
+
+     public void ClientesParaBienvenida(String Cedula) throws InterruptedException {
+ 		log.info("********** OriginacionCreditosAccion - ClientesParaBienvenida() **********");
+ 		try {
+ 			panelnavegacionaccion.CreditoClientesBienvenida();
+ 			ElementVisible();
+ 			esperaExplicita(pagesclienteparabienvenida.filtrocedula);
+ 			EscribirElemento(pagesclienteparabienvenida.filtrocedula, Cedula);
+ 			ElementVisible();
+ 			esperaExplicita(By.xpath("//td[text()='" + Cedula + "']"));
+ 			hacerClick(pagesclienteparabienvenida.Continuar);
+ 			ElementVisible();
+ 		} catch (Exception e) {
+ 			log.error("########## Error - OriginacionCreditosAccion  - ClientesParaBienvenida() #######" + e);
+ 			assertTrue("########## Error - OriginacionCreditosAccion - ClientesParaBienvenida()########"+ e,false);
+ 		}
+ 	}
 }

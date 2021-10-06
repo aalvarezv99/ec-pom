@@ -53,10 +53,10 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	//####################### FinalizaAnalisisCreditoParaCompraDeCartera ########################################################################
 
 	//####################### IniciaClientesBienvenidaCreditoParaCompraDeCartera ################################################################
-	@Entonces("se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta{string}")
-	public void SePasaALaPestanaCondicionesDeCreditoSeMarcanLosCheckYSeAcepta (String TipoDesen) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.Aceptarcondiconesdelcredito(TipoDesen);
-	}	
+//	@Entonces("se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta{string}")
+//	public void SePasaALaPestanaCondicionesDeCreditoSeMarcanLosCheckYSeAcepta (String TipoDesen) throws InterruptedException {
+//		solicitudcompracarterasaneamientoaccion.Aceptarcondiconesdelcredito(TipoDesen);
+//	}	
 	//####################### FinalizaLlamadaDeBienvenidaParaCompraDeCartera #####################################################################
 
 	 //####################### IniciaDesembolsoCartera ##################################################################### 

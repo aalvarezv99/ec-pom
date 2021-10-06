@@ -120,5 +120,9 @@ public class RetanqueoAsesorSteps {
 	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito) throws NumberFormatException, SQLException {
 		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito);
 	}
+	@Y("validar las condiciones de la carta de notificacion de creditos {string}")
+	public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
+		retanqueocreditos.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
+	}
 	
 }

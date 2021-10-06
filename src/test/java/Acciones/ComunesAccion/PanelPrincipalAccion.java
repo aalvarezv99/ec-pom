@@ -214,5 +214,11 @@ public class PanelPrincipalAccion extends BaseTest {
 			assertTrue("########## ERROR PANELPRINCIPALACCION - Retanqueo() ########"+ e,false);
 		}
 	}
-	
+
+	public void cartaNotificacionCondicionesCredito() {
+		esperaExplicita(panelnavegacionpage.selectCreditos);
+		hacerClick(panelnavegacionpage.selectCreditos);
+		esperaExplicita(panelnavegacionpage.selectCartaCondiciones);
+		hacerClick(panelnavegacionpage.selectCartaCondiciones);
+	}
 }
