@@ -30,7 +30,7 @@ Característica: Retanqueo de creditos
   Ejemplos: 
   |Retanqueo  |Cedula     |Credito|rutaPDF                                    	|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
   |"9000000"  |"79919146" |"71403"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"90" |"10"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
-  
+
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
@@ -40,7 +40,7 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador                     
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
+   Ejemplos:
     |Retanqueo |Cedula      |Credito|NombreCredito |Ingresos |decLey    |descNomina |Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
     |"9000000" |"79919146"  |"71403"|"WILLIAM FRANCISCO" |"6500000" |"380000" |"100000"   |"Octubre"   |"1.8"  |"90" |"360000" |"29/09/2021"|"13"                |"2021"         |
 
@@ -55,16 +55,16 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
-    |"79919146" | "71403" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
+    |"6572863" | "51461" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+
+
     @CreditosVisacionRetanqueos
     Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
     
     Ejemplos: 
-    |Cedula    |fechaActual |rutaPDF                                    |
+    |Cedula    |fechaActual |rutaPDF                                |
     |"79919146"|"25/08/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos

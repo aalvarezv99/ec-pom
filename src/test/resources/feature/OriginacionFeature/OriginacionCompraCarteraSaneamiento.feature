@@ -8,17 +8,17 @@ Característica: Solicitud combra de cartera
   @SimuladorAsesor
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
-     Y cambia la fecha del servidor <FechaServidor>
+     # Y cambia la fecha del servidor <FechaServidor>
      Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
      Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
-     Y se finaliza con la consulta a centrales
+     Y se finaliza con la consulta a centrales <Cedula>
    
    Ejemplos: 
-       | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           
-			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "17/Mar/1956" | "Bogotá Centro"  | "Pensionado"  | "1.6" | "12"  | "17000000"  | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "70500000"   | "2000000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "CARLOS"  | "HERRERA"    | "ARBOLEDA"    | "carlos123@mail.com"  | "3125117717" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"       | "VICTORIA"           | "DONCEL"             | "7260123"          | "9000123"       | "3120" |  "Octubre"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
+       | Pagaduria                                          | Cedula     | fecha         | Oficina          | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos  | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre   | Papellido    | Sapellido   | Correo                | Celular      | Dpto               | Ciudad      | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes        | TipoDesen  | fechaActual  | Banco                                   | Entidad                 | Cartera   | VlrCuota    | FechaVencimiento   | NumObligacion  |           
+			 | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757"  | "17/Mar/1956" | "Bogotá Centro"  | "Pensionado"  | "1.8" | "12"  | "17000000" | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "70500000"   | "930000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "CARLOS"  | "HERRERA"    | "ARBOLEDA"  | "carlos123@mail.com"  | "3125117717" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"       | "VICTORIA"           | "DONCEL"            | "7260123"          | "9000123"       | "3120" |  "Octubre"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  | "8600068225 - ACORE"    | "650000"  | "50000"     | "26/07/2021"       | "9123"         |    
                   
   @SolicitudCredito
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
@@ -32,20 +32,20 @@ Característica: Solicitud combra de cartera
     Y se presiona en verificacion en la pestana digitalizacion
    	Y se crean los tipos de cartera o saneamiento a recoger 
    		|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-   		#|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
+   		|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|
    		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
    	Y se guarda cartera
    	Y se pasa a la primera pestana de referenciacion para confirmar la entidad
     	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
     	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-    	#|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
+    	|Cartera				|8600068225 - ACORE				|100000|70000  	|30/09/2021     	|21236   			|    	
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     | fecha         | Oficina        | Actividad     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos   | tipo |colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido   | Sapellido   | Correo                          | Celular      | Dpto               | Ciudad      | rutaPDF                                     | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion          | TipoVivienda | NombreCredito | PnombreReferencia     | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |  Mes       | TipoDesen  | fechaActual  | Banco                                   |
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "17/Mar/1956" | "Bogotá Centro"  | "Pensionado"  | "1.6" | "12"  | "17000000"  | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "70500000"   | "2000000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "CARLOS"  | "ARTURO"    | "HERRERA"    | "carlos123@mail.com"  | "3125117717" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"       | "VICTORIA"           | "DONCEL"             | "7260123"          | "9000123"       | "3120" |  "Octubre"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "17/Mar/1956" | "Bogotá Centro"  | "Pensionado"  | "1.8" | "12"  | "17000000"  | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "70500000"   | "930000"               | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "CARLOS"  | "ARTURO"    | "HERRERA"    | "carlos123@mail.com"  | "3125117717" | "Tolima"           | "Espinal"   | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "24292019" | "08/Feb/1995" | "Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"       | "VICTORIA"           | "DONCEL"             | "7260123"          | "9000123"       | "3120" |  "Octubre"  | "Efectivo" | "03/07/2021" | "Remanentes - 60237038927 - REMANENTE"  |
         
   @AnalisisCredito
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
@@ -59,18 +59,19 @@ Característica: Solicitud combra de cartera
 
           Ejemplos: 
        | Pagaduria                                          | Cedula     |Tasa  | Plazo  | Monto       | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos |NombreCredito |Mes|anoAnalisis|Cartera1|Saneamiento2| fechaDesembolso |
-       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "1.6" | "12"  | "17000000"   | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "20500000"   | "2000000"              | "CARLOS"      |"Noviembre"|"2021"|"0"|"830000"| "05/10/2021" |
+       | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "1.8" | "12"  | "17000000"   | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "20500000"   | "2000000"              | "CARLOS"      |"Noviembre"|"2021"|"100000"|"830000"| "06/10/2021" |
         
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    #Y se validan los valores de las condiciones del credito
-    Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
-    
+    Y se validan los valores de las condiciones del credito
+    Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
+    Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
+
           Ejemplos: 
-       | Cedula     |Celular         | Correo         | TipoDesen    |
-       | "1014262729" | "3104884378" | "hildaui@hotmail.com" | "Efectivo" |
+       | Cedula    |Celular       | Correo                | TipoDesen  |
+       | "9777757" | "3104884378" | "hildaui@hotmail.com" | "Efectivo" |
         
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion

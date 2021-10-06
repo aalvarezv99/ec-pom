@@ -293,7 +293,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     /************FINALIZA ACCIONES ANALISTA DE CREDITO COMPRA DE CARTERA*************/
        
     /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
-       
+
        public void AceptarcondiconesdelcreditoComSan(String TipoDesen, String cedula) throws InterruptedException {
     	   this.cambiarPestana(0);
 		   this.ClientesParaBienvenida(cedula);
@@ -303,14 +303,14 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
            hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
            MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
            Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-           Thread.sleep(3000);           
+           Thread.sleep(3000);          
            hacerClick(pagesclienteparabienvenida.Desembolso);
            selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
            hacerClick(pagesclienteparabienvenida.CalificacionProceso);
            hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-           hacerScrollAbajo();
+           hacerScrollAbajo(); 
            hacerClick(pagesclienteparabienvenida.Acepta);
-           ElementVisible(); 
+           ElementVisible();
       }
        
     /************FINALIZA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/

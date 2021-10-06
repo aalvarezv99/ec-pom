@@ -452,7 +452,7 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)), MontoMaxDesembolsar);
 		
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);			
-			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
+			ToleranciaPesoMensaje("Pantalla Gmf 4x1000 ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
 			
 			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaAnticipadaSeguro);
@@ -503,8 +503,8 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
 			
-			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaAnticipadaSeguro);
-			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado+PrimaNoDevengada);
+			int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli,SaldoAlDia,resultFianza,resultEstudioCredito,Integer.parseInt(VlrCompraSaneamiento),Gmf4100,PrimaNeta);
+			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),remantEstimado);
 
 		}
 	}
@@ -1219,7 +1219,7 @@ public class RetanqueoCreditos extends BaseTest {
     			 if (entry.getKey().equals("Valor de Crédito")) {
     				 ToleranciaDoubleMensaje("Valor del crédito carta condiciones ", Double.parseDouble(entry.getValue()), Double.parseDouble(ValoresCredito.get(0)));
     			 }
-    			 if (entry.getKey().equals("Valor prima de seguro anticipada")) {
+    			 if (entry.getKey().contains("Valor prima de seguro anticipada")) {
     				 ToleranciaPesoMensaje("Valor prima de seguro anticipada ", Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(10)));
     			 }
     			 if (entry.getKey().equals("Prima de seguro no devengada crédito retanqueado")) {
@@ -1229,7 +1229,7 @@ public class RetanqueoCreditos extends BaseTest {
     			 if (entry.getKey().equals("Valor prima de seguro anticipada a pagar")) {
     				 ToleranciaPesoMensaje("Valor prima de seguro anticipada a pagar ", Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(12)));
     			 }
-    			 if (entry.getKey().equals("Valor de la fianza (IVA incluido) a pagar")) {
+    			 if (entry.getKey().contains("Valor de la fianza (IVA incluido)")) {
     				 ToleranciaPesoMensaje("Valor de la fianza (IVA incluido) a pagar ", Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(16)));
     			 }
 
@@ -1249,11 +1249,11 @@ public class RetanqueoCreditos extends BaseTest {
     				 ToleranciaPesoMensaje("Valor total a desembolsar (REMANENTE) ", Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(13)));
     			 }
 
-    			 if (entry.getKey().equals("Tasa EA inicial")) {
+    			 if (entry.getKey().equals("Tasa EA inicial") || entry.getKey().equals("Tasa de interés EA inicial")) {
     				 ToleranciaDoubleMensaje("Tasa EA inicial ", Double.parseDouble(entry.getValue()), Double.parseDouble(ValoresCredito.get(3)));
     			 }
 
-    			 if (entry.getKey().equals("Tasa NMV inicial")) {
+    			 if (entry.getKey().equals("Tasa NMV inicial") || entry.getKey().equals("Tasa de interés NMV inicial")) {
     				 ToleranciaDoubleMensaje("Tasa NMV inicial ", Double.parseDouble(entry.getValue()), Double.parseDouble(ValoresCredito.get(2)));
     			 }
 

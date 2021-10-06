@@ -174,8 +174,18 @@ public class SolicitudCreditoSteps {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}
 
+	@Y("validar las condiciones de la carta de notificacion de creditos originacion {string}")
+	public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
+		originacionaccion.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
+	}
+
 	@Y("se marcan los chech y se acepta carteras y saneamientos {string}{string}")
 	public void semarcanloschechyseaceptacarterasysaneamientos (String TipoDesen, String cedula) throws InterruptedException {
 		solicitudCompraCarteraSaneamientoAccion.AceptarcondiconesdelcreditoComSan(TipoDesen, cedula);
+	}
+
+	@Y("se marcan los chech y se acepta el detalle originacion{string}{string}")
+	public void seMarcanLosChechySeaceptaElDetalleOriginacion (String TipoDesen, String cedula) throws InterruptedException {
+		originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
 	}
 }

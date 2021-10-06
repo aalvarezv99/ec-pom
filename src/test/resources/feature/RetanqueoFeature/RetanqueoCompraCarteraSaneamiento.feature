@@ -48,7 +48,7 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
+   Ejemplos:
     |Retanqueo|Credito|Cedula      |NombreCredito      |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
     |"7000000"|"71403"|"79919146"  |"WILLIAM FRANCISCO"|"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"100000" |"830000"    |"13"                | "2021"        |
 
@@ -64,16 +64,16 @@ Característica: Retanqueo de creditos
     Ejemplos: 
     |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
     |"79919146" | "71403" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
+
+
     @CreditosVisacionRetanqueosCarteraSaneamiento 
     Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
-    
+
     Ejemplos: 
-    |Cedula    |fechaActual |rutaPDF                                    |
-    |"32530184"|"13/08/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
+    |Cedula    |fechaActual |rutaPDF                                |
+    |"24478657"|"01/10/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
     
     @DesembolsoCarteraCarteraSaneamiento 
     Esquema del escenario: Carteras para Desembolso
@@ -82,7 +82,7 @@ Característica: Retanqueo de creditos
     
     Ejemplos: 
     |Cedula      |Cartera1 |Banco                                  |rutaPDF                                    |
-    |"32530184"   |"1000000"|"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
+    |"24478657"  |"1000000"|"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
        
     @VisacionCarteraCarteraSaneamiento 
     Esquema del escenario: Visacion de la cartera
@@ -90,7 +90,7 @@ Característica: Retanqueo de creditos
     Y se navega hasta carteras <rutaPDF>
     Ejemplos: 
     |Cedula      |rutaPDF                                    |
-    |"32530184"  |"src/test/resources/Data/PDFPRUEBA.pdf"|
+    |"24478657"  |"src/test/resources/Data/PDFPRUEBA.pdf"|
     
     @DesembolsoSaneamientoCarteraSaneamiento 
     Esquema del escenario: Saneamiento para Desembolso
@@ -99,7 +99,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula    |Saneamiento2|Banco                                 |rutaPDF                                    |
-    |"32530184" |"150000"    |"Remanentes - 60237038927 - REMANENTE"|"src/test/resources/Data/PDFPRUEBA.pdf"|
+    |"24478657" |"3000000"    |"Remanentes - 60237038927 - REMANENTE"|"src/test/resources/Data/PDFPRUEBA.pdf"|
         
         
     @DesembolsoRetanqueosCarteraSaneamiento 
@@ -109,7 +109,7 @@ Característica: Retanqueo de creditos
     Y se descarga medios de dispersion para el remanente <Retanqueo><Cartera1><Saneamiento2><Banco><rutaPDF>
    
     Ejemplos: 
-   |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |Cartera1 |Saneamiento2|
-   |"5000000"  |"32530184" |"Remanentes - 60237038927 - REMANENTE"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1000000"|"150000"    |
+   |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                 |Cartera1 |Saneamiento2|
+   |"3000000"  |"24478657" |"Remanentes - 60237038927 - REMANENTE"|"src/test/resources/Data/PDFPRUEBA.pdf"|"0"      |"530000"    |
    
    
