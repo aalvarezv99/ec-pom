@@ -93,7 +93,23 @@ public class CrearDriver {
 					break;	
 				}
 				ruta = setDownloadsPath();
-				driver = new FirefoxDriver(ruta);
+				FirefoxBinary firefoxBinary = new FirefoxBinary();
+				firefoxBinary.addCommandLineOptions("--headless");
+				firefoxBinary.addCommandLineOptions("--no-sandbox");
+				
+				FirefoxOptions firefoxOptions = new FirefoxOptions();
+				firefoxOptions.setBinary(firefoxBinary);
+				
+				
+				DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+
+				FirefoxOptions options = new FirefoxOptions();
+				options.merge(capabilities);
+				options.addPreference("browser.link.open_newwindow", 3);
+				options.addPreference("browser.link.open_newwindow.restriction", 0);
+				options.setCapability("marionette", true);
+				
+				driver = new FirefoxDriver(options);
 				break;
 				
 			case "InternetExplored":
