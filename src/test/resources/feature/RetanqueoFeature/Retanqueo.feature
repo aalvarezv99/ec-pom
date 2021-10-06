@@ -29,9 +29,8 @@ Característica: Retanqueo de creditos
    
   Ejemplos: 
   |Retanqueo  |Cedula     |Credito|rutaPDF                                    	|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
-  |"13000000"  |"22372270"|"71249"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.6"|"18" |"2"                |"9500000"|"580000"|"100000"   |"1500000"            |"2258"|
- #|"7000000"  |"8688167" |"75261"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"12" |"15"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
-  
+  |"9000000"  |"79919146" |"71403"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"90" |"10"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
+
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
@@ -41,9 +40,9 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador                     
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
-    |Retanqueo  |Cedula     |Credito|NombreCredito    |Ingresos |decLey   |descNomina |Mes           |Tasa  |Plazo|descLey  |fecha        |DiasHabilesIntereses|AnnoAfetacion  |
-    |"13000000" |"22372270" |"71249"|"virginia elena" |"9500000"|"580000" |"100000"   |"Noviembre"   |"1.6" |"18" |"580000" |"20/10/2021" |"2"                 |"2021"         |
+   Ejemplos:
+    |Retanqueo |Cedula      |Credito|NombreCredito |Ingresos |decLey    |descNomina |Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
+    |"9000000" |"79919146"  |"71403"|"WILLIAM FRANCISCO" |"6500000" |"380000" |"100000"   |"Octubre"   |"1.8"  |"90" |"360000" |"29/09/2021"|"13"                |"2021"         |
 
 
    @ClientesBienvenidaRetanqueos 
@@ -51,21 +50,22 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
     Y se validan los valores de las condiciones del credito <Credito>
-    Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
+    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
+    Y se marcan los chech y se acepta<TipoDesen><Cedula>
 
     Ejemplos: 
-    |Cedula    |Credito |Celular     |Correo                     |TipoDesen  |
-    |"22372270"|"71249" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
+    |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
+    |"6572863" | "51461" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+
+
     @CreditosVisacionRetanqueos
     Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
     
     Ejemplos: 
-    |Cedula    |fechaActual |rutaPDF                                    |
-    |"22491938"|"01/10/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
+    |Cedula    |fechaActual |rutaPDF                                |
+    |"79919146"|"25/08/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos
     Esquema del escenario: Creditos para Desembolso
@@ -75,6 +75,6 @@ Característica: Retanqueo de creditos
    
     Ejemplos: 
    |Retanqueo  |Cedula     |Banco                                  |rutaPDF                                    |
-   |"5250000"  |"32530184" |"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
+   |"5250000"  |"79919146" |"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
    
    

@@ -47,6 +47,7 @@ public class PanelNavegacionPage {
 	public By selectRetanqueo;
 	public By selectListaCreditoRetanqueo;
 	public By selectPreaplicacionPagos;
+	public By selectCartaCondiciones;
 	
 	
 	public PanelNavegacionPage(WebDriver driver) {
@@ -87,7 +88,8 @@ public class PanelNavegacionPage {
 		//Componentes Creditos 
 		selectCreditos = By.xpath("//a[text()='Creditos']");
 		selectSolicitudCredito = By.xpath("//span[text()='Solicitud de crédito']");
-		
+		selectCartaCondiciones = By.xpath("//span[text()='Carta de notificación de condiciones']");
+
 		//Componentes Analisis
 		selectAnalisisDeCredito = By.xpath("//span[text()='Análisis de Crédito']");
 		
@@ -113,7 +115,6 @@ public class PanelNavegacionPage {
 		
 		//logout
 		botonSalir = By.id("formMenu:usuario:salir");				
-		
 	}							
 	
 	

@@ -7,7 +7,7 @@ Característica: Originacion de Creditos
   @SimuladorAsesor
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
-    #Y cambia la fecha del servidor <FechaServidor>
+    # Y cambia la fecha del servidor <FechaServidor>
     Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
     Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
     Y guarda la simulacion presionando el boton guardar
@@ -16,8 +16,8 @@ Característica: Originacion de Creditos
     Y se finaliza con la consulta a centrales <Cedula>
 
     Ejemplos: 
-      | Pagaduria   | Cedula       | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre  | Papellido  | Sapellido | Correo                 | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor |
-      | "COLFONDOS" | "59912399"   | "12/Ago/1982" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0"            			 | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ALEYDA" | "RODRIGUEZ"| "GONZALES"| "apqwerty251@mail.com" | "3015128199" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  |
+      | Pagaduria   | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre  | Papellido  | Sapellido | Correo                 | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor |
+      | "COLFONDOS" | "9777757"  | "17/Mar/1956" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0"            			 | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "CARLOS" | "HERRERA"  | "ARBOLEDA"| "prueba123@gmail.com" | "3125127717" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  |
 
   @SolicitudCredito
   Esquema del escenario: Solicitar credito sin saneamientos
@@ -35,7 +35,7 @@ Característica: Originacion de Creditos
 
     Ejemplos: 
       | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto     | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre    | Papellido  | Sapellido | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion         | TipoVivienda | NombreCredito | PnombreReferencia | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |
-  		|"98560993"  	 |"17/Mar/1956"| "Cartagena" | "Pensionado" | "1.8" | "36"  |"20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0" 			            | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2005" | "FRANCISCO"| "JAVIER"   | "ARBOLEDA"| "apqwerty250@mail.com"| "3115128197" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "7528644"  | "02/Jun/1985" |"Calle 2d #22-52"  | "FAMILIAR"   | "FRANCISCO"   | "alejandro"       | "perez"             | "7210273"          | "9007146"       | "3112" |
+  		|"9777757"  	 |"17/Mar/1956"| "Cartagena" | "Pensionado" | "1.8" | "36"  |"20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0" 			            | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2005" | "FRANCISCO"| "JAVIER"   | "ARBOLEDA"| "prueba123@gmail.com"| "3125127117" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "7528644"  | "02/Jun/1985" |"Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"   | "alejandro"       | "perez"             | "7210273"          | "9007146"       | "3112" |
       #| "10087953" | "26/Jul/1956" | "Cartagena" | "Pensionado" | "1.8" | "120" | "3600000" | "10"                 | "3600000" | "360000" | "0"        | "3600000"   | "20500000"   | "360000"              | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ARBEY" | "QUEBRADA" | "OLAYA"   | "ARBEYmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educacion propia" | "F"  | "Soltero"   | "10087953" | "02/Jun/1985" | "Calle 2d #22-52" | "FAMILIAR"   | "ARBEY"       | "alejandro"       | "perez"             | "7210273"          | "9007146"       | "3112" |
   		#| "COLFONDOS" | "9777757"  | "17/Mar/1956" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "80500000"   | "0"                   | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/03/2005" | "CARLOS" | "HERRERA"   | "ARBOLEDA" | "ajflorez248@mail.com"     | "3015129153" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "9777757"   | "Calle 2d #22-52" | "FAMILIAR"   | "CARLOS"      | "alejandro"           | "perez"             | "7210273"          | "9007146"       | "3112" |  "Abril" | "Efectivo" | "03/05/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
@@ -51,18 +51,19 @@ Característica: Originacion de Creditos
 
     Ejemplos: 
       | Pagaduria   | Cedula     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | NombreCredito | Mes         | AnoAnalisis | fechaDesembolso |
-      | "COLFONDOS" | "98560993" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "3600000"   | "6500000"    | "0"			              | "FRANCISCO"   | "Noviembre" | "2021"      | "05/10/2021"    |
+      | "COLFONDOS" | "9777757" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "3600000"   | "6500000"    | "0"			              | "CARLOS"   | "Noviembre" | "2021"      | "05/10/2021"    |
 
   @ClientesBienvenida
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
     Y se validan los valores de las condiciones del credito
-    Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
+    Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
+    Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
 
     Ejemplos: 
       | Cedula     | Celular      | Correo                 | TipoDesen  |
-      | "98560993" | "3115128197" | "apqwerty250@mail.com" | "Efectivo" |
+      | "9777757" | "3125127117" | "apqwerty250@mail.com" | "Efectivo" |
 
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion
@@ -70,7 +71,7 @@ Característica: Originacion de Creditos
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
      Ejemplos: 
        | Cedula     | fechaActual   | rutaPDF         												 |
-	     | "98560993" | "30/Sep/2021" | "src/test/resources/Data/PDFPRUEBA.pdf"  |
+	     | "9777757" | "30/Sep/2021" | "src/test/resources/Data/PDFPRUEBA.pdf"  |
 
   @Desembolso
   Esquema del escenario: Creditos para Desembolso
@@ -79,4 +80,4 @@ Característica: Originacion de Creditos
     Y se filtra por monto y se edita <Monto><Banco><rutaPDF>
       Ejemplos: 
        | Cedula     | Monto      | rutaPDF 																 | Banco  															 | 
-       | "98560993" | "20000000" | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE" |
+       | "9777757" | "20000000" | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE" |
