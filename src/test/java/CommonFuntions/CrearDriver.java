@@ -124,7 +124,10 @@ public class CrearDriver {
 		DesiredCapabilities caps = null;
 		try {
 			pro.load(in);
-			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");			
+			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");
+			DesiredCapabilities cap = DesiredCapabilities.firefox();
+			cap.setCapability("marionette", true);
+	        cap.setBrowserName("firefox");
 			/*HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
