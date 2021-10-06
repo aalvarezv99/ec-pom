@@ -4,6 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -22,7 +27,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.record.PageBreakRecord.Break;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
@@ -49,6 +56,7 @@ import com.google.common.base.Function;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
+import Consultas.OriginacionCreditoQuery;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.pestanaSeguridadPage;
 import io.qameta.allure.Allure;
@@ -118,6 +126,7 @@ public class BaseTest {
 	
 	public Boolean assertEstaPresenteElemento (By locator) {
 		try {
+			esperaExplicitaPestana(locator);
 			return driver.findElement(locator).isDisplayed();
 			}catch (Exception e) {
 			return false;
@@ -204,16 +213,13 @@ public class BaseTest {
 	}
     
 	public void recorerpestanas(String Dato) {
-    
 		By locator = By.xpath("//a[text()='"+Dato+"']");
-		while(assertEstaPresenteElemento(locator)==false){
+		while(assertEstaPresenteElemento(locator)==false) {
 			hacerClick(pestanaSeguridadPage.Siguiente);
 		}
 		hacerClick(locator);
 	}
-    
-	
-   
+
 	public void EnviarEnter(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ENTER);
 	}
@@ -295,37 +301,81 @@ public class BaseTest {
                           
                           
                           
-	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon) {
+	public double MontoaSolicitar(int valorCredito,int primaAnticipada,double tasaPorMillon, double estudioCredito, double tasaFianza, double vlrIva) {
                           
-		double Valor =valorCredito/(1-(tasaPorMillon/1000000)*primaAnticipada);		
+		double Valor =valorCredito+(valorCredito*tasaPorMillon/1000000*primaAnticipada)+(valorCredito*(estudioCredito/100)*vlrIva)+(valorCredito*(tasaFianza/100)*vlrIva);
+		log.info("MontoaSolicitar "+ redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
-                          
-	public double CuotaCorriente (int valorCredito,double Tasa,int plazo) {
-        double Valor= valorCredito*((Tasa/100)/(1-(Math.pow((1+(Tasa/100)),(0-plazo)))));
+    
+	/*TP 10/08/2021 Se actualiza al nuevo calculo con la tasa dos y el mes dos
+	 * */
+	public double CuotaCorriente (int valorCredito,double tasaUno,int plazo, double tasaDos, int mesDos) {      
+		double Valor = 0;
+		//Se valida que el plazo sea manor al mes Dos y toma una u otra formula
+		if(plazo < mesDos) {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno), (plazo)) -1)/(tasaUno* Math.pow((1+tasaUno), (plazo)))));
+		}
+		else {
+			Valor = Math.round(valorCredito/((Math.pow((1+tasaUno),(mesDos-1)) -1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)))
+					+((Math.pow((1+tasaDos), (plazo-(mesDos-1)))-1)/(tasaDos*Math.pow((1+tasaDos), (plazo-(mesDos-1) ))))
+					/(Math.pow((1+tasaUno), (mesDos-1)))));
+		
+		}
+		log.info("Cuotacorriente "+redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
+               
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double EstudioCreditoIva (int MontoSoli, double porcentajeEstudioCredito) {
                           
-	public double EstudioCreditoIva (int TotalMontoSoli, double porcentajeEstudioCredito) {
-                          
-		double Valor= ((TotalMontoSoli*porcentajeEstudioCredito)/100)+(((TotalMontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		double Valor= ((MontoSoli*porcentajeEstudioCredito)/100)+(((MontoSoli*porcentajeEstudioCredito)/100)*0.19);	
+		log.info("Estudio Credito Hijo " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
                           
 	}
                           
 	public double CapacidadPagaduria(int IngresosCliente,int DescuentosLey,int DescuentosNomina,int colchon) {
 		double Valor = ((IngresosCliente-DescuentosLey)/2)-DescuentosNomina-colchon;
+		log.info("Capacidad Pagaduria" + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
-	public double ValorFianza (int TotalMontoSoli,double TasaFianza, double Variable ){
+	
+	/* TP 10/08/2021 Se actualiza el calculo del valor de la fianza por el monto neto, ya no es por monto total de la solicitud
+	 * */
+	public double ValorFianza (int MontoSoli,double TasaFianza, double Variable ){
  
-		double Valor=((TotalMontoSoli*TasaFianza)/100)*Variable;
+		double Valor=((MontoSoli*TasaFianza)/100)*Variable;
+		log.info("VlrFianza Hijo " + redondearDecimales(Valor,0));
 		return (int) redondearDecimales(Valor,0);
 	}
- 
+	
+	/** ThainerPerez 28/Sept/2021, Se crea el metodo para calcular la fianza de retanqueo
+	 */
+	public double vlrFianzaRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor = montoSoli/(1+((porEstudioCre/100)*iva)+((tasaFianza/100)*iva)+((double)tasaXmillon/1000000)*periodoPrima)*(tasaFianza/100)*iva;
+		log.info("Fianza Hijo " + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
+	public double PrimaSeguroRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor =montoSoli/(1+(porEstudioCre/100)*iva+(tasaFianza/100)*iva+(double)tasaXmillon/1000000*periodoPrima)*tasaXmillon*(double)periodoPrima/1000000;
+		log.info("Prima Seguro Hijo " + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
+	public double EstudioCreditoRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre, int tasaXmillon, int periodoPrima ) {
+		double valor = montoSoli/(1+(porEstudioCre/100)*iva+(tasaFianza/100)*iva+((double)tasaXmillon/1000000*periodoPrima))*(porEstudioCre/100)*iva;
+		log.info("Estudio Credito Hijo" + valor);
+		return (int) redondearDecimales(valor,0);
+	}
+	
 	public double Gmf4100(int comprascartera, double variable) {
  
 		double Valor= comprascartera*variable;
+		log.info("Vlr Gmf4100 " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
@@ -333,28 +383,87 @@ public class BaseTest {
 	public double ValorInteresesIniciales(int TotalMontoSoli,double Tasa,int DiasIniciales,int diasMes) {
  
 		double Valor = ((TotalMontoSoli*Tasa)/100)*((double)DiasIniciales/diasMes);
+		log.info("Vlr Intereses Iniciales" + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
  
 	}
  
-	public double PrimaAnticipadaSeguro (int TotalMontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
-		double Valor=((double)TotalMontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+	/* 
+	 * TP 10/08/2021 Se actualiza para que calcule con el monto Neto, no con el monto total de la solicitud
+	 * */
+	public double PrimaAnticipadaSeguro (int MontoSoli,int variable,double TasaxMillon, int ParametroPrimaSeguro) {
+		double Valor=((double)MontoSoli/variable)*(TasaxMillon*ParametroPrimaSeguro);
+		log.info("Prima Seguro Anticipado " + redondearDecimales(Valor,0));
+		return redondearDecimales(Valor,0);
+		}
+		
+	public double PrimaNeta (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+	  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		Valor=PrimaHijo-redondearDecimales(Valor,0);		
+	    log.info(" ###### Valor prima ##### " + Valor );
+	    if(Valor<=0)
+	    	Valor=0;	        
+		return redondearDecimales(Valor,0);
+	}
+	
+	public double PrimaNoDevengadaCPadre (int PrimaPadre,int MontoPadre,int MesesActivos,int PrimaHijo,int variableMillon,double TasaxMillon, int ParametroPrimaSeguro) {
+		  
+		double Valor=PrimaPadre-((MontoPadre*TasaxMillon)/variableMillon)*MesesActivos;	
+		log.info(" ###### Valor no consumido ##### " + Valor );	
+		if(Valor<=0)
+	    	Valor=0;
+		        
+		return redondearDecimales(Valor,0);
+	}
+	
+	
+	
+	
+   
+	
+	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza ) {
+        double Valor=TotalMontoSoli-(CompraCartera+Gravamento4100+DescuentoPrimaAnticipada+estudioCredito+ValorFianza);
+        log.info("Remanente estimado " + redondearDecimales(Valor,0));
 		return redondearDecimales(Valor,0);
 	}
    
-	public double RemanenteEstimado (int TotalMontoSoli,int CompraCartera,int Gravamento4100,int DescuentoPrimaAnticipada ) {
-        double Valor=TotalMontoSoli-CompraCartera-Gravamento4100-DescuentoPrimaAnticipada;
-		return redondearDecimales(Valor,0);
-	}
-   
-	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey,int DescuentosNomina,int Colchon,double tasa,int plazo,double TasaxMillon,int ParametroPrimaSeguro) {
-   
+	/*
+	 * TP 06/08/2021 Se actualiza el metodo para que trabaje con la capacidad del cliente - tasa uno -plazo -mesdos y tasa dos
+	 * */
+	public double MontoMaxDesembolsar (int IngresosCliente,int DescuentosLey, int DescuentosNomina, int Colchon,
+						double tasaUno,int plazo,double tasaDos,int mesDos) {
 		double Capacidad=((double)((IngresosCliente-DescuentosLey)/2))-DescuentosNomina-Colchon;
-		double ValorK=((Math.pow((1+(tasa/100)),(0-plazo)))-1)/(tasa/100);
-		double MontoMaxCredito=(-Capacidad*ValorK);
-		double Valor = MontoMaxCredito-(MontoMaxCredito*(TasaxMillon/1000000)*ParametroPrimaSeguro);		
-		return redondearDecimales(Valor,0);
+		double valor = 0;
+		if(plazo<mesDos) {
+			//plazo menos a mes dos
+			valor = Math.round(Capacidad*((Math.pow((1+tasaUno), (plazo)) )-1)/(tasaUno*Math.pow((1+tasaUno),(plazo))));	
+		}else {
+			//plazo mayor a mes dos
+			valor = Math.round(
+			Capacidad*((Math.pow((1+tasaUno), (mesDos-1)))-1)/(tasaUno*Math.pow((1+tasaUno), (mesDos-1)) )+
+			(Capacidad*(( Math.pow((1+tasaDos), (plazo-(mesDos-1))) )-1)/(tasaDos* Math.pow((1+tasaDos), (plazo-(mesDos-1))) ))/
+			Math.pow((1+tasaUno), (mesDos-1)) );
+		}
+		log.info("Monto Maximo Desembolsar " +redondearDecimales(valor=(valor<0)?0:valor,0));		
+		return redondearDecimales(valor,0);
+	}	
+	
+	/*ThainerPerez 20-sep-2021, Se crea el metodo que devuelve el remanente estimado para retanqueos*/
+	public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito, int comprasCartera, int gmf4x100, int primaSeguro) {
+		double valor = 0;
+		valor = TotalMontoSoli - (saldoDia+fianza+estudioCredito+comprasCartera+gmf4x100+primaSeguro);
+		log.info("Remanente estimado Retanqueo " + redondearDecimales(valor,0));
+		return redondearDecimales(valor,0);
+		
 	}
+	
+	
+	
+	/*************************Fin Formula de CXC*****************************/
  
 	/************* FIN FUNC Assert Selenium ****************/
    
@@ -395,19 +504,27 @@ public class BaseTest {
 	 public void assertVisibleElemento(By locator) {		
 		assertTrue(driver.findElement(locator).isDisplayed());
 	}
+	 //Metodo que retorna true o false si esta o no presente un elemento
+	 public boolean ValidarElementoPresente(By locator) {
+		 
+		 return driver.findElements(locator).isEmpty();
+	 }
 	
 	public void ClicUltimoElemento(By lista) {
-		List<WebElement> ListaElement = driver.findElements(lista);		
-		int i=ListaElement.size()-1;
-		System.out.println("mensaje  "+i+"  atributo  ");
-		if (i>0) { 
-		System.out.println("mensaje  "+i+"  atributo  ");
-		driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
-		}else {
-			System.out.println("mensaje  "+i+"  atributo  ");
-			driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
-					}
-
+		try {
+			List<WebElement> ListaElement = driver.findElements(lista);		
+			int i = ListaElement.size()-1;
+			System.out.println("mensaje 1 " + i + "  atributo  ");
+			if (i > 0) { 
+				System.out.println("mensaje 2 " + i + "  atributo  ");
+				driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
+			} else {
+				System.out.println("mensaje 3 " + i + "  atributo  ");
+				driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
+			}
+		} catch (Exception e) {
+			log.error("########## ERROR BASETEST - ClicUltimoElemento() ##########" + e);
+		}
 	}
 
 	/********* FIN FUNC AVANZADAS SELENIUM **************/
@@ -446,39 +563,42 @@ public class BaseTest {
 }
 
 	public void cargarPdf(By AutorizacionConsulta,By CopiaCedula,By DesprendibleNomina, String Pdf ) throws InterruptedException {
-
-		driver.findElement(AutorizacionConsulta).sendKeys(Pdf);
+		File fichero = new File(Pdf);
+		driver.findElement(AutorizacionConsulta).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(AutorizacionConsulta);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-		driver.findElement(CopiaCedula).sendKeys(Pdf);
+		hacerClicknotificacion();
+		ElementVisible();
+		driver.findElement(CopiaCedula).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(CopiaCedula);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-		driver.findElement(DesprendibleNomina).sendKeys(Pdf);
+		hacerClicknotificacion();
+		ElementVisible();
+		driver.findElement(DesprendibleNomina).sendKeys(fichero.getAbsolutePath());
 		esperaExplicitaNopresente(DesprendibleNomina);
-		esperaExplicitaNopresente(By.xpath("//*[@class='ui-growl-title']"));
 		ElementVisible();
-
+		hacerClicknotificacion();
+		ElementVisible();
+		hacerClicknotificacion();
 	}
 	
 	public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
-    
+		File fichero = new File(Pdf);
 		List<WebElement> BtnCarga = driver.findElements(By.xpath("//input[starts-with(@id,'form:cargarDocumentos')]"));	
-    
 		String [] id = new String[BtnCarga.size()];
 		for(int i=0;i<BtnCarga.size();i++) {
 			id[i]=BtnCarga.get(i).getAttribute("id");
 		}
 		for(int i=0;i<id.length;i++) {		
 			Thread.sleep(450);
-		    driver.findElement(By.id(id[i])).sendKeys(Pdf);		    
+		    driver.findElement(By.id(id[i])).sendKeys(fichero.getAbsolutePath());		    
 		    esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
 		    esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
 		    hacerClicknotificacion();		
 		    hacerScrollAbajo();
 		    ElementVisible();
 		}
+		adjuntarCaptura("CargueDocumentos");
 		ElementVisible();
 		Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
     
@@ -508,8 +628,8 @@ public class BaseTest {
 		
 	}
 
-    public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
-	
+	public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList,String Departamento,String Ciudad, int cantidaRef) throws InterruptedException {
+		
 		List<WebElement> DptList = driver.findElements(DepartamentoList);		
 		List<WebElement> CdaList = driver.findElements(CiudadList);	
 		List<WebElement> CdaLabel = driver.findElements(By.xpath("//label[starts-with(@id,'form:j_idt156:') and contains(@id,'ciudad_label')]"));
@@ -539,7 +659,6 @@ public class BaseTest {
     
 	}
     
-    
 	public void MarcarCheckCorrecto() throws InterruptedException {
 		Thread.sleep(1000);
 		WebElement Valor = driver.findElement(By.id("form:dUiRepeat"));
@@ -555,6 +674,7 @@ public class BaseTest {
 			String a = "//div[@id='"+BtnCheck2.get(count).getAttribute("id")+"']";
 			hacerScrollAbajo();			
 		}
+        	adjuntarCaptura("MarcacionCheck");
         }
         
         /************* INICIO FUNC REPORTES ***********************/
@@ -579,7 +699,7 @@ public class BaseTest {
 	public byte[] adjuntarCapturaReporte(String descripcion) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");		
 		byte[] captura = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-		log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		//log.info("**************** Evidencia Tomada Reporte:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		Allure.addAttachment(descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()),
 				new ByteArrayInputStream(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES)));
 		return captura;
@@ -593,7 +713,7 @@ public class BaseTest {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMMMM-yyyy hh.mm.ss");
 		       String imageNombre = leerPropiedades("CapturasPath") +"\\" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime());
 		       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		       log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
+		       //log.info("**************** Evidencia Tomada Local:" + descripcion + dateFormat.format(GregorianCalendar.getInstance().getTime()) +"**************");
 		       FileUtils.copyFile(scrFile, new File(String.format("%s.png", imageNombre)));
 		} catch (Exception e) {
 			log.error("############## ERROR,  BaseTest - adjuntarCapturaLocal() #########" + e);
@@ -622,6 +742,7 @@ public class BaseTest {
 		for (WebElement contenido : BtnCheck) {
 
 			contenido.click();
+			ElementVisible();
 			count = count + 1;
 			hacerScrollAbajo();
 		}
@@ -700,7 +821,8 @@ public void clickvarios(By locator) {
 		if (Totaldoc != 0) {
 		String Borrar=clickvarios.get(0).getAttribute("id");
 		for(int i=0;i<Totaldoc;i++) {	
-			Thread.sleep(2000);			
+			Thread.sleep(2000);	
+			Hacer_scroll_centrado(By.id(Borrar));
 			hacerClick(By.id(Borrar));			
 			hacerClickVariasNotificaciones();
 			}
@@ -708,7 +830,8 @@ public void clickvarios(By locator) {
 	}
 	
 	public void cargarpdf(By locator,String Pdf) {
-		driver.findElement(locator).sendKeys(Pdf);
+		File fichero = new File(Pdf);
+		driver.findElement(locator).sendKeys(fichero.getAbsolutePath());
 	}
 
 	/************ FIN FUNC JAVASCRIPT ************/
@@ -723,10 +846,30 @@ public void clickvarios(By locator) {
 	}
     
     
-	public void esperaExplicitaSeguridad(By locator) throws InterruptedException {
+	public void esperaExplicitaSeguridad(By locator, String Cedula) throws InterruptedException, NumberFormatException, SQLException {
 		WebDriverWait wait = new WebDriverWait(driver,200);
-		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
-		Thread.sleep(6000);
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));		
+
+		String Concepto = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		long start_time = System.currentTimeMillis();
+		long wait_time = 50000;
+		long end_time = start_time + wait_time;
+
+		// si en 20 segundos no obtiene respuesta el test falla
+		while (System.currentTimeMillis() < end_time && (Concepto=="" || Concepto==null)) {			
+			resultado = query.ConsultaProspeccion(Cedula);
+			while(resultado.next()) {
+				Concepto = resultado.getString(1);
+			}
+		}
+        log.info(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto);
+	    if (Concepto!=null && (Concepto.equals("VIABLE") || Concepto.contains("CONDICIONADO"))) {
+	    	assertTrue(" Consulta prospeccion Exitosa, Concepto igual a: " + Concepto, true);
+	    } else {
+	    	assertTrue(" Consulta prospeccion falló, Concepto igual a: " + Concepto, false);
+	    }
 	}
     
     public void esperaExplicitaNopresente() {		
@@ -806,8 +949,8 @@ public void clickvarios(By locator) {
 	}
 
 	public void hacerClicknotificacion() {
-		
-		if(assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))==true) {
+		//assertEstaPresenteElemento(By.xpath("//*[@class='ui-growl-title']"))
+		if(driver.findElements(By.xpath("//*[@class='ui-growl-title']")).isEmpty()==false) {
 		WebElement element = driver.findElement(By.xpath("//*[@class='ui-growl-icon-close ui-icon ui-icon-closethick']"));
 		JavascriptExecutor js= (JavascriptExecutor)driver;		
 		js.executeScript("arguments[0].click();", element);
@@ -913,8 +1056,10 @@ public WebDriver chromeDriverConnection() {
 		return driver;
 	}
     
+    /*ThainerPerez 22/Sep/2021 - Se actualiza el metodo para que seleccione el tipo (Cartera - saneamiento) en los radio button
+     * */
 	public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
-			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+			By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra, String[] EntidadSaneamiento,
 			String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
 			throws InterruptedException {
 		List<WebElement> Entidad = driver.findElements(ListEntidad);
@@ -925,11 +1070,22 @@ public WebDriver chromeDriverConnection() {
 		List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
 		List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
 		List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-		String a[] = new String[2];
-
+		List<WebElement> Tipo = driver.findElements(ListTipo);
+		List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
+		String a[] = new String[VlrCuota.length];
+		
 		for (int i = 0; i < Entidad.size(); i++) {
-			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+			
+			Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));			
 			esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+			
+			if(Tipo.get(i).getText().trim().contains("SANEAMIENTO")){
+				driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
+			}
+			else {
+				driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
+			}
+			
            //Llenar la entidad
 			driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
 			driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
@@ -949,9 +1105,6 @@ public WebDriver chromeDriverConnection() {
 			driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
 			a[i] = BtnAprobar.get(i).getAttribute("id");
 		}
-        
-		Hacer_scroll_Abajo(By.id(RadioSaneamiento.get(1).getAttribute("id")));
-		driver.findElement(By.id(RadioSaneamiento.get(1).getAttribute("id"))).click();
 
         //Aprobar las compras
 		for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -971,12 +1124,56 @@ public WebDriver chromeDriverConnection() {
     		Tolerancia = Tolerancia * -1;
     	}
         if(Tolerancia<=1 && Tolerancia>=0){
-    		assertTrue(true);
+        	System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor TRUE "+" Valor a "+a+" Valor b "+b,true);
     	}else {
-    		assertTrue(false);
+    		System.out.println("Valor TRUE "+" Valor a "+a+" Valor b "+b);
+    		assertTrue("Valor FALSE "+" Valor a "+a+" Valor b "+b,false);
     	}
     }
   
+    
+    public void  ToleranciaPesoMensaje(String mensaje,int a,int b){
+    	int Tolerancia=a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if(Tolerancia<=1 && Tolerancia>=0){
+        	log.info(mensaje+" - Valor a "+a+" Valor b "+b);
+    	}else {
+    		assertTrue("########### ERROR CALCULANDO " +mensaje+" ########"+" Valor a "+a+" Valor b "+b,false);
+    	}
+    }
+    
+    public List<String> RetornarStringListWebElemen(By locator) {
+    	
+    	List<String> Valores = new ArrayList<>();
+    	int valor=0;
+    	List<WebElement> ListaElement = driver.findElements(locator);
+    	
+        for(int i=0;i<ListaElement.size();i++) {
+        	if(i < 3) {
+        		Valores.add(ListaElement.get(i).getText().replace(".","").replace(",","."));
+        	} else if (i == 3) {
+        		Valores.add(ListaElement.get(i).getText().replace(",","."));
+        	} else {
+	        	String ValorNumerico = ListaElement.get(i).getText().replace(".","");
+	        	int coma = 	ValorNumerico.indexOf(",");
+	        	
+	        	if(coma==-1) {
+	        		Valores.add(ListaElement.get(i).getText().replace(".","").replace(",","."));	
+	        	} else {
+	        		Valores.add(ValorNumerico.substring(0,coma));
+	            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores.get(i));
+	        	}
+        	}
+        	System.out.println("valor " + i + " - " + Valores.get(i));
+        }
+        
+        return Valores;
+    }
+    
+    
 	/**************************************/
 //backup metodo de carteras y saneamientos
     public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
@@ -1030,5 +1227,209 @@ public WebDriver chromeDriverConnection() {
 			hacerClicknotificacion();
 		}
 	}
+
+    public void Hacer_scroll_centrado(By locator) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement Element = driver.findElement(locator);
+		js.executeScript("arguments[0].scrollIntoView({inline: \"center\", block: \"center\", behavior: \"smooth\"});", Element);
+    }
+
+    public List<String> parseWebElementsToList(List<WebElement> list) {
+    	int totalElementos = list.size();
+		List<String> listString = new ArrayList<>();
+		for(int i = 0; i < totalElementos; i++) {
+			listString.add(list.get(i).getAttribute("id"));
+		}
+		return listString;
+    }
     
+    public void clickVariosReferenciasPositivas(By locator) throws InterruptedException {
+		Thread.sleep(1000);
+		List<WebElement> clickvarios = driver.findElements(locator);
+		int totalElementos = clickvarios.size();
+		List<String> botones = this.parseWebElementsToList(clickvarios);
+		if (totalElementos != 0) {
+			for(int i = 0; i < totalElementos; i++) {
+				Thread.sleep(3000);
+				String item = botones.get(i);
+				this.esperaExplicita(By.id(item));
+				this.Hacer_scroll_centrado(By.id(item));
+				this.hacerClick(By.id(item));
+				this.esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+				this.hacerClicknotificacion();
+			}
+		}
+	}
+    
+    public boolean EncontrarElementoVisibleCss(By locator) {
+    	
+    	WebElement element = driver.findElement(locator);    	
+		return element.getCssValue("display").equalsIgnoreCase("none");
+    	
+    }
+
+    public void esperaExplicitaPestana(By locator) {
+		WebDriverWait wait = new WebDriverWait(driver, 2);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+	}
+    
+    public void RepetirConsultaCentrales(By locator, By locator_search) throws InterruptedException{				
+
+		long start_time = System.currentTimeMillis();
+		long wait_time = 10000;
+		long end_time = start_time + wait_time;
+
+		// si en 10 segundos no obtiene respuesta el test falla
+		while (System.currentTimeMillis() < end_time || !ValidarElementoPresente(locator_search) ) {
+			System.out.println("# Resultado de repetir consulta "+ValidarElementoPresente(locator_search));
+			if(ValidarElementoPresente(locator_search)) {
+				hacerClick(locator);		
+			}else {
+				 break;
+			}
+		}
+	}
+
+    public void EnviarEscape(By locator) {
+		driver.findElement(locator).sendKeys(Keys.ESCAPE);
+	}
+
+    public void cambiarFocoDriver(int index) {
+    	ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(index));
+    }
+
+    public void cargarDatosCarta(By locator) {
+    	 while(driver.findElement(locator).getText().equals("$")) {
+    		 // va a consultar el contenido hasta que cambie
+    	 }
+    	 System.out.println(" El valor del contenido ha cambiado " + driver.findElement(locator).getText());
+    }
+
+    public Map<String, String> cleanValues(By locatorKeys, By locatorValues) {
+    	Map<String, String> Valores = new HashMap<String, String>();
+    	List<WebElement> keys = driver.findElements(locatorKeys);
+    	List<WebElement> values = driver.findElements(locatorValues);
+    	for(int i = 0; i < keys.size(); i++) {
+    		String key = keys.get(i).getText();
+        	String valor = values.get(i).getText();
+    		if (valor.contains("$")) {
+        		valor = valor.replace("$", "").replace(".", "");
+        	} else if (valor.contains("%")) {
+        		valor = valor.replace("%", "");        		
+        	}
+        	Valores.put(key, valor.trim());
+        }
+    	this.sumarValores(Valores);
+        return Valores;
+    }
+
+    public void sumarValores(Map<String, String> valores) {
+    	int total = 0;
+    	int gmf = 0;
+    	for (Map.Entry<String, String> entry : valores.entrySet()) {
+    		if (entry.getKey().contains("Valor compra de cartera") || entry.getKey().contains("Valor saneamiento")) {
+    			total += Integer.parseInt(entry.getValue());
+    		}
+    		if (entry.getKey().contains("GMF compra de cartera") || entry.getKey().contains("GMF saneamiento")) {
+    			gmf += Integer.parseInt(entry.getValue());
+    		}
+    	}
+    	valores.put("totalCompraCartera", String.valueOf(total));
+    	valores.put("totalGmf", String.valueOf(gmf));
+    }
+
+    public void ToleranciaDoubleMensaje(String mensaje, double a, double b) {
+    	double Tolerancia = a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if (Tolerancia <= 1 && Tolerancia >= 0) {
+        	log.info(mensaje + " - Valor a "+a+" Valor b "+b);
+    	} else {
+    		assertTrue("########### ERROR CALCULANDO " + mensaje + " ########" + " Valor a " + a + " Valor b " + b, false);
+    	}
+    }
+
+    //Metodo para verificar todos los link de una pagina
+  	public void checkingPageLink() {
+  		List<WebElement> Links = driver.findElements(By.tagName("a"));
+  		String url = "";
+  		List<String> brokenLinks = new ArrayList<>();
+  		List<String> OkLinks = new ArrayList<>();
+
+  		HttpURLConnection httpConection = null;
+  		int responseCode = 200;
+  		Iterator<WebElement> it = Links.iterator();
+
+  		while (it.hasNext()) {
+  			url = it.next().getAttribute("href");
+  			if (url == null || url.isEmpty()) {
+  				System.out.println(url + " url no configurada o vacia");
+  				continue;
+  			}
+  			try {
+  				httpConection = (HttpURLConnection) (new URL(url).openConnection());
+  				httpConection.setRequestMethod("HEAD");
+  				httpConection.connect();
+  				responseCode = httpConection.getResponseCode();
+
+  				if (responseCode > 400) {
+  					System.out.println("Error Link: -- " + url);
+  					brokenLinks.add(url);
+  				} else {
+  					System.out.println("Valido Link: -- " + url);
+  					OkLinks.add(url);
+  				}
+
+  			} catch (Exception e) {
+  				System.out.println("Error al consultar la url: ----> " + e);
+  			}
+  		}
+
+  		System.out.println("Links Validos: -- " + OkLinks.size());
+  		System.out.println("Links Invalidos: -- " + brokenLinks.size());
+
+  		if (brokenLinks.size() > 0) {
+  			System.out.println("**** ERROR ------------------- lINK ROTOS");
+  			for (int i = 0; i < brokenLinks.size(); i++) {
+  				System.out.println(brokenLinks.get(i));
+  			}
+  			assertTrue("**** ERROR ------------------- lINK ROTOS", false);
+  		}
+  	}
+
+  	public void cambiarPestana(int index) {
+  		// driver.findElement(By.xpath("//body")).sendKeys(Keys.CONTROL + "" + Keys.SHIFT + "" + Keys.TAB);
+  		List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+  		System.out.println(tabs.size());
+  		driver.switchTo().window(tabs.get(index));
+  		this.cambiarFocoDriver(index);
+  	}
+    
+    public void esperaporestadoBD(By locator, String Cedula,String Estado) throws InterruptedException, NumberFormatException, SQLException {
+		String ConsulEstado = "";
+		String notificacion = "";
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado;
+		int Contador = 0;
+		// si en la cantida de intentos de contador no pasa el test falla
+		while (Contador < 3 && (notificacion.isEmpty() || (notificacion.contains("pendiente") || notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea")))) {
+			resultado = query.ConsultaEstado(Cedula);
+			while(resultado.next()) {
+		 		ConsulEstado = resultado.getString(1);
+			}
+			esperaExplicita(locator);
+			hacerClick(locator);
+			ElementVisible();
+			esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+			notificacion = GetText(By.xpath("//*[@class='ui-growl-title']")).toLowerCase();				
+			hacerClicknotificacion();
+			Contador++;
+		}
+
+		if (Contador >= 3) {
+	    	assertTrue("Falló al realizar la consulta a centrales, # Intentos: " + Contador, false);
+	    }
+	}
 }

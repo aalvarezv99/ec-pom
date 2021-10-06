@@ -76,9 +76,9 @@ public class SimuladorAsesorSteps {
 	originacionaccion.SubirDocumentos(ruta);
 	}
 
-	@Entonces("se finaliza con la consulta a centrales")
-	public void seFinalizaConLaConsultaACentrales() throws InterruptedException {
-	originacionaccion.ConsultaCentrales();
+	@Entonces("se finaliza con la consulta a centrales {string}")
+	public void seFinalizaConLaConsultaACentrales(String Cedula) throws InterruptedException {
+	originacionaccion.ConsultaCentrales(Cedula);
 	}
 
 }

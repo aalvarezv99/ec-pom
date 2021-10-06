@@ -16,8 +16,8 @@ Característica: Retanqueo de credito saneamiento
    Y cargar archivos nuevos <rutaPDF>
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
-   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo>
+   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><Saneamiento>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><Saneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -31,26 +31,27 @@ Característica: Retanqueo de credito saneamiento
    
   Ejemplos: 
   	|Retanqueo|Cedula     |Credito   |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  | descNomina | IngresosMes |codigo| Competidor             | Saneamiento    | VlrCuota     | FechaVencimiento    | NumObligacion   |         
-    |"4000000"|"79496499" |"69124"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"60" |"10"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"| "8110315267 - AMAR"    | "450000"       | "40000"      | "30/07/2021"        | "9321"          |
+    |"4000000"|"79496499" |"69124"   |"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"60" |"10"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"| "8110315267 - AMAR"    | "200000"       | "20000"      | "30/08/2021"        | "9321"          |
       
   @AnalisisCreditoRetanqueoSaneamiento
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con saneamiento <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Saneamiento>
+    Entonces Valida los valores del simulador retanqueos con saneamiento <AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Saneamiento><Credito><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       | Saneamiento |
-    |"4000000"|"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"22/07/2021"| "450000"    |
+    |Retanqueo|Credito |Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha         | Saneamiento |DiasHabilesIntereses|AnnoAfetacion  |
+    |"4000000"|"69124" |"79496499"     |"JIM"          |"8500000"|"280000"  |"50000"     |"Julio"|"1.8" |"60" |"280000" |"50000"   |"06/09/2021"| "450000"   |"10"                | "2021"	|
 
 
    @ClientesBienvenidaRetanqueosRetanqueoSaneamiento 
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    # Y se validan los valores de las condiciones del credito
     Entonces se pasa a la pestana condiciones de credito retanqueo se marcan los check condiciones y de saneamiento y se acepta <TipoDesen>
     Ejemplos: 
     |Cedula         |Celular     |Correo                     |TipoDesen  |
@@ -63,7 +64,7 @@ Característica: Retanqueo de credito saneamiento
     
     Ejemplos: 
     |Cedula    |fechaActual |rutaPDF                                    |
-    |"79496499"|"22/07/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"79496499"|"22/07/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
        
     @DesembolsoSaneamiento 
     Esquema del escenario: Saneamiento para Desembolso
@@ -72,7 +73,7 @@ Característica: Retanqueo de credito saneamiento
 
     Ejemplos: 
     |Cedula      |Saneamiento |Banco                                  |rutaPDF                                    |
-    |"79496499"  |"450000"    |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |"79496499"  |"450000"    |"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
         
         
     @DesembolsoRetanqueoRemanente 
@@ -83,6 +84,6 @@ Característica: Retanqueo de credito saneamiento
    
     Ejemplos: 
    |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |Saneamiento |
-   |"4000000"  |"79496499"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"450000"    |
+   |"4000000"  |"79496499"|"Remanentes - 60237038927 - REMANENTE"|"src/test/resources/Data/PDFPRUEBA.pdf"|"450000"    |
    
    

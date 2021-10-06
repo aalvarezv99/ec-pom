@@ -16,8 +16,8 @@ Característica: Retanqueo de creditos
    Y cargar archivos nuevos <rutaPDF>
    Y se solicita la consulta a centrales de riesgo
    Y marcar el credito viable
-   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo>
+   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
+   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
    Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -28,42 +28,44 @@ Característica: Retanqueo de creditos
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
-  |Retanqueo|Cedula         |Credito   |rutaPDF                                    | Tasa  | Plazo |DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes |codigo|         
-  |"1000000"|"80226849"     |"53045"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"| "1.8" | "60"  |"10"                 | "8500000" | "280000" | "50000"    | "3500000"   |"2258"|
+  |Retanqueo  |Cedula     |Credito|rutaPDF                                    	|Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey | descNomina|VlrCompraSaneamiento|codigo|    
+  |"9000000"  |"79919146" |"71403"|"src/test/resources/Data/PDFPRUEBA.pdf"			|"1.8"|"90" |"10"                |"6500000"|"380000" |"100000"  |"3500000"           |"2258"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina>
-    Y Guarda los datos del simulador
+    Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa>
+    Y Guarda los datos del simulador                     
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
-    |Retanqueo|Cedula         |NombreCredito|Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       |
-    |"1000000"|"80226849"     |"JAIVER"      |"8500000"| "280000" |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"16/07/2021"|
+   Ejemplos:
+    |Retanqueo |Cedula      |Credito|NombreCredito |Ingresos |decLey    |descNomina |Mes         |Tasa  |Plazo|descLey  |fecha       |DiasHabilesIntereses|AnnoAfetacion  |
+    |"9000000" |"79919146"  |"71403"|"WILLIAM FRANCISCO" |"6500000" |"380000" |"100000"   |"Octubre"   |"1.8"  |"90" |"360000" |"29/09/2021"|"13"                |"2021"         |
 
 
    @ClientesBienvenidaRetanqueos 
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    Entonces se pasa a la pestana condiciones de credito se marcan los chech y se acepta<TipoDesen>
+    Y se validan los valores de las condiciones del credito <Credito>
+    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
+    Y se marcan los chech y se acepta<TipoDesen><Cedula>
 
     Ejemplos: 
-    |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"80226849"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
+    |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
+    |"6572863" | "51461" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+
+
     @CreditosVisacionRetanqueos
     Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
     
     Ejemplos: 
-    |Cedula    |fechaActual |rutaPDF                                    |
-    |"80226849"|"14/07/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+    |Cedula    |fechaActual |rutaPDF                                |
+    |"79919146"|"25/08/2021"|"src/test/resources/Data/PDFPRUEBA.pdf"|
     
     @DesembolsoRetanqueos
     Esquema del escenario: Creditos para Desembolso
@@ -72,7 +74,7 @@ Característica: Retanqueo de creditos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
    
     Ejemplos: 
-   |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |
-   |"1000000"  |"80226849"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
+   |Retanqueo  |Cedula     |Banco                                  |rutaPDF                                    |
+   |"5250000"  |"79919146" |"Remanentes - 60237038927 - REMANENTE" |"src/test/resources/Data/PDFPRUEBA.pdf"|
    
    

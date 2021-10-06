@@ -30,6 +30,7 @@ public class PestanaDigitalizacionPage {
 	public By FechaVencimientoCartera;
 	public By NumeroObligacionCartera;
 	public By BotonGuardarCartera;
+	public By listCheckSiCarteras;
 	public By MarcarCartera1;
 	public By MarcarCartera2;
 	public By Entidad;
@@ -56,30 +57,23 @@ public class PestanaDigitalizacionPage {
 		//Compra cartera
 		Entidad = By.id("formRadicacion:j_idt93:0:competidorSO_label");	
 		FiltroEntidad =  By.id("formRadicacion:j_idt93:0:competidorSO_filter");
-		ValorCuota = By.id("formRadicacion:j_idt93:0:valorCuotaSO_input");
-		FechaVencimiento = By.id("formRadicacion:j_idt93:0:fechaVencimientoSO_input");
-		NumObligacion = By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
+		ValorCuota = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'valorCuotaSO_input')]");
+		FechaVencimiento = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'fechaVencimientoSO_input')]");
+		NumObligacion = By.xpath("//input[starts-with(@id,'formRadicacion:j_idt') and contains(@id,'numeroObligacionSO')]");
 		
 		//Datos saneamineto
-		EntidadCompetidor = By.id("formRadicacion:j_idt93:0:competidorSO_label");
+		EntidadCompetidor = By.id("formRadicacion:j_idt93:0:competidorSO_label");								   
 		FiltroLista = By.id("formRadicacion:j_idt93:0:competidorSO_filter");
 		RadioSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
+		RadioCompra = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:1");
 		MontoSaneamiento = By.id("formRadicacion:j_idt93:0:montoSO_input");
 		ValorCuotaSaneamiento = By.id("formRadicacion:j_idt93:0:valorCuotaSO_input");
 		FechaVencimientoSaneamiento = By.id("formRadicacion:j_idt93:0:fechaVencimientoSO_input");
 		NumeroObligacionSaneamiento	= By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
 		SeleccionSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
 		
-		
-		//datos cartera
-		EntidadCompetidorCartera = By.id("formRadicacion:j_idt93:1:competidorSO_label");
-		FiltroListaCartera = By.id("formRadicacion:j_idt93:1:competidorSO_filter");
-		RadioCompra = By.id("formRadicacion:j_idt93:1:tipoCarteraSO:1");
-		MontoCartera = By.id("formRadicacion:j_idt93:0:montoSO_input");
-		ValorCuotaCartera = By.id("formRadicacion:j_idt93:1:valorCuotaSO_input");
-		FechaVencimientoCartera = By.id("formRadicacion:j_idt93:1:fechaVencimientoSO_input");
-		NumeroObligacionCartera	= By.id("formRadicacion:j_idt93:1:numeroObligacionSO");
 		BotonGuardarCartera = By.id("formRadicacion:j_idt166");
+		listCheckSiCarteras = By.xpath("//input[starts-with(@id,'formRadicacion:certificacionesDeuda:') and contains(@id,'estadoCertificacion:') and contains(@value,'true') and not(@disabled)] ");
 		MarcarCartera1 = By.id("formRadicacion:certificacionesDeuda:0:estadoCertificacion:0_clone");
 		MarcarCartera2 = By.id("formRadicacion:certificacionesDeuda:1:estadoCertificacion:2_clone");
 		MarcarCartera = By.id("formRadicacion:certificacionesDeuda:0:estadoCertificacion:0_clone");

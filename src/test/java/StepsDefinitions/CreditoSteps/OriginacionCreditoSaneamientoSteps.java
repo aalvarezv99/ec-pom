@@ -64,10 +64,10 @@ public class OriginacionCreditoSaneamientoSteps {
 	
 //####################### IniciaAnalisisCreditoParaSaneamiento #####################################################################
 
-	   @Y("Valida los valores del simulador para compra saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	 /*  @Y("Valida los valores del simulador para compra saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}")
 	   public void Validalosvaloresdelsimuladorparacomprasaneamiento(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String saneamiento) throws NumberFormatException, SQLException {
 		   originacionCreditoSaneamientoAccion.ValidarSimuladorAnalistaSaneamiento(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,saneamiento);
-	   }
+	   }*/
 
 //####################### FinalizaAnalisisCreditoParaSaneamiento #####################################################################
 

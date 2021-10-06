@@ -24,6 +24,8 @@ public class RetanqueoPages {
 		public By Guardar;
 		public By Concepto;
 		public By inputTasa;
+		public By labelTasa;
+		public By inputTasaFiltro;
 		public By inputPlazo;		
 		public By inputMonto;	
 		public By diasIntInicial;
@@ -32,6 +34,7 @@ public class RetanqueoPages {
 		public By inputdDescNomina;
 		public By vlrCompra;
 		public By MontoSolicitar;
+		public By inputMontoValor;
 		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
@@ -55,8 +58,11 @@ public class RetanqueoPages {
 			//Componentes valores
 			MontoSolicitar = By.id("formSimuladorCredito:montoTotalCr_hinput");
 			inputTasa = By.id("formSimuladorCredito:tasaCr_input");
+			labelTasa = By.id("formSimuladorCredito:tasa_label");
+			inputTasaFiltro = By.id("formSimuladorCredito:tasa_filter");
 			inputPlazo = By.id("formSimuladorCredito:plazoCr_input");		
 			inputMonto = By.id("formSimuladorCredito:montoCr_input");	
+			inputMontoValor = By.id("formSimuladorCredito:montoCr_hinput");	
 			diasIntInicial = By.id("formSimuladorCredito:iInicialesCr_input");
 			inputIngresos = By.id("formSimuladorCredito:ingresosCr");
 			inputDescLey = By.id("formSimuladorCredito:leyCr");
