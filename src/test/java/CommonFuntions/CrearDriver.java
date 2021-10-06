@@ -125,9 +125,19 @@ public class CrearDriver {
 		try {
 			pro.load(in);
 			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");
+			FirefoxBinary firefoxBinary = new FirefoxBinary();
+			firefoxBinary.addCommandLineOptions("--headless");
+			firefoxBinary.addCommandLineOptions("--no-sandbox");
+			System.setProperty("webdriver.gecko.driver", "/usr/bin/geckodriver");
+			FirefoxOptions firefoxOptions = new FirefoxOptions();
+			firefoxOptions.setBinary(firefoxBinary);
+			
+			
 			DesiredCapabilities cap = DesiredCapabilities.firefox();
 			cap.setCapability("marionette", true);
 	        cap.setBrowserName("firefox");
+	        
+			cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
 			/*HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
