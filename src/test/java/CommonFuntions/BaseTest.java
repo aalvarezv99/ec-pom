@@ -4,6 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -513,17 +516,20 @@ public class BaseTest {
 	 }
 	
 	public void ClicUltimoElemento(By lista) {
-		List<WebElement> ListaElement = driver.findElements(lista);		
-		int i=ListaElement.size()-1;
-		System.out.println("mensaje  "+i+"  atributo  ");
-		if (i>0) { 
-		System.out.println("mensaje  "+i+"  atributo  ");
-		driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
-		}else {
-			System.out.println("mensaje  "+i+"  atributo  ");
-			driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
-					}
-
+		try {
+			List<WebElement> ListaElement = driver.findElements(lista);		
+			int i = ListaElement.size()-1;
+			System.out.println("mensaje 1 " + i + "  atributo  ");
+			if (i > 0) { 
+				System.out.println("mensaje 2 " + i + "  atributo  ");
+				driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
+			} else {
+				System.out.println("mensaje 3 " + i + "  atributo  ");
+				driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
+			}
+		} catch (Exception e) {
+			log.error("########## ERROR BASETEST - ClicUltimoElemento() ##########" + e);
+		}
 	}
 
 	/********* FIN FUNC AVANZADAS SELENIUM **************/
@@ -1142,28 +1148,29 @@ public WebDriver chromeDriverConnection() {
     	}
     }
     
-    public String[] RetornarStringListWebElemen(By locator) {
+    public List<String> RetornarStringListWebElemen(By locator) {
     	
-    	String[] Valores = new String[21];
+    	List<String> Valores = new ArrayList<>();
     	int valor=0;
     	List<WebElement> ListaElement = driver.findElements(locator);
     	
         for(int i=0;i<ListaElement.size();i++) {
-        	if(i<3) {
-        		Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+        	if(i < 3) {
+        		Valores.add(ListaElement.get(i).getText().replace(".","").replace(",","."));
+        	} else if (i == 3) {
+        		Valores.add(ListaElement.get(i).getText().replace(",","."));
         	} else {
 	        	String ValorNumerico = ListaElement.get(i).getText().replace(".","");
 	        	int coma = 	ValorNumerico.indexOf(",");
 	        	
 	        	if(coma==-1) {
-	        		Valores[i]=ListaElement.get(i).getText().replace(".","").replace(",",".");	
+	        		Valores.add(ListaElement.get(i).getText().replace(".","").replace(",","."));	
 	        	} else {
-	        		Valores[i]=	ValorNumerico.substring(0,coma);
-	            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores[i]);
+	        		Valores.add(ValorNumerico.substring(0,coma));
+	            	System.out.println(i+" Resultado de valor llamado a bienvenida "+Valores.get(i));
 	        	}
-        
         	}
-        	System.out.println("valor " + i + " - " + Valores[i]);
+        	System.out.println("valor " + i + " - " + Valores.get(i));
         }
         
         return Valores;
@@ -1289,4 +1296,117 @@ public WebDriver chromeDriverConnection() {
     public void EnviarEscape(By locator) {
 		driver.findElement(locator).sendKeys(Keys.ESCAPE);
 	}
+
+    public void cambiarFocoDriver(int index) {
+    	ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		driver.switchTo().window(tabs.get(index));
+    }
+
+    public void cargarDatosCarta(By locator) {
+    	 while(driver.findElement(locator).getText().equals("$")) {
+    		 // va a consultar el contenido hasta que cambie
+    	 }
+    	 System.out.println(" El valor del contenido ha cambiado " + driver.findElement(locator).getText());
+    }
+
+    public Map<String, String> cleanValues(By locatorKeys, By locatorValues) {
+    	Map<String, String> Valores = new HashMap<String, String>();
+    	List<WebElement> keys = driver.findElements(locatorKeys);
+    	List<WebElement> values = driver.findElements(locatorValues);
+    	for(int i = 0; i < keys.size(); i++) {
+    		String key = keys.get(i).getText();
+        	String valor = values.get(i).getText();
+    		if (valor.contains("$")) {
+        		valor = valor.replace("$", "").replace(".", "");
+        	} else if (valor.contains("%")) {
+        		valor = valor.replace("%", "");        		
+        	}
+        	Valores.put(key, valor.trim());
+        }
+    	this.sumarValores(Valores);
+        return Valores;
+    }
+
+    public void sumarValores(Map<String, String> valores) {
+    	int total = 0;
+    	int gmf = 0;
+    	for (Map.Entry<String, String> entry : valores.entrySet()) {
+    		if (entry.getKey().contains("Valor compra de cartera") || entry.getKey().contains("Valor saneamiento")) {
+    			total += Integer.parseInt(entry.getValue());
+    		}
+    		if (entry.getKey().contains("GMF compra de cartera") || entry.getKey().contains("GMF saneamiento")) {
+    			gmf += Integer.parseInt(entry.getValue());
+    		}
+    	}
+    	valores.put("totalCompraCartera", String.valueOf(total));
+    	valores.put("totalGmf", String.valueOf(gmf));
+    }
+
+    public void ToleranciaDoubleMensaje(String mensaje, double a, double b) {
+    	double Tolerancia = a-b;
+    	if (Tolerancia < 0) {
+    		Tolerancia = Tolerancia * -1;
+    	}
+        if (Tolerancia <= 1 && Tolerancia >= 0) {
+        	log.info(mensaje + " - Valor a "+a+" Valor b "+b);
+    	} else {
+    		assertTrue("########### ERROR CALCULANDO " + mensaje + " ########" + " Valor a " + a + " Valor b " + b, false);
+    	}
+    }
+
+    //Metodo para verificar todos los link de una pagina
+  	public void checkingPageLink() {
+  		List<WebElement> Links = driver.findElements(By.tagName("a"));
+  		String url = "";
+  		List<String> brokenLinks = new ArrayList<>();
+  		List<String> OkLinks = new ArrayList<>();
+
+  		HttpURLConnection httpConection = null;
+  		int responseCode = 200;
+  		Iterator<WebElement> it = Links.iterator();
+
+  		while (it.hasNext()) {
+  			url = it.next().getAttribute("href");
+  			if (url == null || url.isEmpty()) {
+  				System.out.println(url + " url no configurada o vacia");
+  				continue;
+  			}
+  			try {
+  				httpConection = (HttpURLConnection) (new URL(url).openConnection());
+  				httpConection.setRequestMethod("HEAD");
+  				httpConection.connect();
+  				responseCode = httpConection.getResponseCode();
+
+  				if (responseCode > 400) {
+  					System.out.println("Error Link: -- " + url);
+  					brokenLinks.add(url);
+  				} else {
+  					System.out.println("Valido Link: -- " + url);
+  					OkLinks.add(url);
+  				}
+
+  			} catch (Exception e) {
+  				System.out.println("Error al consultar la url: ----> " + e);
+  			}
+  		}
+
+  		System.out.println("Links Validos: -- " + OkLinks.size());
+  		System.out.println("Links Invalidos: -- " + brokenLinks.size());
+
+  		if (brokenLinks.size() > 0) {
+  			System.out.println("**** ERROR ------------------- lINK ROTOS");
+  			for (int i = 0; i < brokenLinks.size(); i++) {
+  				System.out.println(brokenLinks.get(i));
+  			}
+  			assertTrue("**** ERROR ------------------- lINK ROTOS", false);
+  		}
+  	}
+
+  	public void cambiarPestana(int index) {
+  		// driver.findElement(By.xpath("//body")).sendKeys(Keys.CONTROL + "" + Keys.SHIFT + "" + Keys.TAB);
+  		List<String> tabs = new ArrayList<>(driver.getWindowHandles());
+  		System.out.println(tabs.size());
+  		driver.switchTo().window(tabs.get(index));
+  		this.cambiarFocoDriver(index);
+  	}
 }

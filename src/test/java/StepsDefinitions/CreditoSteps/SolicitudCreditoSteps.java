@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import Acciones.CreditoAccion.OriginacionCreditosAccion;
+import Acciones.CreditoAccion.SolicitudCompraCarteraSaneamientoAccion;
 import CommonFuntions.BaseTest;
 import StepsDefinitions.CommunSteps.Driver;
 import cucumber.api.java.es.Cuando;
@@ -18,11 +19,13 @@ public class SolicitudCreditoSteps {
 	WebDriver driver;
 	Logger log = Logger.getLogger(SolicitudCreditoSteps.class);
 	OriginacionCreditosAccion originacionaccion;
+	SolicitudCompraCarteraSaneamientoAccion solicitudCompraCarteraSaneamientoAccion;
 	BaseTest baseTest;
 	
 	public SolicitudCreditoSteps() throws InterruptedException {		
 		driver = Driver.driver;		
 		originacionaccion = new OriginacionCreditosAccion(driver);
+		solicitudCompraCarteraSaneamientoAccion = new SolicitudCompraCarteraSaneamientoAccion(driver);
 		baseTest = new BaseTest(driver);
 	}
 	
@@ -140,9 +143,9 @@ public class SolicitudCreditoSteps {
 	}
 	
 	
-	@Entonces("se pasa a la pestana condiciones de credito se marcan los chech y se acepta{string}")
-	public void sepasaalapestanacondicionesdecreditosemarcanloschechyseacepta (String TipoDesen) throws InterruptedException {
-		originacionaccion.Aceptacondiconesdelcredito(TipoDesen);
+	@Y("se marcan los chech y se acepta{string}{string}")
+	public void semarcanloschechyseacepta (String TipoDesen, String cedula) throws InterruptedException {
+		originacionaccion.Aceptacondiconesdelcredito(TipoDesen, cedula);
 	}
 	//########################### Clientes para visacion ##############################
 	@Cuando("el agente ingresa a la pestana clientes para Visacion {string}")
@@ -170,5 +173,9 @@ public class SolicitudCreditoSteps {
 	public void sefiltrapormontoyseedita(String Monto, String Banco,String Pdf) {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}
-	
+
+	@Y("se marcan los chech y se acepta carteras y saneamientos {string}{string}")
+	public void semarcanloschechyseaceptacarterasysaneamientos (String TipoDesen, String cedula) throws InterruptedException {
+		solicitudCompraCarteraSaneamientoAccion.AceptarcondiconesdelcreditoComSan(TipoDesen, cedula);
+	}
 }

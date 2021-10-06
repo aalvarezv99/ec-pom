@@ -7,15 +7,15 @@ Característica: Retanqueo de creditos
 
  @RetanqueoCompraCarteraSaneamiento
  Esquema del escenario:  Retanqueo Compra de cartera y saneamiento
-  # Cuando El agente ingrese a la pestana retanqueo 
-  # Y se filtra por <Cedula><Credito>
-  # Y se da clic a retanquear   
+   Cuando El agente ingrese a la pestana retanqueo 
+   Y se filtra por <Cedula><Credito>
+   Y se da clic a retanquear   
    Y se busca el credito por <Cedula>
    Y se selecciona el retanqueo
-  # Y borrar archivos
-  # Y cargar archivos nuevos <rutaPDF>
-  # Y se solicita la consulta a centrales de riesgo
-  # Y marcar el credito viable
+   Y borrar archivos
+   Y cargar archivos nuevos <rutaPDF>
+   Y se solicita la consulta a centrales de riesgo
+   Y marcar el credito viable
    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
    Y se da clic en solicitar
@@ -24,20 +24,20 @@ Característica: Retanqueo de creditos
    Y se presiona en verificacion en la pestana digitalizacion
    Y se crean los tipos de cartera o saneamiento a recoger 
    		|Tipo						|Entidad				 				                        |Monto |VlrCuota|FechaVencimiento	|NumObligacion|
-   	#	|Cartera				|8600068225 - ACORE				                      |100000|70000  	|30/09/2021     	|21236   			|
+   		|Cartera				|8600068225 - ACORE				                      |100000|70000  	|30/09/2021     	|21236   			|
    		|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA		|830000|70000  	|30/09/2021     	|29123   			|
    Y se guarda cartera
    Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-    	|Tipo						|Entidad				 				|Monto	|VlrCuota|FechaVencimiento	|NumObligacion|
-    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA				|830000|70000  	|30/09/2021     	|29123   			|
-    #	|Cartera				|8600068225 - ACORE			|100000 |70000   |30/09/2021     	  |21236   			|    	
+    	|Tipo						|Entidad				 				                       |Monto	 |VlrCuota|FechaVencimiento	|NumObligacion|
+    	|Saneamiento    |8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA	 |830000 |70000  	|30/09/2021     	|29123   			|
+    	|Cartera				|8600068225 - ACORE			                       |100000 |70000   |30/09/2021     	|21236   		  |  	
    Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
    Y se marca identidida confirmada radicando la solicitud
    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
    
   Ejemplos: 
   	|Retanqueo|Cedula     |Credito|rutaPDF                                |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  |descNomina|IngresosMes|codigo| VlrCompraSaneamiento|      
-    |"7000000"|"72244446" |"77475"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"25" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"200000"|
+    |"7000000"|"79919146" |"71403"|"src/test/resources/Data/PDFPRUEBA.pdf"|"1.8"|"25" |"13"                |"6500000"|"380000" |"100000"  |"3500000"  |"2258"|"930000"|
       
   @AnalisisCreditoRetanqueoCarteraSaneamiento
   Esquema del escenario: Analisis del credito
@@ -49,19 +49,21 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
    Ejemplos: 
-    |Retanqueo|Credito|Cedula      |NombreCredito    |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
-    |"7000000"|"77475"|"72244446"  |"ALVARO DE JESUS"|"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"0"      |"830000"    |"13"                | "2021"        |
+    |Retanqueo|Credito|Cedula      |NombreCredito      |Ingresos  |decLey   |descNomina |Mes      |Tasa    |Plazo|descLey  |descNomina |fecha       |Cartera1 |Saneamiento2|DiasHabilesIntereses|AnnoAfetacion  |
+    |"7000000"|"71403"|"79919146"  |"WILLIAM FRANCISCO"|"6500000" |"380000" |"100000"   |"Octubre"|"1.8"   |"25" |"380000" |"100000"   |"25/09/2021"|"100000" |"830000"    |"13"                | "2021"        |
 
 
    @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    # Y se validan los valores de las condiciones del credito
-    Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
+    Y se validan los valores de las condiciones del credito <Credito>
+    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
+    Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
+
     Ejemplos: 
-    |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"32530184"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
+    |"79919146" | "71403" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
     
     
     @CreditosVisacionRetanqueosCarteraSaneamiento 
