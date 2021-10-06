@@ -93,12 +93,6 @@ public class CrearDriver {
 					break;	
 				}
 				ruta = setDownloadsPath();
-				FirefoxBinary firefoxBinary = new FirefoxBinary();
-				firefoxBinary.addCommandLineOptions("--headless");
-				firefoxBinary.addCommandLineOptions("--no-sandbox");
-				System.setProperty("webdriver.gecko.driver", "/usr/bin/geckodriver");
-				FirefoxOptions firefoxOptions = new FirefoxOptions();
-				firefoxOptions.setBinary(firefoxBinary);
 				
 				FirefoxOptions options = new FirefoxOptions();
 				options.setCapability("marionette", true);
