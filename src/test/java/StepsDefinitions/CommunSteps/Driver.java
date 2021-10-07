@@ -29,7 +29,7 @@ public class Driver {
 	
 	public static WebDriver driver;
 	static Logger log = Logger.getLogger(Driver.class);
-	Scenario scenario = null;
+	Scenario scenario ;
 	BaseTest baseTest ;
 	
 	private static String navegador;
@@ -44,22 +44,29 @@ public class Driver {
 		
 	}
 	
+	/*
 	@Before
 	public void before(Scenario scenario) {
-		this.scenario = scenario;		
-	}
+		   this.scenario = scenario;
+		   System.out.println("como seria prueba de escenario "+scenario);
+	}*/
 	
 	
 	
 	@Before
-	public void iniciarDriver() throws MalformedURLException {			
+	public void iniciarDriver(Scenario scenario) throws MalformedURLException {			
 		log.info("***********************************************************************************************************");
 		log.info("[ Configuracion ] - Inicializando la configuracion del Driver");
 		log.info("***********************************************************************************************************");
 	    driver = CrearDriver.inicialConfig();
 		levantarURL();
     	log.info("***********************************************************************************************************");
-		log.info("[ Scenario Ejecuadando ] - "+ scenario.getName().toUpperCase());
+    	
+    	System.out.println("Antes prueba de escenario "+scenario);	
+    	this.scenario = scenario;		
+		System.out.println("prueba de escenario       "+scenario);	
+		
+    	log.info("[ Scenario Ejecutando ] - "+ scenario.getName().toUpperCase());
 		log.info("***********************************************************************************************************");
 	}
 	
