@@ -448,8 +448,10 @@ public class RetanqueoCreditos extends BaseTest {
 			
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 					Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
+		   /* Se comenta comparacion del calculo  
 			ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
 					Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)), MontoMaxDesembolsar);
+		    */
 		
 			int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);			
 			ToleranciaPesoMensaje("Pantalla Gmf 4x1000 ",
