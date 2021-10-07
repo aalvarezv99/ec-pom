@@ -62,9 +62,9 @@ public class Driver {
 		levantarURL();
     	log.info("***********************************************************************************************************");
     	
-    	System.out.println("Antes prueba de escenario "+scenario);	
+    	System.out.println("Escenario Antes de la asignacion:   "+scenario);	
     	this.scenario = scenario;		
-		System.out.println("prueba de escenario       "+scenario);	
+		System.out.println("Escenario Despues de la asignacion: "+scenario);	
 		
     	log.info("[ Scenario Ejecutando ] - "+ scenario.getName().toUpperCase());
 		log.info("***********************************************************************************************************");
