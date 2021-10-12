@@ -1221,7 +1221,7 @@ public class RetanqueoCreditos extends BaseTest {
     			 if (entry.getKey().equals("Valor de Crédito")) {
     				 ToleranciaDoubleMensaje("Valor del crédito carta condiciones ", Double.parseDouble(entry.getValue()), Double.parseDouble(ValoresCredito.get(0)));
     			 }
-    			 if (entry.getKey().contains("Valor prima de seguro anticipada")) {
+    			 if (entry.getKey().equals("Valor prima de seguro anticipada")) {
     				 ToleranciaPesoMensaje("Valor prima de seguro anticipada ", Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(10)));
     			 }
     			 if (entry.getKey().equals("Prima de seguro no devengada crédito retanqueado")) {
