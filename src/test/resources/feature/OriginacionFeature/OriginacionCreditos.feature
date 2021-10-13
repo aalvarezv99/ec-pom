@@ -1,5 +1,5 @@
 #language: es
-Característica: Originacion de Creditos
+Característica: Originacion de Creditos 
 
   Antecedentes: 
     Dado Un agente en el sistema core abacus con sesion iniciada

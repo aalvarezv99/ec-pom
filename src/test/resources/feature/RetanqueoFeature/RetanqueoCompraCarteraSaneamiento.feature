@@ -95,7 +95,7 @@ Característica: Retanqueo de creditos
     @DesembolsoSaneamientoCarteraSaneamiento 
     Esquema del escenario: Saneamiento para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el saneamiento <Cedula>
-    Y se descargadescargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
+    Y se descargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
 
     Ejemplos: 
     |Cedula    |Saneamiento2|Banco                                 |rutaPDF                                    |

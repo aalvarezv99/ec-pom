@@ -34,11 +34,12 @@ public class RetanqueoAsesorSteps {
 	public void sefiltrapor (String Cedula, String Credito) throws InterruptedException {
 		retanqueocreditos.FiltrarCredito(Cedula, Credito);
 	}
-
+	
 	@Y("se da clic a retanquear")
 	public void sedaclicaretanquear () throws InterruptedException {
 		retanqueocreditos.Retanquear();
 	}
+	
 	
 	@Y("se busca el credito por {string}")
 	public void sebuscaelcreditopor (String Cedula) throws InterruptedException {

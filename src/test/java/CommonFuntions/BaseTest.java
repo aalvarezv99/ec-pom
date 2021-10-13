@@ -755,6 +755,7 @@ public void clickvarios(By locator) {
 		List<WebElement> clickvarios = driver.findElements(locator);
 		for(int i=0;i<clickvarios.size();i++) {
 			clickvarios.get(i).click();
+			ElementVisible();
 			//driver.findElement(By.id(Input.get(i).getAttribute("id"))).click();
 		}
 	}

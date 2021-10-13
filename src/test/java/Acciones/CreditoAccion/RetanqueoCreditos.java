@@ -123,6 +123,7 @@ public class RetanqueoCreditos extends BaseTest {
 		}
 		
 	}
+	
 
 	public void Credito(String Cedula) throws InterruptedException {
 		log.info("*********Buscar Credito en solicitud, RetanqueoCreditos - Credito()********");
@@ -1291,4 +1292,8 @@ public class RetanqueoCreditos extends BaseTest {
     		 BuscarTextoPage(buscarTextos.get(i));
     	 }
      }
+     
+    
+     
+     
 }

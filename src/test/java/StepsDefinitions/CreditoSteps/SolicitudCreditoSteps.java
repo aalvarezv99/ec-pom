@@ -188,4 +188,24 @@ public class SolicitudCreditoSteps {
 	public void seMarcanLosChechySeaceptaElDetalleOriginacion (String TipoDesen, String cedula) throws InterruptedException {
 		originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
 	}
+	
+	@Y("se descargadescargan medios de dispersion para la cartera {string}{string}{string}")
+	public void sedescargadescarganmediosdedispersionparalacartera(String cartera, String Banco,String Pdf) throws InterruptedException {
+		originacionaccion.DescargarMediosDispercionCartera(cartera, Banco,Pdf);
+	}
+	
+	 @Y("se navega hasta carteras {string}")
+		public void senavegahastacarteras(String Pdf) throws InterruptedException {
+		 originacionaccion.VisacionCartera(Pdf);
+		}
+	
+	 @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")
+	   public void elagenteingresaalalistadepagosparaprocesarelsaneamiento (String Cedula) throws InterruptedException {
+		 originacionaccion.ProcesarSaneamiento(Cedula);
+	   }
+	 
+	 @Cuando ("el agente ingresa a la lista de pagos para procesar el remanente {string}")
+	   public void elagenteingresaalalistadepagosparaprocesarelremanente (String Cedula) throws InterruptedException {
+		 originacionaccion.ProcesarRemanente(Cedula);
+	   }
 }

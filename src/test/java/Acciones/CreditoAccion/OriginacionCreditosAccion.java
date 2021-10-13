@@ -1537,4 +1537,78 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 		
 	}
+	
+	public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
+	  	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
+	  	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
+	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,Monto);
+	  	Thread.sleep(4000);
+	  	
+	  	
+	  	String pattern = "###,###,###.###";
+	      double value = Double.parseDouble(Monto);
+
+	      DecimalFormat myFormatter = new DecimalFormat(pattern);
+	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
+	      String output = myFormatter.format(value);    	
+	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
+	  	hacerClick(PagesCreditosDesembolso.VerEditar);
+	  	ElementVisible(); 
+	  	hacerClick(PagesCreditosDesembolso.Banco);
+	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
+	  	ElementVisible(); 
+	  	cargarpdf(PagesCreditosDesembolso.CargarEvidencia,Pdf);
+	  	esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
+	  	ElementVisible(); 
+	  	hacerClick(PagesCreditosDesembolso.CrearArchivo);
+	  	esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
+	  	ElementVisible(); 
+	  	hacerClick(PagesCreditosDesembolso.Guardar);
+	  	ElementVisible();    	
+	  }
+	
+	  public void VisacionCartera (String Pdf) throws InterruptedException {
+		  recorerpestanas("CARTERAS Y SANEAMIENTOS");
+		  Hacer_scroll(pagesclienteparavisacion.PazYSalvoCartera);
+		  cargarpdf(pagesclienteparavisacion.PazYSalvoCartera,Pdf);
+		  ElementVisible();
+	  }
+	  
+	  public void ProcesarSaneamiento (String Cedula) throws InterruptedException {
+	       	panelnavegacionaccion.CreditoParaDesembolso();
+	         	ElementVisible();     	
+	         	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
+	         	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
+	         	ElementVisible();
+	         	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
+	         	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
+	         	hacerClick(pagescreditosdesembolso.TipoOperacionSaneamiento);
+	         	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
+	         	ElementVisible();
+	         	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
+	         	ElementVisible();
+	         	hacerClick(pagescreditosdesembolso.ProcesarPagos);
+	         	ElementVisible(); 
+	         }
+	          
+	  public void ProcesarRemanente (String Cedula) throws InterruptedException {
+       	panelnavegacionaccion.CreditoParaDesembolso();
+         	ElementVisible();     	
+         	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
+         	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
+         	ElementVisible();
+         	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
+         	hacerClick(pagescreditosdesembolso.FiltroEstadoPago);
+         	hacerClick(pagescreditosdesembolso.EstadoPagoHabilitado);
+         	ElementVisible();
+         	hacerClick(pagescreditosdesembolso.FiltroTipoOperacion);
+         	hacerClick(pagescreditosdesembolso.TipoOperacionRemanente);
+       	Thread.sleep(2000);
+          Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
+         	ElementVisible();
+         	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
+         	ElementVisible();
+         	hacerClick(pagescreditosdesembolso.ProcesarPagos);
+         	ElementVisible(); 
+    }
 }
