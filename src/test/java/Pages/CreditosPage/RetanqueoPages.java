@@ -38,6 +38,9 @@ public class RetanqueoPages {
 		public By MontoSolicitar;
 		public By inputMontoValor;
 		public By SaldoTotalRecoger;
+		public By montoTotalSolicitado;
+		public By BtnRetanqueoMultiple;
+		public By SaldoAldiaCreditosMultiples;
 		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
@@ -60,6 +63,9 @@ public class RetanqueoPages {
 			Guardar=By.xpath("//*[text()='Guardar']");
 			Concepto=By.xpath("//div[text()='CONCEPTO FINAL ']");
 			SaldoTotalRecoger=By.id("form:saldo_total_a_recoger_input_hinput");
+			montoTotalSolicitado=By.id("form:montoTotalSolicitado");
+			BtnRetanqueoMultiple= By.id("form:btn_retanqueo_multiple");
+			SaldoAldiaCreditosMultiples= By.xpath("//table[@class='table']/child::tbody/child::tr//child::td[14]");
 			
 			//Componentes valores
 			MontoSolicitar = By.id("formSimuladorCredito:montoTotalCr_hinput");

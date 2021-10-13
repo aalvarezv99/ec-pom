@@ -1433,4 +1433,15 @@ public WebDriver chromeDriverConnection() {
 	    	assertTrue("Falló al realizar la consulta a centrales, # Intentos: " + Contador, false);
 	    }
 	}
+    
+    
+    public int calcularSaldoAlDia(By locator) throws InterruptedException {
+		List<WebElement> listSaldoAlDia = driver.findElements(locator);
+		int saldoaldia = 0;
+		for(int i = 0; i < listSaldoAlDia.size(); i++) {
+			saldoaldia += (int)Double.parseDouble(listSaldoAlDia.get(i).getText().replace(".","").replace(",","."));
+		}
+		return saldoaldia;
+	}
+    
 }
