@@ -44,9 +44,9 @@ public class RetanqueoPages {
 		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
-			cedula = By.id("form:listaCreditos:j_idt66:filter");
-			credito = By.id("form:listaCreditos:j_idt55:filter");
-			Pagaduria = By.id("form:listaCreditos:j_idt72:filter");
+			cedula = By.id("form:listaCreditos:j_idt67:filter");
+			credito = By.id("form:listaCreditos:j_idt56:filter");
+			Pagaduria = By.id("form:listaCreditos:j_idt73:filter");
 			BtnRentaqueo= By.xpath("//a[@title='Retanquear']");
 			ListCreditos= By.xpath("//div[starts-with(@id,'form:listaCreditos') and contains(@id,'check')]");
 			notificacion = By.xpath("//*[@class='ui-growl-title']");
@@ -63,7 +63,7 @@ public class RetanqueoPages {
 			Guardar=By.xpath("//*[text()='Guardar']");
 			Concepto=By.xpath("//div[text()='CONCEPTO FINAL ']");
 			SaldoTotalRecoger=By.id("form:saldo_total_a_recoger_input_hinput");
-			montoTotalSolicitado=By.id("form:montoTotalSolicitado");
+			montoTotalSolicitado=By.id("form:monto_total_solicitado_input_input");
 			BtnRetanqueoMultiple= By.id("form:btn_retanqueo_multiple");
 			SaldoAldiaCreditosMultiples= By.xpath("//table[@class='table']/child::tbody/child::tr//child::td[14]");
 			
