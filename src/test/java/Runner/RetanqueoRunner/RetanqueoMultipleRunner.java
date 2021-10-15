@@ -11,8 +11,10 @@ import cucumber.api.SnippetType;
 // import cucumber.api.junit.Cucumber;
 
 // @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature", glue = "StepsDefinitions", tags = {
-        "@Retanqueo" }, snippets = SnippetType.CAMELCASE)
+@CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature",
+                 glue = "StepsDefinitions",
+                 tags = {"@Retanqueo, @ClientesBienvenidaRetanqueos" },
+                 snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)
 
