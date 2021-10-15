@@ -624,6 +624,7 @@ public class BaseTest {
 			driver.get(rutaPdf);						
 		} catch (Exception e) {
 			log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
+			assertBooleanImprimeMensaje("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########", true);
 		}
 		
 	}
@@ -1031,7 +1032,7 @@ public void clickvarios(By locator) {
 	    		 
 			 catch (Exception e) {
 			 log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
-			 //assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
+			 assertTrue("########## ErrorAplicacionCierreAccion - validarMensajeCargueTerminado() ########"+ e,false);
 			}
 		 return result;
 	}
