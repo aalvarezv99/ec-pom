@@ -203,10 +203,22 @@ public class PanelPrincipalAccion extends BaseTest {
 	}
 	
 	public void Retanqueo() {
-		esperaExplicita(panelnavegacionpage.selectRetanqueo);
-		hacerClick(panelnavegacionpage.selectRetanqueo);
-		esperaExplicita(panelnavegacionpage.selectListaCreditoRetanqueo);
-		hacerClick(panelnavegacionpage.selectListaCreditoRetanqueo);
+		log.info("*********Navegando creditos a retanquear, PanelPrincipalAccion - Retanqueo()******");
+		try {
+			esperaExplicita(panelnavegacionpage.selectRetanqueo);
+			hacerClick(panelnavegacionpage.selectRetanqueo);
+			esperaExplicita(panelnavegacionpage.selectListaCreditoRetanqueo);
+			hacerClick(panelnavegacionpage.selectListaCreditoRetanqueo);
+		} catch (Exception e) {
+			log.error("########## ERROR PANELPRINCIPALACCION - Retanqueo() ########" + e);
+			assertTrue("########## ERROR PANELPRINCIPALACCION - Retanqueo() ########"+ e,false);
+		}
 	}
-	
+
+	public void cartaNotificacionCondicionesCredito() {
+		esperaExplicita(panelnavegacionpage.selectCreditos);
+		hacerClick(panelnavegacionpage.selectCreditos);
+		esperaExplicita(panelnavegacionpage.selectCartaCondiciones);
+		hacerClick(panelnavegacionpage.selectCartaCondiciones);
+	}
 }

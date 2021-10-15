@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 public class RecaudoPage {
 	WebDriver driver;
-	
 	public By botonAddPagoRecaudo;
 	public By inputFecha;
 	public By inputValor;

@@ -6,22 +6,26 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import Acciones.CreditoAccion.OriginacionCreditosAccion;
+import Acciones.CreditoAccion.SolicitudCompraCarteraSaneamientoAccion;
 import CommonFuntions.BaseTest;
 import StepsDefinitions.CommunSteps.Driver;
 import cucumber.api.java.es.Cuando;
 import cucumber.api.java.es.Entonces;
 import cucumber.api.java.es.Y;
+import io.cucumber.datatable.DataTable;
 
 public class SolicitudCreditoSteps {
 	
 	WebDriver driver;
 	Logger log = Logger.getLogger(SolicitudCreditoSteps.class);
 	OriginacionCreditosAccion originacionaccion;
+	SolicitudCompraCarteraSaneamientoAccion solicitudCompraCarteraSaneamientoAccion;
 	BaseTest baseTest;
 	
 	public SolicitudCreditoSteps() throws InterruptedException {		
 		driver = Driver.driver;		
 		originacionaccion = new OriginacionCreditosAccion(driver);
+		solicitudCompraCarteraSaneamientoAccion = new SolicitudCompraCarteraSaneamientoAccion(driver);
 		baseTest = new BaseTest(driver);
 	}
 	
@@ -64,6 +68,11 @@ public class SolicitudCreditoSteps {
 	public void sePresionaEnVerificacionEnLaPestanaDigitalizacion() {
          originacionaccion.DigitalizacionVerificacion();
 	}
+	
+	@Y("se crean los tipos de cartera o saneamiento a recoger")
+	public void seCreanLosTiposDeCarteraOSaneamientoARecoger(DataTable dataTable) {
+	    originacionaccion.agregarSaneamientosCarteras(dataTable);
+	}
 
 	@Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias{string}")
 	public void se_pasa_a_la_segunta_pestana_de_digitalizacion_se_agrega_el_codigo_proforences_aprueba_referencias(String codigo) throws InterruptedException {
@@ -96,9 +105,9 @@ public class SolicitudCreditoSteps {
 		originacionaccion.SegundaPestanaSimuladorAnalista();
 	}
 
-	@Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void validaLosValoresDelSimulador(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos) throws InterruptedException, NumberFormatException, SQLException {
-	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos);
+	@Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void validaLosValoresDelSimulador(String Mes,String Monto,String Tasa,String Plazo,String Ingresos,String descLey, String descNomina, String pagaduria,String vlrCompasSaneamientos,String anoAnalisis, String fechaDesembolso) throws InterruptedException, NumberFormatException, SQLException {
+	  originacionaccion.ValidarSimuladorAnalista(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,pagaduria,vlrCompasSaneamientos,anoAnalisis, fechaDesembolso);
 	}
 	
 	
@@ -134,9 +143,9 @@ public class SolicitudCreditoSteps {
 	}
 	
 	
-	@Entonces("se pasa a la pestana condiciones de credito se marcan los chech y se acepta{string}")
-	public void sepasaalapestanacondicionesdecreditosemarcanloschechyseacepta (String TipoDesen) throws InterruptedException {
-		originacionaccion.Aceptacondiconesdelcredito(TipoDesen);
+	@Y("se marcan los chech y se acepta{string}{string}")
+	public void semarcanloschechyseacepta (String TipoDesen, String cedula) throws InterruptedException {
+		originacionaccion.Aceptacondiconesdelcredito(TipoDesen, cedula);
 	}
 	//########################### Clientes para visacion ##############################
 	@Cuando("el agente ingresa a la pestana clientes para Visacion {string}")
@@ -164,5 +173,19 @@ public class SolicitudCreditoSteps {
 	public void sefiltrapormontoyseedita(String Monto, String Banco,String Pdf) {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}
-	
+
+	@Y("validar las condiciones de la carta de notificacion de creditos originacion {string}")
+	public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
+		originacionaccion.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
+	}
+
+	@Y("se marcan los chech y se acepta carteras y saneamientos {string}{string}")
+	public void semarcanloschechyseaceptacarterasysaneamientos (String TipoDesen, String cedula) throws InterruptedException {
+		solicitudCompraCarteraSaneamientoAccion.AceptarcondiconesdelcreditoComSan(TipoDesen, cedula);
+	}
+
+	@Y("se marcan los chech y se acepta el detalle originacion{string}{string}")
+	public void seMarcanLosChechySeaceptaElDetalleOriginacion (String TipoDesen, String cedula) throws InterruptedException {
+		originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
+	}
 }

@@ -81,10 +81,11 @@ public class OriginacionCompraCarteraSteps {
 
 //####################### IniciaAnalisisCreditoParaCompraDeCartera #####################################################################
 
-   @Y("Valida los valores del simulador para compra de cartera {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	//Emilinar despues de probar flujos
+   /*@Y("Valida los valores del simulador para compra de cartera {string}{string}{string}{string}{string}{string}{string}{string}{string}")
    public void validalosvaloresdelsimuladorparacompradecartera(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String cartera) throws NumberFormatException, SQLException {
 	   originacioncompracarteraaccion.ValidarSimuladorAnalistaCompraCartera(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,cartera);
-   }
+   }*/
 
 
 

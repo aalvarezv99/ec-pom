@@ -30,6 +30,7 @@ public class PagesClienteParaBienvenida {
 	public By ValoresCondicionesCredito;
 	public By SaldoAlDia;
 	public By ValorSaldoAlDia;
+	public By CheckCarterasSaneamientos;
 	
 	public PagesClienteParaBienvenida(WebDriver driver) {
 		filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -40,11 +41,12 @@ public class PagesClienteParaBienvenida {
 	    CedulaGrilla = By.xpath("//td[text()='52912399']");
 		Guardar= By.xpath("//a[text()='Guardar']");
 	    Correcta = By.xpath("//*[text()='Correcta']");
-	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone'  and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone' and @id!='formCondicionCredito:j_idt255:1:aceptaRadio:2_clone' and @id!='formCondicionCredito:j_idt279:0:aceptaRadio:0_clone' and @id!='formCondicionCredito:j_idt279:1:aceptaRadio:2_clone']");
+	    CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and not (contains(@id,'aceptaRadio'))]");
+	    CheckCarterasSaneamientos = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone'and contains(@id,'aceptaRadio')]");
 	    //CheckCondicionesCredito = By.xpath("//*[@type='radio' and @value='true' and @class='ui-radio-clone' and @id!='formCondicionCredito:cobroAsesor:0_clone' and @id!='formCondicionCredito:informacionSuministrada:0_clone' and @id!='formCondicionCredito:j_idt255:0:aceptaRadio:0_clone']");
 	    label_Nombres_Completos=By.xpath("//label[text()='Nombres completos: ']"); 
 	    Correo=By.name("form:j_idt127");
-	    Desembolso=By.xpath("//label[starts-with(@id,'formCondicionCredito:j_idt') and text()='Transferencia TDP' and @class='ui-selectonemenu-label ui-inputfield ui-corner-all']");
+	    Desembolso=By.xpath("//label[text() = 'Seleccione un tipo desembolso: ']//following::label[1]");
 	    ListDesembolso=By.xpath("//li[starts-with(@id,'formCondicionCredito:j_idt') and @role='option' and contains(text(),'Tr') or contains(text(),'Ef') ]");
 	    CalificacionProceso=By.id("formCondicionCredito:informacionSuministrada:0_clone");
 	    CalificacionCobro=By.id("formCondicionCredito:cobroAsesor:1_clone");
