@@ -24,10 +24,9 @@ Característica: Prepago de Creditos
     ##Y la amortizacion del prepago y lo movimientos contables en bases de datos
     Ejemplos: 
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago  | RutaDocumento                                       |
-        | 32618 | 36172703 |           14 	 |               0 |              18000 | "Prepago" | "src/test/resources/Data/CertificacionSaldos/" |
-     	#| 59829 | 64544337 |
-      #| 70494 			| 9066513 |             12 	 |               0 |              18000 | "Prepago" | "C:\\Users\\User\\Downloads\\CertificacionSaldos\\" |
-  #src/test/resources/Data/CertificacionSaldos
+ ##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@Retanqueo
+   |33774   |35490956   |14   |0   |18000   |Prepago   |"src/test/resources/Data/CertificacionSaldos/"|
+ 
   @CertificacionSaldoActivaCXCSinFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc sin fianza
     Cuando Navegue a la configuracion global del pregago

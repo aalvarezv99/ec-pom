@@ -186,8 +186,8 @@ public class CertificacionSaldoQuery {
 			query.append("and cre.id = " + idCredito + ";");
 			fianzaRs = dbconector.conexion(query.toString());
 			fianza = obtenerValorResultSet(fianzaRs, "Fianza");
-
-			saldoInsolutoDto.setCapital(capital);
+			
+			saldoInsolutoDto.setCapital(capital );
 			saldoInsolutoDto.setInteresMora(interesesMora);
 			saldoInsolutoDto.setGastosCobranza(gastosCobranza);
 			saldoInsolutoDto.setInteresesCorrientes(interesesCorrientes);
@@ -233,6 +233,7 @@ public class CertificacionSaldoQuery {
 		try {
 			while (resultSet.next()) {
 				valor = resultSet.getBigDecimal(1);
+				valor = (valor == null) ? BigDecimal.ZERO : valor;
 				log.info(concepto + ": $ " + valor);
 				break;
 			}
