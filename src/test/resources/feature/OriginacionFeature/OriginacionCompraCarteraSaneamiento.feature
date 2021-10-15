@@ -94,7 +94,7 @@ Característica: Solicitud combra de cartera
   @VisacionCartera
     Esquema del escenario: Visacion de la cartera
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
-    Y se navega hasta carteras <rutaPDF>
+    Y se navega hasta carteras <rutaPDF> 
 
            Ejemplos: 
         | Cedula     |  rutaPDF         |
@@ -103,9 +103,9 @@ Característica: Solicitud combra de cartera
   @DesembolsoSaneamiento
   Esquema del escenario: Saneamiento para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el saneamiento <Cedula>
-    Y se descargan medios de dispersion para el saneamiento dos <Saneamiento2><Banco><rutaPDF>
+    Y se descargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
 
-           Ejemplos: 
+      Ejemplos: 
       | Cedula     | Monto       | Saneamiento2 | rutaPDF                                     |Banco                                      |
       | "1014262729" | "25000000"    |  "350000"                  | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |
           
