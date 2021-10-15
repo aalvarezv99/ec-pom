@@ -9,7 +9,7 @@ Característica: Solicitud combra de cartera
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
      # Y cambia la fecha del servidor <FechaServidor>
-     Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+     Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria> <Cedula> <fecha> <Oficina> <Actividad> <Tasa> <Plazo> <Monto> <DiasHabilesIntereses> <Ingresos> <descLey> <descNomina> <vlrCompasSaneamientos> <tipo> <colchon>
      Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
      Y guarda la simulacion presionando el boton guardar
      Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
@@ -64,7 +64,7 @@ Característica: Solicitud combra de cartera
   @ClientesBienvenida 
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
     Y se validan los valores de las condiciones del credito
     Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
     Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
