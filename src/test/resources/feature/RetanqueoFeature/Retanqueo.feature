@@ -48,14 +48,14 @@ Característica: Retanqueo de creditos
    @ClientesBienvenidaRetanqueos 
    Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
     Y se validan los valores de las condiciones del credito <Credito>
     Y validar las condiciones de la carta de notificacion de creditos <Cedula>
-    Y se marcan los chech y se acepta<TipoDesen><Cedula>
+    Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
     Ejemplos: 
-    |Cedula     | Credito |Celular     |Correo                     |TipoDesen  |
-    |"6572863" | "51461" |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
+    |Cedula  | Credito |Celular     |Correo                     |TipoDesen  |
+    |6572863 | 51461   |3115128152  |"dandresabogadog@mail.com" |"Efectivo" |
 
 
     @CreditosVisacionRetanqueos

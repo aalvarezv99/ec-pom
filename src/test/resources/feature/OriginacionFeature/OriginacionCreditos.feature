@@ -1,5 +1,5 @@
 #language: es
-Característica: Originacion de Creditos
+Característica: Originacion de Creditos 
 
   Antecedentes: 
     Dado Un agente en el sistema core abacus con sesion iniciada
@@ -56,14 +56,14 @@ Característica: Originacion de Creditos
   @ClientesBienvenida
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
+    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
     Y se validan los valores de las condiciones del credito
     Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
-    Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
+    Y se marcan los chech y se acepta el detalle originacion<TipoDesen> <Cedula>
 
     Ejemplos: 
       | Cedula     | Celular      | Correo                 | TipoDesen  |
-      | "9777757" | "3125127117" | "apqwerty250@mail.com" | "Efectivo" |
+      | 9777757 | 3125127117 | "apqwerty250@mail.com" | "Efectivo" |
 
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion
