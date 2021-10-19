@@ -1542,6 +1542,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	  	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 	  	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,Monto);
+	  	ElementVisible();
 	  	Thread.sleep(4000);
 	  	
 	  	
@@ -1552,7 +1553,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
 	      String output = myFormatter.format(value);    	
 	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-	  	hacerClick(PagesCreditosDesembolso.VerEditar);
+	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
 	  	ElementVisible(); 
 	  	hacerClick(PagesCreditosDesembolso.Banco);
 	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	

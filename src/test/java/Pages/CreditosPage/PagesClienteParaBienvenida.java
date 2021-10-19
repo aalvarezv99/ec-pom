@@ -32,6 +32,7 @@ public class PagesClienteParaBienvenida {
     public By ValorSaldoAlDia;
     public By CheckCarterasSaneamientos;
     public By ListaCreditosRecoger;
+    public By saldoAlDiaRetanqueo;
 
     public PagesClienteParaBienvenida(WebDriver driver) {
         filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -72,6 +73,7 @@ public class PagesClienteParaBienvenida {
         SaldoAlDia = By.xpath("/html/body/div[2]/div/div[2]/div/form/div[1]/div[2]/div[3]/div[2]/label");
         ValorSaldoAlDia = By.xpath("//label[@class='form-control fecha-inline']");
         ListaCreditosRecoger = By.xpath("//div[@id='formCondicionCredito:j_idt305']/child::div//child::span");
+        saldoAlDiaRetanqueo = By.xpath("//div[@class='col-xs-8 control-label' and text() = 'Saldo al día']//following-sibling::div//child::label");
 
     }
 }

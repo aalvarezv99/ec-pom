@@ -196,7 +196,7 @@ public class SolicitudCreditoSteps {
 	
 	 @Y("se navega hasta carteras {string}")
 		public void senavegahastacarteras(String Pdf) throws InterruptedException {
-		 originacionaccion.VisacionCartera(Pdf);
+		 solicitudCompraCarteraSaneamientoAccion.VisacionCartera(Pdf);
 		}
 	
 	 @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")
