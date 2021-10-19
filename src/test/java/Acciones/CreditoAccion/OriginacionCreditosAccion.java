@@ -493,7 +493,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 			int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
 			ToleranciaPesoMensaje("IM INTERNO - CALCULANDO MONTO SOLICITUD ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)) , calculoMontoSoli);
-
+			
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO CUOTA CORRIENTE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)) , CuotaCorriente);
 
@@ -517,7 +517,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 					Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
 			ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado)) , RemanenteEstimado);
-
+            
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 					Integer.parseInt(descNomina), colchon, tasaUno,
 					Integer.parseInt(Plazo), tasaDos, mesDos);

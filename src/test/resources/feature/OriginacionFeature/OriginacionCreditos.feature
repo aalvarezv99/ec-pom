@@ -74,7 +74,7 @@ Característica: Originacion de Creditos
      Ejemplos: 
        | Cedula     | fechaActual   | rutaPDF         												 |
 	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@CreditosVisacion
-   |"9777757"   |"30/Sep/2021"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
+
    
 
   @Desembolso
