@@ -55,7 +55,7 @@ Característica: Retanqueo de creditos
 
     Ejemplos: 
     |Cedula  | Credito |Celular     |Correo                     |TipoDesen  |
-    |6572863 | 51461   |3115128152  |"dandresabogadog@mail.com" |"Efectivo" |
+    |"6572863" | "51461"   |"3115128152" |"dandresabogadog@mail.com" |"Efectivo" |
 
 
     @CreditosVisacionRetanqueos

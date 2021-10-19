@@ -189,14 +189,14 @@ public class SolicitudCreditoSteps {
 		originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
 	}
 	
-	@Y("se descargadescargan medios de dispersion para la cartera {string}{string}{string}")
+	@Y("se descargan medios de dispersion para la cartera {string}{string}{string}")
 	public void sedescargadescarganmediosdedispersionparalacartera(String cartera, String Banco,String Pdf) throws InterruptedException {
 		originacionaccion.DescargarMediosDispercionCartera(cartera, Banco,Pdf);
 	}
 	
 	 @Y("se navega hasta carteras {string}")
 		public void senavegahastacarteras(String Pdf) throws InterruptedException {
-		 originacionaccion.VisacionCartera(Pdf);
+		 solicitudCompraCarteraSaneamientoAccion.VisacionCartera(Pdf);
 		}
 	
 	 @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")

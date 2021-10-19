@@ -287,7 +287,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 						Integer.parseInt(descNomina), colchon, tasaUno,
 						Integer.parseInt(Plazo), tasaDos, mesDos);
 				ToleranciaPesoMensaje("SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR ", Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)) ,MontoMaxDesembolsar);
-				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
+			ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
+
 	}
 	
 	public void GuardarSimulacion() throws InterruptedException {
@@ -493,7 +494,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 			int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
 			ToleranciaPesoMensaje("IM INTERNO - CALCULANDO MONTO SOLICITUD ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)) , calculoMontoSoli);
-
+			
 			int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
 			ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO CUOTA CORRIENTE ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)) , CuotaCorriente);
 
@@ -517,7 +518,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, Integer.parseInt(vlrCompasSaneamientos),
 					Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
 			ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado)) , RemanenteEstimado);
-
+            
 			int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
 					Integer.parseInt(descNomina), colchon, tasaUno,
 					Integer.parseInt(Plazo), tasaDos, mesDos);
@@ -1276,7 +1277,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
 			String output = myFormatter.format(value);
 			esperaExplicita(By.xpath("//td[text()='" + output + "']"));
-			hacerClick(PagesCreditosDesembolso.VerEditar);
+			ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
 			ElementVisible();
 			hacerClick(PagesCreditosDesembolso.Banco);
 			hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='" + Banco + "' ]"));
@@ -1552,7 +1553,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
 	      String output = myFormatter.format(value);    	
 	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-	  	hacerClick(PagesCreditosDesembolso.VerEditar);
+	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
 	  	ElementVisible(); 
 	  	hacerClick(PagesCreditosDesembolso.Banco);
 	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
