@@ -14,7 +14,7 @@ Característica: Retanqueo de creditos
   Ejemplos:
   |Cedula |Retanqueo |Pagaduria|
 	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |91216107   |5000000   |P.A COLPENSIONES|
+  
 
 @ClientesBienvenidaRetanqueos 
   Esquema del escenario: Clientes para Bienvenida
@@ -22,11 +22,11 @@ Característica: Retanqueo de creditos
    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
    Y se validan los valores de las condiciones del credito <Credito>
    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
-   #Y se marcan los chech y se acepta<TipoDesen><Cedula>
+   Y se marcan los chech y se acepta<TipoDesen><Cedula>
 
    Ejemplos: 
    |Cedula | Credito |Celular     |Correo                     |TipoDesen  |
 	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueos
-   |1110448827   |85863   |3125117715   |prueba@mail.com   |Efectivo|
+
 
 

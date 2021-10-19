@@ -127,12 +127,12 @@ public class SolicitudCreditoSteps {
 	}
 	
 	//########################### Clientes para bienvenida ##############################
-	@Cuando("^el agente ingresa a la pestana clientes para bienvenida(\\d*)")
+	@Cuando("el agente ingresa a la pestana clientes para bienvenida{string}")
 	public void elAgenteIngresaALaPestanaClientesParaBienvenida(String Cedula ) throws InterruptedException {
 		originacionaccion.ClientesParaBienvenida(Cedula);
 	}
 	
-	@Y("^se marcar los check correctos junto con el celular y correo(\\d*) (.*)")
+	@Y("se marcar los check correctos junto con el celular y correo{string} {string}")
 	public void semarcarloscheckcorretosjuntoconelcelularycorreo (String Celular,String Correo) throws InterruptedException {
 		originacionaccion.Correctocondiciones(Celular,Correo);
 	}
@@ -143,7 +143,7 @@ public class SolicitudCreditoSteps {
 	}
 	
 	
-	@Y("se marcan los chech y se acepta (.*) (\\d*)")
+	@Y("se marcan los chech y se acepta {string} {string}")
 	public void semarcanloschechyseacepta (String TipoDesen, String cedula) throws InterruptedException {
 		originacionaccion.Aceptacondiconesdelcredito(TipoDesen, cedula);
 	}
@@ -174,7 +174,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.DescargarMediosdedispercion(Monto, Banco,Pdf);
 	}
 
-	@Y("validar las condiciones de la carta de notificacion de creditos originacion (\\d*)")
+	@Y("validar las condiciones de la carta de notificacion de creditos originacion {string}")
 	public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
 		originacionaccion.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
 	}
