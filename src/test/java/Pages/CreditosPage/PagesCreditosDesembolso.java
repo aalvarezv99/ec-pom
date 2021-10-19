@@ -33,7 +33,7 @@ public class PagesCreditosDesembolso {
 		CheckProcesarPagos = By.xpath("//span[@class='ui-chkbox-icon ui-icon ui-icon-blank ui-c']");
 		ProcesarPagos = By.id("form:j_idt59");
 		FiltroMonto = By.id("form:listaLotes:j_idt68:filter");
-		VerEditar = By.id("form:listaLotes:0:j_idt76");
+		VerEditar = By.xpath("//a[@class='ui-commandlink ui-widget icnotable iconoPuntos']");
 		Banco = By.id("formLote:j_idt89_label");
         ListaBanco = By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='Seleccione un banco' ]");
         CargarEvidencia = By.id("formLote:j_idt102_input");

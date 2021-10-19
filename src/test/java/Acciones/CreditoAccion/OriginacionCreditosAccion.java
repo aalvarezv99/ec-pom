@@ -1543,6 +1543,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	  	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
 	  	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
 	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,Monto);
+	  	ElementVisible();
 	  	Thread.sleep(4000);
 	  	
 	  	

@@ -13,7 +13,7 @@ import cucumber.api.SnippetType;
 // @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature",
                  glue = "StepsDefinitions",
-                 tags = {"@Retanqueo, @ClientesBienvenidaRetanqueos" },
+                 tags = {"@ClientesBienvenidaRetanqueoMult" },
                  snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)
@@ -25,5 +25,3 @@ public class RetanqueoMultipleRunner {
         DataToFeature.overrideFeatureFiles("src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature");
     }
 }
-//@Retanqueo,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
-//tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida"},

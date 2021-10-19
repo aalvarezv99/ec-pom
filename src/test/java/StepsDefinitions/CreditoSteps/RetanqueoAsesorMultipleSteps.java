@@ -19,7 +19,7 @@ public class RetanqueoAsesorMultipleSteps {
 
     }
 
-    @Y("^se filtra por (\\d*) (.*) para retanqueo multiple")
+    @Y("se filtra por {string} {string} para retanqueo multiple")
     public void sefiltraporCedulaPagaduriapararetanqueomultiple(String Cedula, String Pagaduria)
             throws InterruptedException {
         retanqueomultipleaccion.FiltrarCreditoMultiple(Cedula, Pagaduria);

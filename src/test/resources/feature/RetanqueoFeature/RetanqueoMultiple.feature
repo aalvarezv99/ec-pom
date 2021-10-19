@@ -4,7 +4,7 @@ Característica: Retanqueo de creditos
  Antecedentes: 
   Dado Un agente en el sistema core abacus con sesion iniciada                                        
  
- @Retanqueo
+ @RetanqueoMultiple
   Esquema del escenario:  Retanqueo libre inversion
    Cuando El agente ingrese a la pestana retanqueo
    Y se filtra por <Cedula> <Pagaduria> para retanqueo multiple
@@ -13,20 +13,22 @@ Característica: Retanqueo de creditos
 
   Ejemplos:
   |Cedula |Retanqueo |Pagaduria|
-	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+   |"91216107"   |"5000000"   |"P.A COLPENSIONES"|
   
 
-@ClientesBienvenidaRetanqueos 
+@ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
    Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
    Y se validan los valores de las condiciones del credito <Credito>
    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
-   Y se marcan los chech y se acepta<TipoDesen><Cedula>
+   Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
    Ejemplos: 
    |Cedula | Credito |Celular     |Correo                     |TipoDesen  |
-	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueos
+	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueoMult
+   |"1110448827"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"|
 
 
 

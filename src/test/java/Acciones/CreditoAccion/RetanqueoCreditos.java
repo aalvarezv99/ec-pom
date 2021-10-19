@@ -446,8 +446,6 @@ public class RetanqueoCreditos extends BaseTest {
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)),
                     resultEstudioCredito);
 
-            // (int montoSoli, double tasaFianza, double iva, double porEstudioCre, int
-            // tasaXmillon, int periodoPrima ) {
             int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
                     Tasaxmillonseguro, DesPrimaAntic);
             int resultFianza = ValorFianza - fianzaPadre;
@@ -1096,12 +1094,13 @@ public class RetanqueoCreditos extends BaseTest {
 
     }
 
-    public void DescargarMediosdedispercionRetanqueo(String Monto, String Banco, String Pdf) {
+    public void DescargarMediosdedispercionRetanqueo(String Monto, String Banco, String Pdf) throws InterruptedException {
 
         panelnavegacionaccion.CreditoParaDesembolsoDescargar();
         esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
         EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(Monto));
         ElementVisible();
+        Thread.sleep(2000);
 
         String pattern = "###,###,###.###";
         double value = Double.parseDouble(Monto);
@@ -1125,7 +1124,8 @@ public class RetanqueoCreditos extends BaseTest {
         ElementVisible();
     }
 
-    public void ValidarValoresLlamadoBienvenidaRetanqueo(String Credito) throws NumberFormatException, SQLException, InterruptedException {
+    public void ValidarValoresLlamadoBienvenidaRetanqueo(String Credito)
+            throws NumberFormatException, SQLException, InterruptedException {
         recorerpestanas("CONDICIONES DEL CRÉDITO");
 
         ResultSet resultado;
@@ -1214,10 +1214,8 @@ public class RetanqueoCreditos extends BaseTest {
 
         // Valores para la funciones estaticos
         int Tasaxmillonseguro = 4625;
-
-        if (ValidarElementoPresente(pagesclienteparabienvenida.ValorSaldoAlDia) == false) {
+        if (!ValidarElementoPresente(pagesclienteparabienvenida.ValorSaldoAlDia)) {
             int coma = GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
-            GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
             if (coma == -1) {
                 SaldoAlDia = Integer.parseInt(
                         GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".", "").replace(",", "."));
@@ -1227,13 +1225,17 @@ public class RetanqueoCreditos extends BaseTest {
                         GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0, coma).replace(".", ""));
                 System.out.println(" Resultado de valor SALDO AL DIA ELSE " + SaldoAlDia);
             }
+            int saldoRecoger = calcularSaldosRecoger(pagesclienteparabienvenida.ListaCreditosRecoger);
+            ToleranciaPesoMensaje(" Saldo al dia, créditos a recoger  ", SaldoAlDia, saldoRecoger);
+        } else if (!ValidarElementoPresente(pagesclienteparabienvenida.saldoAlDiaRetanqueo)) {
+            SaldoAlDia = Integer.parseInt(
+                    GetText(pagesclienteparabienvenida.saldoAlDiaRetanqueo).replace(".", "").replace(",", "."));
+            System.out.println(" Resultado de valor SALDO AL DIA RETANQUEO " + SaldoAlDia);
         }
 
         log.info("suma retanqueo y saldo al dia mas prima neta "
                 + (Integer.parseInt(ValoresCredito.get(13)) + SaldoAlDia + Integer.parseInt(ValoresCredito.get(12))));
 
-        int saldoRecoger = calcularSaldosRecoger(pagesclienteparabienvenida.ListaCreditosRecoger);
-        ToleranciaPesoMensaje(" Saldo al dia, créditos a recoger  ", SaldoAlDia, saldoRecoger);
         // int calculoMontoSoli = (int)
         // MontoaSolicitar(Integer.parseInt(ValoresCredito.get(13)) + SaldoAlDia +
         // Integer.parseInt(ValoresCredito.get(12)), DesPrimaAntic, Tasaxmillonseguro);
