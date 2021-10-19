@@ -1,5 +1,7 @@
 package Consultas;
 
+import static org.junit.Assert.assertTrue;
+
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +28,8 @@ public class CertificacionSaldoQuery {
 	 * @param fechaEjecucionCierre    formato yyyy-MM-dd
 	 * @throws SQLException
 	 */
-	public SaldoInsolutoDto obtenerSaldoInsoluto(String numRadicado, Date fechaVencimiento) throws SQLException {
+	public SaldoInsolutoDto obtenerSaldoInsoluto(String numRadicado, String fechaVencimiento) throws SQLException {
+		log.info("********** Inician calculos de conceptos, CertificacionSaldoQuery - obtenerSaldoInsoluto()*******");
 		SaldoInsolutoDto saldoInsolutoDto = new SaldoInsolutoDto();
 		try {
 			ResultSet fechaEjecucionCierreRs;
@@ -52,7 +55,10 @@ public class CertificacionSaldoQuery {
 			ResultSet fianzaRs;
 			BigDecimal fianza;
 			
-			String periodoFechaVencimiento = "";
+			
+			String ultimoDiaFechaVencimiento = ultimoDiaFecha(fechaVencimiento);
+			log.info("*** Fecha Vencimiento Certificacion***" + fechaVencimiento);
+			log.info("**Ultimo dia fecha vencimiento**" + ultimoDiaFechaVencimiento);
 			
 			/**/
 			//Consultar IdCredito
@@ -60,9 +66,6 @@ public class CertificacionSaldoQuery {
 			query.append("select id from credito c where numero_radicacion ="+numRadicado+";");
 			ResultSet idCreditoRs = dbconector.conexion(query.toString());
 			BigDecimal idCredito = obtenerValorResultSet(idCreditoRs, "idCredito");
-			
-			periodoFechaVencimiento = calcularPeriodoFechaVencimiento(fechaVencimiento.toString());
-			
 			
 			/*consultar fecha ejecucucion cierre*/
 			//
@@ -75,6 +78,9 @@ public class CertificacionSaldoQuery {
 					+ "			limit 1");
 			fechaEjecucionCierreRs = dbconector.conexion(query.toString());
 			fechaEjecucionCierre = obtenerValorResultSetString(fechaEjecucionCierreRs, "Fecha Cierre Ejecucion");
+			String fechaEjecucionCierreUltimoDiaMes = ultimoDiaFecha(fechaEjecucionCierre);
+			
+			log.info("Ultimo dia fecha ejecucion " + fechaEjecucionCierreUltimoDiaMes);
 
 			// Capital
 			query = new StringBuilder();
@@ -96,17 +102,18 @@ public class CertificacionSaldoQuery {
 			gastosCobranzaRs = dbconector.conexion("select calcular_interes_mora_cobranza(" + idCredito + ", 1, '"
 					+ fechaEjecucionCierre + "'::date)");
 			gastosCobranza = obtenerValorResultSet(gastosCobranzaRs, "Gastos de cobranza");
-
+			
+			
 			// Intereses corrientes
 			query = new StringBuilder();
 			query.append("select sum(distinct(pdp.interes)) - sum(distinct(dcp.intereses_corrientes)) + \n");
 			query.append("(select (round(interes / 30) * DATE_PART('day', '" + fechaVencimiento
 					+ "'::date)) from plan_de_pagos where id_credito = " + idCredito + " and  fecha = '"
-					+ periodoFechaVencimiento + "') as intereses_corrientes_total\n");
+					+ fechaEjecucionCierreUltimoDiaMes + "') as intereses_corrientes_total\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pdp.id\n");
 			query.append("where id_credito = " + idCredito + "\n");
-			query.append("and pdp.fecha <= ('" + periodoFechaVencimiento + "'::date - INTERVAL '1 month');");
+			query.append("and pdp.fecha <= ('" + ultimoDiaFechaVencimiento + "'::date - INTERVAL '1 month');");
 			interesesCorrientesRs = dbconector.conexion(query.toString());
 			interesesCorrientes = obtenerValorResultSet(interesesCorrientesRs, "Intereses corrientes");
 
@@ -119,17 +126,17 @@ public class CertificacionSaldoQuery {
 			query.append("select id\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("where id_credito = " + idCredito + "\n");
-			query.append("and  pdp.fecha <= ('" + periodoFechaVencimiento + "'::date - INTERVAL '1 month') \n");
+			query.append("and  pdp.fecha <= ('" + ultimoDiaFechaVencimiento + "'::date - INTERVAL '1 month') \n");
 			query.append(")) + \n");
 			query.append("(select seguros \n");
 			query.append("from plan_de_pagos\n");
 			query.append("where id_credito = " + idCredito + "\n");
-			query.append("and  fecha = '" + periodoFechaVencimiento + "') as seguros_pendientes\n");
+			query.append("and  fecha = '" + ultimoDiaFechaVencimiento + "') as seguros_pendientes\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("where id_credito = " + idCredito + "\n");
-			query.append("and  pdp.fecha <= ('" + periodoFechaVencimiento + "'::date - INTERVAL '1 month')");
+			query.append("and  pdp.fecha <= ('" + ultimoDiaFechaVencimiento + "'::date - INTERVAL '1 month')");
 			segurosRs = dbconector.conexion(query.toString());
-			seguros = obtenerValorResultSet(segurosRs, "Seguros");
+			seguros = obtenerValorResultSet(segurosRs, "Seguro");
 
 			// CXC Estudio de crédito
 			query = new StringBuilder();
@@ -141,7 +148,7 @@ public class CertificacionSaldoQuery {
 			query.append("where cre.id = " + idCredito + ")::integer, \n");
 			query.append("false));");
 			cxcEstudioCreditoRs = dbconector.conexion(query.toString());
-			cxcEstudioCredito = obtenerValorResultSet(cxcEstudioCreditoRs, "CXC Estudio de crédito");
+			cxcEstudioCredito = obtenerValorResultSet(cxcEstudioCreditoRs, "Estudio de crédito pendiente de pago");
 
 			// CXC Intereses iniciales
 			query = new StringBuilder();
@@ -152,7 +159,7 @@ public class CertificacionSaldoQuery {
 			query.append("order by dccpp.mes_contabilizacion desc, dccpp.fecha_abono desc, dccpp.id desc\n");
 			query.append("limit 1;");
 			cxcInteresesInicialesRs = dbconector.conexion(query.toString());
-			cxcInteresesIniciales = obtenerValorResultSet(cxcInteresesInicialesRs, "CXC Intereses iniciales");
+			cxcInteresesIniciales = obtenerValorResultSet(cxcInteresesInicialesRs, "Intereses iniciales pendientes de pago");
 
 			// CXC Seguros
 			query = new StringBuilder();
@@ -162,13 +169,13 @@ public class CertificacionSaldoQuery {
 			query.append("order by dccpp.mes_contabilizacion desc, dccpp.fecha_abono desc, dccpp.id desc \n");
 			query.append("limit 1;");
 			cxcSegurosRs = dbconector.conexion(query.toString());
-			cxcSeguros = obtenerValorResultSet(cxcSegurosRs, "CXC Seguros");
+			cxcSeguros = obtenerValorResultSet(cxcSegurosRs, "Seguro inicial pendiente de pago");
 
 			// CXC Intereses de fianza
 			query = new StringBuilder();
 			query.append("select obtener_cxc_intereses_fianza(" + idCredito + ", '" + fechaVencimiento + "');\n");
 			cxcInteresesFianzaRs = dbconector.conexion(query.toString());
-			cxcInteresesFianza = obtenerValorResultSet(cxcInteresesFianzaRs, "CXC Intereses de fianza");
+			cxcInteresesFianza = obtenerValorResultSet(cxcInteresesFianzaRs, "Intereses de Fianza");
 
 			// Fianza
 			query = new StringBuilder();
@@ -179,8 +186,8 @@ public class CertificacionSaldoQuery {
 			query.append("and cre.id = " + idCredito + ";");
 			fianzaRs = dbconector.conexion(query.toString());
 			fianza = obtenerValorResultSet(fianzaRs, "Fianza");
-
-			saldoInsolutoDto.setCapital(capital);
+			
+			saldoInsolutoDto.setCapital(capital );
 			saldoInsolutoDto.setInteresMora(interesesMora);
 			saldoInsolutoDto.setGastosCobranza(gastosCobranza);
 			saldoInsolutoDto.setInteresesCorrientes(interesesCorrientes);
@@ -200,17 +207,25 @@ public class CertificacionSaldoQuery {
 		return saldoInsolutoDto;
 	}
 	
-	private String calcularPeriodoFechaVencimiento(String fecha) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/mm/dd");
-		Calendar calendar = Calendar.getInstance();  
+	private String ultimoDiaFecha(String fecha) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
 		try {
-			 Date date = sdf.parse(fecha);
-		     calendar.setTime(date);  
+			
+	        Date date = sdf.parse(fecha);
+
+	          
+	        calendar.setTime(date);      
+	        int dia = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+	        dia=(dia==31)?dia-1:dia;
+	        calendar.set(Calendar.DAY_OF_MONTH, dia);       
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error("######## ERRROR CALCULANDO EL ULTIMO DIA DE LA FECHA #########"+e);
+			assertTrue("######## ERRROR CALCULANDO EL ULTIMO DIA DE LA FECHA #########", false);
 		}
-        
-        return String.valueOf(calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+		return sdf.format(calendar.getTime());
 	}
 
 	private BigDecimal obtenerValorResultSet(ResultSet resultSet, String concepto) {
@@ -218,7 +233,8 @@ public class CertificacionSaldoQuery {
 		try {
 			while (resultSet.next()) {
 				valor = resultSet.getBigDecimal(1);
-				log.info(concepto + ": " + valor);
+				valor = (valor == null) ? BigDecimal.ZERO : valor;
+				log.info(concepto + ": $ " + valor);
 				break;
 			}
 		} catch (Exception e) {

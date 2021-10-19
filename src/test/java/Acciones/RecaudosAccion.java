@@ -3,6 +3,7 @@ package Acciones;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
@@ -55,8 +56,9 @@ public class RecaudosAccion extends BaseTest{
 	public void abrirCertificacionNavegador(String rutaDocumento, String numRadicado) {	
 		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");	
 		try {
-			abriPdfNavegador(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");	
-			adjuntarCaptura(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");
+			File fichero = new File(rutaDocumento);
+			abriPdfNavegador(fichero.getAbsolutePath()+"/"+"certificacion-saldo-"+numRadicado+".pdf");	
+			adjuntarCaptura("certificacion-saldo-"+numRadicado+".pdf");
 		} catch (Exception e) {
 			log.error("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e);
 			assertTrue("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e,false);

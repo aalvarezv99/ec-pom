@@ -23,7 +23,7 @@ public class GestionCertificacionPage {
 		inputCedula = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos:j_idt61:filter\"]");
 		inputNumCredito = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos:j_idt69:filter\"]");
 		inputFechaSolicitud = By.id("formulario-certificaciones:listaRecaudos:j_idt90_input");
-		botonDescargar = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos:0:j_idt114\"]");
+		botonDescargar = By.id("formulario-certificaciones:listaRecaudos:0:j_idt114");
 		countFilas = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos_data\"]/tr");
 		//soliElementos
 		contFecha = By.xpath("//*[@id=\"ui-datepicker-div\"]/table");

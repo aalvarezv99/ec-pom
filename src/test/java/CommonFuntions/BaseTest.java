@@ -1064,7 +1064,9 @@ public class BaseTest {
             // abrimos el PDF
             PdfReader reader = new PdfReader(ruta + nombreArchivo);
             // empezamos la coversion a pdf
-            String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1));
+            String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", ""));
+            
+            //log.info(page.replace(",", ""));
             // assertThat(page.toUpperCase(),containsString(vlrBuscar.toUpperCase()));
         }
 

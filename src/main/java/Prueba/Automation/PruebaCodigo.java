@@ -1,6 +1,10 @@
 package Prueba.Automation;
 
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.TemporalAdjusters;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -11,6 +15,8 @@ import org.apache.log4j.Logger;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
+import jdk.internal.org.jline.utils.Log;
+
 
 public class PruebaCodigo {
 	static int i =0;
@@ -18,7 +24,35 @@ public class PruebaCodigo {
 	public static void main(String[] args) throws ParseException {
 		//String valor = extraerValorPDF("C:\\Users\\User\\Downloads\\CertificacionSaldos\\","certificacion-saldo-47152.pdf","Total a pagar $");
 		//System.out.println(valor);
-		pruebaFormula();
+	//	pruebaFormula();
+		fecha();
+	}
+	
+	public static void fecha() {
+		/*Calendar cal = Calendar.getInstance();
+		cal.set(2021, 10, 12);
+		Date date = cal.getTime();
+		System.out.println(date);*/
+		
+
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = sdf.parse("2021-12-15");
+
+	        Calendar calendar = Calendar.getInstance();  
+	        calendar.setTime(date);         
+	        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));       
+
+	        System.out.println("First Day Of Month : " + calendar.getActualMinimum(Calendar.DAY_OF_MONTH));  
+	        System.out.println("Last Day of Month  : " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	        System.out.println("Ultimo dia del mes: "+sdf.format(calendar.getTime()));
+	        
+	        
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 	
 	public static void periodo(int vlr) {

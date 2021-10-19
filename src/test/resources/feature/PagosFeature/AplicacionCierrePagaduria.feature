@@ -17,9 +17,8 @@ Característica: Aplicacion de pagos y cierre
 	#Tener en cuenta que en el periodo y el numero deben ir dos espacios
     Ejemplos: 
       | Periodo  | NombrePagaduria                        | RutaPagaduria                                        |
-	  	|  Agosto 30  |CUERPO OFICIAL DE BOMBEROS BOGOTA|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
-	  	|  Agosto 30  |BANCO DE LA REPUBLICA NÓMINA ACTIVOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
-	  	|  Agosto 30  |BANCO DE LA REPUBLICA NOMINA JUBILADOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
+ ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@CarguePlanillaAlSistema      
+   |Octubre 30   |CUERPO OFICIAL DE BOMBEROS BOGOTA   |"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
   
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -30,10 +29,9 @@ Característica: Aplicacion de pagos y cierre
     Y se agrega el pago de recaudo <Pagaduria><Ano><Periodo>
 
     Ejemplos: 
-      | Pagaduria        | Ano    | Periodo     |
-      | "CUERPO OFICIAL DE BOMBEROS BOGOTA" | "2021" | "Agosto  30" |
-      | "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Agosto  30" |
-      | "BANCO DE LA REPUBLICA NOMINA JUBILADOS" | "2021" | "Agosto  30" |
+      |IdPagaduria| Pagaduria  | Ano    | Periodo     |
+      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@PreaplicacionPagaduria 
+   |23   |"CUERPO OFICIAL DE BOMBEROS BOGOTA"   |"2021"   |"Octubre  30"|
       
     @PreaplicacionPagaduria
     Esquema del escenario: Preaplicacion Pagaduria
@@ -45,9 +43,8 @@ Característica: Aplicacion de pagos y cierre
     	Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
     	Ejemplos: 
     	|IdPagaduria| Pagaduria  | Ano    | Periodo     |
-      |23| "CUERPO OFICIAL DE BOMBEROS BOGOTA" | "2021" | "Agosto  30" |
-      |228| "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Agosto  30" |
-      |271| "BANCO DE LA REPUBLICA NOMINA JUBILADOS" | "2021" | "Agosto  30" |
+    	##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@PreaplicacionPagaduria  
+   |23   |"CUERPO OFICIAL DE BOMBEROS BOGOTA"   |"2021"   |"Octubre  30"|
       
       @AplicacionFinalPagaduria
       Esquema del escenario: Aplicacion final de pagaduria en abacus
@@ -58,9 +55,8 @@ Característica: Aplicacion de pagos y cierre
       	Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <Pagaduria> y <Periodo>
       	Ejemplos:
       	|Pagaduria|Periodo|
-      	|CUERPO OFICIAL DE BOMBEROS BOGOTA|30/08/2021|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/08/2021|
-      	|BANCO DE LA REPUBLICA NOMINA JUBILADOS|30/08/2021|
+      	##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionFinalPagaduria  
+   |CUERPO OFICIAL DE BOMBEROS BOGOTA   |30/10/2021|
       	
       @CierrePagaduria
       Esquema del escenario: Cierre de pagaduria en abacus
@@ -71,7 +67,6 @@ Característica: Aplicacion de pagos y cierre
       	Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <Pagaduria> y <Periodo>
       	Ejemplos:
       	|Pagaduria|Periodo|
-      	|CUERPO OFICIAL DE BOMBEROS BOGOTA|30/08/2021|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/08/2021|
-      	|BANCO DE LA REPUBLICA NOMINA JUBILADOS|30/08/2021|
+      	##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionFinalPagaduria  
+   |CUERPO OFICIAL DE BOMBEROS BOGOTA   |30/10/2021|
       	
