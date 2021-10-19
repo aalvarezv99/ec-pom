@@ -189,7 +189,7 @@ public class SolicitudCreditoSteps {
 		originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
 	}
 	
-	@Y("se descargadescargan medios de dispersion para la cartera {string}{string}{string}")
+	@Y("se descargan medios de dispersion para la cartera {string}{string}{string}")
 	public void sedescargadescarganmediosdedispersionparalacartera(String cartera, String Banco,String Pdf) throws InterruptedException {
 		originacionaccion.DescargarMediosDispercionCartera(cartera, Banco,Pdf);
 	}

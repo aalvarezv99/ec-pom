@@ -412,7 +412,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
             myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
             String output = myFormatter.format(value);    	
         	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-        	hacerClick(PagesCreditosDesembolso.VerEditar);
+        	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
         	ElementVisible(); 
         	hacerClick(PagesCreditosDesembolso.Banco);
         	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
@@ -473,7 +473,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
       	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
       	      String output = myFormatter.format(value);    	
       	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-      	  	hacerClick(PagesCreditosDesembolso.VerEditar);
+      	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
       	  	ElementVisible(); 
       	  	hacerClick(PagesCreditosDesembolso.Banco);
       	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
