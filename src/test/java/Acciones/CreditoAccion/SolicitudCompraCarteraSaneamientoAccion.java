@@ -240,7 +240,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		int Tasaxmillonseguro = 4625;
     		double variableFianza = 1.19;
     		double tasaUno = Double.parseDouble(Tasa)/100;
-
+    		
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
     		
     		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);

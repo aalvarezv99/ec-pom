@@ -52,7 +52,7 @@ Característica: Retanqueo de creditos
     Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
-    Ejemplos: 
+    Ejemplos:
       | Cedula     | Credito | Celular      | Correo                     | TipoDesen  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueos
 
