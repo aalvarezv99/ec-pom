@@ -287,7 +287,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 						Integer.parseInt(descNomina), colchon, tasaUno,
 						Integer.parseInt(Plazo), tasaDos, mesDos);
 				ToleranciaPesoMensaje("SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR ", Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)) ,MontoMaxDesembolsar);
-				ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
+			ToleranciaPeso(Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)),MontoMaxDesembolsar);
+
 	}
 	
 	public void GuardarSimulacion() throws InterruptedException {

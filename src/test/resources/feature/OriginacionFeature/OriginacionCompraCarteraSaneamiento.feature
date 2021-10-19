@@ -19,7 +19,7 @@ Característica: Solicitud combra de cartera
    Ejemplos: 
        |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|IngresosMes|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Pnombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|         
 			 ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SimuladorAsesorCCS
-   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"12"   |"17000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"3000000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"36"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"3000000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
 
   @SolicitudCreditoCCS
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
@@ -47,7 +47,7 @@ Característica: Solicitud combra de cartera
    Ejemplos: 
    |Cedula      |NombreCredito|fecha           |Tasa    |Plazo  |Monto        |DiasHabilesIntereses|Ingresos |descLey |descNomina|vlrCompasSaneamientos|tipo|colchon|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|Dpto|Ciudad|TipoVivienda|Correo|Celular|IngresosMes|TotalActivos|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo| 			
    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SolicitudCreditoCCS
-   |"9777757"   |"CARLOS"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"360000"   |"0"   |"0"   |"xx"   |"360000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"Cundinamarca"   |"Anapoima"   |"FAMILIAR"   |"prueba123@gmail.com"   |"3125127117"   |"6500000"   |"20500000"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"|
+   |"9777757"   |"CARLOS"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"930000"   |"xx"   |"0"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"Cundinamarca"   |"Anapoima"   |"FAMILIAR"   |"prueba123@gmail.com"   |"3125127117"   |"6500000"   |"20500000"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"|
    
   @AnalisisCreditoCCS
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
@@ -86,7 +86,7 @@ Característica: Solicitud combra de cartera
     Ejemplos: 
     | Cedula     | fechaActual         | rutaPDF         |
    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@CreditosVisacionCCS
-   |"9777757"   |"30/Sep/2021"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
+   |"9777757"   |"19/Oct/2021"   |"src/test/resources/Data/PDFPRUEBA.pdf"|
         
   @DesembolsoCarteraCCS
     Esquema del escenario: Carteras para Desembolso
@@ -96,7 +96,7 @@ Característica: Solicitud combra de cartera
     Ejemplos: 
     | Cedula       |Monto       | Cartera1 | rutaPDF                                 |Banco                                      |
    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoCarteraCCS
-   |"9777757"   |"17000000"   |"100000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"9777757"   |"20000000"   |"100000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Remanentes - 60237038927 - REMANENTE"|
         
   @VisacionCarteraCCS
     Esquema del escenario: Visacion de la cartera
@@ -116,15 +116,15 @@ Característica: Solicitud combra de cartera
       Ejemplos: 
       | Cedula      | Monto       | Saneamiento2 | rutaPDF                                 |Banco    |
    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoSaneamientoCCS   
-   |"9777757"    |"17000000"   |"830000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"9777757"    |"20000000"   |"830000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Remanentes - 60237038927 - REMANENTE"|
    
       
-  @Desembolso
+  @DesembolsoCCS
   Esquema del escenario: Remanente para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
     Y se descarga medios de dispersion para el remanente <Monto><Cartera1><Saneamiento2><Banco><rutaPDF>
 
           Ejemplos: 
      | Cedula     | Monto       | Cartera1|Saneamiento2 | rutaPDF                                     |Banco                                      | entidad                                                    |
-     | "1014262729" |"25000000"    |  "350000"|     "350000"             | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE"     |"8300538122 -  FIDEICOMISO SOLUCIONES"                      |
-        
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoCCS
+   |"9777757"   |"20000000"   |"100000"   |"830000"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|

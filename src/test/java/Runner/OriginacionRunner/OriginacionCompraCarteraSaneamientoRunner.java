@@ -16,7 +16,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/feature/OriginacionFeature/OriginacionCompraCarteraSaneamiento.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@DesembolsoSaneamientoCCS"},
+		tags = {"@SimuladorAsesorCCS,@SolicitudCreditoCCS,@AnalisisCreditoCCS"},
 	    snippets = SnippetType.CAMELCASE
 		)
 
@@ -29,4 +29,4 @@ public class OriginacionCompraCarteraSaneamientoRunner {
 	    }
 }
 
-//tags = {"@SimuladorAsesorCCS,@SolicitudCreditoCCS,@AnalisisCreditoCCS,@ClientesBienvenidaCCS,@CreditosVisacionCCS,@DesembolsoCarteraCCS,@VisacionCarteraCCS,@DesembolsoSaneamientoCCS,@Desembolso"},
+//tags = {"@SimuladorAsesorCCS,@SolicitudCreditoCCS,@AnalisisCreditoCCS,@ClientesBienvenidaCCS,@CreditosVisacionCCS,@DesembolsoCarteraCCS,@VisacionCarteraCCS,@DesembolsoSaneamientoCCS,@DesembolsoCCS"},
