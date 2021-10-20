@@ -609,24 +609,30 @@ public class BaseTest {
     }
 
     public void cargarPdfDigitalizacion(String Pdf) throws InterruptedException {
-        File fichero = new File(Pdf);
-        List<WebElement> BtnCarga = driver.findElements(By.xpath("//input[starts-with(@id,'form:cargarDocumentos')]"));
-        String[] id = new String[BtnCarga.size()];
-        for (int i = 0; i < BtnCarga.size(); i++) {
-            id[i] = BtnCarga.get(i).getAttribute("id");
-        }
-        for (int i = 0; i < id.length; i++) {
-            Thread.sleep(450);
-            driver.findElement(By.id(id[i])).sendKeys(fichero.getAbsolutePath());
-            esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
-            esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
-            hacerClicknotificacion();
-            hacerScrollAbajo();
+        try {
+            File fichero = new File(Pdf);
+            List<WebElement> BtnCarga = driver
+                    .findElements(By.xpath("//input[starts-with(@id,'form:cargarDocumentos')]"));
+            String[] id = new String[BtnCarga.size()];
+            for (int i = 0; i < BtnCarga.size(); i++) {
+                id[i] = BtnCarga.get(i).getAttribute("id");
+            }
+            for (int i = 0; i < id.length; i++) {
+                log.info("ID DEL INPUT FILE -----------> " + id[i]);
+                Thread.sleep(450);
+                driver.findElement(By.id(id[i])).sendKeys(fichero.getAbsolutePath());
+                esperaExplicitaNopresente(By.xpath("ui-progressbar ui-widget ui-widget-content ui-corner-all"));
+                esperaExplicita(By.xpath("//*[@class='ui-growl-title']"));
+                hacerClicknotificacion();
+                hacerScrollAbajo();
+                ElementVisible();
+            }
+            adjuntarCaptura("CargueDocumentos");
             ElementVisible();
+            Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
+        } catch (Exception e) {
+            log.info("ERROR AL CARGAR LOS ARCHIVOS EN LA PESTAÑA DIGITALIZACIÓN", e);
         }
-        adjuntarCaptura("CargueDocumentos");
-        ElementVisible();
-        Hacer_scroll(PestanaDigitalizacionPage.EnVerificacion);
 
     }
 
@@ -1065,8 +1071,8 @@ public class BaseTest {
             PdfReader reader = new PdfReader(ruta + nombreArchivo);
             // empezamos la coversion a pdf
             String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", ""));
-            
-            //log.info(page.replace(",", ""));
+
+            // log.info(page.replace(",", ""));
             // assertThat(page.toUpperCase(),containsString(vlrBuscar.toUpperCase()));
         }
 
