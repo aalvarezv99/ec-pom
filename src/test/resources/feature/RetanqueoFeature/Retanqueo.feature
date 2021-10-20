@@ -27,8 +27,9 @@ Característica: Retanqueo de creditos
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo |
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -41,8 +42,9 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | NombreCredito       | Ingresos  | decLey   | descNomina | Mes       | Tasa  | Plazo | descLey  | fecha        | DiasHabilesIntereses | AnnoAfetacion |
-      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@AnalisisCreditoRetanqueo
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
@@ -53,8 +55,9 @@ Característica: Retanqueo de creditos
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
     Ejemplos:
-      | Cedula     | Credito | Celular      | Correo                     | TipoDesen  |
-      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueos
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -62,8 +65,9 @@ Característica: Retanqueo de creditos
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
 
     Ejemplos: 
-      | Cedula     | fechaActual  | rutaPDF                                 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@CreditosVisacionRetanqueos
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
@@ -72,5 +76,6 @@ Característica: Retanqueo de creditos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Banco                                  | rutaPDF                                 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@DesembolsoRetanqueos
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|

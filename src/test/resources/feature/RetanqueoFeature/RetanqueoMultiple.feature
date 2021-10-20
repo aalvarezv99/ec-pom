@@ -12,9 +12,8 @@ Característica: Retanqueo de creditos
    Y se ingresa el monto a solicitar <Retanqueo>
 
   Ejemplos:
-  |Cedula |Retanqueo |Pagaduria|
+  |Cedula | Retanqueo | Pagaduria | Credito | Celular | Correo | TipoDesen |
 	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"91216107"   |"5000000"   |"P.A COLPENSIONES"|
   
 
 @ClientesBienvenidaRetanqueoMult
@@ -26,9 +25,8 @@ Característica: Retanqueo de creditos
    Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
    Ejemplos: 
-   |Cedula | Credito |Celular     |Correo                     |TipoDesen  |
-	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@ClientesBienvenidaRetanqueoMult
-   |"1110448827"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"|
+   |Cedula | Retanqueo | Pagaduria | Credito | Celular | Correo | TipoDesen |
+	##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
 
 
 
