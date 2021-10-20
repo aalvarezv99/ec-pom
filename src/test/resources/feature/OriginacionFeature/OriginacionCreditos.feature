@@ -16,9 +16,9 @@ Característica: Originacion de Creditos
     Y se finaliza con la consulta a centrales <Cedula>
 
     Ejemplos: 
-   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|IngresosMes|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Pnombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|
-   
-   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SimuladorAsesor
+   |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|   
+   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|
   
  @SolicitudCredito
   Esquema del escenario: Solicitar credito sin saneamientos
@@ -28,16 +28,16 @@ Característica: Originacion de Creditos
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
-    Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
+    Y se agregar las referencias en la segunta pestana del formulario guardando <Ingresos><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias<Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
     Ejemplos: 
-    |Cedula      |NombreCredito|fecha           |Tasa    |Plazo  |Monto        |DiasHabilesIntereses|Ingresos |descLey |descNomina|vlrCompasSaneamientos|tipo|colchon|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|Dpto|Ciudad|TipoVivienda|Correo|Celular|IngresosMes|TotalActivos|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo| 			
-    
-  	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SolicitudCredito
+   |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|     
+  	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|
    
   @AnalisisCredito
   Esquema del escenario: Analisis del credito
@@ -50,8 +50,9 @@ Característica: Originacion de Creditos
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-    |Cedula|NombreCredito|Ingresos|descLey|descNomina|Mes|Monto|Tasa|Plazo|Pagaduria|vlrCompasSaneamientos|AnoAnalisis|fechaDesembolso| 	
-    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@AnalisisCredito
+    |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|
    
   @ClientesBienvenida
   Esquema del escenario: Clientes para Bienvenida
@@ -62,8 +63,9 @@ Característica: Originacion de Creditos
     Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
 
     Ejemplos: 
-      | Cedula     | Celular      | Correo                 | TipoDesen  |
-    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@ClientesBienvenida
+    |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|
   
   
   
@@ -72,8 +74,9 @@ Característica: Originacion de Creditos
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
      Ejemplos: 
-       | Cedula     | fechaActual   | rutaPDF         												 |
-	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@CreditosVisacion
+    |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|
+	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|
 
    
 
@@ -83,5 +86,7 @@ Característica: Originacion de Creditos
     Y se marca el check aprobando el proceso de pagos
     Y se filtra por monto y se edita <Monto><Banco><rutaPDF>
       Ejemplos: 
-       | Cedula     | Monto      | rutaPDF 																 | Banco  															 | 
-    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@Desembolso
+   |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|
+
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+   |"COLFONDOS"   |"9777757"   |"17/Mar/1956"   |"1.8"   |"36"   |"20000000"   |"21"   |"6500000"   |"480000"   |"90000"   |"Noviembre"   |"05/10/2021"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"30/Sep/2021"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"10/03/2000"   |"prueba123@gmail.com"   |"3125127717"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2021"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"|

@@ -4,7 +4,7 @@ Característica: Solicitud combra de cartera
   Antecedentes: 
     Dado Un agente en el sistema core abacus con sesion iniciada
 
-  @SimuladorAsesorCCS
+  @OriginacionCCS
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
     # Y cambia la fecha del servidor <FechaServidor>
@@ -16,10 +16,10 @@ Característica: Solicitud combra de cartera
     Y se finaliza con la consulta a centrales <Cedula>
 
     Ejemplos: 
-      | Pagaduria                                          | Cedula    | fecha         | Oficina         | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon | TipoContrato                    | FechaIngreso | Pnombre  | Papellido | Sapellido  | Correo               | Celular      | Dpto     | Ciudad    | rutaPDF                                 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SimuladorAsesorCCS
-      | "ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS" | "9777757" | "17/Mar/1956" | "Bogotá Centro" | "Pensionado" | "1.8" | "36"  | "20000000" | "25"                 | "4500000" | "360000" | "50000"    | "3000000"   | "70500000"   | "930000"              | "xx" | "0"     | "Pensionado por Tiempo (Vejez)" | "10/01/2009" | "CARLOS" | "HERRERA" | "ARBOLEDA" | "carlos123@mail.com" | "3125117717" | "Tolima" | "Espinal" | "src/test/resources/Data/PDFPRUEBA.pdf" |
-
+   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+   
   @SolicitudCreditoCCS
   Esquema del escenario: Solicitar credito con compra de cartera y saneamientos
     Cuando el agente ingrese a la pestana solicitud credito con la cedula del cliente <Cedula><NombreCredito>
@@ -28,7 +28,7 @@ Característica: Solicitud combra de cartera
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
-    Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
+    Y se agregar las referencias en la segunta pestana del formulario guardando <Ingresos><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
     Y se crean los tipos de cartera o saneamiento a recoger
       | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
@@ -44,10 +44,10 @@ Característica: Solicitud combra de cartera
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
     Ejemplos: 
-      | Cedula    | NombreCredito | fecha         | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | vlrCompasSaneamientos | tipo | colchon | rutaPDF                                 | DestinoCredito     | Sexo | EstadoCivil | Direccion         | Dpto           | Ciudad     | TipoVivienda | Correo                | Celular      | IngresosMes | TotalActivos | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@SolicitudCreditoCCS
-      | "9777757" | "CARLOS"      | "17/Mar/1956" | "1.8" | "36"  | "20000000" | "25"                 | "4500000" | "360000" | "50000"    | "930000"              | "xx" | "0"     | "src/test/resources/Data/PDFPRUEBA.pdf" | "Educacion propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "Cundinamarca" | "Anapoima" | "FAMILIAR"   | "prueba123@gmail.com" | "3125127117" | "6500000"   | "20500000"   | "perez"             | "alejandro"       | "7210273"          | "9007146"       | "3112" |
-
+   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+   
   @AnalisisCreditoCCS
   Esquema del escenario: Analisis del credito con compra de cartera y saneamiento
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
@@ -59,10 +59,10 @@ Característica: Solicitud combra de cartera
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-      | Cedula    | NombreCredito | Ingresos  | descLey  | descNomina | Mes         | Monto      | Tasa  | Plazo | Pagaduria   | Cartera1 | Saneamiento2 | AnoAnalisis | fechaDesembolso |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@AnalisisCreditoCCS
-      | "9777757" | "CARLOS"      | "6500000" | "480000" | "90000"    | "Noviembre" | "20000000" | "1.8" | "36"  | "COLFONDOS" | "100000" | "830000"     | "2021"      | "19/10/2021"    |
-
+  |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|     
+  ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+ 
   @ClientesBienvenidaCCS
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
@@ -72,56 +72,57 @@ Característica: Solicitud combra de cartera
     Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
 
     Ejemplos: 
-      | Cedula    | Celular      | Correo                 | TipoDesen  |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@ClientesBienvenidaCCS
-      | "9777757" | "3125127117" | "apqwerty250@mail.com" | "Efectivo" |
-
+  |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|      
+  ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+ 
   @CreditosVisacionCCS
   Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
 
     Ejemplos: 
-      | Cedula    | fechaActual   | rutaPDF                                 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@CreditosVisacionCCS
-      | "9777757" | "19/Oct/2021" | "src/test/resources/Data/PDFPRUEBA.pdf" |
-
+   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|      
+   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+  
   @DesembolsoCarteraCCS
   Esquema del escenario: Carteras para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar la cartera uno <Cedula>
     Y se descargan medios de dispersion para la cartera <Cartera1><Banco><rutaPDF>
 
     Ejemplos: 
-      | Cedula    | Monto      | Cartera1 | rutaPDF                                 | Banco                                  |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoCarteraCCS
-      | "9777757" | "20000000" | "100000" | "src/test/resources/Data/PDFPRUEBA.pdf" | "Remanentes - 60237038927 - REMANENTE" |
-
+   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+  
   @VisacionCarteraCCS
   Esquema del escenario: Visacion de la cartera
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se navega hasta carteras <rutaPDF>
 
     Ejemplos: 
-      | Cedula    | rutaPDF                                 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@VisacionCarteraCCS
-      | "9777757" | "src/test/resources/Data/PDFPRUEBA.pdf" |
-
+   |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+  
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el saneamiento <Cedula>
     Y se descargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
 
     Ejemplos: 
-      | Cedula    | Monto      | Saneamiento2 | rutaPDF                                 | Banco                                  |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoSaneamientoCCS
-      | "9777757" | "20000000" | "830000"     | "src/test/resources/Data/PDFPRUEBA.pdf" | "Remanentes - 60237038927 - REMANENTE" |
-
+      |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+  
   @DesembolsoCCS
   Esquema del escenario: Remanente para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
     Y se descarga medios de dispersion para el remanente <Monto><Cartera1><Saneamiento2><Banco><rutaPDF>
 
     Ejemplos: 
-      | Cedula    | Monto      | Cartera1 | Saneamiento2 | rutaPDF                                 | Banco                                  | entidad                                |
-      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@DesembolsoCCS
-      | "9777757" | "20000000" | "100000" | "830000"     | "src/test/resources/Data/PDFPRUEBA.pdf" | "Remanentes - 60237038927 - REMANENTE" | "8300538122 -  FIDEICOMISO SOLUCIONES" |
+     |Pagaduria|Cedula|fecha|Oficina|Actividad|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|Correo|Celular|Dpto|Ciudad|rutaPDF|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|Mes|Cartera1|Saneamiento2|AnoAnalisis|fechaDesembolso|TipoDesen|fechaActual|Banco|entidad|
+      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
+   |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"|
+  
