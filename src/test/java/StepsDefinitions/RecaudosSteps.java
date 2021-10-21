@@ -63,9 +63,9 @@ public class RecaudosSteps {
 		recaudoAccion.IngresaVentanaPagos();
 	}
 
-	@Y("Se filtra por {string}{string}{string}")
-	public void sefiltrapor(String Pagaduria, String Ano, String Periodo) throws InterruptedException {
-		recaudoAccion.filtrosPreAplicacionPagos(Pagaduria, Ano, Periodo);
+	@Y("Se filtra por {string}{int}{string}")
+	public void sefiltrapor(String Pagaduria, int Ano, String Periodo) throws InterruptedException {
+		recaudoAccion.filtrosPreAplicacionPagos(Pagaduria,String.valueOf(Ano), Periodo);
 	}
 
 	@Y("Se captura el valor del recaudo con la suma de valores recibidos")
@@ -78,9 +78,9 @@ public class RecaudosSteps {
 		recaudoAccion.pestanarecaudo();
 	}
 
-	@Y("se agrega el pago de recaudo {string}{string}{string}")
-	public void seagregaelpagoderecaudo(String Pagaduria, String ano, String periodo) {
-		recaudoAccion.Agregarpago(Pagaduria, ano, periodo);
+	@Y("se agrega el pago de recaudo {string}{int}{string}")
+	public void seagregaelpagoderecaudo(String Pagaduria, int ano, String periodo) {
+		recaudoAccion.Agregarpago(Pagaduria, String.valueOf(ano), periodo);
 	}
 
 	@Y("^finaliza con la validacion del recaudo (.+) realizado con el registrado en el sistema$")

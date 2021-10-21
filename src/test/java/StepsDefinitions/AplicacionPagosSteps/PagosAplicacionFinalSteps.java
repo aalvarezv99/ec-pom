@@ -20,7 +20,7 @@ public class PagosAplicacionFinalSteps {
 	}
 	
 	/* APLICACION FINAL STEPS */	
-	@Y("^cuando filtre utilizando el (.+) con (.+) en la pantalla Aplicacion final$")
+	@Y("^cuando filtre utilizando el (.+) con \"([^\"]*)\" en la pantalla Aplicacion final$")
 	public void cuandoFiltreUtilizandoElConEnLaPantallaAplicacionFinal(String periodo, String pagaduria) {
 		aplicacioncierreaccion.filtrarTablaAplicacion(pagaduria, periodo, "NO");
 	}
@@ -36,7 +36,7 @@ public class PagosAplicacionFinalSteps {
 	}
 
 
-	 @Y("^Refresque el navegador haste que cambie a \"([^\"]*)\" el \"([^\"]*)\" la (.+) y (.+)$")
+	 @Y("^Refresque el navegador haste que cambie a \"([^\"]*)\" el \"([^\"]*)\" la \"([^\"]*)\" y (.+)$")
 	    public void refresqueElNavegadorHasteQueCambieAElLaY( String vlrfila, String vlrColumna, String pagaduria, String periodo) throws Throwable {
 		 aplicacioncierreaccion.validarCambioestado(vlrfila, vlrColumna, pagaduria, periodo);
 	    }

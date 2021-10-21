@@ -176,17 +176,22 @@ public class RecaudosAccion extends BaseTest{
 	}
 	
 	public void filtrosPreAplicacionPagos(String Pagaduria,String Ano,String Periodo) throws InterruptedException {
-		esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
-		hacerClick(pagopreaplicacionpagopage.ListPagaduria);
-		EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
-		EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
-		ElementVisible();
-		hacerClick(pagopreaplicacionpagopage.Ano);
-		selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
-		ElementVisible();
-		hacerClick(pagopreaplicacionpagopage.Periodo);		
-		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
-		ElementVisible();
+		try {
+			esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
+			hacerClick(pagopreaplicacionpagopage.ListPagaduria);
+			EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
+			EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
+			ElementVisible();
+			hacerClick(pagopreaplicacionpagopage.Ano);
+			selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
+			ElementVisible();
+			hacerClick(pagopreaplicacionpagopage.Periodo);		
+			hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+			ElementVisible();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public void capturarValoresPreaplicacionPagos() {
