@@ -176,6 +176,7 @@ public class RecaudosAccion extends BaseTest{
 	}
 	
 	public void filtrosPreAplicacionPagos(String Pagaduria,String Ano,String Periodo) throws InterruptedException {
+		log.info("****** Realizando filtro aplicacion pagos ******" + Pagaduria);
 		try {
 			esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
 			hacerClick(pagopreaplicacionpagopage.ListPagaduria);
@@ -189,7 +190,8 @@ public class RecaudosAccion extends BaseTest{
 			hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
 			ElementVisible();
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error("####### ERROR RecaudosAccion - filtrosPreAplicacionPagos() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - filtrosPreAplicacionPagos() ##########"+ e,false);
 		}
 		
 	}
