@@ -3,6 +3,7 @@ package Acciones;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
@@ -55,8 +56,9 @@ public class RecaudosAccion extends BaseTest{
 	public void abrirCertificacionNavegador(String rutaDocumento, String numRadicado) {	
 		log.info("********************* RecaudosAccion - abrirCertificacionNavegador()*********");	
 		try {
-			abriPdfNavegador(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");	
-			adjuntarCaptura(rutaDocumento+"certificacion-saldo-"+numRadicado+".pdf");
+			File fichero = new File(rutaDocumento);
+			abriPdfNavegador(fichero.getAbsolutePath()+"/"+"certificacion-saldo-"+numRadicado+".pdf");	
+			adjuntarCaptura("certificacion-saldo-"+numRadicado+".pdf");
 		} catch (Exception e) {
 			log.error("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e);
 			assertTrue("####### ERROR RecaudosAccion - abrirCertificacionNavegador() ##########"+ e,false);
@@ -174,17 +176,24 @@ public class RecaudosAccion extends BaseTest{
 	}
 	
 	public void filtrosPreAplicacionPagos(String Pagaduria,String Ano,String Periodo) throws InterruptedException {
-		esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
-		hacerClick(pagopreaplicacionpagopage.ListPagaduria);
-		EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
-		EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
-		ElementVisible();
-		hacerClick(pagopreaplicacionpagopage.Ano);
-		selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
-		ElementVisible();
-		hacerClick(pagopreaplicacionpagopage.Periodo);		
-		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
-		ElementVisible();
+		log.info("****** Realizando filtro aplicacion pagos ******" + Pagaduria);
+		try {
+			esperaExplicita(pagopreaplicacionpagopage.ListPagaduria);
+			hacerClick(pagopreaplicacionpagopage.ListPagaduria);
+			EscribirElemento(pagopreaplicacionpagopage.FiltroPagaduria, Pagaduria);
+			EnviarEnter(pagopreaplicacionpagopage.FiltroPagaduria);
+			ElementVisible();
+			hacerClick(pagopreaplicacionpagopage.Ano);
+			selectValorLista(pagopreaplicacionpagopage.ListAno,Ano);
+			ElementVisible();
+			hacerClick(pagopreaplicacionpagopage.Periodo);		
+			hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("####### ERROR RecaudosAccion - filtrosPreAplicacionPagos() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - filtrosPreAplicacionPagos() ##########"+ e,false);
+		}
+		
 	}
 	
 	public void capturarValoresPreaplicacionPagos() {

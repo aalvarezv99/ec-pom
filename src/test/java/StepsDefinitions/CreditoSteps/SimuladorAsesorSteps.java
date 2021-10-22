@@ -51,8 +51,9 @@ public class SimuladorAsesorSteps {
 	public void cambialafechadelservidor(String FechaServidor) {
 		originacionaccion.CambiarFechaServidor(FechaServidor);
 	}
-	@Y("cree la simulacion con la informacion del archivo contenida en la tabla {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void creeLaSimulacionConLaInformacionDelArchivoContenidaEnLaTabla(String Pagaduria,String Cedula,  String fecha,  String Oficina,  String Actividad,  String Tasa,  String Plazo, 	String Monto,  String DiasHabilesIntereses,  String Ingresos,  String descLey,  String descNomina,  String vlrCompasSaneamientos,  String tipo, String colchon) throws InterruptedException, NumberFormatException, SQLException {
+	
+	@Y("cree la simulacion con la informacion del archivo contenida en la tabla {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string}")
+	public void creeLaSimulacionConLaInformacionDelArchivoContenidaEnLaTabla(String Pagaduria,String Cedula, String fecha,String Oficina,  String Actividad,  String Tasa,  String Plazo, 	String Monto,  String DiasHabilesIntereses,  String Ingresos,  String descLey,  String descNomina,  String vlrCompasSaneamientos,  String tipo, String colchon) throws InterruptedException, NumberFormatException, SQLException {
 	originacionaccion.llenarFormularioAsesor(Pagaduria,Cedula,fecha,Oficina,Actividad,Tasa,Plazo,Monto,DiasHabilesIntereses,Ingresos,descLey,descNomina,vlrCompasSaneamientos,colchon);
 	}
 

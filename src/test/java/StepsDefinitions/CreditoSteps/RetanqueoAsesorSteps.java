@@ -34,11 +34,12 @@ public class RetanqueoAsesorSteps {
 	public void sefiltrapor (String Cedula, String Credito) throws InterruptedException {
 		retanqueocreditos.FiltrarCredito(Cedula, Credito);
 	}
-
+	
 	@Y("se da clic a retanquear")
 	public void sedaclicaretanquear () throws InterruptedException {
 		retanqueocreditos.Retanquear();
 	}
+	
 	
 	@Y("se busca el credito por {string}")
 	public void sebuscaelcreditopor (String Cedula) throws InterruptedException {
@@ -112,12 +113,12 @@ public class RetanqueoAsesorSteps {
     
 	
 	@Y("se filtra por monto para retanqueo y se edita {string}{string}{string}")
-	public void sefiltrapormontopararetanqueoyseedita(String Retanqueo,String Banco, String rutaPDF) {
+	public void sefiltrapormontopararetanqueoyseedita(String Retanqueo,String Banco, String rutaPDF) throws InterruptedException {
 		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);
 	}
 	
 	@Y("se validan los valores de las condiciones del credito {string}")
-	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito) throws NumberFormatException, SQLException {
+	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito) throws NumberFormatException, SQLException, InterruptedException {
 		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito);
 	}
 	@Y("validar las condiciones de la carta de notificacion de creditos {string}")

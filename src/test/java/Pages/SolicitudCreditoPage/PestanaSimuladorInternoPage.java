@@ -70,6 +70,9 @@ public class PestanaSimuladorInternoPage {
 	public By PrimaAnticipadaSeguroSInterno;
 	public By DiasInteresesIniciales;
 	
+	public By listValoresRetanqMultiple;
+	public By inputSumaSaldoDiaRetanqMultiple;
+	
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
 		ResultMontoSoli = By.id("formSimuladorCredito:montoTotalCr_hinput");
@@ -136,5 +139,8 @@ public class PestanaSimuladorInternoPage {
         EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
         ValorFianzaAnalista = By.id("formSimulador:valorFianza_hinput");
         DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
+        
+        listValoresRetanqMultiple = By.xpath("//input[starts-with(@id,'formSimuladorCredito:j_id') and contains (@id,'_hinput')]");
+        inputSumaSaldoDiaRetanqMultiple = By.id("formSimuladorCredito:totalSaldoAlDia_hinput");
 	}
 }

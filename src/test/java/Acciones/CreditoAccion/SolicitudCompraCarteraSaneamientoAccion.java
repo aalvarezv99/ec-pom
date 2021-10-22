@@ -240,7 +240,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		int Tasaxmillonseguro = 4625;
     		double variableFianza = 1.19;
     		double tasaUno = Double.parseDouble(Tasa)/100;
-
+    		
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
     		
     		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
@@ -412,7 +412,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
             myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
             String output = myFormatter.format(value);    	
         	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-        	hacerClick(PagesCreditosDesembolso.VerEditar);
+        	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
         	ElementVisible(); 
         	hacerClick(PagesCreditosDesembolso.Banco);
         	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
@@ -473,7 +473,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
       	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
       	      String output = myFormatter.format(value);    	
       	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-      	  	hacerClick(PagesCreditosDesembolso.VerEditar);
+      	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
       	  	ElementVisible(); 
       	  	hacerClick(PagesCreditosDesembolso.Banco);
       	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	

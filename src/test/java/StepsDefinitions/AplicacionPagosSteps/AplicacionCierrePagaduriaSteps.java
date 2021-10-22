@@ -31,7 +31,7 @@ public class AplicacionCierrePagaduriaSteps {
     	aplicacioncierreaccion.SeleccionarPeriodoAno(periodo);
     }
 
-    @Y("^Ingrese el (.+) en el campo pagaduria verificando que no se ha cargado anteriormente$")
+    @Y("Ingrese el {string} en el campo pagaduria verificando que no se ha cargado anteriormente")
     public void ingreseElEnElCampoPagaduriaVerificandoQueNoSeHaCargadoAnteriormente(String nombrepagaduria) throws Throwable {
         aplicacioncierreaccion.escribirPagaduriaValidarCargue(nombrepagaduria);
     }    

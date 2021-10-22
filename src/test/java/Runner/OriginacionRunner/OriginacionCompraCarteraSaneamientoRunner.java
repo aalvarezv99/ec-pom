@@ -1,21 +1,32 @@
 package Runner.OriginacionRunner;
 
+import java.io.IOException;
+
 import org.junit.runner.RunWith;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+
+import CommonFuntions.BeforeSuite;
+import CommonFuntions.DataToFeature;
+import Runner.RunnerPersonalizado;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
-import cucumber.api.junit.Cucumber;
 
-@RunWith(Cucumber.class)
+//@RunWith(Cucumber.class)
 @CucumberOptions(
 		features = "src/test/resources/feature/OriginacionFeature/OriginacionCompraCarteraSaneamiento.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@ClientesBienvenida"},
+		tags = {"@OriginacionCCS"},
 	    snippets = SnippetType.CAMELCASE
 		)
-public class OriginacionCompraCarteraSaneamientoRunner {
 
+@RunWith(RunnerPersonalizado.class)
+public class OriginacionCompraCarteraSaneamientoRunner {
+	 @BeforeSuite
+	    public static void test()
+	            throws InvalidFormatException, IOException, org.apache.poi.openxml4j.exceptions.InvalidFormatException {
+	        DataToFeature.overrideFeatureFiles("src/test/resources/feature/OriginacionFeature/OriginacionCompraCarteraSaneamiento.feature");
+	    }
 }
 
-
-//tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@DesembolsoCartera,@VisacionCartera,@DesembolsoSaneamiento,@Desembolso"},
+//tags = {"@SimuladorAsesorCCS,@SolicitudCreditoCCS,@AnalisisCreditoCCS,@ClientesBienvenidaCCS,@CreditosVisacionCCS,@DesembolsoCarteraCCS,@VisacionCarteraCCS,@DesembolsoSaneamientoCCS,@DesembolsoCCS"},
