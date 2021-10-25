@@ -13,9 +13,11 @@ import cucumber.api.SnippetType;
 // @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature",
                  glue = "StepsDefinitions",
-                 tags = {"@SolicitudRetanqueoMultiple" },
+                 tags = {"@SolicitudRetanqueoMultipleCompraCarteraSaneamiento" },
                  snippets = SnippetType.CAMELCASE)
-
+//
+//RETANQUEO COMPRA CARTERA SANEAMIENTO
+//@SolicitudRetanqueoMultipleCompraCarteraSaneamiento
 @RunWith(RunnerPersonalizado.class)
 
 public class RetanqueoMultipleRunner {
