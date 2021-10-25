@@ -91,6 +91,7 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				ElementVisible();
 				clickvarios(retanqueopages.ListCreditos);
 				ElementVisible();
+				hacerClicknotificacion();
 				adjuntarCaptura("Se genera el retanqueo para el credito multiple ");
 			} catch (Exception e) {
 				log.error("########## ERROR RetanqueoCreditos - RetanquearMultiples() ########" + e);
