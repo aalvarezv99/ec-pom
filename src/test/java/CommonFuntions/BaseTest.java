@@ -1493,11 +1493,22 @@ public class BaseTest {
         }
         return saldoaldia;
     }
+    
+    public int CalcularSaldoDiaSimInterno(By locator) throws InterruptedException {
+        List<WebElement> listSaldoAlDia = driver.findElements(locator);
+        int saldoaldia = 0;
+        for (int i = 0; i < listSaldoAlDia.size(); i++) {
+        	log.info("*** Saldo al dia " + i +" -----> ***"+listSaldoAlDia.get(i).getAttribute("value").replace(".", "").replace(",", "."));
+            saldoaldia += Integer.valueOf(listSaldoAlDia.get(i).getAttribute("value").replace(".", "").replace(",", ".")) ;
+        }
+        return saldoaldia;
+    }
 
     public int calcularSaldosRecoger(By locator) throws InterruptedException {
         List<WebElement> listSaldoRecoger = driver.findElements(locator);
         int saldoRecoger = 0;
         for (int i = 0; i < listSaldoRecoger.size(); i++) {
+        	log.info("Saldos Dia"+ listSaldoRecoger.get(i).getText());
             saldoRecoger += (int) Double
                     .parseDouble(listSaldoRecoger.get(i).getText().replace(".", "").replace(",", "."));
         }

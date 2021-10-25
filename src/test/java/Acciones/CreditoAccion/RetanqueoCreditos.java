@@ -261,12 +261,47 @@ public class RetanqueoCreditos extends BaseTest {
             ElementVisible();
             hacerClick(retanqueopages.inputMonto);
             ElementVisible();
-            SaldoAlDia = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor));
-            Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
+            
+            int countMultiple = 0;
+            resultado = query.consultarCreditosMultiples(CedulaCliente);
+            while (resultado.next()) {
+            	countMultiple = Integer.parseInt(resultado.getString(1));
+            }
+            
+            
+            if(countMultiple>1) {
+            	log.info("Retanqueo multiple");
+            	
+            	if(ValidarElementoPresente(retanqueopages.listValoresRetanqMultiple)) {
+            		assertBooleanImprimeMensaje("########## ERROR no se visualiza la lista de retanqueos en el simulador interno ###################", true);
+            	}
+            	
+            	SaldoAlDia = CalcularSaldoDiaSimInterno(retanqueopages.listValoresRetanqMultiple);
+            	Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
+            	
+            	if(Monto == (SaldoAlDia + VlrRetanqueo)) {
+            		assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######",true);
+            	}else if(Integer.parseInt(TextoElemento(retanqueopages.inputSumaSaldoDiaRetanqMultiple))!=SaldoAlDia) {
+            		assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######",true);
+            	}else if(Monto<SaldoAlDia) {
+            		assertBooleanImprimeMensaje("##### ERROR el monto no puede ser menor a la suma "
+            				+ "de saldo al dia ######",true);
+            	}else if(Monto>120000000) {
+            		assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######",true);
+            	}
+            	
+            	
+            }else {
+            	log.info("RetanqueoNormal");
+            	SaldoAlDia = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor));
+            	Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
+            	LimpiarConTeclado(retanqueopages.inputMonto);
+                EscribirElemento(retanqueopages.inputMonto, String.valueOf(Monto));
+                ElementVisible();
+            }
+            
+            
             Remanente = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado));
-            LimpiarConTeclado(retanqueopages.inputMonto);
-            EscribirElemento(retanqueopages.inputMonto, String.valueOf(Monto));
-            ElementVisible();
             hacerClick(retanqueopages.diasIntInicial);
             ElementVisible();
             LimpiarConTeclado(retanqueopages.diasIntInicial);
@@ -300,6 +335,7 @@ public class RetanqueoCreditos extends BaseTest {
             assertTrue("########## ERROR RetanqueoCreditos - Simulador() ########" + e, false);
         }
     }
+    
 
     /*
      * TP - 31/08/2021, Se actualiza el simulador con retanqueo para prima mensual

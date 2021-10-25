@@ -42,9 +42,12 @@ public class RetanqueoPages {
 		public By BtnRetanqueoMultiple;
 		public By SaldoAldiaCreditosMultiples;
 		
+		public By listValoresRetanqMultiple;
+		public By inputSumaSaldoDiaRetanqMultiple;
+		
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
-			cedula = By.id("form:listaCreditos:j_idt66:filter");
+			cedula = By.id("form:listaCreditos:j_idt67:filter");
 			credito = By.id("form:listaCreditos:j_idt55:filter");
 			Pagaduria = By.id("form:listaCreditos:j_idt73:filter");
 			BtnRentaqueo= By.xpath("//a[@title='Retanquear']");
@@ -80,5 +83,10 @@ public class RetanqueoPages {
 			inputDescLey = By.id("formSimuladorCredito:leyCr");
 			inputdDescNomina = By.id("formSimuladorCredito:nominaCr");
 			vlrCompra = By.id("formSimuladorCredito:comprasSaneamientoCr");
+			
+			listValoresRetanqMultiple = By.xpath("//input[starts-with(@id,'formSimuladorCredito:j_id') and contains (@id,'_input') and @type='text']/following-sibling::input");
+			
+			
+	        inputSumaSaldoDiaRetanqMultiple = By.id("formSimuladorCredito:totalSaldoAlDia_hinput");
 		}	
 }

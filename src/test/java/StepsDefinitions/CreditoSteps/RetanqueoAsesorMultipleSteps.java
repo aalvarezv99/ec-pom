@@ -30,7 +30,7 @@ public class RetanqueoAsesorMultipleSteps {
         retanqueomultipleaccion.RetanquearMultiples();
     }
 
-    @Y("^se ingresa el monto a solicitar (.+)$")
+    @Y("se ingresa el monto a solicitar {string}")
     public void seIngresaElMontoASolicitar(String Retanqueo) throws Throwable {
         retanqueomultipleaccion.LlenarMontoSolicitar(Retanqueo);
     }

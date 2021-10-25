@@ -248,6 +248,22 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet consultarCreditosMultiples(String cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select coalesce(count(cr.id),0) from cliente c\r\n"
+					+ "join credito cr on c.id = cr.id_cliente \r\n"
+					+ "join credito_retanqueo crr on crr.id_credito_original = cr.id\r\n"
+					+ "where identificacion = '"+cedula+"';");
+						
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - Consulta consultarCreditosMultiples()********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
 	}
 
 
