@@ -262,8 +262,20 @@ public class RetanqueoCreditos extends BaseTest {
             hacerClick(retanqueopages.inputMonto);
             ElementVisible();
             
-            if(!ValidarElementoPresente(retanqueopages.listValoresRetanqMultiple)) {
+            int countMultiple = 0;
+            resultado = query.consultarCreditosMultiples(CedulaCliente);
+            while (resultado.next()) {
+            	countMultiple = Integer.parseInt(resultado.getString(1));
+            }
+            
+            
+            if(countMultiple>1) {
             	log.info("Retanqueo multiple");
+            	
+            	if(ValidarElementoPresente(retanqueopages.listValoresRetanqMultiple)) {
+            		assertBooleanImprimeMensaje("########## ERROR no se visualiza la lista de retanqueos en el simulador interno ###################", true);
+            	}
+            	
             	SaldoAlDia = CalcularSaldoDiaSimInterno(retanqueopages.listValoresRetanqMultiple);
             	Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
             	
