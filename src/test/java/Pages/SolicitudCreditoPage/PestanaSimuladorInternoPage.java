@@ -138,7 +138,7 @@ public class PestanaSimuladorInternoPage {
         EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
         ValorFianzaAnalista = By.id("formSimulador:valorFianza_hinput");
         DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
-        listaCreditosRecoger = By.id("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
+        listaCreditosRecoger = By.xpath("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
         checksMultiples = By.xpath("//span[@class = 'ui-chkbox-icon ui-icon ui-icon-check ui-c']");
 	}
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
 import org.apache.log4j.Logger;
 import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.By;
@@ -715,8 +716,8 @@ public class RetanqueoCreditos extends BaseTest {
 
         int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
 
-        if (!ValidarElementoPresente(pestanasimuladorinternopage.checksMultiples)) {
-            System.out.println("entra a validar los calculos de las condiciones del credito a recoger");
+        if (!ValidarElementoPresente(pestanasimuladorinternopage.listaCreditosRecoger)) {
+            log.info("Entra a validar los calculos de las condiciones del credito a recoger");
             int creditoRecoger = sumarListaValoresCreditosValue(pestanasimuladorinternopage.listaCreditosRecoger);
             int MontoSolicitado = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
             calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);

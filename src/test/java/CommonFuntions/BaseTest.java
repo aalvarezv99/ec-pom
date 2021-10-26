@@ -1506,10 +1506,7 @@ public class BaseTest {
     }
 
     public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
-        System.out.println(" ---------------- monto -------------------- " + monto);
-        System.out.println(" ---------------- saldoAlDia -------------------- " + saldoAlDia);
-        System.out.println(" ---------------- retanqueoVlr -------------------- " + retanqueoVlr);
-        System.out.println(" ---------------- sumaSaldoDiaRetanqueoMul -------------------- " + sumaSaldoDiaRetanqueoMul);
+      
         if (monto == (saldoAlDia + retanqueoVlr)) {
             assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
         } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
