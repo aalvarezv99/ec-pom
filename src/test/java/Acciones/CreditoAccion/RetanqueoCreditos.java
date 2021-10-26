@@ -276,21 +276,11 @@ public class RetanqueoCreditos extends BaseTest {
             		assertBooleanImprimeMensaje("########## ERROR no se visualiza la lista de retanqueos en el simulador interno ###################", true);
             	}
             	
-            	SaldoAlDia = CalcularSaldoDiaSimInterno(retanqueopages.listValoresRetanqMultiple);
+            	SaldoAlDia = sumarListaValoresCreditosValue(retanqueopages.listValoresRetanqMultiple);
             	Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
-            	
-            	if(Monto == (SaldoAlDia + VlrRetanqueo)) {
-            		assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######",true);
-            	}else if(Integer.parseInt(TextoElemento(retanqueopages.inputSumaSaldoDiaRetanqMultiple))!=SaldoAlDia) {
-            		assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######",true);
-            	}else if(Monto<SaldoAlDia) {
-            		assertBooleanImprimeMensaje("##### ERROR el monto no puede ser menor a la suma "
-            				+ "de saldo al dia ######",true);
-            	}else if(Monto>120000000) {
-            		assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######",true);
-            	}
-            	
-            	
+            	int saldoRetanqueoMultiple = Integer.parseInt(TextoElemento(retanqueopages.inputSumaSaldoDiaRetanqMultiple));
+            	calculoCondicionesCreditoRecoger(Monto, SaldoAlDia, VlrRetanqueo, saldoRetanqueoMultiple);
+
             }else {
             	log.info("RetanqueoNormal");
             	SaldoAlDia = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor));
@@ -724,6 +714,13 @@ public class RetanqueoCreditos extends BaseTest {
         int PrimaNoDevengada = 0;
 
         int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
+
+        if (!ValidarElementoPresente(pestanasimuladorinternopage.checksMultiples)) {
+            System.out.println("entra a validar los calculos de las condiciones del credito a recoger");
+            int creditoRecoger = sumarListaValoresCreditosValue(pestanasimuladorinternopage.listaCreditosRecoger);
+            int MontoSolicitado = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
+            calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);
+        }
 
         if (prima == "") {
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
@@ -1261,7 +1258,7 @@ public class RetanqueoCreditos extends BaseTest {
                         GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0, coma).replace(".", ""));
                 System.out.println(" Resultado de valor SALDO AL DIA ELSE " + SaldoAlDia);
             }
-            int saldoRecoger = calcularSaldosRecoger(pagesclienteparabienvenida.ListaCreditosRecoger);
+            int saldoRecoger = sumarListaValoresCreditos(pagesclienteparabienvenida.ListaCreditosRecoger);
             ToleranciaPesoMensaje(" Saldo al dia, créditos a recoger  ", SaldoAlDia, saldoRecoger);
         } else if (!ValidarElementoPresente(pagesclienteparabienvenida.saldoAlDiaRetanqueo)) {
             SaldoAlDia = Integer.parseInt(
