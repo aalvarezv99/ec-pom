@@ -55,6 +55,21 @@ Característica: Retanqueo de creditos
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"8682110"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"LUIS CARLOS"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
+  @AnalisisCreditoRetanqueoMultipleCCS
+  Esquema del escenario: Analisis del credito
+    Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
+    Y ingresa los valores guardando <Ingresos><descLey><descNomina>
+    Y pasa a la siguiente pestana del simulador analista
+    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses><Tasa>
+    #Y Guarda los datos del simulador
+    #Y Pasa a la pestana endeudamiento global aprobando
+    #Y Aprueba la tarea del credito<Cedula>
+
+    Ejemplos: 
+      | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+   |"8682110"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"LUIS CARLOS"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
   @ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>

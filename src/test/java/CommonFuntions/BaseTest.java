@@ -1495,7 +1495,6 @@ public class BaseTest {
     
     public int sumarListaValoresCreditosValue(By locator) throws InterruptedException {
         List<WebElement> list = driver.findElements(locator);
-        System.out.println("size list: " + list.size());
         int value = 0;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getAttribute("value") != null) {

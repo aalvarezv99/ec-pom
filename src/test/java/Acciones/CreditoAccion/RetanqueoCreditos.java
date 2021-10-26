@@ -1043,6 +1043,13 @@ public class RetanqueoCreditos extends BaseTest {
         int Tasaxmillonseguro = 4625;
         int PrimaNoDevengada = 0;
 
+        if (!ValidarElementoPresente(pestanasimuladorinternopage.listaCreditosRecoger)) {
+            log.info("Entra a validar los calculos de las condiciones del credito a recoger");
+            int creditoRecoger = sumarListaValoresCreditosValue(pestanasimuladorinternopage.listaCreditosRecoger);
+            int MontoSolicitado = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
+            calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);
+        }
+
         if (prima == "") {
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
