@@ -124,7 +124,7 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				   ElementVisible();
 				   assertTrue("El valor ingresado debe ser máximo $120.000.000", false);
 				}
-				ToleranciaPesoMensaje(" Saldo al dia creditos multiples", ValorCreditos,calcularSaldoAlDia(retanqueopages.SaldoAldiaCreditosMultiples));			
+				ToleranciaPesoMensaje(" Saldo al dia creditos multiples", ValorCreditos,sumarListaValoresCreditos(retanqueopages.SaldoAldiaCreditosMultiples));			
 				LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 				EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 				hacerClick(retanqueopages.cedula);		

@@ -101,10 +101,10 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,DiasHabilesIntereses, Tasa);
 	}
 	
-	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void Validalosvaloresdelsimuladorretanqueos(String Anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses, String Tasa) throws InterruptedException, SQLException {
-		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,DiasHabilesIntereses, Tasa);
-	}
+//	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+//	public void Validalosvaloresdelsimuladorretanqueos(String Anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses, String Tasa) throws InterruptedException, SQLException {
+//		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,DiasHabilesIntereses, Tasa);
+//	}
 	
     @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Anno,String Credito,String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2,String DiasHabilesIntereses, String Tasa) throws InterruptedException, SQLException {

@@ -814,6 +814,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	public void LlenarIngresos(String Ingresos, String descLey, String descNomina) throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion Llenar ingresos en analisis - ingresarAnalisisCredito()  ***************");
 		try {
+		    esperaExplicita(pestanasimuladorinternopage.inputMesada);
 			Clear(pestanasimuladorinternopage.inputMesada);
 			EscribirElemento(pestanasimuladorinternopage.inputMesada, Ingresos);
 			ElementVisible();

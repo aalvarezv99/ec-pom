@@ -531,7 +531,6 @@ public class BaseTest {
 
     // Metodo que retorna true o false si esta o no presente un elemento
     public boolean ValidarElementoPresente(By locator) {
-
         return driver.findElements(locator).isEmpty();
     }
 
@@ -1485,34 +1484,37 @@ public class BaseTest {
         }
     }
 
-    public int calcularSaldoAlDia(By locator) throws InterruptedException {
-        List<WebElement> listSaldoAlDia = driver.findElements(locator);
-        int saldoaldia = 0;
-        for (int i = 0; i < listSaldoAlDia.size(); i++) {
-            saldoaldia += (int) Double.parseDouble(listSaldoAlDia.get(i).getText().replace(".", "").replace(",", "."));
+    public int sumarListaValoresCreditos(By locator) throws InterruptedException {
+        List<WebElement> list = driver.findElements(locator);
+        int value = 0;
+        for (int i = 0; i < list.size(); i++) {
+            value += (int) Double.parseDouble(list.get(i).getText().replace(".", "").replace(",", "."));
         }
-        return saldoaldia;
+        return value;
     }
     
-    public int CalcularSaldoDiaSimInterno(By locator) throws InterruptedException {
-        List<WebElement> listSaldoAlDia = driver.findElements(locator);
-        int saldoaldia = 0;
-        for (int i = 0; i < listSaldoAlDia.size(); i++) {
-        	log.info("*** Saldo al dia " + i +" -----> ***"+listSaldoAlDia.get(i).getAttribute("value").replace(".", "").replace(",", "."));
-            saldoaldia += Integer.valueOf(listSaldoAlDia.get(i).getAttribute("value").replace(".", "").replace(",", ".")) ;
+    public int sumarListaValoresCreditosValue(By locator) throws InterruptedException {
+        List<WebElement> list = driver.findElements(locator);
+        int value = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getAttribute("value") != null) {
+                value += Integer.valueOf(list.get(i).getAttribute("value").replace(".", "").replace(",", ".")) ;                
+            }
         }
-        return saldoaldia;
+        return value;
     }
 
-    public int calcularSaldosRecoger(By locator) throws InterruptedException {
-        List<WebElement> listSaldoRecoger = driver.findElements(locator);
-        int saldoRecoger = 0;
-        for (int i = 0; i < listSaldoRecoger.size(); i++) {
-        	log.info("Saldos Dia"+ listSaldoRecoger.get(i).getText());
-            saldoRecoger += (int) Double
-                    .parseDouble(listSaldoRecoger.get(i).getText().replace(".", "").replace(",", "."));
+    public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
+      
+        if (monto == (saldoAlDia + retanqueoVlr)) {
+            assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
+        } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
+            assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######", true);
+        } else if (monto < saldoAlDia) {
+            assertBooleanImprimeMensaje("##### ERROR el monto no puede ser menor a la suma "
+                    + "de saldo al dia ######", true);
+        } else if (monto > 120000000) {
+            assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######", true);
         }
-        return saldoRecoger;
     }
-
 }
