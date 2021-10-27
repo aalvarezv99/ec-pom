@@ -137,6 +137,7 @@ public class PanelPrincipalAccion extends BaseTest {
 
 	public void navegarSimulador() {
 		// driver.findElement(panelnavegacionpage.selectSimulador).click();
+		adjuntarCaptura("SeleccionMenu");
 		hacerClick(panelnavegacionpage.selectSimulador);
 		esperaImplicita();
 		hacerClick(panelnavegacionpage.selectIrSimulador);
