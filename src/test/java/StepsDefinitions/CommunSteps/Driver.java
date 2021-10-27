@@ -44,26 +44,24 @@ public class Driver {
 		
 	}
 	
-	@Before
+	/*@Before
 	public void before(Scenario scenario) {
 		System.out.println("scenario: "+scenario);
 		this.scenario = scenario;				
-	}
+	}*/
 	
 	
 	
 	@Before
-	public void iniciarDriver() throws MalformedURLException {			
+	public void iniciarDriver(Scenario scenario) throws MalformedURLException {	
 		log.info("***********************************************************************************************************");
 		log.info("[ Configuracion ] - Inicializando la configuracion del Driver");
 		log.info("***********************************************************************************************************");
-		log.toString();
-		driver = CrearDriver.inicialConfig();
-	    log.toString();
+	    driver = CrearDriver.inicialConfig();
 		levantarURL();
     	log.info("***********************************************************************************************************");
-		log.info("[ Scenario Ejecuadando ] - "+ scenario.getName().toUpperCase());
-		System.out.println("scenario.getName(): "+scenario.getName());
+    	this.scenario = scenario;		
+    	log.info("[ Scenario Ejecutando ] - "+ scenario.getName().toUpperCase());
 		log.info("***********************************************************************************************************");
 	}
 	
