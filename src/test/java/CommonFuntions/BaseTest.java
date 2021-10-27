@@ -102,7 +102,7 @@ public class BaseTest {
 
 	public void LimpiarConTeclado(By locator) {
 
-		driver.findElement(locator).sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END));
+		driver.findElement(locator).sendKeys(Keys.CONTROL, "a", Keys.DELETE);
 
 	}
 
