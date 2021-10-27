@@ -36,7 +36,7 @@ public class AplicacionCierrePagaduriaSteps {
         aplicacioncierreaccion.escribirPagaduriaValidarCargue(nombrepagaduria);
     }    
 
-    @Y("^cargue la pagaduria (.+) que se encuentra en la ruta \"([^\"]*)\"$")
+    @Y("cargue la pagaduria \"([^\"]*)\" que se encuentra en la ruta \"([^\"]*)\"$")
     public void cargueLaPagaduriaQueSeEncuentraEnLaRuta(String nombrepagaduria, String rutapagaduria) throws Throwable {
         aplicacioncierreaccion.cargarArchivoPagaduria(nombrepagaduria, rutapagaduria);
     }
