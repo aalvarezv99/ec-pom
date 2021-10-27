@@ -1,6 +1,7 @@
 package CommonFuntions;
 
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Properties;
@@ -67,7 +68,7 @@ public class CrearDriver {
 				
 				switch (so) {
 				case "Windows":
-					System.setProperty("webdriver.chrome.driver", origenFuente + "chromedriver.exe");
+					System.setProperty("webdriver.chrome.driver", origenFuente + so +"/" + navegador +"/chromedriver.exe");
 					break;
 				case "Linux":
 					System.setProperty("webdriver.chrome.driver", origenFuente + "chromedriver");
@@ -135,7 +136,14 @@ public class CrearDriver {
 		try {
 			pro.load(in);
 			String RutaDescargas = pro.getProperty("RutaArchivosDescargados");
-			FirefoxBinary firefoxBinary = new FirefoxBinary();
+			File fichero = new File(RutaDescargas);
+			HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+			chromePrefs.put("download.default_directory", fichero.getAbsolutePath());
+			ChromeOptions options = new ChromeOptions();
+			options.setExperimentalOption("prefs", chromePrefs);
+			caps = new DesiredCapabilities();
+			caps.setCapability(ChromeOptions.CAPABILITY, options);
+			/*FirefoxBinary firefoxBinary = new FirefoxBinary();
 			firefoxBinary.addCommandLineOptions("--headless");
 			firefoxBinary.addCommandLineOptions("--no-sandbox");
 			System.setProperty("webdriver.gecko.driver", "/usr/bin/geckodriver");
@@ -147,7 +155,7 @@ public class CrearDriver {
 			cap.setCapability("marionette", true);
 	        cap.setBrowserName("firefox");
 	        
-			cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);
+			cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, firefoxOptions);*/
 			/*HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 			chromePrefs.put("download.default_directory", RutaDescargas);
 			
