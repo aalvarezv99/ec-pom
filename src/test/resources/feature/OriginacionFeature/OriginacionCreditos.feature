@@ -46,8 +46,11 @@ Característica: Originacion de Creditos
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos><AnoAnalisis><fechaDesembolso>
     Y Guarda los datos del simulador
+    Y ingrese a la pestana del plan de pagos 
+    Y valide la informacion cabecera con sus conceptos
+    Y el desgloce del plan de pagos con el <Plazo> en el saldo a capital
     Y Pasa a la pestana endeudamiento global aprobando
-    Y Aprueba la tarea del credito<Cedula>
+    #Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
     |Pagaduria|Cedula|fecha|Tasa|Plazo|Monto|DiasHabilesIntereses|Ingresos|descLey|descNomina|Mes|fechaDesembolso|NombreCredito|Pnombre|Snombre|Papellido|Sapellido|fechaActual|Oficina|Actividad|TotalActivos|vlrCompasSaneamientos|tipo|colchon|TipoContrato|FechaIngreso|Correo|Celular|Dpto|Ciudad|rutaPDF|FechaServidor|DestinoCredito|Sexo|EstadoCivil|Direccion|TipoVivienda|PapellidoReferencia|PnombreReferencia|TelefonoResidencia|TelefonoTrabajo|Codigo|AnoAnalisis|TipoDesen|Banco|

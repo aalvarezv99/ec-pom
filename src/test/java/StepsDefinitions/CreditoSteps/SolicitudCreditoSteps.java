@@ -88,6 +88,7 @@ public class SolicitudCreditoSteps {
 	public void seApruebaLaReferenciacionDeLaPagaduriaEnLaPestanaReferenciacionpermiterealizarlasolicituddelanalisis() throws InterruptedException {
 		 originacionaccion.ReferenciacionSolicitarAnalisis();
 	}
+	
     //####################### AnalisisCredito #####################################################################
 	
 	@Cuando("el agente ingresa a pestana analisis de credito busca con la cedula del cliente {string}{string}")
@@ -114,6 +115,18 @@ public class SolicitudCreditoSteps {
 	@Y ("Guarda los datos del simulador")
 	public void guarda_los_datos_del_simulador() throws InterruptedException {
 	 originacionaccion.GuardarSimulacionAnalista();
+	}
+	
+	@Y("ingrese a la pestana del plan de pagos")
+	public void ingreseALaPestanaDelPlanDePagos() throws Throwable {
+	}
+
+	@Y("valide la informacion cabecera con sus conceptos")
+	public void valideLaInformacionCabeceraConSusConceptos() throws Throwable {
+	}
+
+	@Y("el desgloce del plan de pagos con el {string} en el saldo a capital")
+	public void elDesgloceDelPlanDePagosConElEnElSaldoACapital(String plazo) throws Throwable {
 	}
 
 	@Y ("Pasa a la pestana endeudamiento global aprobando")
