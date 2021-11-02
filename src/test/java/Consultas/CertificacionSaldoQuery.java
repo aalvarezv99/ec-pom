@@ -19,6 +19,8 @@ public class CertificacionSaldoQuery {
 
 	ConexionBase dbconector = new ConexionBase();
 
+	BigDecimal vlrNoConsumido;
+
 	/**
 	 * Obtiene los valores del saldo insoluto
 	 * 
@@ -54,6 +56,11 @@ public class CertificacionSaldoQuery {
 			BigDecimal cxcInteresesFianza;
 			ResultSet fianzaRs;
 			BigDecimal fianza;
+			
+			ResultSet creditoCapitalizadoRs;
+			BigDecimal countCreditoCapitalizado;
+			ResultSet vlrNoConsumidoRs;
+			
 			
 			
 			String ultimoDiaFechaVencimiento = ultimoDiaFecha(fechaVencimiento);
@@ -187,7 +194,61 @@ public class CertificacionSaldoQuery {
 			fianzaRs = dbconector.conexion(query.toString());
 			fianza = obtenerValorResultSet(fianzaRs, "Fianza");
 			
-			saldoInsolutoDto.setCapital(capital );
+			/*validaciones Certificacion Capitalizados*/
+			query = new StringBuilder(); 
+			query.append("select count(*) from capitalizacion_cxc where id_credito = "+idCredito+";");
+			creditoCapitalizadoRs = dbconector.conexion(query.toString());
+			countCreditoCapitalizado = obtenerValorResultSet(creditoCapitalizadoRs, "Credito Capitalizado validacion");
+			
+			if(countCreditoCapitalizado.intValue()>=1) {
+				/**Calculando valor no consumido*/
+				query = new StringBuilder();
+				query.append("select  round ( coalesce(estudio_credito,0) - ((coalesce(estudio_credito,0)*0.19)*100)/100 ) - \n");
+				query.append("round(coalesce(obtener_valor_estudio_credito(current_date,c.id::integer ,c.id_pagaduria::integer,false),0)) valor_no_Consumido \n");
+				query.append("from desglose d \n");
+				query.append("join credito c on d.id_credito = c.id \n");
+				query.append("where c.id = " + idCredito + "\n");
+				query.append("and desglose_seleccionado is true;");
+				vlrNoConsumidoRs = dbconector.conexion(query.toString());
+				vlrNoConsumido = obtenerValorResultSet(vlrNoConsumidoRs, "Valor no consumido Capitalizado");
+				
+				log.info("** Calculando valores capitalizados, CertificacionSaldoQuery-calcularCapitalizado()**");
+				cxcInteresesIniciales = calcularCapitalizado(cxcInteresesIniciales, vlrNoConsumido, "Intereses iniciales pendientes de pago");	
+				interesesCorrientes = calcularCapitalizado(interesesCorrientes, vlrNoConsumido,"Intereses corrientes");
+				capital = calcularCapitalizado(capital, vlrNoConsumido,"capita");
+
+				/*if(vlrNoConsumido.intValue()>0 && cxcInteresesIniciales.intValue()>0) {
+					BigDecimal valor = cxcInteresesIniciales;
+					cxcInteresesIniciales= cxcInteresesIniciales.subtract(vlrNoConsumido);
+					cxcInteresesIniciales=pasarPositivo(cxcInteresesIniciales);
+					vlrNoConsumido = vlrNoConsumido.subtract(valor);
+					vlrNoConsumido= pasarPositivo(vlrNoConsumido);
+					log.info("**Intereses iniciales pendientes de pago || Capitalizado **"+  cxcInteresesIniciales);
+				}
+				
+				if(vlrNoConsumido.intValue()>0 && interesesCorrientes.intValue()>0) {
+
+					BigDecimal valor = interesesCorrientes;
+					interesesCorrientes= interesesCorrientes.subtract(vlrNoConsumido);
+					interesesCorrientes=pasarPositivo(interesesCorrientes);
+					vlrNoConsumido = vlrNoConsumido.subtract(valor);
+					vlrNoConsumido=pasarPositivo(vlrNoConsumido);
+					log.info("**Intereses corrientes || Capitalizado ** " + interesesCorrientes);
+				}
+				
+				if(vlrNoConsumido.intValue()>0 && capital.intValue()>0) {
+
+					BigDecimal valor = capital;
+					capital= capital.subtract(vlrNoConsumido);
+					capital= pasarPositivo(capital);
+					vlrNoConsumido = vlrNoConsumido.subtract(valor);
+					vlrNoConsumido=pasarPositivo(vlrNoConsumido);
+					log.info("**Capital || Capitalizado** " + capital);
+				}
+				*/
+			}
+			
+			saldoInsolutoDto.setCapital(capital);
 			saldoInsolutoDto.setInteresMora(interesesMora);
 			saldoInsolutoDto.setGastosCobranza(gastosCobranza);
 			saldoInsolutoDto.setInteresesCorrientes(interesesCorrientes);
@@ -205,6 +266,35 @@ public class CertificacionSaldoQuery {
 			log.error(e);
 		}
 		return saldoInsolutoDto;
+	}
+	
+	private BigDecimal calcularCapitalizado(BigDecimal concepto, BigDecimal NoConsumido, String mensaje) {
+		
+		BigDecimal result = concepto;
+		try {
+			if(concepto.intValue()>0&&NoConsumido.intValue()>0) {
+				BigDecimal valor = concepto;
+				result= concepto.subtract(NoConsumido);
+				result=pasarPositivo(result);
+				vlrNoConsumido = NoConsumido.subtract(valor);
+				vlrNoConsumido=pasarPositivo(vlrNoConsumido);
+
+				log.info("**"+ mensaje +" Capitalizado ** " + result);
+			}
+		} catch (Exception e) {
+
+			log.error("######## ERRROR - VALIDANDO LOS CONCEPTOS DE CAPITALIZADOS - calcularCapitalizado() #########"+e);
+			assertTrue("######## ERRROR - VALIDANDO LOS CONCEPTOS DE CAPITALIZADOS - calcularCapitalizado() #########", false);
+		}
+	
+		return result;
+	}
+	
+	/*02/Nov/2021 ThainerPerez, Se cre el metodo que convierte los bigDecimal en positivos*/
+	private BigDecimal pasarPositivo(BigDecimal valor) {
+		
+		return valor=(valor.intValue()<0)?valor.multiply(BigDecimal.ZERO):valor;
+		
 	}
 	
 	private String ultimoDiaFecha(String fecha) {
@@ -256,6 +346,8 @@ public class CertificacionSaldoQuery {
 		}
 		return valor;
 	}
+	
+	
 
 	public ResultSet ConsultarRegistroCertificacion(String numRadicado) {
 		ResultSet r = null;
