@@ -1370,6 +1370,27 @@ public class BaseTest {
         this.sumarValores(Valores);
         return Valores;
     }
+    
+    public Map<String, String> obtainValuesMap(By locatorKeys, By locatorValues) { //Jonathan Varon
+        Map<String, String> Valores = new HashMap<String, String>();
+        List<WebElement> keys = driver.findElements(locatorKeys);
+        List<WebElement> values = driver.findElements(locatorValues);
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i).getText();
+            String valor = values.get(i).getText();
+            if (valor.contains("$")) {
+                valor = valor.replace("$", "").replace(".", "");
+            }else if (valor.contains("(% NMV)")) {
+                valor = valor.replace("(% NMV)", "");
+            }else if (valor.contains("(Meses)")) {
+                valor = valor.replace("(Meses)", "");
+            }else if (valor.contains("%")) {
+                valor = valor.replace("%", "");
+            }
+            Valores.put(key, valor.trim());
+        }
+        return Valores;
+    }
 
     public void sumarValores(Map<String, String> valores) {
         int total = 0;
