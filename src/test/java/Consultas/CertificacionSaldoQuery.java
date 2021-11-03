@@ -203,7 +203,7 @@ public class CertificacionSaldoQuery {
 			if(countCreditoCapitalizado.intValue()>=1) {
 				/**Calculando valor no consumido*/
 				query = new StringBuilder();
-				query.append("select  round ( coalesce(estudio_credito,0) - ((coalesce(estudio_credito,0)*0.19)*100)/100 ) - \n");
+				query.append("select  round ( coalesce(estudio_credito,0) ) - \n");
 				query.append("round(coalesce(obtener_valor_estudio_credito(current_date,c.id::integer ,c.id_pagaduria::integer,false),0)) valor_no_Consumido \n");
 				query.append("from desglose d \n");
 				query.append("join credito c on d.id_credito = c.id \n");
@@ -217,35 +217,6 @@ public class CertificacionSaldoQuery {
 				interesesCorrientes = calcularCapitalizado(interesesCorrientes, vlrNoConsumido,"Intereses corrientes");
 				capital = calcularCapitalizado(capital, vlrNoConsumido,"capita");
 
-				/*if(vlrNoConsumido.intValue()>0 && cxcInteresesIniciales.intValue()>0) {
-					BigDecimal valor = cxcInteresesIniciales;
-					cxcInteresesIniciales= cxcInteresesIniciales.subtract(vlrNoConsumido);
-					cxcInteresesIniciales=pasarPositivo(cxcInteresesIniciales);
-					vlrNoConsumido = vlrNoConsumido.subtract(valor);
-					vlrNoConsumido= pasarPositivo(vlrNoConsumido);
-					log.info("**Intereses iniciales pendientes de pago || Capitalizado **"+  cxcInteresesIniciales);
-				}
-				
-				if(vlrNoConsumido.intValue()>0 && interesesCorrientes.intValue()>0) {
-
-					BigDecimal valor = interesesCorrientes;
-					interesesCorrientes= interesesCorrientes.subtract(vlrNoConsumido);
-					interesesCorrientes=pasarPositivo(interesesCorrientes);
-					vlrNoConsumido = vlrNoConsumido.subtract(valor);
-					vlrNoConsumido=pasarPositivo(vlrNoConsumido);
-					log.info("**Intereses corrientes || Capitalizado ** " + interesesCorrientes);
-				}
-				
-				if(vlrNoConsumido.intValue()>0 && capital.intValue()>0) {
-
-					BigDecimal valor = capital;
-					capital= capital.subtract(vlrNoConsumido);
-					capital= pasarPositivo(capital);
-					vlrNoConsumido = vlrNoConsumido.subtract(valor);
-					vlrNoConsumido=pasarPositivo(vlrNoConsumido);
-					log.info("**Capital || Capitalizado** " + capital);
-				}
-				*/
 			}
 			
 			saldoInsolutoDto.setCapital(capital);
