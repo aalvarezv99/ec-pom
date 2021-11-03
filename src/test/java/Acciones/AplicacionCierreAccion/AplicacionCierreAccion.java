@@ -63,6 +63,7 @@ public class AplicacionCierreAccion extends BaseTest {
 	 * Se filtra por la pagaduria y se valida que no este cargada*/
 	public void escribirPagaduriaValidarCargue(String nombrePagaduria) {
 		log.info("***************** AplicacionCierreAccion - escribirPagaduriaValidarCargue()");
+		log.info("****** Se cargo la pagaduria - "+ nombrePagaduria+" ****** " );
 		try {
 			esperaExplicita(listapagopage.inputPagaduria);
 			EscribirElemento(listapagopage.inputPagaduria, nombrePagaduria);
@@ -73,7 +74,7 @@ public class AplicacionCierreAccion extends BaseTest {
 			if(Math.round(Long.valueOf(vlr))!=0) {
 				Hacer_scroll_Abajo(listapagopage.btnCargaArchivo);
 				adjuntarCaptura("PagaduriaCargada");
-				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA AGADURIA","0" , vlr);
+				assertValidarEqualsImprimeMensaje(" 'ERROR' - YA SE ENCUENTRA CARGADA LA PAGADURIA","0" , vlr);
 			}
 			adjuntarCaptura("FiltroPagaduria");
 		} catch (Exception e) {
@@ -92,6 +93,8 @@ public class AplicacionCierreAccion extends BaseTest {
 			Hacer_scroll_Abajo(listapagopage.btnCargaArchivo);
 			cargarpdf(listapagopage.btnCargaArchivo, rutaDocumento +nombrePagaduria+".xlsx");
 			esperaExplicita(listapagopage.notificacion);
+			
+			
 			assertTextonotificacion(listapagopage.notificacion, "Se ha iniciado la carga del archivo.");			
 			adjuntarCaptura("InicioCarguePlanilla");
 			hacerClicknotificacion();
@@ -106,10 +109,20 @@ public class AplicacionCierreAccion extends BaseTest {
 		log.info("*********** AplicacionCierreAccion - validarMensajeCargueTerminado()  **********");
 		try {
 			Hacer_scroll_Abajo(listapagopage.btnCargaArchivo);
-			//esperaExplicita(listapagopage.notificacion);
+			esperaExplicita(listapagopage.notificacion);
 			esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
 			ElementVisible();
+			String texto= (GetText(listapagopage.notificacion).contains("Procesando"))?"Pagaduria Grande":" Pagaduria Pequeña"; 
 			
+			log.info("**** Cargando un archivo de ***" + texto);
+			
+			while(GetText(listapagopage.notificacion).contains("Procesando")) {
+				esperaExplicita(listapagopage.notificacion);
+				hacerClicknotificacion();
+				esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
+				ElementVisible();
+			}
+					
 			assertTextonotificacion(listapagopage.notificacion, notificacion);
 			adjuntarCaptura("CargueTerminado");
 			hacerClicknotificacion();
