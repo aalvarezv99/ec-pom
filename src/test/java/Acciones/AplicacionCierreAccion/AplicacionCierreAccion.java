@@ -229,7 +229,6 @@ public class AplicacionCierreAccion extends BaseTest {
 	public void filtrarTablaAplicacion(String pagaduria, String Periodo) {
 		log.info("****************** AplicacionCierreAccion- filtrarTablaAplicacion() **************" );
 		try {
-			
 				esperaExplicita(pagoaplicacionfinalpage.inputPeriodo);
 				EscribirElemento(pagoaplicacionfinalpage.inputPeriodo, Periodo);
 				ElementVisible();
@@ -312,7 +311,7 @@ public class AplicacionCierreAccion extends BaseTest {
 		        String cierreFinalizado = "";
 		        ResultSet resultado;
 		        long start_time = System.currentTimeMillis();
-		        long wait_time = 360000;
+		        long wait_time = 390000;
 		        long end_time = start_time + wait_time;
 		        int contador = 1;
 				while (System.currentTimeMillis() < end_time && (aplicacionFinalizada == false || cierreFinalizado == null)) {
@@ -337,16 +336,15 @@ public class AplicacionCierreAccion extends BaseTest {
 					assertBooleanImprimeMensaje(
 							" ERROR - la validacion de APLICACION supero el limite de tiempo de 6 minutos  y no cambio de estado",
 							true);
-				} else {
-					Refrescar();
 				}
-
-				if (cierreFinalizado != "CERRADA" && proceso.equals("Cierre")) {
+				else if (proceso.equals("Cierre") && !cierreFinalizado.equals("CERRADA")) {
 					assertBooleanImprimeMensaje(
 							" ERROR - la validacion de CIERRE supero el limite de tiempo de 6 minutos y no cambio a CERRADA", true);
-				} else {
-					Refrescar();
 				}
+				else {
+				Refrescar();
+				}
+
 			} catch (Exception e) {
 				log.error("############## AplicacionCierreAccion - validarfinalizacionAplicacioncierre() ################"+e);
 				assertTrue("########## AplicacionCierreAccion - validarfinalizacionAplicacioncierre()########"+ e,false);
