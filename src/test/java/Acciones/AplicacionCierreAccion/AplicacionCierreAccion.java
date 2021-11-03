@@ -3,14 +3,18 @@ package Acciones.AplicacionCierreAccion;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.AplicacionCierreQuery;
+import Consultas.OriginacionCreditoQuery;
 import Pages.AplicacionCierrePage.PagoAplicacionFinalPage;
 import Pages.AplicacionCierrePage.PagoListaPagoPages;
 import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
@@ -222,12 +226,10 @@ public class AplicacionCierreAccion extends BaseTest {
 	/*
 	 * TP - 21/07/2021 
 	 * Acciones para aplicacion final*/
-	public void filtrarTablaAplicacion(String pagaduria, String Periodo, String refresh) {
+	public void filtrarTablaAplicacion(String pagaduria, String Periodo) {
 		log.info("****************** AplicacionCierreAccion- filtrarTablaAplicacion() **************" );
 		try {
-			if(refresh.equals("SI")) {
-				log.info("************** AplicacionCierreAccion - Refrescar(); ***********");
-				Refrescar();
+			
 				esperaExplicita(pagoaplicacionfinalpage.inputPeriodo);
 				EscribirElemento(pagoaplicacionfinalpage.inputPeriodo, Periodo);
 				ElementVisible();
@@ -238,18 +240,7 @@ public class AplicacionCierreAccion extends BaseTest {
 				EscribirElemento(pagoaplicacionfinalpage.inputPagaduria, pagaduria);
 				ElementVisible();
 				esperaExplicitaTexto(pagaduria);
-			}else {
-				esperaExplicita(pagoaplicacionfinalpage.inputPeriodo);
-				EscribirElemento(pagoaplicacionfinalpage.inputPeriodo, Periodo);
-				ElementVisible();
-				String dia = separarFecha(Periodo, "dia");
-				selecDiaCalendario(pagoaplicacionfinalpage.listDiasCalendario, dia);
-				ElementVisible();
-				esperaExplicita(pagoaplicacionfinalpage.inputPagaduria);
-				EscribirElemento(pagoaplicacionfinalpage.inputPagaduria, pagaduria);
-				ElementVisible();
-				esperaExplicitaTexto(pagaduria);
-			}
+			
 		} catch (Exception e) {
 			log.error("############## AplicacionCierreAccion - filtrarTablaAplicacion() ################"+e);
 			assertTrue("########## AplicacionCierreAccion - filtrarTablaAplicacion()########"+ e,false);
@@ -286,37 +277,82 @@ public class AplicacionCierreAccion extends BaseTest {
 	
 	/*
 	 * TP - 21/07/2021
-	 * Metodo para validar */
+	 * Metodo para validar cambio de estados*/
 	public void validarCambioestado(String vlrfila, String vlrColumna, String pagaduria, String periodo) {
 		int vlrContador = 0;
 		String vlrFilaNavegador = "";
-		while (vlrContador<300) {									
-			switch (vlrColumna) {
-			case "Recaudo confirmado":
-				vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 13);
-				break;
 
-			case "Estado Pagaduria":
-				vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 14);
-				break;
-			}
-			if(vlrFilaNavegador.contains(vlrfila) && vlrContador < 300) {
-				break;
-			}
-			else {
-				vlrContador = vlrContador + 10;
-				filtrarTablaAplicacion( pagaduria,  periodo, "SI");
-			}
+		switch (vlrColumna) {
+		case "Recaudo confirmado":
+			log.info("****** Realizando validacion de Aplicacion Pagos Pagaduria*****");
+			validarfinalizacionAplicacioncierre(pagaduria,"Aplicacion",periodo);
+			vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 13);
+			log.info("********Se realizo el cargue de la pagaduria  ******" + vlrFilaNavegador);
+			filtrarTablaAplicacion( pagaduria,  periodo);
+			break;
+
+		case "Estado Pagaduria":
+			log.info("****** Realizando validacion de Cierre Pagaduria *****");
+			validarfinalizacionAplicacioncierre(pagaduria,"Cierre",periodo);
+			vlrFilaNavegador = buscarElementoFilaTabla(pagoaplicacionfinalpage.contTablaColumnas, 14);
+			filtrarTablaAplicacion( pagaduria,  periodo);
+			log.info("********El estado del cierre es  ******" + vlrFilaNavegador);
+			break;
 		}
-		if(vlrContador>=300) {
-			assertBooleanImprimeMensaje("######### ERROR - SUPERO LA MAXIMA ESPERA PARA EL CAMBIO DE ESTADO"
-					+ " DE LA PAGADURIA - #######" + pagaduria, true);
-		}
-		log.info("Salio del Wile");
+
 	}
 	
 	
-	/*Acciones para aplicacion final*/
+	/*ThainerPerez, 03/Nov/2021 - Esta funcion se encarga de validar que en bases de datos cambio el estado tiene un tiempo maximo de 5 min*/
+	 public void validarfinalizacionAplicacioncierre(String Pagaduria, String proceso, String fechaPeriodoFeature) {
+		    
+		 	try {
+		 		String fechaPeridoDB = "";
+		        Boolean aplicacionFinalizada = false;
+		        String cierreFinalizado = "";
+		        ResultSet resultado;
+		        long start_time = System.currentTimeMillis();
+		        long wait_time = 360000;
+		        long end_time = start_time + wait_time;
+		        int contador = 1;
+				while (System.currentTimeMillis() < end_time && (aplicacionFinalizada == false || cierreFinalizado == null)) {
+					contador = contador +1;
+					resultado = query.validarAplicacionCierre(Pagaduria);
+					while (resultado.next()) {
+						fechaPeridoDB = resultado.getString(1);
+						aplicacionFinalizada = resultado.getBoolean(2);
+						cierreFinalizado = resultado.getString(3);
+
+					}
+				}
+				log.info("**** Fecha Periodo DB**** " + fechaPeridoDB);
+				log.info("**** blr Aplicacion Pago DB****" + aplicacionFinalizada);
+				log.info("***** Vlr Cierre DB ***" + cierreFinalizado);
+				
+				assertValidarEqualsImprimeMensaje(
+						"### ERROR - la fecha de la consulta y del feature son diferentes ###", fechaPeridoDB,
+						fechaPeriodoFeature);
+
+				if (proceso.equals("Aplicacion") && aplicacionFinalizada == false) {
+					assertBooleanImprimeMensaje(
+							" ERROR - la validacion de APLICACION supero el limite de tiempo de 6 minutos  y no cambio de estado",
+							true);
+				} else {
+					Refrescar();
+				}
+
+				if (cierreFinalizado != "CERRADA" && proceso.equals("Cierre")) {
+					assertBooleanImprimeMensaje(
+							" ERROR - la validacion de CIERRE supero el limite de tiempo de 6 minutos y no cambio a CERRADA", true);
+				} else {
+					Refrescar();
+				}
+			} catch (Exception e) {
+				log.error("############## AplicacionCierreAccion - validarfinalizacionAplicacioncierre() ################"+e);
+				assertTrue("########## AplicacionCierreAccion - validarfinalizacionAplicacioncierre()########"+ e,false);
+			}
+	        
+	    }
 	
 	
 }
