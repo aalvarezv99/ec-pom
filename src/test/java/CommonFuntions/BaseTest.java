@@ -14,16 +14,10 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
@@ -1284,8 +1278,8 @@ public class BaseTest {
     public List<String> parseWebElementsToList(List<WebElement> list) {
         int totalElementos = list.size();
         List<String> listString = new ArrayList<>();
-        for (int i = 0; i < totalElementos; i++) {
-            listString.add(list.get(i).getAttribute("id"));
+        for (WebElement webElement : list) {
+            listString.add(webElement.getAttribute("id"));
         }
         return listString;
     }
@@ -1487,8 +1481,9 @@ public class BaseTest {
     public int sumarListaValoresCreditos(By locator) throws InterruptedException {
         List<WebElement> list = driver.findElements(locator);
         int value = 0;
-        for (int i = 0; i < list.size(); i++) {
-            value += (int) Double.parseDouble(list.get(i).getText().replace(".", "").replace(",", "."));
+        for (WebElement webElement : list) {
+            System.out.println("res ---------" + limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."),"\\d+(?:[.,]\\d+)?"));
+            value += (int) Double.parseDouble(limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."),"\\d+(?:[.,]\\d+)?"));
         }
         return value;
     }
@@ -1505,7 +1500,7 @@ public class BaseTest {
     }
 
     public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
-      
+
         if (monto == (saldoAlDia + retanqueoVlr)) {
             assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
         } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
@@ -1516,5 +1511,37 @@ public class BaseTest {
         } else if (monto > 120000000) {
             assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######", true);
         }
+    }
+
+    public void capturarCreditosPadre(By locator, Map<Integer, Map<String, String>> creditosPadre) {
+        List<WebElement> listCreditosPadre = driver.findElements(locator);
+        List<Integer> creditosOrdenados = parseWebElementsToListGetText(listCreditosPadre);
+        Comparator<Integer> comparador = Collections.reverseOrder();
+        creditosOrdenados.sort(comparador);
+        System.out.println("lista ordenada ------------->" + creditosOrdenados.toString());
+        for (int i = 0; i < creditosOrdenados.size(); i++) {
+            Map<String, String> credito = new HashMap<>();
+            credito.put("numeroCredito", String.valueOf(creditosOrdenados.get(i)));
+            creditosPadre.put(i + 1, credito);
+        }
+    }
+
+    public static String limpiarCadenaRegex(String elem, String regex){
+        String all = "";
+        Pattern pat = Pattern.compile(regex);
+        Matcher m = pat.matcher(elem);
+
+        while (m.find()) {
+            all += m.group(0);
+        }
+        return all;
+    }
+
+    public List<Integer> parseWebElementsToListGetText(List<WebElement> list) {
+        List<Integer> listString = new ArrayList<>();
+        for (WebElement webElement : list) {
+            listString.add(Integer.parseInt(webElement.getText()));
+        }
+        return listString;
     }
 }
