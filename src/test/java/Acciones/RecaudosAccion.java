@@ -213,32 +213,40 @@ public class RecaudosAccion extends BaseTest{
 	}
 	
 	public void Agregarpago(String Pagaduria,String Ano,String Periodo) {
-		hacerClick(recaudopage.botonAddPagoRecaudo);
-		ElementVisible();
-		hacerClick(recaudopage.inputFecha);
-		selectFechActualCalendario(recaudopage.contDiasCalendario,recaudopage.selectDia);
-		ElementVisible();
-		hacerClick(recaudopage.inputValor);
-		EscribirElemento(recaudopage.inputValor, SumValoresRecibidos);
-		ElementVisible();
-		hacerClick(recaudopage.checkPagaduria);
-		hacerClick(recaudopage.checkPagaduria);
-		ElementVisible();
-		hacerClick(recaudopage.listaPagaduria);
-		ElementVisible();
-		EscribirElemento(recaudopage.FiltroPagaduria, Pagaduria);
-		EnviarEnter(recaudopage.FiltroPagaduria);
-		ElementVisible();
-		Clear(recaudopage.Ano);
-		EscribirElemento(recaudopage.Ano,Ano);
-		ElementVisible();
-		hacerClick(recaudopage.RecaudoPeriodo);
-		hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
-		ElementVisible();
-		esperaExplicita(recaudopage.botonGuardarInfPago);
-		hacerClick(recaudopage.botonGuardarInfPago);
-		ElementVisible();
-		assertTextonotificacion(recaudopage.notificacion,"Se registro correctamente el recaudo del pago");
+		log.info("******* Se agregan los valores en la pantalla recaudo, RecaudosAccion - Agregarpago() *******");
+		try {
+			hacerClick(recaudopage.botonAddPagoRecaudo);
+			ElementVisible();
+			hacerClick(recaudopage.inputFecha);
+			selectFechActualCalendario(recaudopage.contDiasCalendario,recaudopage.selectDia);
+			ElementVisible();
+			hacerClick(recaudopage.inputValor);
+			EscribirElemento(recaudopage.inputValor, SumValoresRecibidos);
+			ElementVisible();
+			hacerClick(recaudopage.checkPagaduria);
+			hacerClick(recaudopage.checkPagaduria);
+			ElementVisible();
+			hacerClick(recaudopage.listaPagaduria);
+			ElementVisible();
+			EscribirElemento(recaudopage.FiltroPagaduria, Pagaduria);
+			EnviarEnter(recaudopage.FiltroPagaduria);
+			ElementVisible();
+			Clear(recaudopage.Ano);
+			EscribirElemento(recaudopage.Ano,Ano);
+			ElementVisible();
+			hacerClick(recaudopage.RecaudoPeriodo);
+			hacerClick(By.xpath("//li[text()='"+Periodo+"']"));
+			ElementVisible();
+			esperaExplicita(recaudopage.botonGuardarInfPago);
+			hacerClick(recaudopage.botonGuardarInfPago);
+			ElementVisible();
+			assertTextonotificacion(recaudopage.notificacion,"Se registro correctamente el recaudo del pago");
+		} catch (Exception e) {
+
+			log.error("####### ERROR RecaudosAccion - Agregarpago() ##########"+ e);
+			assertTrue("####### ERROR RecaudosAccion - Agregarpago() ##########"+ e,false);
+		}
+		
 		//
 	}
 	

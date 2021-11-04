@@ -46,7 +46,7 @@ public class AplicacionCierrePagaduriaSteps {
        aplicacioncierreaccion.validarMensajeCargueTerminado(Mensaje);
     }
 
-    @Y("^se valida el valor listado de la (.+) para el (.+) con el valor del sistema terminando con el proceso$")
+    @Y("^se valida el valor listado de la \"([^\"]*)\" para el (.+) con el valor del sistema terminando con el proceso$")
     public void seValidaElValorListadoDeLaParaElConElValorDelSistemaTerminandoConElProceso(String nombrepagaduria, String periodo) throws Throwable {
        aplicacioncierreaccion.validarVlrPlanillaContraSistema(nombrepagaduria, periodo);
     }

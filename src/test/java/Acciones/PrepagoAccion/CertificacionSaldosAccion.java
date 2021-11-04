@@ -237,22 +237,22 @@ public class CertificacionSaldosAccion extends BaseTest {
 	public Map<String, String> conceptosCertificacion(SaldoInsolutoDto valores,String estado, String vlrFianza, String cuentasCXC){
 		Map<String,String> conceptos = new HashMap<String,String>();
 		
-		conceptos.put("Capital", "Capital $ " +  valores.getCapital());
-		conceptos.put("IntCorriente", "Intereses Corrientes $ " + valores.getInteresesCorrientes());
-		conceptos.put("Seguro","Seguro $ "+ valores.getSeguro());
+		conceptos.put("Capital", "Capital $ " +  valores.getCapital().intValue());
+		conceptos.put("IntCorriente", "Intereses Corrientes $ " + valores.getInteresesCorrientes().intValue());
+		conceptos.put("Seguro","Seguro $ "+ valores.getSeguro().intValue());
 		
 		if(vlrFianza != null) {
-			conceptos.put("Fianza","Fianza $ " + valores.getCxcFianza());
-			conceptos.put("IntFianza","Intereses de Fianza $ " + valores.getCxcInteresesFianza());
+			conceptos.put("Fianza","Fianza $ " + valores.getCxcFianza().intValue());
+			conceptos.put("IntFianza","Intereses de Fianza $ " + valores.getCxcInteresesFianza().intValue());
 		}
 		else if(cuentasCXC.toUpperCase()!=("SINCXC")) {
-			conceptos.put("SegIniPendiente","Seguro inicial pendiente de pago $ " + valores.getCxcSeguroIncial());
-			conceptos.put("IntIniPendiente","Intereses iniciales pendientes de pago $ " + valores.getCxcIntesesInciales());
+			conceptos.put("SegIniPendiente","Seguro inicial pendiente de pago $ " + valores.getCxcSeguroIncial().intValue());
+			conceptos.put("IntIniPendiente","Intereses iniciales pendientes de pago $ " + valores.getCxcIntesesInciales().intValue());
 		}
 		
 		conceptos.put("PrimaSegPendien","Prima de seguro anticipada pendiente de pago $ ");
 		conceptos.put("IntPrimaAnti","Intereses prima de seguro anticipada $ ");
-		conceptos.put("Total","Total a pagar $ " + valores.getSaldoInsoluto());
+		conceptos.put("Total","Total a pagar $ " + valores.getSaldoInsoluto().intValue());
 		
 		
 		

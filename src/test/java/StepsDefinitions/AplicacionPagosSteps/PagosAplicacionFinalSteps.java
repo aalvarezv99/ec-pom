@@ -22,7 +22,7 @@ public class PagosAplicacionFinalSteps {
 	/* APLICACION FINAL STEPS */	
 	@Y("^cuando filtre utilizando el (.+) con \"([^\"]*)\" en la pantalla Aplicacion final$")
 	public void cuandoFiltreUtilizandoElConEnLaPantallaAplicacionFinal(String periodo, String pagaduria) {
-		aplicacioncierreaccion.filtrarTablaAplicacion(pagaduria, periodo, "NO");
+		aplicacioncierreaccion.filtrarTablaAplicacion(pagaduria, periodo);
 	}
 
 	@Y("^Se muestra un unico registro permitiendo confirmar el pago$")
