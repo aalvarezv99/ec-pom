@@ -313,16 +313,22 @@ public class AplicacionCierreAccion extends BaseTest {
 		        long start_time = System.currentTimeMillis();
 		        long wait_time = 390000;
 		        long end_time = start_time + wait_time;
-		        int contador = 1;
-				while (System.currentTimeMillis() < end_time && (aplicacionFinalizada == false || cierreFinalizado == null)) {
-					contador = contador +1;
+		        
+				while (System.currentTimeMillis() < end_time && (aplicacionFinalizada == false || cierreFinalizado.equals("NULL"))) {
+					log.info("**** Realizando la validacion del proceso ***" + proceso);
 					resultado = query.validarAplicacionCierre(Pagaduria);
 					while (resultado.next()) {
 						fechaPeridoDB = resultado.getString(1);
 						aplicacionFinalizada = resultado.getBoolean(2);
 						cierreFinalizado = resultado.getString(3);
-
 					}
+					if(proceso.equals("Aplicacion") && aplicacionFinalizada==true ) {
+						break;
+					}
+					if(proceso.equals("Cierre") && cierreFinalizado.equals("CERRADA")){
+						break;
+					}
+					
 				}
 				log.info("**** Fecha Periodo DB**** " + fechaPeridoDB);
 				log.info("**** blr Aplicacion Pago DB****" + aplicacionFinalizada);
