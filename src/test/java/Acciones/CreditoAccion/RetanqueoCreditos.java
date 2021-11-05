@@ -63,6 +63,12 @@ public class RetanqueoCreditos extends BaseTest {
     List<String> ValoresCredito = new ArrayList<>();
     Map<String, String> ValoresCarta = new HashMap<>();
     int DesPrimaAntic = 0;
+    //Variables Globales
+  	private String vg_SegundaTasaInteres;
+  	private String vg_MontoAprobado;
+  	private String vg_PrimaSeguroAnticipada;
+  	private String vg_PrimaNoDevengadaSeguro;
+  	private String vg_PrimaNetaSeguro; 
 
     public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
         // this.driver = driver;
@@ -750,6 +756,8 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
+            //Varible global para prima anticipada
+            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
         } else {
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
@@ -783,7 +791,10 @@ public class RetanqueoCreditos extends BaseTest {
             resultFianza = (resultFianza < 0) ? resultFianza * 0 : resultFianza;
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
-
+            //Variable global para if
+            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
+            vg_PrimaNoDevengadaSeguro = String.valueOf(PrimaNoDevengada);
+          	vg_PrimaNetaSeguro = String.valueOf(PrimaNeta);
         }
 
         if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".") == true) {
@@ -799,7 +810,16 @@ public class RetanqueoCreditos extends BaseTest {
                     (Integer.parseInt(retanqueo)));
             System.out.println("dentro del else que no contiene punto");
         }
-
+        vg_MontoAprobado = String.valueOf(calculoSoliPantalla);
+        vg_SegundaTasaInteres = String.valueOf(tasaDos);
+        
+    }
+    
+    public void validelainformacioncabeceraconsusconceptosparaRetanqueos(String Tasa, String Plazo) {
+    	
+    	validarCabeceraPlanDePagos(Tasa,Plazo,vg_MontoAprobado,vg_SegundaTasaInteres,vg_PrimaSeguroAnticipada, vg_PrimaNoDevengadaSeguro, vg_PrimaNetaSeguro, pestanasimuladorinternopage.KeyCabeceraPlanDePagos, pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
+    	
+    	
     }
 
     public void ValidarSimuladorAnalistaRetanqueos(String anno, String Credito, String retanqueo, String fecha,

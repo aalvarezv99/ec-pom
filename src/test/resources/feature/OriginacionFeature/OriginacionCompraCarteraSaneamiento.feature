@@ -55,6 +55,9 @@ Característica: Solicitud combra de cartera
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador para compra de cartera con saneamiento <Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><Cartera1><Saneamiento2><AnoAnalisis><fechaDesembolso>
     Y Guarda los datos del simulador
+    Y ingrese a la pestana del plan de pagos 
+    Y valide la informacion cabecera con sus conceptos<Cedula><Monto><Tasa><Plazo>
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 

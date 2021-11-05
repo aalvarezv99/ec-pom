@@ -147,7 +147,7 @@ public class PestanaSimuladorInternoPage {
         
         //ADP - 98
         PestanaPlanDePagos = By.id("navegacionCredito:j_idt34");
-        KeyCabeceraPlanDePagos = By.xpath("//div[@id='form:j_idt94']/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
-        ValueCabeceraPlanDePagos = By.xpath("//div[@id='form:j_idt94']/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
+        KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
+        ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
 	}
 }

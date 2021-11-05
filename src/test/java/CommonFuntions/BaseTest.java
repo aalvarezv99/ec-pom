@@ -1538,4 +1538,37 @@ public class BaseTest {
             assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######", true);
         }
     }
+    
+    public void validarCabeceraPlanDePagos(String Tasa,String Plazo,String vg_MontoAprobado,String vg_SegundaTasaInteres,String vg_PrimaSeguroAnticipada, String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro, By keyPage, By valuePage) {
+    	
+    	//Variables Locales
+    	Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
+    	
+    	// Obtencion de datos - Generacion MAP con datos de la cabecera
+		
+		ValoresCabeceraPlanDePagos = obtainValuesMap(keyPage, valuePage);
+
+		for (String key: ValoresCabeceraPlanDePagos.keySet()) {
+			log.info(key + " = " + ValoresCabeceraPlanDePagos.get(key));
+		}
+		//Validacion
+		try {
+	
+			assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
+			ToleranciaPesoMensaje("Fallo: Validando MONTO ",Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")), Integer.parseInt(vg_MontoAprobado));
+			assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO ",ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+
+			
+			ToleranciaPesoMensaje("Fallo: Validacion Prima de seguro anticipada ",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):").split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
+			ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:").split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
+			ToleranciaPesoMensaje("Fallo: Validando Prima Neta",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]), Integer.parseInt(vg_PrimaNetaSeguro));
+	
+			log.info("*********** Datos cabecera Validados -> OK ***********");
+			
+		} catch (Exception e) {
+			log.error("########## Error - VerificacionCabeceraAnalisisCredito() - Validando TASA INICIAL #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+		}
+    	
+    }
 }
