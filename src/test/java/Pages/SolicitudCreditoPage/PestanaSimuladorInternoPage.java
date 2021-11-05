@@ -71,6 +71,10 @@ public class PestanaSimuladorInternoPage {
 	public By DiasInteresesIniciales;
 	public By listaCreditosRecoger;
 	public By checksMultiples;
+	//ADP 98
+	public By PestanaPlanDePagos;
+	public By KeyCabeceraPlanDePagos;
+	public By ValueCabeceraPlanDePagos;
 
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -140,5 +144,10 @@ public class PestanaSimuladorInternoPage {
         DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
         listaCreditosRecoger = By.xpath("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
         checksMultiples = By.xpath("//span[@class = 'ui-chkbox-icon ui-icon ui-icon-check ui-c']");
+        
+        //ADP - 98
+        PestanaPlanDePagos = By.id("navegacionCredito:j_idt34");
+        KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
+        ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
 	}
 }

@@ -1368,6 +1368,27 @@ public class BaseTest {
         this.sumarValores(Valores);
         return Valores;
     }
+    
+    public Map<String, String> obtainValuesMap(By locatorKeys, By locatorValues) { //Jonathan Varon
+        Map<String, String> Valores = new HashMap<String, String>();
+        List<WebElement> keys = driver.findElements(locatorKeys);
+        List<WebElement> values = driver.findElements(locatorValues);
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i).getText();
+            String valor = values.get(i).getText();
+            if (valor.contains("$")) {
+                valor = valor.replace("$", "").replace(".", "");
+            }else if (valor.contains("(% NMV)")) {
+                valor = valor.replace("(% NMV)", "");
+            }else if (valor.contains("(Meses)")) {
+                valor = valor.replace("(Meses)", "");
+            }else if (valor.contains("%")) {
+                valor = valor.replace("%", "");
+            }
+            Valores.put(key, valor.trim());
+        }
+        return Valores;
+    }
 
     public void sumarValores(Map<String, String> valores) {
         int total = 0;
@@ -1514,5 +1535,38 @@ public class BaseTest {
         } else if (monto > 120000000) {
             assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######", true);
         }
+    }
+    
+    public void validarCabeceraPlanDePagos(String Tasa,String Plazo,String vg_MontoAprobado,String vg_SegundaTasaInteres,String vg_PrimaSeguroAnticipada, String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro, By keyPage, By valuePage) {
+    	
+    	//Variables Locales
+    	Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
+    	
+    	// Obtencion de datos - Generacion MAP con datos de la cabecera
+		
+		ValoresCabeceraPlanDePagos = obtainValuesMap(keyPage, valuePage);
+
+		for (String key: ValoresCabeceraPlanDePagos.keySet()) {
+			log.info(key + " = " + ValoresCabeceraPlanDePagos.get(key));
+		}
+		//Validacion
+		try {
+	
+			assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
+			ToleranciaPesoMensaje("Fallo: Validando MONTO ",Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")), Integer.parseInt(vg_MontoAprobado));
+			assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO ",ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+
+			
+			ToleranciaPesoMensaje("Fallo: Validacion Prima de seguro anticipada ",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):").split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
+			ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:").split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
+			ToleranciaPesoMensaje("Fallo: Validando Prima Neta",Integer.valueOf(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]), Integer.parseInt(vg_PrimaNetaSeguro));
+	
+			log.info("*********** Datos cabecera Validados -> OK ***********");
+			
+		} catch (Exception e) {
+			log.error("########## Error - VerificacionCabeceraAnalisisCredito() - Validando TASA INICIAL #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+		}
+    	
     }
 }
