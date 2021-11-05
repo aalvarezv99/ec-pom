@@ -264,7 +264,21 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	
+	public ResultSet ConsultaCreditoSimuladorAsesor(String Cedula) {//Jonathan Varon
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select * from simulador_asesor where id_credito in(select cre.id from credito cre where cre.id_cliente in (select c.id from cliente c where c.identificacion in('"+ Cedula +"')));");
+
+		} catch (Exception e) {
+			log.error("********ConsultaCreditoSimuladorAsesor() ********");
+			log.error(e.getMessage());
+		}
+
+		return r;
 	}
+	
+}
 
 
 	
