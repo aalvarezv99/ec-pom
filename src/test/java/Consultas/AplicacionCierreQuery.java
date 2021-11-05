@@ -57,7 +57,7 @@ public class AplicacionCierreQuery {
 	public ResultSet validarAplicacionCierre(String nombrePagaduria) {
 		ResultSet r = null;
 		try {
-			r = dbconector.conexion("select  to_char(app.periodo,'dd/mm/YYYY') fecha_Periodo, app.aplicacion_finalizada_si_no, app.cierre_pagaduria \r\n"
+			r = dbconector.conexion("select  to_char(app.periodo,'dd/mm/YYYY') fecha_Periodo, app.aplicacion_finalizada_si_no, coalesce(app.cierre_pagaduria,'NULL') cierre \r\n"
 					+ "from aplicacion_pago_pagaduria app \r\n"
 					+ "join pagaduria p on app.id_pagaduria = p.id\r\n"
 					+ "where 1=1\r\n"
