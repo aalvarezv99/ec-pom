@@ -67,6 +67,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 	Map<String, String> ValoresCarta = new HashMap<>();
 	Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
 	int DesPrimaAntic = 0;
+	//Variables verificacion Plan de Pagos
+	private String vg_MontoAprobado_Originacion;
+  	private String vg_SegundaTasaInteres_Originacion;
+  	private String vg_PrimaSeguroAnticipada_Originacion;
+
 
 	public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
 		/// this.driver = driver;
@@ -1020,6 +1025,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 				.substring(0, TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length() - 2)
 				.replaceAll("[^a-zA-Z0-9]", ""), descNomina);
 
+		//Variables globales para posterior analisis Plan de Pagos
+		vg_MontoAprobado_Originacion= String.valueOf(calculoMontoSoli);
+		vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos*100);
+		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(PrimaAnticipadaSeguro);
 	}
 
 	public void GuardarSimulacionAnalista() throws InterruptedException {
@@ -1048,8 +1057,22 @@ public class OriginacionCreditosAccion extends BaseTest {
 			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
 		}
 	}
+	
+	public void validelainformacioncabeceraconsusconceptosparaOriginacion(String Tasa, String Plazo) {
+		
+		validarCabeceraPlanDePagos("Originacion",
+				Tasa,
+    			Plazo,
+    			vg_MontoAprobado_Originacion,
+    			vg_SegundaTasaInteres_Originacion,
+    			vg_PrimaSeguroAnticipada_Originacion, 
+    			null, 
+    			null, 
+    			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 
+    			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
+	}
 
-	public void VerificacionCabeceraAnalisisCredito(String Cedula,String Monto, String Tasa, String Plazo)
+	public void VerificacionCabeceraAnalisisCredito(String Monto, String Tasa, String Plazo)
 			throws InterruptedException, NumberFormatException, SQLException {
 		log.info("******************** OriginacionCreditosAccion - VerificacionCabeceraAnalisisCredito () ***************");
 		// Valores para comparacion con consulta por XPATH

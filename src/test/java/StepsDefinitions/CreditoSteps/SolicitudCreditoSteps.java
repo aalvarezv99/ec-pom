@@ -121,11 +121,16 @@ public class SolicitudCreditoSteps {
 	public void ingreseALaPestanaDelPlanDePagos() throws Throwable {
 		originacionaccion.PestanaPlanDePagos(); // ADP - 98 - Jonathan Varon
 	}
-
-	@Y("valide la informacion cabecera con sus conceptos{string}{string}{string}{string}")
-	public void valideLaInformacionCabeceraConSusConceptos(String Cedula,String Monto,String Tasa,String Plazo) throws Throwable {
-		originacionaccion.VerificacionCabeceraAnalisisCredito(Cedula,Monto,Tasa,Plazo);
+	
+	@Y("valide la informacion cabecera con sus conceptos para Originacion{string}{string}")
+	public void validelainformacioncabeceraconsusconceptosparaOriginacion (String Tasa, String Plazo) {
+		originacionaccion.validelainformacioncabeceraconsusconceptosparaOriginacion(Tasa,Plazo);
 	}
+
+	/*@Y("valide la informacion cabecera con sus conceptos{string}{string}{string}")
+	public void valideLaInformacionCabeceraConSusConceptos(String Monto,String Tasa,String Plazo) throws Throwable {
+		originacionaccion.VerificacionCabeceraAnalisisCredito(Monto,Tasa,Plazo);
+	}*/
 
 	@Y("Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo{string}")
 	public void Validaciondesaldoacapitaleneldesglocedelplandepagosconelultimo(String plazo) throws Throwable {

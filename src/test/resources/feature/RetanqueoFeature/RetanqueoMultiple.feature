@@ -46,10 +46,12 @@ Característica: Retanqueo de creditos
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa>
-
-    #Y Guarda los datos del simulador
-    #Y Pasa a la pestana endeudamiento global aprobando
-    #Y Aprueba la tarea del credito<Cedula>
+    Y Guarda los datos del simulador
+    Y ingrese a la pestana del plan de pagos 
+    Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
+    Y Pasa a la pestana endeudamiento global aprobando
+    Y Aprueba la tarea del credito<Cedula>
     Ejemplos: 
       | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
