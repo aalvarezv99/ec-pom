@@ -515,12 +515,9 @@ public class BaseTest {
         try {
             List<WebElement> ListaElement = driver.findElements(lista);
             int i = ListaElement.size() - 1;
-            System.out.println("mensaje 1 " + i + "  atributo  ");
             if (i > 0) {
-                System.out.println("mensaje 2 " + i + "  atributo  ");
                 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
             } else {
-                System.out.println("mensaje 3 " + i + "  atributo  ");
                 driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
             }
         } catch (Exception e) {
@@ -870,10 +867,10 @@ public class BaseTest {
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
         ResultSet resultado;
         long start_time = System.currentTimeMillis();
-        long wait_time = 50000;
+        long wait_time = 120000;
         long end_time = start_time + wait_time;
 
-        // si en 20 segundos no obtiene respuesta el test falla
+        // si en 2 minutos no obtiene respuesta el test falla
         while (System.currentTimeMillis() < end_time && (Concepto == "" || Concepto == null)) {
             resultado = query.ConsultaProspeccion(Cedula);
             while (resultado.next()) {
@@ -1501,7 +1498,7 @@ public class BaseTest {
 
     public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
 
-        if (monto == (saldoAlDia + retanqueoVlr)) {
+        if (monto != (saldoAlDia + retanqueoVlr)) {
             assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
         } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
             assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######", true);

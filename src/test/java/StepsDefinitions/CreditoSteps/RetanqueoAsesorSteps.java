@@ -135,4 +135,9 @@ public class RetanqueoAsesorSteps {
 	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
 		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
 	}
+
+	@Entonces("Valida los valores del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}")
+	public void validarSimuladorAnalistaRetanqueosMultiple(String Anno,String retanqueo,String fecha,String Mes, String Plazo, String Tasa) throws InterruptedException, SQLException {
+		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(Anno,retanqueo,fecha,Mes,Plazo, Tasa);
+	}
 }
