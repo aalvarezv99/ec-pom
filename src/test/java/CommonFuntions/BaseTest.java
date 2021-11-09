@@ -1542,12 +1542,12 @@ public class BaseTest {
         return listString;
     }
 
-    public void validarCabeceraPlanDePagos(String Tasa, String Plazo, String vg_MontoAprobado,
-                                           String vg_SegundaTasaInteres, String vg_PrimaSeguroAnticipada,
-                                           String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro,
-                                           By keyPage, By valuePage) {
+    public void validarCabeceraPlanDePagos(String validacion,String Tasa, String Plazo, 
+    		String vg_MontoAprobado, String vg_SegundaTasaInteres, 
+    		String vg_PrimaSeguroAnticipada, String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro,
+    		By keyPage, By valuePage) {
 
-        //Variables Locales
+        //MAP Variables Locales
         Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
 
         // Obtencion de datos - Generacion MAP con datos de la cabecera
@@ -1557,34 +1557,47 @@ public class BaseTest {
         for (String key : ValoresCabeceraPlanDePagos.keySet()) {
             log.info(key + " = " + ValoresCabeceraPlanDePagos.get(key));
         }
+        log.info("*********** Iniciando la VALIDACION Cabecera Plan De Pagos ***********");
 
         try {
-
-            assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
-                    ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
-            ToleranciaPesoMensaje("Fallo: Validando MONTO ",
-                    Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
-                    Integer.parseInt(vg_MontoAprobado));
-            assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO ",
-                    ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
-
-
-            ToleranciaPesoMensaje("Fallo: Validacion Prima de seguro anticipada ",
-                    Integer.parseInt(ValoresCabeceraPlanDePagos
-                            .get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):")
-                            .split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
-            ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",
-                    Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
-                            .split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
-            ToleranciaPesoMensaje("Fallo: Validando Prima Neta",
-                    Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
-                    Integer.parseInt(vg_PrimaNetaSeguro));
-
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
+        			ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO Uno",
+        			ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+        	ToleranciaPesoMensaje("Validando Monto aprobado (capital total cŕedito):",
+        			Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
+        			Integer.parseInt(vg_MontoAprobado));
+        	/*
+        	log.info("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):");
+        	
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
+        			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes 37):").replace("0", ""), vg_SegundaTasaInteres);
+        	*/
+        	/*
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
+        			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):").replace("0", ""), vg_SegundaTasaInteres);
+        	*/	
+        	ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
+        			Integer.parseInt(ValoresCabeceraPlanDePagos
+        					.get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):")
+        					.split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
+        	
+        	
+        	if (validacion.equals("Retanqueos")) {
+        		
+    		ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",
+    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
+    						.split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
+    		ToleranciaPesoMensaje("Fallo: Validando Prima Neta",
+    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
+    				Integer.parseInt(vg_PrimaNetaSeguro));
+        	}
+        	
             log.info("*********** Datos cabecera Validados -> OK ***********");
 
         } catch (Exception e) {
-            log.error("########## Error - VerificacionCabeceraAnalisisCredito() - Validando TASA INICIAL #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+            log.error("########## Error - VerificacionCabeceraAnalisisCredito() - validarCabeceraPlanDePagos() ####### : " + e);
+            assertTrue("########## Error - BaseTest - validarCabeceraPlanDePagos() ######## : " + e, false);
         }
     }
 }

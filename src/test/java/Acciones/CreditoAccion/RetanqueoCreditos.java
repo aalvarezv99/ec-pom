@@ -53,12 +53,12 @@ public class RetanqueoCreditos extends BaseTest {
     int DesPrimaAntic = 0;
     public static Map<Integer, Map<String, String>> listaCreditosPadre = new HashMap<>();
     int Tasaxmillonseguro = 4625;
-    //Variables Globales
-    private String vg_SegundaTasaInteres;
-    private String vg_MontoAprobado;
-    private String vg_PrimaSeguroAnticipada;
-    private String vg_PrimaNoDevengadaSeguro;
-    private String vg_PrimaNetaSeguro;
+    //Variables verificacion Plan de Pagos
+  	private String vg_SegundaTasaInteres_Retanqueo;
+  	private String vg_MontoAprobado_Retanqueo;
+  	private String vg_PrimaSeguroAnticipada_Retanqueo;
+  	private String vg_PrimaNoDevengadaSeguro_Retanqueo;
+  	private String vg_PrimaNetaSeguro_Retanqueo;
 
     public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
         // this.driver = driver;
@@ -744,8 +744,8 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
-            //Varible global para prima anticipada
-            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
+            //Varible global IF - Validacion cabecera
+            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
         } else {
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
@@ -779,13 +779,15 @@ public class RetanqueoCreditos extends BaseTest {
             resultFianza = (resultFianza < 0) ? resultFianza * 0 : resultFianza;
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
-            //Variable global para if
-            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
-            vg_PrimaNoDevengadaSeguro = String.valueOf(PrimaNoDevengada);
-            vg_PrimaNetaSeguro = String.valueOf(PrimaNeta);
+
+            //Variable global ELSE - Validacion Cabecera
+            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
+            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(PrimaNoDevengada);
+          	vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
+
         }
 
-        if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".") == true) {
+        if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")) {
             ToleranciaPesoMensaje(" Prima Valor Desembolsar IF ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)
                             .substring(0, TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length() - 2)
@@ -798,15 +800,23 @@ public class RetanqueoCreditos extends BaseTest {
                     (Integer.parseInt(retanqueo)));
             System.out.println("dentro del else que no contiene punto");
         }
-        vg_MontoAprobado = String.valueOf(calculoSoliPantalla);
-        vg_SegundaTasaInteres = String.valueOf(tasaDos);
+        vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
+        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos*100);
 
     }
 
-    public void validelainformacioncabeceraconsusconceptosparaRetanqueos(String Tasa, String Plazo) {
+    public void validelainformacioncabeceraconsusconceptosparaRetanqueo(String Tasa, String Plazo) {
 
-        validarCabeceraPlanDePagos(Tasa, Plazo, vg_MontoAprobado, vg_SegundaTasaInteres, vg_PrimaSeguroAnticipada, vg_PrimaNoDevengadaSeguro, vg_PrimaNetaSeguro, pestanasimuladorinternopage.KeyCabeceraPlanDePagos, pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
-
+    	validarCabeceraPlanDePagos("Retanqueo",
+    			Tasa,
+    			Plazo,
+    			vg_MontoAprobado_Retanqueo,
+    			vg_SegundaTasaInteres_Retanqueo,
+    			vg_PrimaSeguroAnticipada_Retanqueo, 
+    			vg_PrimaNoDevengadaSeguro_Retanqueo, 
+    			vg_PrimaNetaSeguro_Retanqueo, 
+    			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 
+    			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
 
     }
 
@@ -1843,7 +1853,7 @@ public class RetanqueoCreditos extends BaseTest {
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
             //Varible global para prima anticipada
-            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
+            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
         } else {
             System.out.println("-------------------- ANTICIPADO -------------------------");
 
@@ -1876,9 +1886,9 @@ public class RetanqueoCreditos extends BaseTest {
             int resultFianza = Math.max(ValorFianza - fianzaPadre, 0);
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
-            vg_PrimaSeguroAnticipada = String.valueOf(PrimaAnticipadaSeguro);
-            vg_PrimaNoDevengadaSeguro = String.valueOf(primaNoDevengada);
-            vg_PrimaNetaSeguro = String.valueOf(PrimaNeta);
+            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
+            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(primaNoDevengada);
+            vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
         }
         this.limpiarCreditosPadre();
     }

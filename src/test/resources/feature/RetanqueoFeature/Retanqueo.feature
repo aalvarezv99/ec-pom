@@ -39,7 +39,7 @@ Característica: Retanqueo de creditos
     Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
     Y ingrese a la pestana del plan de pagos 
-    Y valide la informacion cabecera con sus conceptos para Retanqueos<Tasa><Plazo>
+    Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
     Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
