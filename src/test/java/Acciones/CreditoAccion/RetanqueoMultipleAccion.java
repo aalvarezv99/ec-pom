@@ -88,10 +88,8 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				ElementVisible();
 				hacerClicknotificacion();
 				int ValorCreditos = (int)Double.parseDouble(TextoElemento(retanqueopages.SaldoTotalRecoger));
-				System.out.println("------------------ log 1---------------------");
 
 				if(ValorCreditos+Integer.parseInt(Retanqueo)<=ValorCreditos) {
-					System.out.println("------------------ log 2---------------------");
 					LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 					EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 					hacerClick(retanqueopages.cedula);
@@ -101,7 +99,6 @@ public class RetanqueoMultipleAccion extends BaseTest {
 					assertTrue("El valor ingresado nunca debe ser menor o igual al “Saldo Total a Recoger”.", false);
 
 				}else if(ValorCreditos+Integer.parseInt(Retanqueo)>120000000) {
-					System.out.println("------------------ log 3---------------------");
 				   LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 				   EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 				   hacerClick(retanqueopages.cedula);
@@ -110,7 +107,6 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				   ElementVisible();
 				   assertTrue("El valor ingresado debe ser máximo $120.000.000", false);
 				}
-				System.out.println("------------------ log 4---------------------");
 				ToleranciaPesoMensaje(" Saldo al dia creditos multiples", ValorCreditos,sumarListaValoresCreditos(retanqueopages.SaldoAldiaCreditosMultiples));
 				LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 				EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
