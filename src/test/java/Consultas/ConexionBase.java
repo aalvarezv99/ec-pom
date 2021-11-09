@@ -23,7 +23,11 @@ public class ConexionBase {
 	private static String dbUrl;
 	private static String username;	
 	private static String password;
-	private static String driver;
+	
+	private static String instanciaAcounting;	
+	private static String dbUrlAcounting;
+	private static String usernameAcounting;	
+	private static String passwordAcounting;
 	
 	public String leerPropiedades(String valor) {
 		try {
@@ -60,11 +64,42 @@ public class ConexionBase {
 			rs = stmt.executeQuery(query);
 		
 		} catch (Exception e) {
-			log.error("********ERROR CONEXION BASE DATOS*******");
+			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
 			log.error(e.getMessage());
 		}
 		
 		return rs;
-		
 	}
+	
+	public ResultSet conexionAcountingBridge(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		
+		try {
+			if(instanciaAcounting == null) {
+				instanciaAcounting = leerPropiedades("instanciaAcounting");
+				log.info("====================");
+				log.info("[ Base de Datos - AccountinBridge ] - " + instanciaAcounting.toUpperCase());
+				log.info("====================");
+				dbUrlAcounting = leerPropiedades("jdbc-urlAcouting")+instanciaAcounting;
+
+				usernameAcounting = leerPropiedades("usernameAcouting");
+
+				passwordAcounting = leerPropiedades("passwordAcountig");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrlAcounting, usernameAcounting, passwordAcounting);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS ACCOUNTING BRIDGE*******");
+			log.error(e.getMessage());
+		}
+		return rs;
+	}
+	
 }

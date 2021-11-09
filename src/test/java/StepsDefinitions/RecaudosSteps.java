@@ -41,7 +41,12 @@ public class RecaudosSteps {
 			String numCedula) {
 		recaudoAccion.recaudoCliente(vlrRecaudo, Descripcion, numCedula, null);
 	}
-
+	
+	@Y("^inserte el (.+) para el origen \"([^\"]*)\"$")
+    public void inserteElParaElOrigen(String valorcertificacion, String origen) throws Throwable {
+		recaudoAccion.insertCcredDinamica(valorcertificacion, origen);
+	}
+	
 	@Y("^Realice el recaudo del credito (.+) con el valor total a pagar \"([^\"]*)\" para (.+) con los datos del cliente (.+)$")
 	public void realiceElRecaudoConElValorTotalAPagarPrepagoConLosDatosDelCliente(String numRadicado, String rutaCert,
 			String Descripcion, String numCedula) {

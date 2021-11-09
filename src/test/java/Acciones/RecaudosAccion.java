@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -13,9 +15,11 @@ import org.openqa.selenium.WebDriver;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
+import Consultas.MovimientoContableQuery;
 import Consultas.RecaudoQuery;
 import Pages.RecaudoPage;
 import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
+import dto.MovimientoContableDto;
 
 public class RecaudosAccion extends BaseTest{
 	WebDriver driver;
@@ -23,7 +27,9 @@ public class RecaudosAccion extends BaseTest{
 	PanelPrincipalAccion panelprincipal;
 	PagoPreaplicacionPagoPage pagopreaplicacionpagopage;
 	CertificacionSaldoQuery query;
+	MovimientoContableQuery queryDinamica;
 	RecaudoQuery queryRecaudo;
+
 	private static Logger log = Logger.getLogger(RecaudosAccion.class);
 	
 	//variables Locales
@@ -38,6 +44,7 @@ public class RecaudosAccion extends BaseTest{
 		pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		query = new CertificacionSaldoQuery();
 		queryRecaudo = new RecaudoQuery();
+		queryDinamica = new MovimientoContableQuery();
 	}
 	
 	/*NAVEGACION PRINCIPAL
@@ -277,6 +284,62 @@ public class RecaudosAccion extends BaseTest{
 			assertTrue("####### ERROR RecaudosAccion - validarRecaudoPagaduriaContraDB() ##########"+ e,false);
 		}	
 		
+	}
+	
+	public void insertCcredDinamica(String valorcertificacion, String origen) {
+		log.info("ENTRO**********************************");
+		ResultSet result = null;
+
+		result = queryDinamica.consultarMovimientosCCRED("49771");
+		try {
+			List<MovimientoContableDto> listMovContable = new ArrayList<MovimientoContableDto>();
+			while (result.next()) {
+				MovimientoContableDto movimiento = new MovimientoContableDto();
+				movimiento.setNumeroRadicado(result.getString(1));
+				movimiento.setTipoTransaccion(result.getString(3));
+				movimiento.setCuenta(result.getString(4));
+				movimiento.setValor(result.getString(5));
+				listMovContable.add(movimiento);
+			}
+			result.close();
+
+			List<MovimientoContableDto> listMovCuentasBridge = new ArrayList<MovimientoContableDto>();
+			result = queryDinamica.consultarCuentasBridgeCCRED();
+			while (result.next()) {
+				MovimientoContableDto movimiento = new MovimientoContableDto();
+				movimiento.setNombreProcessoAcounting(result.getString(1));
+				movimiento.setNombreCuentaAcouting(result.getString(2));
+				movimiento.setCuenta(result.getString(3));
+				movimiento.setTipoTransaccion(result.getString(4));
+				listMovCuentasBridge.add(movimiento);
+			}
+			result.close();
+
+			if (listMovContable.size() != listMovCuentasBridge.size()) {
+				assertBooleanImprimeMensaje(
+						"###### ERROR - la cantidad de cuentas de libranzas y accounting bridge no coinciden####",
+						false);
+			}
+			
+			
+			for (MovimientoContableDto movimientoContableDto : listMovContable) {
+				MovimientoContableDto prueba = listMovCuentasBridge.stream()
+						  .filter(filtro -> movimientoContableDto.getCuenta().equals(filtro.getCuenta()))
+						  .findAny()
+						  .orElse(null);
+				if(prueba==null) {
+					log.info("No se encontro la cuenta de libranzas "+ movimientoContableDto.getCuenta()  +"En acoounting bridge");
+				}
+				else {
+					log.info("Se encontro"+ prueba.getCuenta()); 
+				}
+				
+			}
+
+		} catch (Exception e) {
+			log.error("ERRROOOOOOOOOR" + e);
+		}
+
 	}
 	
 }
