@@ -1318,6 +1318,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			recorerpestanas("CONDICIONES DEL CRÉDITO");
 			Refrescar();
 			esperaExplicita(pagesclienteparabienvenida.SaldoAlDia);
+			hacerClicknotificacion();
 			MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);
 			Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
 			Thread.sleep(1000);

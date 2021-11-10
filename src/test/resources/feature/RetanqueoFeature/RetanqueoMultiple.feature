@@ -10,7 +10,6 @@ Característica: Retanqueo de creditos
     Y se filtra por <Cedula> <Pagaduria> para retanqueo multiple
     Y se da clic a retanquear a todos los creditos
     #Y se ingresa el monto a solicitar <Retanqueo>
-
     Ejemplos: 
       | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
@@ -46,12 +45,10 @@ Característica: Retanqueo de creditos
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueo multiple <AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Tasa>
-    Y Guarda los datos del simulador
-    Y ingrese a la pestana del plan de pagos
-    Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
-    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
+    Y Guarda los datos del simulador 
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
+
     Ejemplos: 
       | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
@@ -76,7 +73,7 @@ Característica: Retanqueo de creditos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
-    Y se validan los valores de las condiciones del credito <Credito>
+    Y se validan los valores de las condiciones del credito Multiple
     Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 

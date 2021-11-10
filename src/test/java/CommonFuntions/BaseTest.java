@@ -901,7 +901,7 @@ public class BaseTest {
     }
 
     public void esperaExplicita(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
