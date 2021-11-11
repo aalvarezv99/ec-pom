@@ -15,7 +15,9 @@ import cucumber.api.SnippetType;
                  glue = "StepsDefinitions",
                  tags = {"@RetanqueoMultipleSeleccion, @AnalisisCreditoRetanqueoMultiple" },
                  snippets = SnippetType.CAMELCASE)
-
+//
+//RETANQUEO COMPRA CARTERA SANEAMIENTO
+//@SolicitudRetanqueoMultipleCompraCarteraSaneamiento
 @RunWith(RunnerPersonalizado.class)
 
 public class RetanqueoMultipleRunner {
