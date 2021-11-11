@@ -137,7 +137,8 @@ public class RecaudosAccion extends BaseTest{
 			else {
 				esperaExplicita(By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:j_idt') and contains(text(),'"+numRadicado+"')]"));
 				hacerClick(By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:j_idt') and contains(text(),'"+numRadicado+"')]"));
-			}			
+			}	
+			esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
 			ElementVisible();
 			adjuntarCaptura("recaudoCliente" + tipoRecaudo);
 			hacerClick(recaudopage.botonGuardar);
@@ -286,60 +287,6 @@ public class RecaudosAccion extends BaseTest{
 		
 	}
 	
-	public void insertCcredDinamica(String valorcertificacion, String origen) {
-		log.info("ENTRO**********************************");
-		ResultSet result = null;
-
-		result = queryDinamica.consultarMovimientosCCRED("49771");
-		try {
-			List<MovimientoContableDto> listMovContable = new ArrayList<MovimientoContableDto>();
-			while (result.next()) {
-				MovimientoContableDto movimiento = new MovimientoContableDto();
-				movimiento.setNumeroRadicado(result.getString(1));
-				movimiento.setTipoTransaccion(result.getString(3));
-				movimiento.setCuenta(result.getString(4));
-				movimiento.setValor(result.getString(5));
-				listMovContable.add(movimiento);
-			}
-			result.close();
-
-			List<MovimientoContableDto> listMovCuentasBridge = new ArrayList<MovimientoContableDto>();
-			result = queryDinamica.consultarCuentasBridgeCCRED();
-			while (result.next()) {
-				MovimientoContableDto movimiento = new MovimientoContableDto();
-				movimiento.setNombreProcessoAcounting(result.getString(1));
-				movimiento.setNombreCuentaAcouting(result.getString(2));
-				movimiento.setCuenta(result.getString(3));
-				movimiento.setTipoTransaccion(result.getString(4));
-				listMovCuentasBridge.add(movimiento);
-			}
-			result.close();
-
-			if (listMovContable.size() != listMovCuentasBridge.size()) {
-				assertBooleanImprimeMensaje(
-						"###### ERROR - la cantidad de cuentas de libranzas y accounting bridge no coinciden####",
-						false);
-			}
-			
-			
-			for (MovimientoContableDto movimientoContableDto : listMovContable) {
-				MovimientoContableDto prueba = listMovCuentasBridge.stream()
-						  .filter(filtro -> movimientoContableDto.getCuenta().equals(filtro.getCuenta()))
-						  .findAny()
-						  .orElse(null);
-				if(prueba==null) {
-					log.info("No se encontro la cuenta de libranzas "+ movimientoContableDto.getCuenta()  +"En acoounting bridge");
-				}
-				else {
-					log.info("Se encontro"+ prueba.getCuenta()); 
-				}
-				
-			}
-
-		} catch (Exception e) {
-			log.error("ERRROOOOOOOOOR" + e);
-		}
-
-	}
+	
 	
 }
