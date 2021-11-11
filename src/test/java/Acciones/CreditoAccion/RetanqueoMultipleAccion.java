@@ -1,32 +1,15 @@
 package Acciones.CreditoAccion;
 
 import static org.junit.Assert.assertTrue;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
-import org.apache.poi.util.SystemOutLogger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
 import Archivo.LeerArchivo;
 import CommonFuntions.BaseTest;
-import Consultas.OriginacionCreditoQuery;
 import Pages.ComunesPage.PanelNavegacionPage;
 import Pages.CreditosPage.PagesCartaNotificaciones;
 import Pages.CreditosPage.PagesClienteParaBienvenida;
-import Pages.CreditosPage.PagesCreditosDesembolso;
 import Pages.CreditosPage.PagesTareas;
 import Pages.CreditosPage.RetanqueoPages;
 import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
@@ -34,9 +17,7 @@ import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
 import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
 
 public class RetanqueoMultipleAccion extends BaseTest {
-
 	WebDriver driver;
-
 	PanelPrincipalAccion panelnavegacionaccion;
 	PanelNavegacionPage PanelNavegacionPage;
 	RetanqueoPages retanqueopages;
@@ -47,11 +28,10 @@ public class RetanqueoMultipleAccion extends BaseTest {
 	PagesTareas pagestareas;
 	Pages.SolicitudCreditoPage.pestanaSeguridadPage pestanaSeguridadPage;
 	PagesCartaNotificaciones pagesCartaNotificaciones;
-
 	LoginAccion loginaccion;
 	LeerArchivo archivo;
 	private static Logger log = Logger.getLogger(RetanqueoCreditos.class);
-	
+	RetanqueoCreditos retanqueoCreditos;
 
 	public RetanqueoMultipleAccion(WebDriver driver) throws InterruptedException {
 		super(driver);
@@ -66,6 +46,7 @@ public class RetanqueoMultipleAccion extends BaseTest {
 		pestanaSeguridadPage = new Pages.SolicitudCreditoPage.pestanaSeguridadPage(driver);
 		pagestareas = new PagesTareas(driver);
 		pagesCartaNotificaciones = new PagesCartaNotificaciones(driver);
+		retanqueoCreditos = new RetanqueoCreditos(driver);
 	}
 
 
@@ -77,7 +58,8 @@ public class RetanqueoMultipleAccion extends BaseTest {
 	 			ElementVisible();
 	 			BuscarenGrilla(retanqueopages.Pagaduria, Pagaduria); 	
 	 			ElementVisible();
-	 			esperaExplicitaTexto(Pagaduria); 			
+	 			esperaExplicitaTexto(Pagaduria);
+				retanqueoCreditos.listarCreditosPadre(retanqueopages.listaCreditosPadre);
 	 			adjuntarCaptura("Se filtra el retanqueo multiple ");
 	 		} catch (Exception e) {
 	 			log.error("########## ERROR RetanqueoCreditos - FiltrarCreditoMultiple() ########" + e);
@@ -104,17 +86,18 @@ public class RetanqueoMultipleAccion extends BaseTest {
 			log.info("*********Llenar Monto solicitar, RetanqueoCreditos - Retanquear()******");
 			try {
 				ElementVisible();
+				hacerClicknotificacion();
 				int ValorCreditos = (int)Double.parseDouble(TextoElemento(retanqueopages.SaldoTotalRecoger));
-				
+
 				if(ValorCreditos+Integer.parseInt(Retanqueo)<=ValorCreditos) {
 					LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 					EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 					hacerClick(retanqueopages.cedula);
 					esperaExplicita(retanqueopages.notificacion);
 					assertTextonotificacion(retanqueopages.notificacion,"no puede ser menor o igual al Saldo total a recoger");
-					ElementVisible();	
+					ElementVisible();
 					assertTrue("El valor ingresado nunca debe ser menor o igual al “Saldo Total a Recoger”.", false);
-					
+
 				}else if(ValorCreditos+Integer.parseInt(Retanqueo)>120000000) {
 				   LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 				   EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
@@ -124,7 +107,7 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				   ElementVisible();
 				   assertTrue("El valor ingresado debe ser máximo $120.000.000", false);
 				}
-				ToleranciaPesoMensaje(" Saldo al dia creditos multiples", ValorCreditos,sumarListaValoresCreditos(retanqueopages.SaldoAldiaCreditosMultiples));			
+				ToleranciaPesoMensaje(" Saldo al dia creditos multiples", ValorCreditos,sumarListaValoresCreditos(retanqueopages.SaldoAldiaCreditosMultiples));
 				LimpiarConTeclado(retanqueopages.montoTotalSolicitado);
 				EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 				hacerClick(retanqueopages.cedula);		

@@ -1,65 +1,42 @@
 package CommonFuntions;
 
+import Consultas.OriginacionCreditoQuery;
+import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
+import com.google.common.base.Function;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+import io.qameta.allure.Allure;
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.TimeZone;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
-import org.apache.poi.hssf.record.PageBreakRecord.Break;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Select;
-
-import com.google.common.base.Function;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.parser.PdfTextExtractor;
-
-import Consultas.OriginacionCreditoQuery;
-import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
-import Pages.SolicitudCreditoPage.pestanaSeguridadPage;
-import io.qameta.allure.Allure;
+import static org.junit.Assert.*;
 
 public class BaseTest {
 
@@ -147,15 +124,15 @@ public class BaseTest {
         String result = "";
         String[] cortarString = fecha.split("/");
         switch (tipo) {
-        case "dia":
-            result = cortarString[0];
-            break;
-        case "mes":
-            result = cortarString[1];
-            break;
-        case "ano":
-            result = cortarString[2];
-            break;
+            case "dia":
+                result = cortarString[0];
+                break;
+            case "mes":
+                result = cortarString[1];
+                break;
+            case "ano":
+                result = cortarString[2];
+                break;
         }
         return result;
     }
@@ -258,43 +235,43 @@ public class BaseTest {
         String[] mes = Fecha.split("/");
 
         switch (mes[1]) {
-        case "Ene":
-            modificada = Fecha.replaceAll("Ene", "01");
-            break;
-        case "Feb":
-            modificada = Fecha.replaceAll("Feb", "02");
-            break;
-        case "Mar":
-            modificada = Fecha.replaceAll("Mar", "03");
-            break;
-        case "Abr":
-            modificada = Fecha.replaceAll("Abr", "04");
-            break;
-        case "May":
-            modificada = Fecha.replaceAll("May", "05");
-            break;
-        case "Jun":
-            modificada = Fecha.replaceAll("Jun", "06");
-            break;
-        case "Jul":
-            modificada = Fecha.replaceAll("Jul", "07");
-            break;
-        case "Ago":
-            modificada = Fecha.replaceAll("Ago", "08");
-            break;
-        case "Sep":
-            modificada = Fecha.replaceAll("Sep", "09");
-            break;
-        case "Oct":
-            modificada = Fecha.replaceAll("Oct", "10");
-            break;
-        case "Nov":
-            modificada = Fecha.replaceAll("Nov", "11");
-            break;
-        case "Dic":
-            modificada = Fecha.replaceAll("Dic", "12");
-            ;
-            break;
+            case "Ene":
+                modificada = Fecha.replaceAll("Ene", "01");
+                break;
+            case "Feb":
+                modificada = Fecha.replaceAll("Feb", "02");
+                break;
+            case "Mar":
+                modificada = Fecha.replaceAll("Mar", "03");
+                break;
+            case "Abr":
+                modificada = Fecha.replaceAll("Abr", "04");
+                break;
+            case "May":
+                modificada = Fecha.replaceAll("May", "05");
+                break;
+            case "Jun":
+                modificada = Fecha.replaceAll("Jun", "06");
+                break;
+            case "Jul":
+                modificada = Fecha.replaceAll("Jul", "07");
+                break;
+            case "Ago":
+                modificada = Fecha.replaceAll("Ago", "08");
+                break;
+            case "Sep":
+                modificada = Fecha.replaceAll("Sep", "09");
+                break;
+            case "Oct":
+                modificada = Fecha.replaceAll("Oct", "10");
+                break;
+            case "Nov":
+                modificada = Fecha.replaceAll("Nov", "11");
+                break;
+            case "Dic":
+                modificada = Fecha.replaceAll("Dic", "12");
+                ;
+                break;
         }
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -305,7 +282,7 @@ public class BaseTest {
     }
 
     public double MontoaSolicitar(int valorCredito, int primaAnticipada, double tasaPorMillon, double estudioCredito,
-            double tasaFianza, double vlrIva) {
+                                  double tasaFianza, double vlrIva) {
 
         double Valor = valorCredito + (valorCredito * tasaPorMillon / 1000000 * primaAnticipada)
                 + (valorCredito * (estudioCredito / 100) * vlrIva) + (valorCredito * (tasaFianza / 100) * vlrIva);
@@ -325,9 +302,9 @@ public class BaseTest {
         } else {
             Valor = Math.round(valorCredito
                     / ((Math.pow((1 + tasaUno), (mesDos - 1)) - 1) / (tasaUno * Math.pow((1 + tasaUno), (mesDos - 1)))
-                            + ((Math.pow((1 + tasaDos), (plazo - (mesDos - 1))) - 1)
-                                    / (tasaDos * Math.pow((1 + tasaDos), (plazo - (mesDos - 1)))))
-                                    / (Math.pow((1 + tasaUno), (mesDos - 1)))));
+                    + ((Math.pow((1 + tasaDos), (plazo - (mesDos - 1))) - 1)
+                    / (tasaDos * Math.pow((1 + tasaDos), (plazo - (mesDos - 1)))))
+                    / (Math.pow((1 + tasaUno), (mesDos - 1)))));
 
         }
         log.info("Cuotacorriente " + redondearDecimales(Valor, 0));
@@ -369,7 +346,7 @@ public class BaseTest {
      * retanqueo
      */
     public double vlrFianzaRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre,
-            int tasaXmillon, int periodoPrima) {
+                                         int tasaXmillon, int periodoPrima) {
         double valor = montoSoli / (1 + ((porEstudioCre / 100) * iva) + ((tasaFianza / 100) * iva)
                 + ((double) tasaXmillon / 1000000) * periodoPrima) * (tasaFianza / 100) * iva;
         log.info("Fianza Hijo " + valor);
@@ -377,17 +354,17 @@ public class BaseTest {
     }
 
     public double PrimaSeguroRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre,
-            int tasaXmillon, int periodoPrima) {
+                                           int tasaXmillon, int periodoPrima) {
         double valor = montoSoli
                 / (1 + (porEstudioCre / 100) * iva + (tasaFianza / 100) * iva
-                        + (double) tasaXmillon / 1000000 * periodoPrima)
+                + (double) tasaXmillon / 1000000 * periodoPrima)
                 * tasaXmillon * (double) periodoPrima / 1000000;
         log.info("Prima Seguro Hijo " + valor);
         return (int) redondearDecimales(valor, 0);
     }
 
     public double EstudioCreditoRetanqueoHijo(int montoSoli, double tasaFianza, double iva, double porEstudioCre,
-            int tasaXmillon, int periodoPrima) {
+                                              int tasaXmillon, int periodoPrima) {
         double valor = montoSoli / (1 + (porEstudioCre / 100) * iva + (tasaFianza / 100) * iva
                 + ((double) tasaXmillon / 1000000 * periodoPrima)) * (porEstudioCre / 100) * iva;
         log.info("Estudio Credito Hijo" + valor);
@@ -421,7 +398,7 @@ public class BaseTest {
     }
 
     public double PrimaNeta(int PrimaPadre, int MontoPadre, int MesesActivos, int PrimaHijo, int variableMillon,
-            double TasaxMillon, int ParametroPrimaSeguro) {
+                            double TasaxMillon, int ParametroPrimaSeguro) {
 
         double Valor = PrimaPadre - ((MontoPadre * TasaxMillon) / variableMillon) * MesesActivos;
         log.info(" ###### Valor no consumido ##### " + Valor);
@@ -435,7 +412,7 @@ public class BaseTest {
     }
 
     public double PrimaNoDevengadaCPadre(int PrimaPadre, int MontoPadre, int MesesActivos, int PrimaHijo,
-            int variableMillon, double TasaxMillon, int ParametroPrimaSeguro) {
+                                         int variableMillon, double TasaxMillon, int ParametroPrimaSeguro) {
 
         double Valor = PrimaPadre - ((MontoPadre * TasaxMillon) / variableMillon) * MesesActivos;
         log.info(" ###### Valor no consumido ##### " + Valor);
@@ -446,7 +423,7 @@ public class BaseTest {
     }
 
     public double RemanenteEstimado(int TotalMontoSoli, int CompraCartera, int Gravamento4100,
-            int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza) {
+                                    int DescuentoPrimaAnticipada, int estudioCredito, int ValorFianza) {
         double Valor = TotalMontoSoli
                 - (CompraCartera + Gravamento4100 + DescuentoPrimaAnticipada + estudioCredito + ValorFianza);
         log.info("Remanente estimado " + redondearDecimales(Valor, 0));
@@ -458,7 +435,7 @@ public class BaseTest {
      * cliente - tasa uno -plazo -mesdos y tasa dos
      */
     public double MontoMaxDesembolsar(int IngresosCliente, int DescuentosLey, int DescuentosNomina, int Colchon,
-            double tasaUno, int plazo, double tasaDos, int mesDos) {
+                                      double tasaUno, int plazo, double tasaDos, int mesDos) {
         double Capacidad = ((double) ((IngresosCliente - DescuentosLey) / 2)) - DescuentosNomina - Colchon;
         double valor = 0;
         if (plazo < mesDos) {
@@ -470,8 +447,8 @@ public class BaseTest {
             valor = Math.round(Capacidad * ((Math.pow((1 + tasaUno), (mesDos - 1))) - 1)
                     / (tasaUno * Math.pow((1 + tasaUno), (mesDos - 1)))
                     + (Capacidad * ((Math.pow((1 + tasaDos), (plazo - (mesDos - 1)))) - 1)
-                            / (tasaDos * Math.pow((1 + tasaDos), (plazo - (mesDos - 1)))))
-                            / Math.pow((1 + tasaUno), (mesDos - 1)));
+                    / (tasaDos * Math.pow((1 + tasaDos), (plazo - (mesDos - 1)))))
+                    / Math.pow((1 + tasaUno), (mesDos - 1)));
         }
         log.info("Monto Maximo Desembolsar " + redondearDecimales(valor = (valor < 0) ? 0 : valor, 0));
         return redondearDecimales(valor, 0);
@@ -482,7 +459,7 @@ public class BaseTest {
      * estimado para retanqueos
      */
     public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito,
-            int comprasCartera, int gmf4x100, int primaSeguro) {
+                                             int comprasCartera, int gmf4x100, int primaSeguro) {
         double valor = 0;
         valor = TotalMontoSoli - (saldoDia + fianza + estudioCredito + comprasCartera + gmf4x100 + primaSeguro);
         log.info("Remanente estimado Retanqueo " + redondearDecimales(valor, 0));
@@ -538,12 +515,9 @@ public class BaseTest {
         try {
             List<WebElement> ListaElement = driver.findElements(lista);
             int i = ListaElement.size() - 1;
-            System.out.println("mensaje 1 " + i + "  atributo  ");
             if (i > 0) {
-                System.out.println("mensaje 2 " + i + "  atributo  ");
                 driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
             } else {
-                System.out.println("mensaje 3 " + i + "  atributo  ");
                 driver.findElement(By.id(ListaElement.get(0).getAttribute("id"))).click();
             }
         } catch (Exception e) {
@@ -661,7 +635,7 @@ public class BaseTest {
     }
 
     public void llenarDepartamentoCiudadReferenciacion(By DepartamentoList, By CiudadList, String Departamento,
-            String Ciudad, int cantidaRef) throws InterruptedException {
+                                                       String Ciudad, int cantidaRef) throws InterruptedException {
 
         List<WebElement> DptList = driver.findElements(DepartamentoList);
         List<WebElement> CdaList = driver.findElements(CiudadList);
@@ -893,10 +867,10 @@ public class BaseTest {
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
         ResultSet resultado;
         long start_time = System.currentTimeMillis();
-        long wait_time = 50000;
+        long wait_time = 120000;
         long end_time = start_time + wait_time;
 
-        // si en 20 segundos no obtiene respuesta el test falla
+        // si en 2 minutos no obtiene respuesta el test falla
         while (System.currentTimeMillis() < end_time && (Concepto == "" || Concepto == null)) {
             resultado = query.ConsultaProspeccion(Cedula);
             while (resultado.next()) {
@@ -927,7 +901,7 @@ public class BaseTest {
     }
 
     public void esperaExplicita(By locator) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
@@ -1069,13 +1043,9 @@ public class BaseTest {
             // abrimos el PDF
             PdfReader reader = new PdfReader(ruta + nombreArchivo);
             // empezamos la coversion a pdf
-            String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", ""));
-
-            // log.info(page.replace(",", ""));
-            // assertThat(page.toUpperCase(),containsString(vlrBuscar.toUpperCase()));
-        }
-
-        catch (Exception e) {
+            String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", "").replace(".", ""));
+            assertThat(page.toUpperCase(), containsString(vlrBuscar.toUpperCase()));
+        } catch (Exception e) {
             log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
             // assertTrue("########## ErrorAplicacionCierreAccion -
             // validarMensajeCargueTerminado() ########"+ e,false);
@@ -1107,9 +1077,9 @@ public class BaseTest {
      * (Cartera - saneamiento) en los radio button
      */
     public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
-            By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
-            String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
-            String VlrObligacion[]) throws InterruptedException {
+                                  By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
+                                  String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
+                                  String VlrObligacion[]) throws InterruptedException {
         List<WebElement> Entidad = driver.findElements(ListEntidad);
         List<WebElement> Filtro = driver.findElements(ListFiltro);
         List<WebElement> Monto = driver.findElements(ListMonto);
@@ -1223,8 +1193,8 @@ public class BaseTest {
     /**************************************/
 //backup metodo de carteras y saneamientos
     public void ClickBtnMultiplesBackup(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
-            By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
-            String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
+                                        By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, String[] EntidadSaneamiento,
+                                        String[] VlrMonto, String VlrCuota[], String VlrFecha[], String VlrObligacion[])
             throws InterruptedException {
         List<WebElement> Entidad = driver.findElements(ListEntidad);
         List<WebElement> Filtro = driver.findElements(ListFiltro);
@@ -1284,8 +1254,8 @@ public class BaseTest {
     public List<String> parseWebElementsToList(List<WebElement> list) {
         int totalElementos = list.size();
         List<String> listString = new ArrayList<>();
-        for (int i = 0; i < totalElementos; i++) {
-            listString.add(list.get(i).getAttribute("id"));
+        for (WebElement webElement : list) {
+            listString.add(webElement.getAttribute("id"));
         }
         return listString;
     }
@@ -1368,6 +1338,27 @@ public class BaseTest {
             Valores.put(key, valor.trim());
         }
         this.sumarValores(Valores);
+        return Valores;
+    }
+
+    public Map<String, String> obtainValuesMap(By locatorKeys, By locatorValues) { //Jonathan Varon
+        Map<String, String> Valores = new HashMap<String, String>();
+        List<WebElement> keys = driver.findElements(locatorKeys);
+        List<WebElement> values = driver.findElements(locatorValues);
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i).getText();
+            String valor = values.get(i).getText();
+            if (valor.contains("$")) {
+                valor = valor.replace("$", "").replace(".", "");
+            } else if (valor.contains("(% NMV)")) {
+                valor = valor.replace("(% NMV)", "");
+            } else if (valor.contains("(Meses)")) {
+                valor = valor.replace("(Meses)", "");
+            } else if (valor.contains("%")) {
+                valor = valor.replace("%", "");
+            }
+            Valores.put(key, valor.trim());
+        }
         return Valores;
     }
 
@@ -1487,26 +1478,27 @@ public class BaseTest {
     public int sumarListaValoresCreditos(By locator) throws InterruptedException {
         List<WebElement> list = driver.findElements(locator);
         int value = 0;
-        for (int i = 0; i < list.size(); i++) {
-            value += (int) Double.parseDouble(list.get(i).getText().replace(".", "").replace(",", "."));
+        for (WebElement webElement : list) {
+            System.out.println("res ---------" + limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."), "\\d+(?:[.,]\\d+)?"));
+            value += (int) Double.parseDouble(limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."), "\\d+(?:[.,]\\d+)?"));
         }
         return value;
     }
-    
+
     public int sumarListaValoresCreditosValue(By locator) throws InterruptedException {
         List<WebElement> list = driver.findElements(locator);
         int value = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getAttribute("value") != null) {
-                value += Integer.valueOf(list.get(i).getAttribute("value").replace(".", "").replace(",", ".")) ;                
+        for (WebElement webElement : list) {
+            if (webElement.getAttribute("value") != null) {
+                value += Integer.parseInt(webElement.getAttribute("value").replace(".", "").replace(",", "."));
             }
         }
         return value;
     }
 
     public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
-      
-        if (monto == (saldoAlDia + retanqueoVlr)) {
+
+        if (monto != (saldoAlDia + retanqueoVlr)) {
             assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
         } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
             assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######", true);
@@ -1515,6 +1507,97 @@ public class BaseTest {
                     + "de saldo al dia ######", true);
         } else if (monto > 120000000) {
             assertBooleanImprimeMensaje("##### ERROR El monto sobrepasa los 120.000.000 ######", true);
+        }
+    }
+
+    public void capturarCreditosPadre(By locator, Map<Integer, Map<String, String>> creditosPadre) {
+        List<WebElement> listCreditosPadre = driver.findElements(locator);
+        List<Integer> creditosOrdenados = parseWebElementsToListGetText(listCreditosPadre);
+        Comparator<Integer> comparador = Collections.reverseOrder();
+        creditosOrdenados.sort(comparador);
+        System.out.println("lista ordenada ------------->" + creditosOrdenados.toString());
+        for (int i = 0; i < creditosOrdenados.size(); i++) {
+            Map<String, String> credito = new HashMap<>();
+            credito.put("numeroCredito", String.valueOf(creditosOrdenados.get(i)));
+            creditosPadre.put(i + 1, credito);
+        }
+    }
+
+    public static String limpiarCadenaRegex(String elem, String regex) {
+        String all = "";
+        Pattern pat = Pattern.compile(regex);
+        Matcher m = pat.matcher(elem);
+
+        while (m.find()) {
+            all += m.group(0);
+        }
+        return all;
+    }
+
+    public List<Integer> parseWebElementsToListGetText(List<WebElement> list) {
+        List<Integer> listString = new ArrayList<>();
+        for (WebElement webElement : list) {
+            listString.add(Integer.parseInt(webElement.getText()));
+        }
+        return listString;
+    }
+
+    public void validarCabeceraPlanDePagos(String validacion,String Tasa, String Plazo, 
+    		String vg_MontoAprobado, String vg_SegundaTasaInteres, 
+    		String vg_PrimaSeguroAnticipada, String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro,
+    		By keyPage, By valuePage) {
+
+        //MAP Variables Locales
+        Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
+
+        // Obtencion de datos - Generacion MAP con datos de la cabecera
+
+        ValoresCabeceraPlanDePagos = obtainValuesMap(keyPage, valuePage);
+
+        for (String key : ValoresCabeceraPlanDePagos.keySet()) {
+            log.info(key + " = " + ValoresCabeceraPlanDePagos.get(key));
+        }
+        log.info("*********** Iniciando la VALIDACION Cabecera Plan De Pagos ***********");
+
+        try {
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
+        			ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO Uno",
+        			ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+        	ToleranciaPesoMensaje("Validando Monto aprobado (capital total cŕedito):",
+        			Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
+        			Integer.parseInt(vg_MontoAprobado));
+        	/*
+        	log.info("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):");
+        	
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
+        			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes 37):").replace("0", ""), vg_SegundaTasaInteres);
+        	*/
+        	/*
+        	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
+        			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):").replace("0", ""), vg_SegundaTasaInteres);
+        	*/	
+        	ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
+        			Integer.parseInt(ValoresCabeceraPlanDePagos
+        					.get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):")
+        					.split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
+        	
+        	
+        	if (validacion.equals("Retanqueos")) {
+        		
+    		ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",
+    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
+    						.split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
+    		ToleranciaPesoMensaje("Fallo: Validando Prima Neta",
+    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
+    				Integer.parseInt(vg_PrimaNetaSeguro));
+        	}
+        	
+            log.info("*********** Datos cabecera Validados -> OK ***********");
+
+        } catch (Exception e) {
+            log.error("########## Error - VerificacionCabeceraAnalisisCredito() - validarCabeceraPlanDePagos() ####### : " + e);
+            assertTrue("########## Error - BaseTest - validarCabeceraPlanDePagos() ######## : " + e, false);
         }
     }
 }

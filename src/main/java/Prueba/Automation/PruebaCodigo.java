@@ -15,9 +15,6 @@ import org.apache.log4j.Logger;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
-import jdk.internal.org.jline.utils.Log;
-
-
 public class PruebaCodigo {
 	static int i =0;
 	

@@ -88,6 +88,7 @@ public class SolicitudCreditoSteps {
 	public void seApruebaLaReferenciacionDeLaPagaduriaEnLaPestanaReferenciacionpermiterealizarlasolicituddelanalisis() throws InterruptedException {
 		 originacionaccion.ReferenciacionSolicitarAnalisis();
 	}
+	
     //####################### AnalisisCredito #####################################################################
 	
 	@Cuando("el agente ingresa a pestana analisis de credito busca con la cedula del cliente {string}{string}")
@@ -114,6 +115,26 @@ public class SolicitudCreditoSteps {
 	@Y ("Guarda los datos del simulador")
 	public void guarda_los_datos_del_simulador() throws InterruptedException {
 	 originacionaccion.GuardarSimulacionAnalista();
+	}
+	//ADP-98-Jonathan Varon
+	@Y("ingrese a la pestana del plan de pagos")
+	public void ingreseALaPestanaDelPlanDePagos() throws Throwable {
+		originacionaccion.PestanaPlanDePagos(); // ADP - 98 - Jonathan Varon
+	}
+	
+	@Y("valide la informacion cabecera con sus conceptos para Originacion{string}{string}")
+	public void validelainformacioncabeceraconsusconceptosparaOriginacion (String Tasa, String Plazo) {
+		originacionaccion.validelainformacioncabeceraconsusconceptosparaOriginacion(Tasa,Plazo);
+	}
+
+	/*@Y("valide la informacion cabecera con sus conceptos{string}{string}{string}")
+	public void valideLaInformacionCabeceraConSusConceptos(String Monto,String Tasa,String Plazo) throws Throwable {
+		originacionaccion.VerificacionCabeceraAnalisisCredito(Monto,Tasa,Plazo);
+	}*/
+
+	@Y("Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo{string}")
+	public void Validaciondesaldoacapitaleneldesglocedelplandepagosconelultimo(String plazo) throws Throwable {
+		originacionaccion.VerificacionUltimoSaldoCapitalPlanDePagos(plazo);
 	}
 
 	@Y ("Pasa a la pestana endeudamiento global aprobando")

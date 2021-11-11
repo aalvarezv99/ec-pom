@@ -44,7 +44,9 @@ public class RetanqueoPages {
 		
 		public By listValoresRetanqMultiple;
 		public By inputSumaSaldoDiaRetanqMultiple;
-		
+		public By listaCreditosPadre;
+		public By btnVerEditar;
+
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
 			cedula = By.id("form:listaCreditos:j_idt67:filter");
@@ -83,10 +85,9 @@ public class RetanqueoPages {
 			inputDescLey = By.id("formSimuladorCredito:leyCr");
 			inputdDescNomina = By.id("formSimuladorCredito:nominaCr");
 			vlrCompra = By.id("formSimuladorCredito:comprasSaneamientoCr");
-			
 			listValoresRetanqMultiple = By.xpath("//input[starts-with(@id,'formSimuladorCredito:j_id') and contains (@id,'_input') and @type='text']/following-sibling::input");
-			
-			
 	        inputSumaSaldoDiaRetanqMultiple = By.id("formSimuladorCredito:totalSaldoAlDia_hinput");
+			listaCreditosPadre = By.xpath("//tbody[@id='form:listaCreditos_data']/child::tr//child::td[2]");
+			btnVerEditar = By.xpath("//a[contains(@id,'ver_editar_cred')]");
 		}	
 }
