@@ -116,4 +116,17 @@ public class MovimientoContableQuery {
 
 		return r;
 	}
+	
+	public ResultSet consultarCuentasPSL() {
+		ResultSet r = null;
+		try {
+			r = dbconector.conexionPSL("select mencuenta \r\n"
+					+ "from co_movimentra \r\n"
+					+ "WHERE 1=1\r\n"
+					+ "and mencodielem4 in (87387);");
+		} catch (Exception e) {
+			log.error("##ERROR -  cconultando en PSL ##");
+		}
+		return r;
+	}
 }

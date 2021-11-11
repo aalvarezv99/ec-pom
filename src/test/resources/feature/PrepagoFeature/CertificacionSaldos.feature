@@ -39,10 +39,10 @@ Característica: Prepago de Creditos
 
 @ValidarDinamicasContablesOriginacion
   Esquema del escenario: Validar dinamicas contables ORIGINACION CREDITO
-    Cuando el sistema valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
-   	Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
-    Y valida que las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> con el <NumRadicado> y <NumCedula> en la <FechaRegistro>
-    #Entonces finalmente se valida la transaccion en la base de datos de PSL
+   # Cuando el sistema valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
+   #	Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
+   # Y valida que las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> con el <NumRadicado> y <NumCedula> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion en la base de datos de PSL con <AccountingSource>
     Ejemplos: 
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento |AccountingSource|AccountingName|FechaRegistro|
       ##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@OrigincacionPrueba

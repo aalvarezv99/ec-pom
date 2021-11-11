@@ -33,15 +33,11 @@ public class MovimientoContableStep {
     public void validaQueLasCuentasDeLibranzasSeanLasDelBridgeConElY(String accountingsource, String accountingname, String numradicado, String numcedula, String fechaRegistro) throws Throwable {
     	movimientoContableAccion.compararCuentasLibranzasVsBridge(numradicado, accountingsource.replaceAll("\"", ""),accountingname.replaceAll("\"", ""), numcedula, fechaRegistro);
     }
-    
-  
+   
 
-    @Y("valida que las cuentas de libranzas sean las del bridge")
-    public void validaQueLasCuentasDeLibranzasSeanLasDelBridge() throws Throwable {
-    }
-
-    @Y("finalmente se valida la transaccion en la base de datos de PSL")
-    public void finalmenteSeValidaLaTransaccionEnLaBaseDeDatosDePSL() throws Throwable {
+    @Y("^finalmente se valida la transaccion en la base de datos de PSL con (.*)$")
+    public void finalmenteSeValidaLaTransaccionEnLaBaseDeDatosDePSL(String accountingsource) throws Throwable {
+    	movimientoContableAccion.validacionPSL(accountingsource.replaceAll("\"", ""));
     }
 
 

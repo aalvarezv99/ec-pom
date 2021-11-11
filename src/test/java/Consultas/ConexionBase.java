@@ -29,6 +29,11 @@ public class ConexionBase {
 	private static String usernameAcounting;	
 	private static String passwordAcounting;
 	
+	private static String dbPsl;	
+	private static String dbUrlPsl;
+	private static String userPsl;	
+	private static String passwordPsl;
+	
 	public String leerPropiedades(String valor) {
 		try {
 			pro.load(in);
@@ -97,6 +102,37 @@ public class ConexionBase {
 		
 		} catch (Exception e) {
 			log.error("********ERROR CONEXION BASE DATOS ACCOUNTING BRIDGE*******");
+			log.error(e.getMessage());
+		}
+		return rs;
+	}
+	
+	public ResultSet conexionPSL(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		
+		try {
+			if(dbPsl == null) {
+				dbPsl = leerPropiedades("DBPsl");
+				log.info("====================");
+				log.info("[ Base de Datos - PSL PRUEBAS ] - " + dbPsl.toUpperCase());
+				log.info("====================");
+				dbUrlPsl = leerPropiedades("jdbc-urlPSL")+dbPsl;
+
+				userPsl = leerPropiedades("userPSL");
+
+				passwordPsl = leerPropiedades("PasswordPSL");					
+
+				Class.forName(leerPropiedades("driverClassNameSqlServer"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrlPsl, userPsl, passwordPsl);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS PSL PRUEBAS *******");
 			log.error(e.getMessage());
 		}
 		return rs;
