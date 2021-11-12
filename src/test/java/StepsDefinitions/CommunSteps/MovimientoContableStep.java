@@ -35,10 +35,9 @@ public class MovimientoContableStep {
     }
    
 
-    @Y("^finalmente se valida la transaccion en la base de datos de PSL con (.*)$")
-    public void finalmenteSeValidaLaTransaccionEnLaBaseDeDatosDePSL(String accountingsource) throws Throwable {
-    	movimientoContableAccion.validacionPSL(accountingsource.replaceAll("\"", ""));
+    @Y("^finalmente se valida la transaccion (.*) con (.+) en la base de datos de PSL con el (.+)$")
+    public void finalmenteSeValidaLaTransaccionConEnLaBaseDeDatosDePSLConEl(String accountingsource, String fecharegistro, String numradicado) throws Throwable {
+    	movimientoContableAccion.validacionPSL(accountingsource.replaceAll("\"", ""), fecharegistro, numradicado);
     }
-
 
 }

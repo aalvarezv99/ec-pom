@@ -6,11 +6,11 @@ import org.apache.log4j.Logger;
 
 public class MovimientoContableQuery {
 	
-	private static Logger log = Logger.getLogger(CertificacionSaldoQuery.class);
+	private static Logger log = Logger.getLogger(MovimientoContableQuery.class);
 	ConexionBase dbconector = new ConexionBase();
 	
 	/*ThainerPerez 11/nov/2021 - Se valida que se halla registrado en el bridge contable*/
-	public ResultSet validarDetalleBridge(String numRadicado, String accountingSource, String fecha) {
+	public ResultSet validarDetalleBridge(String numRadicado, String accountingSource, String fecha) {		
 		ResultSet r = null;
 		try {
 			r= dbconector.conexion("select (mc.transaccion_contable::json->>'origin'::text) origin,  mc.detalles, mc.transaccion_contable from movimiento_contable mc \r\n"
@@ -29,7 +29,7 @@ public class MovimientoContableQuery {
 	public ResultSet validarCausacionMovimientos(String accountingSource, String numRadicado, String fecha) {
 		ResultSet r = null;
 		try {
-			r= dbconector.conexion("with consulta as (select c.numero_radicacion ,mcc.tipo_movimiento , sum(round(mcc.valor)) valor\r\n"
+			r= dbconector.conexion("with consulta as (select c.numero_radicacion ,mcc.tipo_movimiento , mcc.valor valor\r\n"
 					+ "from movimiento_contable mc\r\n"
 					+ "inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\r\n"
 					+ "inner join credito c on mc.id_credito = c.id\r\n"
@@ -38,8 +38,8 @@ public class MovimientoContableQuery {
 					+ "and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountingSource+")\r\n"
 					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') = '"+fecha+"'\r\n"
 					+ "group by c.numero_radicacion,  mcc.tipo_movimiento,  mcc.valor),\r\n"
-					+ "movTipoDos as (select sum(mu.valor) sumaDos from consulta mu where mu.tipo_movimiento = 2),\r\n"
-					+ "movTipoUno as (select sum(mu.valor) sumaUno from consulta mu where mu.tipo_movimiento = 1)\r\n"
+					+ "movTipoDos as (select round(sum(mu.valor)) sumaDos from consulta mu where mu.tipo_movimiento = 2),\r\n"
+					+ "movTipoUno as (select round(sum(mu.valor)) sumaUno from consulta mu where mu.tipo_movimiento = 1)\r\n"
 					+ "select case when  mu.sumaUno=md.sumaDos then\r\n"
 					+ "true\r\n"
 					+ "else false\r\n"
@@ -53,6 +53,7 @@ public class MovimientoContableQuery {
 		return r;
 	}
 	
+	/*ThainerPerez 12/Nov/2021 Se crea el query para sacer el numero de radicado por numero de cedula, se usa mas en originacion*/
 	public ResultSet consultarNumeroradicado(String cedula) {
 		ResultSet r = null;
 		try {
@@ -71,6 +72,8 @@ public class MovimientoContableQuery {
 		
 	}
 	
+	/*ThainerPerez 12/Nov/2021 Se consultan los movimientos de libranzas basado en los parametros 
+	 * accountingSource seran las fuentes = 'CESALD', 'CCRED', 'ACRED', etc*/
 	public ResultSet consultarMovimientos(String numeroRadicado, String accountinSource, String fecha) {
 		ResultSet r=null;
 		try {
@@ -95,6 +98,9 @@ public class MovimientoContableQuery {
 		return r;
 	}	
 	
+	/*ThainerPerez 12/11/2021 Se consultan las cuentas en la base de datos del bridge correspondiente a cada instancia
+	 * 
+	 * */
 	public ResultSet consultarCuentasBridge(String acoountinName , String cuentas) {
 		ResultSet r=null;
 		try {
@@ -117,16 +123,46 @@ public class MovimientoContableQuery {
 		return r;
 	}
 	
-	public ResultSet consultarCuentasPSL() {
+	/*ThainerPerez 12/Nov/2021 Consultar movimientos en PSL en la tabla co_detalcompr de la DB PSL-PRUEBAS*/
+	public ResultSet consultarCuentasPSL(String AcoountingSource, String fecha, String numradicado) {
 		ResultSet r = null;
 		try {
-			r = dbconector.conexionPSL("select mencuenta \r\n"
+			r = dbconector.conexionPSL("select \r\n"
+					+ "	dcocodielem4,\r\n"
+					+ "	replace(dcofuente,'SETT','CSALD') origin,\r\n"
+					+ "	dcooperacion,\r\n"
+					+ "	dcocuenta,\r\n"
+					+ "	dcovalomoneloca\r\n"
+					+ "from\r\n"
+					+ "	co_detalcompr\r\n"
+					+ "where 1=1\r\n"
+					+ "	and dcocodielem4 in ("+numradicado+")	\r\n"
+					+ "	and replace(dcofuente,'SETT','CSALD') in  ("+AcoountingSource+")\r\n"
+					+ "	and dcofechtran in ('"+fecha+"')\r\n"
+					+ " order by dcocomprobante desc;");
+		} catch (Exception e) {
+			log.error("##ERROR EJECUTANDO LA CONSULTA EL METODO - consultarCuentasPSL()##");
+			log.error(e.getMessage());	
+		}
+		return r;
+	}
+	
+	/*ThainerPerez 12/Nov/2021 Consultar movimientos en PSL en la tabla co_movimentra de la DB PSL-PRUEBAS, donde se buscan los movimientos no procesados*/
+	public ResultSet consultarCuentaPslCo_movimentra(String AcoountingSource, String fecha, String numradicado) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexionPSL("select menmensaje, mencodielem4, replace(menfuente,'SETT','CSALD'), menoperacion, mencuenta, menvalomoneloca \r\n"
 					+ "from co_movimentra \r\n"
 					+ "WHERE 1=1\r\n"
-					+ "and mencodielem4 in (87387);");
+					+ "and replace(menfuente,'SETT','CSALD') in  ("+AcoountingSource+")\r\n"
+					+ "and mencodielem4 in ("+numradicado+")\r\n"
+					+ "and menfechtran = '"+fecha+"'\r\n"
+					+ "order by mencodielem4 asc;");
 		} catch (Exception e) {
-			log.error("##ERROR -  cconultando en PSL ##");
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarCuentaPslCo_movimentra() ********");
+			log.error(e.getMessage());			
 		}
+
 		return r;
 	}
 }

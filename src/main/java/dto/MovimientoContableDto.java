@@ -17,6 +17,18 @@ public class MovimientoContableDto {
 	
 	private String nombreCuentaAcouting;
 	
+	private String mmensaje;
+	
+	
+	
+	public String getMmensaje() {
+		return mmensaje;
+	}
+
+	public void setMmensaje(String mmensaje) {
+		this.mmensaje = mmensaje;
+	}
+
 	public String getTipoMovimiento() {
 		return tipoMovimiento;
 	}
