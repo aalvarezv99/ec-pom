@@ -146,4 +146,9 @@ public class RetanqueoAsesorSteps {
 	public void validarSimuladorAnalistaRetanqueosMultiple(String Anno,String retanqueo,String fecha,String Mes, String Plazo, String Tasa) throws InterruptedException, SQLException {
 		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(Anno,retanqueo,fecha,Mes,Plazo, Tasa);
 	}
+
+	@Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}")
+	public void validalosvaloresdelsimuladorretanqueosCSS(String Anno,String Retanqueo,String fecha,String Mes,String Plazo,String Cartera1,String Saneamiento2, String Tasa) throws InterruptedException, SQLException {
+		retanqueocreditos.validarSimuladorAnalistaRetanqueosCCS(Anno, Retanqueo, fecha, Mes, Plazo, Cartera1, Saneamiento2, Tasa);
+	}
 }
