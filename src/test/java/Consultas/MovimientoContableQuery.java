@@ -1,5 +1,7 @@
 package Consultas;
 
+import static org.junit.Assert.assertTrue;
+
 import java.sql.ResultSet;
 
 import org.apache.log4j.Logger;
@@ -19,7 +21,7 @@ public class MovimientoContableQuery {
 					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountingSource+");"); 
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - validarDetalleBridge() ********");
-			log.error(e.getMessage());	
+			assertTrue("########## MovimientoContableAccion - validarProcesoBridge()########"+ e.getMessage(),false);
 		}
 		
 		return r;
