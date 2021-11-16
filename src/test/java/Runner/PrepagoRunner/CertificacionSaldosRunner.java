@@ -16,7 +16,7 @@ import cucumber.api.SnippetType;
 //@RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/PrepagoFeature/CertificacionSaldos.feature",
               glue = "StepsDefinitions",
-              tags = {"@CertidicacionSaldoActivaCXCFianza" },
+              tags = {" @ValidarDinamicasContablesOriginacion" },
               snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)
@@ -28,3 +28,5 @@ public class CertificacionSaldosRunner {
      DataToFeature.overrideFeatureFiles("src/test/resources/feature/PrepagoFeature/CertificacionSaldos.feature");
  }
 }
+
+//@CertidicacionSaldoActivaCXCFianza,@ValidarDinamicasContablesCSALD
