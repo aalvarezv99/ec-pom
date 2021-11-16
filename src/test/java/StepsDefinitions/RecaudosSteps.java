@@ -41,7 +41,7 @@ public class RecaudosSteps {
 			String numCedula) {
 		recaudoAccion.recaudoCliente(vlrRecaudo, Descripcion, numCedula, null);
 	}
-
+	
 	@Y("^Realice el recaudo del credito (.+) con el valor total a pagar \"([^\"]*)\" para (.+) con los datos del cliente (.+)$")
 	public void realiceElRecaudoConElValorTotalAPagarPrepagoConLosDatosDelCliente(String numRadicado, String rutaCert,
 			String Descripcion, String numCedula) {

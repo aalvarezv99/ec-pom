@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -13,9 +15,11 @@ import org.openqa.selenium.WebDriver;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
+import Consultas.MovimientoContableQuery;
 import Consultas.RecaudoQuery;
 import Pages.RecaudoPage;
 import Pages.AplicacionCierrePage.PagoPreaplicacionPagoPage;
+import dto.MovimientoContableDto;
 
 public class RecaudosAccion extends BaseTest{
 	WebDriver driver;
@@ -23,7 +27,9 @@ public class RecaudosAccion extends BaseTest{
 	PanelPrincipalAccion panelprincipal;
 	PagoPreaplicacionPagoPage pagopreaplicacionpagopage;
 	CertificacionSaldoQuery query;
+	MovimientoContableQuery queryDinamica;
 	RecaudoQuery queryRecaudo;
+
 	private static Logger log = Logger.getLogger(RecaudosAccion.class);
 	
 	//variables Locales
@@ -38,6 +44,7 @@ public class RecaudosAccion extends BaseTest{
 		pagopreaplicacionpagopage = new PagoPreaplicacionPagoPage(driver);
 		query = new CertificacionSaldoQuery();
 		queryRecaudo = new RecaudoQuery();
+		queryDinamica = new MovimientoContableQuery();
 	}
 	
 	/*NAVEGACION PRINCIPAL
@@ -130,7 +137,8 @@ public class RecaudosAccion extends BaseTest{
 			else {
 				esperaExplicita(By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:j_idt') and contains(text(),'"+numRadicado+"')]"));
 				hacerClick(By.xpath("//*[starts-with(@id,'formulario-pagos-recaudo:j_idt') and contains(text(),'"+numRadicado+"')]"));
-			}			
+			}	
+			esperaExplicita(By.xpath("//*[starts-with(@id,'formMenu:j_idt') and starts-with(@class,'ui-dialog')]"));
 			ElementVisible();
 			adjuntarCaptura("recaudoCliente" + tipoRecaudo);
 			hacerClick(recaudopage.botonGuardar);
@@ -278,5 +286,7 @@ public class RecaudosAccion extends BaseTest{
 		}	
 		
 	}
+	
+	
 	
 }
