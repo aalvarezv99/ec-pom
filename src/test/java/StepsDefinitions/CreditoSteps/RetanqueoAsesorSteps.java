@@ -126,6 +126,12 @@ public class RetanqueoAsesorSteps {
 	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito) throws NumberFormatException, SQLException, InterruptedException {
 		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito);
 	}
+	
+	@Y("se validan los valores de las condiciones del credito Multiple")
+	public void sevalidanlosvaloresdelascondicionesdelcreditoMultiple() throws NumberFormatException, SQLException, InterruptedException {
+		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueoMultiple();
+	}
+	
 	@Y("validar las condiciones de la carta de notificacion de creditos {string}")
 	public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
 		retanqueocreditos.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
@@ -134,5 +140,10 @@ public class RetanqueoAsesorSteps {
 	@Y("se validan los datos del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}")
 	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
 		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
+	}
+
+	@Entonces("Valida los valores del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}")
+	public void validarSimuladorAnalistaRetanqueosMultiple(String Anno,String retanqueo,String fecha,String Mes, String Plazo, String Tasa) throws InterruptedException, SQLException {
+		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(Anno,retanqueo,fecha,Mes,Plazo, Tasa);
 	}
 }
