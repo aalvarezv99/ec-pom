@@ -30,7 +30,7 @@ public class PagesCreditosDesembolso {
 	
 	public PagesCreditosDesembolso(WebDriver driver) {
 		filtrocedula = By.id("form:listaPagos:j_idt73:filter");
-		CheckProcesarPagos = By.xpath("//span[@class='ui-chkbox-icon ui-icon ui-icon-blank ui-c']");
+		CheckProcesarPagos = By.xpath("//div[@class='ui-chkbox-box ui-widget ui-corner-all ui-state-default']//child::span[@class='ui-chkbox-icon ui-icon ui-icon-blank ui-c']");
 		ProcesarPagos = By.id("form:j_idt59");
 		FiltroMonto = By.id("form:listaLotes:j_idt68:filter");
 		VerEditar = By.xpath("//a[@class='ui-commandlink ui-widget icnotable iconoPuntos']");
@@ -46,7 +46,7 @@ public class PagesCreditosDesembolso {
     	EstadoPagoHabilitado = By.xpath("//*[@id=\"form:listaPagos:j_idt87_panel\"]/div[2]/ul/li[3]/label");
     	TipoOperacionSaneamiento = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[4]/label");
     	TipoOperacionRemanente = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[3]");
-    	TipoOperacionCompraCartera = By.xpath("//*[@id=\"form:listaPagos:j_idt84_panel\"]/div[2]/ul/li[1]/label");    	
+    	TipoOperacionCompraCartera = By.xpath("//li[starts-with(@class,'ui-selectcheckboxmenu-item ui-selectcheckboxmenu-list-item ui-corner-all ui-selectcheckboxmenu-unchecked')]//following-sibling::label[text()='Compra de cartera']");    	
     	FiltroEstadoPago = By.xpath("//label[text()='Estados']");
     	FiltroTipoOperacion = By.xpath("//label[text()='Tipo Operación']");
     	FiltroEstadoPago = By.xpath("//label[text()='Estados']");

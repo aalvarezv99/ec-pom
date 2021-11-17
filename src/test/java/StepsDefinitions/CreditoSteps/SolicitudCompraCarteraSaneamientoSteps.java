@@ -61,7 +61,7 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 
 	 //####################### IniciaDesembolsoCartera ##################################################################### 
 	
-	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera uno {string}")
+	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera {string}")
 	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera (String Cedula) throws InterruptedException {
 		solicitudcompracarterasaneamientoaccion.ProcesarCartera(Cedula);
 	   }
