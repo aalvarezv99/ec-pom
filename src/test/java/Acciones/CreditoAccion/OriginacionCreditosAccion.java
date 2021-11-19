@@ -1072,14 +1072,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     			null, 
     			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 
     			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
-		
-			//Captura De Pantalla
-			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Inicio");
-			//Hacer Scroll hasta valor cabecera : Plazo
-			Hacer_scroll(By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label[contains(text(), 'Plazo')]"));
-			//Captura De Pantalla
-			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Final");
-			
+					
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - PestanaPlanDePagos () #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
