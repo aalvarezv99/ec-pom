@@ -312,7 +312,8 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
   	ElementVisible(); 
   }
    
-  public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
+  //ThainerPerez 17/nov/2021 - Se comentarea este metodo aparentemente no se usa se puede eliminar si han pasado dos meses y no explota nada
+ /* public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
   	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
   	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
   	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,Monto);
@@ -341,18 +342,13 @@ public class OriginacionCompraCarteraAccion  extends BaseTest {
   	ElementVisible();    	
   }
   
-  /************FINALIZA ACCIONES DESEMBOLSO CARTERA *************/  
-  
-  /************INICIA ACCIONES VISACION CARTERA 
- * @throws InterruptedException *************/  
-  
   
   public void VisacionCartera (String Pdf) throws InterruptedException {
 	  recorerpestanas("CARTERAS Y SANEAMIENTOS");
 	  Hacer_scroll(pagesclienteparavisacion.PazYSalvoCartera);
 	  cargarpdf(pagesclienteparavisacion.PazYSalvoCartera,Pdf);
 	  ElementVisible();
-  }
+  }*/
   
   /************FINALIZA ACCIONES VISACION CARTERA *************/ 
   
