@@ -1742,41 +1742,55 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	}
 
-	public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
-		panelnavegacionaccion.CreditoParaDesembolsoDescargar();
-		esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
-		EscribirElemento(PagesCreditosDesembolso.FiltroMonto, Monto);
-		ElementVisible();
-		Thread.sleep(4000);
+	/*
+	 * ThainerPerez 17/Nov/2021 V1.2 - Se agrega el Datatable y se recorre con un ForMap para repetir el paso X cantidad de veces*/
+	public void DescargarMediosDispercionCartera(DataTable tabla) throws InterruptedException {
+		log.info("***Descargar medios de dispercion para las carteras,OriginacionCreditosAccion - DescargarMediosDispercionCartera() **");
+		try {
+			List<Map<String, String>> data = tabla.asMaps(String.class, String.class);
+			int contador = 0;
+			for (Map<String, String> objectTablaFeature : data) {
+			panelnavegacionaccion.CreditoParaDesembolsoDescargar();
+			esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
+			EscribirElemento(PagesCreditosDesembolso.FiltroMonto, objectTablaFeature.get("Monto"));
+			ElementVisible();
+			Thread.sleep(4000);
 
-		String pattern = "###,###,###.###";
-		double value = Double.parseDouble(Monto);
+			String pattern = "###,###,###.###";
+			double value = Double.parseDouble(objectTablaFeature.get("Monto"));
 
-		DecimalFormat myFormatter = new DecimalFormat(pattern);
-		myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
-		String output = myFormatter.format(value);
-		esperaExplicita(By.xpath("//td[text()='" + output + "']"));
-		ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
-		ElementVisible();
-		hacerClick(PagesCreditosDesembolso.Banco);
-		hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='" + Banco + "' ]"));
-		ElementVisible();
-		cargarpdf(PagesCreditosDesembolso.CargarEvidencia, Pdf);
-		esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
-		ElementVisible();
-		hacerClick(PagesCreditosDesembolso.CrearArchivo);
-		esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
-		ElementVisible();
-		hacerClick(PagesCreditosDesembolso.Guardar);
-		ElementVisible();
+			DecimalFormat myFormatter = new DecimalFormat(pattern);
+			myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
+			String output = myFormatter.format(value);
+			esperaExplicita(By.xpath("//td[text()='" + output + "']"));
+			ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
+			ElementVisible();
+			hacerClick(PagesCreditosDesembolso.Banco);
+			hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='" + objectTablaFeature.get("Banco") + "' ]"));
+			ElementVisible();
+			cargarpdf(PagesCreditosDesembolso.CargarEvidencia, objectTablaFeature.get("RutaPdf"));
+			esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
+			ElementVisible();
+			hacerClick(PagesCreditosDesembolso.CrearArchivo);
+			esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
+			ElementVisible();
+			hacerClick(PagesCreditosDesembolso.Guardar);
+			ElementVisible();
+			}
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - aceptaCondicionesDelCreditoLibreInversion() #######"+ e);
+			assertTrue("########## Error - OriginacionCreditosAccion - aceptaCondicionesDelCreditoLibreInversion()########"+ e,false);
+		}
 	}
 
+	//ThainerPerez 17/Nov/2021 Se comentarea este metodo ya que al parecer no se usa, eliminar si no se revienta en 1 mes
+	/*
 	public void VisacionCartera(String Pdf) throws InterruptedException {
 		recorerpestanas("CARTERAS Y SANEAMIENTOS");
 		Hacer_scroll(pagesclienteparavisacion.PazYSalvoCartera);
 		cargarpdf(pagesclienteparavisacion.PazYSalvoCartera, Pdf);
 		ElementVisible();
-	}
+	}*/
 
 	public void ProcesarSaneamiento(String Cedula) throws InterruptedException {
 		panelnavegacionaccion.CreditoParaDesembolso();
@@ -1796,23 +1810,30 @@ public class OriginacionCreditosAccion extends BaseTest {
 	}
 
 	public void ProcesarRemanente(String Cedula) throws InterruptedException {
-		panelnavegacionaccion.CreditoParaDesembolso();
-		ElementVisible();
-		esperaExplicita(PagesCreditosDesembolso.filtrocedula);
-		EscribirElemento(PagesCreditosDesembolso.filtrocedula, Cedula);
-		ElementVisible();
-		Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-		hacerClick(pagescreditosdesembolso.FiltroEstadoPago);
-		hacerClick(pagescreditosdesembolso.EstadoPagoHabilitado);
-		ElementVisible();
-		hacerClick(pagescreditosdesembolso.FiltroTipoOperacion);
-		hacerClick(pagescreditosdesembolso.TipoOperacionRemanente);
-		Thread.sleep(2000);
-		Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
-		ElementVisible();
-		hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
-		ElementVisible();
-		hacerClick(pagescreditosdesembolso.ProcesarPagos);
-		ElementVisible();
+		log.info("***Se procesa el remanente de credito,OriginacionCreditosAccion -  ProcesarRemanente() ***");
+		try {
+			panelnavegacionaccion.CreditoParaDesembolso();
+			ElementVisible();
+			esperaExplicita(PagesCreditosDesembolso.filtrocedula);
+			EscribirElemento(PagesCreditosDesembolso.filtrocedula, Cedula);
+			ElementVisible();
+			Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
+			hacerClick(pagescreditosdesembolso.FiltroEstadoPago);
+			hacerClick(pagescreditosdesembolso.EstadoPagoHabilitado);
+			ElementVisible();
+			hacerClick(pagescreditosdesembolso.FiltroTipoOperacion);
+			hacerClick(pagescreditosdesembolso.TipoOperacionRemanente);
+			Thread.sleep(2000);
+			Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
+			ElementVisible();
+			hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
+			ElementVisible();
+			hacerClick(pagescreditosdesembolso.ProcesarPagos);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - aceptaCondicionesDelCreditoLibreInversion() #######"+ e);
+			assertTrue("########## Error - OriginacionCreditosAccion - aceptaCondicionesDelCreditoLibreInversion()########"+ e,false);
+		}
+		
 	}
 }

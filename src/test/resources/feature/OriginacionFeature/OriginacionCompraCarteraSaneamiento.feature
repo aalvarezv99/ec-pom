@@ -86,10 +86,13 @@ Característica: Solicitud combra de cartera
   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
    |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |29/10/2021   |null|
   
+  #En la tabla interna en el valor monto, se agrega la suma de las carteras que se agrego en la solicitud del credito
   @DesembolsoCarteraCCS
   Esquema del escenario: Carteras para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar la cartera <Cedula>
-    Y se descargan medios de dispersion para la cartera <Cartera1><Banco><rutaPDF>
+    Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula>
+    Y se descargan medios de dispersion para la cartera
+    |Monto|Banco																|RutaPdf|
+    |200000	|Remanentes - 60237038927 - REMANENTE	|src/test/resources/Data/PDFPRUEBA.pdf|
     Ejemplos: 
       | Pagaduria | Cedula | fecha | Oficina | Actividad | Tasa | Plazo | Monto | DiasHabilesIntereses | Ingresos | descLey | descNomina | TotalActivos | vlrCompasSaneamientos | tipo | colchon | TipoContrato | FechaIngreso | NombreCredito | Pnombre | Snombre | Papellido | Sapellido | Correo | Celular | Dpto | Ciudad | rutaPDF | DestinoCredito | Sexo | EstadoCivil | Direccion | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | Mes | Cartera1 | Saneamiento2 | AnoAnalisis | fechaDesembolso | TipoDesen | fechaActual | Banco | entidad | AccountingSource | AccountingName | FechaRegistro | NumRadicado |
   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
@@ -104,20 +107,25 @@ Característica: Solicitud combra de cartera
   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
    |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |29/10/2021   |null|
   
+  #En el Valor monto se suman los valores de los saneamientos agregados en la solicitud del credito
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar el saneamiento <Cedula>
-    Y se descargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
+    Cuando el agente ingresa a la lista de pagos para procesar "Saneamiento" con <Cedula>
+    Y se descargan medios de dispersion para la cartera
+    |Monto|Banco																|RutaPdf|
+    |830000	|Remanentes - 60237038927 - REMANENTE	|src/test/resources/Data/PDFPRUEBA.pdf|
     Ejemplos: 
       | Pagaduria | Cedula | fecha | Oficina | Actividad | Tasa | Plazo | Monto | DiasHabilesIntereses | Ingresos | descLey | descNomina | TotalActivos | vlrCompasSaneamientos | tipo | colchon | TipoContrato | FechaIngreso | NombreCredito | Pnombre | Snombre | Papellido | Sapellido | Correo | Celular | Dpto | Ciudad | rutaPDF | DestinoCredito | Sexo | EstadoCivil | Direccion | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | Mes | Cartera1 | Saneamiento2 | AnoAnalisis | fechaDesembolso | TipoDesen | fechaActual | Banco | entidad | AccountingSource | AccountingName | FechaRegistro | NumRadicado |
   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
    |"ALCALDIA MUNICIPAL DE MANIZALES NÓMINA JUBILADOS"   |"9777757"   |"17/Mar/1956"   |"Bogotá Centro"   |"Pensionado"   |"1.8"   |"90"   |"20000000"   |"25"   |"4500000"   |"360000"   |"50000"   |"70500000"   |"930000"   |"xx"   |"0"   |"Pensionado por Tiempo (Vejez)"   |"10/01/2009"   |"CARLOS"   |"CARLOS"   |""   |"HERRERA"   |"ARBOLEDA"   |"carlos123@mail.com"   |"3125117717"   |"Tolima"   |"Espinal"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"Educacion propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"Noviembre"   |"100000"   |"830000"   |"2021"   |"19/10/2021"   | "Efectivo"    |"19/Oct/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"8300538122 -  FIDEICOMISO SOLUCIONES"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |29/10/2021   |null|
   
+  #En el campo monto va el valor del credito, Cartera suma de las carteras, Saneamiento Summa de saneamientos o cero si no tiene estas ultimas
   @DesembolsoCCS
   Esquema del escenario: Remanente para Desembolso
     Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
-    Y se descarga medios de dispersion para el remanente <Monto><Cartera1><Saneamiento2><Banco><rutaPDF>
-
+    Y se descarga medios de dispersion para el remanente
+    |Monto|Cartera|Saneamiento|Banco|RutaPdf|
+    |20000000|200000|830000|Remanentes - 60237038927 - REMANENTE	|src/test/resources/Data/PDFPRUEBA.pdf|
     Ejemplos: 
       |Pagaduria	|Cedula		|fecha|Oficina	|	Actividad		|Tasa	|	Plazo	|Monto	|	DiasHabilesIntereses|	Ingresos	|descLey	|descNomina|	TotalActivos	|vlrCompasSaneamientos	|tipo	|colchon	 |	TipoContrato|	FechaIngreso|	NombreCredito|	Pnombre	|Snombre|		Papellido|	Sapellido	|Correo|	Celular|	Dpto|	Ciudad		|rutaPDF|	DestinoCredito		|	Sexo|	EstadoCivil|	Direccion|	TipoVivienda|	PapellidoReferencia	|PnombreReferencia|	TelefonoResidencia|	TelefonoTrabajo	|Codigo	|Mes	|Cartera1	|Saneamiento2|	AnoAnalisis|	fechaDesembolso|	TipoDesen|	fechaActual|	Banco	|entidad	|AccountingSource|	AccountingName	|FechaRegistro|	NumRadicado|
   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCCS
