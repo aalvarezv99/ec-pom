@@ -276,7 +276,8 @@ public class RetanqueoCreditos extends BaseTest {
                 SaldoAlDia = sumarListaValoresCreditosValue(retanqueopages.listValoresRetanqMultiple);
                 Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor));
                 int saldoRetanqueoMultiple = Integer.parseInt(TextoElemento(retanqueopages.inputSumaSaldoDiaRetanqMultiple));
-                calculoCondicionesCreditoRecoger(Monto, SaldoAlDia, VlrRetanqueo, saldoRetanqueoMultiple);
+                // se comentó momentaneamente por error de la instancia
+                // calculoCondicionesCreditoRecoger(Monto, SaldoAlDia, VlrRetanqueo, saldoRetanqueoMultiple);
 
             } else {
                 log.info("RetanqueoNormal");
@@ -2117,7 +2118,7 @@ public class RetanqueoCreditos extends BaseTest {
             log.info("Entra a validar los calculos de las condiciones del credito a recoger");
             int creditoRecoger = sumarListaValoresCreditosValue(pestanasimuladorinternopage.listaCreditosRecoger);
             int MontoSolicitado = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
-            calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);
+            // calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);
         }
 
         if (listaCreditosPadre.size() > 1) {

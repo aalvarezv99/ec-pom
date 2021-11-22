@@ -13,7 +13,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
 
   @SolicitudRetanqueoMultiple
   Esquema del escenario: Solicitud Retanqueo Multiple
@@ -37,7 +37,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
 
     #COMPRA CARTERA Y SANEAMIENTOS
   @SolicitudRetanqueoMultipleCCS
@@ -70,7 +70,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
 
 
   @AnalisisCreditoRetanqueoMultiple
@@ -86,7 +86,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
 
 
   @AnalisisCreditoRetanqueoMultipleCCS
@@ -95,14 +95,14 @@ Característica: Retanqueo de creditos
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple <AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Cartera1><Saneamiento2><Tasa>
-    #Y Guarda los datos del simulador
-    #Y Pasa a la pestana endeudamiento global aprobando
-    #Y Aprueba la tarea del credito<Cedula>
+    Y Guarda los datos del simulador
+    Y Pasa a la pestana endeudamiento global aprobando
+    Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
 
   @ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
@@ -115,4 +115,4 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"JHON FREDY"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
+   |"34957577"   |"5000000"   |"FOPEP"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"830000"   |"2258"   |"EMMA LUCILA"   |"Octubre"   |"14/06/1969"   |"2021"   |"25/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"100000"   |"730000"|
