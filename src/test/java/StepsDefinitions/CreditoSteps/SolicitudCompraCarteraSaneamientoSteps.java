@@ -66,18 +66,7 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 		solicitudcompracarterasaneamientoaccion.ProcesarCartera(tipo,Cedula);
 	   }
 	   
-	//####################### FinalizaDesembolsoCartera #####################################################################     
-	 
- 
-	//####################### IniciaDesembolsoSaneamiento #####################################################################  
-	   	   
-	   @Y("se descargan medios de dispersion para el saneamiento {string}{string}{string}")
-		public void sedescargadescarganmediosdedispersionparaelsaneamiento (String Saneamiento2, String Banco,String Pdf) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionSaneamiento(Saneamiento2, Banco,Pdf);
-		}
-	   
-//####################### FinalizaDesembolsoSaneamiento #####################################################################
-	   
+
 //####################### IniciaDesembolsoRemanente #####################################################################  
 	
 	   @Y ("se descarga medios de dispersion para el remanente") 
