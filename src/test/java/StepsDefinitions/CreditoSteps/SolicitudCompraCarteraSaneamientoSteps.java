@@ -61,9 +61,9 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 
 	 //####################### IniciaDesembolsoCartera ##################################################################### 
 	
-	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera uno {string}")
-	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera (String Cedula) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.ProcesarCartera(Cedula);
+	@Cuando ("el agente ingresa a la lista de pagos para procesar {string} con {string}")
+	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera (String tipo,String Cedula) throws InterruptedException {
+		solicitudcompracarterasaneamientoaccion.ProcesarCartera(tipo,Cedula);
 	   }
 	   
 	//####################### FinalizaDesembolsoCartera #####################################################################     
@@ -80,9 +80,9 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	   
 //####################### IniciaDesembolsoRemanente #####################################################################  
 	
-	   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}{string}") 
-	   public void sedescargamediosdedispersionparaelremanente (String Monto, String Cartera1, String Saneamiento2, String Banco, String Pdf) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionRemanente (Monto,Cartera1, Saneamiento2,Banco,Pdf);
+	   @Y ("se descarga medios de dispersion para el remanente") 
+	   public void sedescargamediosdedispersionparaelremanente (DataTable tabla) throws InterruptedException {
+		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionRemanente (tabla);
 	  }  
 //####################### FinalizaDesembolsoRemanente #####################################################################
 }

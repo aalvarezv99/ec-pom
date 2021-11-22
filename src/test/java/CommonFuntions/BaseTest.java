@@ -608,6 +608,20 @@ public class BaseTest {
         }
 
     }
+    
+    public void cargarPdfVisacionCarteras(By locator, String ruta) {
+    	File fichero = new File(ruta);
+		try {
+			List<WebElement> listaElement = driver.findElements(locator);
+			List<String> lisString = this.parseWebElementsToList(listaElement);
+			for (int i = 0; i < lisString.size(); i++) {
+				driver.findElement(By.id(lisString.get(i))).sendKeys(fichero.getAbsolutePath());;
+			}
+        	
+		} catch (Exception e) {
+			log.error("########## ERROR BASETEST - cargarPdfVisacionCarteras() ##########" + e);
+		}    	
+    }
 
     public void llenarInputMultiples(By locator, String Text) throws InterruptedException {
         List<WebElement> Input = driver.findElements(locator);
@@ -758,6 +772,20 @@ public class BaseTest {
             count = count + 1;
             hacerScrollAbajo();
         }
+    }
+    
+    public void marcarCheckMultiple(By locator) throws InterruptedException  {
+         List<WebElement> list = driver.findElements(locator);
+         List<String> listString = this.parseWebElementsToList(list);
+         for(int i =0; i< listString.size() ; i++) {
+        	 String item = listString.get(i);
+        	 hacerClick(By.id(item));
+        	 ElementVisible();
+         }
+  
+         
+    	 
+        
     }
 
     /********* INICIO FUNC AVANZADAS SELENIUM **************/
@@ -1252,7 +1280,6 @@ public class BaseTest {
     }
 
     public List<String> parseWebElementsToList(List<WebElement> list) {
-        int totalElementos = list.size();
         List<String> listString = new ArrayList<>();
         for (WebElement webElement : list) {
             listString.add(webElement.getAttribute("id"));
