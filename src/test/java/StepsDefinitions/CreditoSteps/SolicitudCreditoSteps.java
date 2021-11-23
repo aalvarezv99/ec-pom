@@ -221,11 +221,6 @@ public class SolicitudCreditoSteps {
 		 solicitudCompraCarteraSaneamientoAccion.VisacionCartera(Pdf);
 	 }
 	
-	 @Cuando ("el agente ingresa a la lista de pagos para procesar el saneamiento {string}")
-	   public void elagenteingresaalalistadepagosparaprocesarelsaneamiento (String Cedula) throws InterruptedException {
-		 originacionaccion.ProcesarSaneamiento(Cedula);
-	   }
-	 
 	 @Cuando ("el agente ingresa a la lista de pagos para procesar el remanente {string}")
 	   public void elagenteingresaalalistadepagosparaprocesarelremanente (String Cedula) throws InterruptedException {
 		 originacionaccion.ProcesarRemanente(Cedula);
