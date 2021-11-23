@@ -843,12 +843,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ElementVisible();
 			Thread.sleep(1000);
 			esperaExplicitaTexto(Nombre);
-			Thread.sleep(1000);
 			esperaExplicita(pestanasimuladorinternopage.EditarVer);
-			ClicUltimoElemento(pestanasimuladorinternopage.EditarVer);
+			Thread.sleep(1000);
+			ClicUltimoElemento(pestanasimuladorinternopage.listVerEditar);
 			ElementVisible();
 			esperaExplicita(pestanasimuladorinternopage.inputMesada);
-			;
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - ingresarAnalisisCredito() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - ingresarAnalisisCredito()########" + e, false);
