@@ -33,6 +33,11 @@ public class SolicitudCreditoSteps {
 	public void el_agente_ingrese_a_la_pestana_solicitud_credito_con_la_cedula_del_cliente_Cedula(String Cedula,String NombreCredito) throws InterruptedException {
 		originacionaccion.ingresarSolicitudCredito(Cedula,NombreCredito);
 	}
+	
+	@Cuando("el agente ingrese a la pestana solicitud filtra por el numero de radicacion del credito {string}{string}")
+	public void el_agente_ingrese_a_la_pestana_solicitud_filtra_por_el_numero_de_radicacion_del_credito(String radicacion,String NombreCredito) throws InterruptedException {
+		originacionaccion.ingresarSolicitudCreditoDigicredito(radicacion,NombreCredito);
+	}
 
 	@Y("consulta la pestana seguridad dejando el cliente viable")
 	public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException, NumberFormatException, SQLException {
@@ -58,10 +63,21 @@ public class SolicitudCreditoSteps {
 	public void seLlenanLosCamposObligatoriosEnLaPestanaFormularioGuardando(String DestinoCredito,String Sexo,String EstadoCivil,String Direccion,String Dpto,String Ciudad,String TipoVivienda,String Correo, String Celular) throws InterruptedException {
 		originacionaccion.formulario(DestinoCredito,Sexo,EstadoCivil,Direccion,Dpto,Ciudad,TipoVivienda,Correo,Celular);
 	}
+	
+	@Y("se llenan los campos obligatorios en la pestana formulario guardando digicredito {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void seLlenanLosCamposObligatoriosEnLaPestanaFormularioGuardandoDigicredito(String DestinoCredito,String Sexo,String EstadoCivil,String Direccion,String Dpto,String Ciudad,String TipoVivienda,String Correo, String Celular,String TipoContrato) throws InterruptedException {
+		originacionaccion.formularioDigicredito(DestinoCredito,Sexo,EstadoCivil,Direccion,Dpto,Ciudad,TipoVivienda,Correo,Celular,TipoContrato);
+	}
+
 
 	@Y("se agregar las referencias en la segunta pestana del formulario guardando {string}{string}{string}{string}{string}{string}{string}{string}{string}")
 	public void seAgregarLasReferenciasEnLaSeguntaPestanaDelFormularioGuardando(String IngresosMes,String TotalActivos,String Papellido,String Pnombre,String Direccion,String TelefonoResidencia,String TelefonoTrabajo,String Dpto,String Ciudad) throws InterruptedException {
 		originacionaccion.formularioSegundaPestana(IngresosMes,TotalActivos,Papellido,Pnombre,Direccion,TelefonoResidencia,TelefonoTrabajo,Dpto,Ciudad);
+	}
+
+	@Y("se agregar las referencias en la segunta pestana del formulario guardando Digicredito {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void seAgregarLasReferenciasEnLaSeguntaPestanaDelFormularioGuardandoDigicredito(String IngresosMes,String TotalActivos,String Papellido,String Pnombre,String Direccion,String TelefonoResidencia,String TelefonoTrabajo,String Dpto,String Ciudad) throws InterruptedException {
+		originacionaccion.formularioSegundaPestanaDigicredito(IngresosMes,TotalActivos,Papellido,Pnombre,Direccion,TelefonoResidencia,TelefonoTrabajo,Dpto,Ciudad);
 	}
 
 	@Y("se presiona en verificacion en la pestana digitalizacion")

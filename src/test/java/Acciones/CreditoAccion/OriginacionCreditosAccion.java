@@ -436,6 +436,25 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 
 	}
+	
+	public void ingresarSolicitudCreditoDigicredito(String radicacion,String NombreCredito) throws InterruptedException {
+		log.info("******************** OriginacionCreditosAccion - ingresarSolicitudCredito()  ***************");
+		try {
+			this.NombreCredito = NombreCredito;
+			panelnavegacionaccion.navegarCreditoSolicitud();
+			BuscarenGrilla(creditocolicitudpage.inputRadicado, radicacion);
+			esperaExplicitaTexto(NombreCredito);
+			ElementVisible();
+			esperaExplicita(creditocolicitudpage.selectVerEditar);
+			hacerClick(creditocolicitudpage.selectVerEditar);
+			ElementVisible();
+			
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() ########" + e, false);
+		}
+
+	}
 
 	public void Seguridad() throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion - Seguridad()  ***************");
@@ -569,10 +588,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	public void Digitalizacion(String Pdf) throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion Cargue PDF - Digitalizacion() ***************");
-		try {
+		try {			
 			recorerpestanas("DIGITALIZACIÓN");
 			esperaExplicita(pestanadigitalizacionPage.Titulo);
 			cargarPdfDigitalizacion(Pdf);
+			hacerClicknotificacion();
 			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion Cargue PDF - Digitalizacion()  #######" + e);
@@ -608,6 +628,67 @@ public class OriginacionCreditosAccion extends BaseTest {
 		try {
 			recorerpestanas("FORMULARIO");
 			esperaExplicita(pestanaformulariopage.DestinoCredito);
+			hacerClick(pestanaformulariopage.DestinoCredito);
+			selectValorLista(pestanaformulariopage.ListaDestinoCredito, DestinoCredito);
+			ElementVisible();
+			Hacer_scroll(pestanaformulariopage.AgregarCuenta);
+			adjuntarCaptura("LlenarFormulario");
+			if (Sexo == "M") {
+				hacerClick(pestanaformulariopage.SexoM);
+			} else {
+				hacerClick(pestanaformulariopage.SexoF);
+			}
+
+			ElementVisible();
+			hacerClick(pestanaformulariopage.EstadoCivil);
+			selectValorLista(pestanaformulariopage.EstadoCivillist, EstadoCivil);
+			ElementVisible();
+			Clear(pestanaformulariopage.Correo);
+			EscribirElemento(pestanaformulariopage.Correo, Correo);
+			ElementVisible();
+			Clear(pestanaformulariopage.Celular);
+			EscribirElemento(pestanaformulariopage.Celular, Celular);
+			ElementVisible();
+			Clear(pestanaformulariopage.Direccion);
+			EscribirElemento(pestanaformulariopage.Direccion, Direccion);
+			ElementVisible();
+			hacerClick(pestanaformulariopage.Departamento);
+			selectValorLista(pestanaformulariopage.Departamentolist, Dpto);
+			ElementVisible();
+			hacerClick(pestanaformulariopage.Ciudad);
+			selectValorLista(pestanaformulariopage.Ciudadlist, Ciudad);
+			adjuntarCaptura("LlenarFormulario");
+			ElementVisible();
+			hacerClick(pestanaformulariopage.Correspondencia);
+			ElementVisible();
+			hacerClick(pestanaformulariopage.Tipovivienda);
+			selectValorLista(pestanaformulariopage.Tipoviviendalist, TipoVivienda);
+			ElementVisible();
+			adjuntarCaptura("LlenarFormulario");
+			Hacer_scroll(pestanaformulariopage.Guardar);
+			hacerClick(pestanaformulariopage.Guardar);
+			ElementVisible();
+			// esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			// hacerClickVariasNotificaciones();
+			// hacerClicknotificacion();
+			// hacerClicknotificacion();
+			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion - formulario() #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - formulario() ########" + e, false);
+		}
+
+	}
+	
+	public void formularioDigicredito(String DestinoCredito, String Sexo, String EstadoCivil, String Direccion, String Dpto,
+			String Ciudad, String TipoVivienda, String Correo, String Celular, String TipoContrato) throws InterruptedException {
+		log.info(
+				"******************** OriginacionCreditosAccion Llenar formulario cliente - formulario()  ***************");
+		try {
+			recorerpestanas("FORMULARIO");
+			esperaExplicita(pestanaformulariopage.DestinoCredito);
+			hacerClick(pestanaformulariopage.tipoContrato);
+			selectValorLista(pestanaformulariopage.listTipoContrato, TipoContrato);
 			hacerClick(pestanaformulariopage.DestinoCredito);
 			selectValorLista(pestanaformulariopage.ListaDestinoCredito, DestinoCredito);
 			ElementVisible();
@@ -723,6 +804,50 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	}
 
+	public void formularioSegundaPestanaDigicredito(String IngresosMes, String TotalActivos, String Papellido, String Pnombre,
+			String Direccion, String TelefonoResidencia, String TelefonoTrabajo, String Dpto, String Ciudad)
+			throws InterruptedException {
+		log.info(
+				"******************** OriginacionCreditosAccion Llenar referencias - formularioSegundaPestana()  ***************");
+		try {
+			recorerpestanas("FORMULARIO");// borrar despues de la prueba
+			hacerClick(pestanaformulariopage.PestanaFormulario);
+			ElementVisible();
+			esperaExplicita(pestanaformulariopage.TituloReferencias);
+			esperaExplicita(pestanaformulariopage.IngresosMes);
+			hacerClick(pestanaformulariopage.IngresosMes);
+			LimpiarConTeclado(pestanaformulariopage.IngresosMes);
+			EscribirElemento(pestanaformulariopage.IngresosMes, IngresosMes);
+			hacerClick(pestanaformulariopage.TotalActivos);
+			LimpiarConTeclado(pestanaformulariopage.TotalActivos);
+			EscribirElemento(pestanaformulariopage.TotalActivos, TotalActivos);
+			esperaExplicita(pestanaformulariopage.MasReferencia);
+			ElementVisible();
+			Hacer_scroll(pestanaformulariopage.TituloReferencias);
+		  	ElementVisible();
+			//eliminarReferencias(pestanaformulariopage.listMenosReferencia);	
+			adjuntarCaptura("Referencias");
+			Hacer_scroll(pestanaformulariopage.GuardarRefer);
+			hacerClick(pestanaformulariopage.GuardarRefer);
+			hacerClick(pestanaformulariopage.GuardarRefer);
+			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			ElementVisible();
+			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			hacerClicknotificacion();
+			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+			
+			
+		} catch (Exception e) {
+			log.error(
+					"########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestana() #######"
+							+ e);
+			assertTrue(
+					"########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestana()########"
+							+ e,
+					false);
+		}
+
+	}
 	public void DigitalizacionVerificacion() {
 		log.info("******************** OriginacionCreditosAccion - DigitalizacionVerificacion()  ***************");
 		try {
@@ -748,7 +873,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
 	public void Referenciaspositivas(String codigo) throws InterruptedException {
 		log.info(
-				"******************** OriginacionCreditosAccion referencias Psitivas - Referenciaspositivas()  ***************");
+				"******************** OriginacionCreditosAccion referencias Positivas - Referenciaspositivas()  ***************");
 		try {
 			recorerpestanas("REFERENCIACIÓN");
 			hacerClick(pestanareferenciacionpage.SalarioCheck);
@@ -784,7 +909,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 			ElementVisible();
 			adjuntarCaptura("CodigoPreforences");
 			hacerClick(pestanadigitalizacionPage.Guardar);
-			// hacerClick(pestanadigitalizacionPage.Guardar);
+			hacerClick(pestanadigitalizacionPage.Guardar);
 			ElementVisible();
 			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 		} catch (Exception e) {
