@@ -918,10 +918,65 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 
 	}
+	
+	public void ReferenciaspositivasDigiCredito(String codigo) throws InterruptedException {
+		log.info(
+				"******************** OriginacionCreditosAccion referencias Positivas - Referenciaspositivas()  ***************");
+		try {
+			recorerpestanas("REFERENCIACIÓN");
+			hacerClick(pestanareferenciacionpage.SalarioCheck);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.FechaIngreso);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.TipoContrato);
+			ElementVisible();
+			hacerClick(pestanareferenciacionpage.CargoCheck);
+			ElementVisible();
+			adjuntarCaptura("Referencias");
+			Hacer_scroll(pestanareferenciacionpage.Guardar);
+			hacerClick(pestanareferenciacionpage.Guardar);
+			ElementVisible();
+			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+			clickVariosReferenciasPositivas(creditocolicitudpage.ListBtnAddReference);
+			Hacer_scroll(pestanareferenciacionpage.Titulo);
+			clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+			ElementVisible();
+			Hacer_scroll(pestanareferenciacionpage.Titulo);
+			clickvarios(pestanareferenciacionpage.CheckSI);
+			Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+			hacerClick(pestanareferenciacionpage.GuardarReferencias);
+			ElementVisible();			
+			Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+			hacerClick(pestanareferenciacionpage.GuardarReferencias);
+			ElementVisible();
+			esperaExplicita(pestanadigitalizacionPage.Notificacion);
+			hacerClicknotificacion();
+			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+			recorerpestanas("DIGITALIZACIÓN");
+			esperaExplicita(pestanadigitalizacionPage.Titulo);
+			hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+			esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
+			Clear(pestanadigitalizacionPage.CodigoProforenses);
+			EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, codigo);
+			ElementVisible();
+			hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
+			ElementVisible();
+			adjuntarCaptura("CodigoPreforences");
+			//hacerClick(pestanadigitalizacionPage.Guardar);
+			hacerClick(pestanadigitalizacionPage.Guardar);
+			ElementVisible();
+			esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - Referenciaspositivas() #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - Referenciaspositivas()########" + e, false);
+		}
+
+	}
 
 	public void Radicar() throws InterruptedException {
 		log.info("******************** OriginacionCreditosAccion - Radicar()  ***************");
 		try {
+			ElementVisible();
 			hacerClick(pestanadigitalizacionPage.Radicar);
 			ElementVisible();
 			esperaExplicita(pestanadigitalizacionPage.Notificacion);
@@ -1694,6 +1749,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 		this.EndeudamientoGlobal();
 	}
 
+	
 	public void AprobarExcepciones(String Pdf, String Cedula) throws InterruptedException {
 		hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
 		ElementVisible();

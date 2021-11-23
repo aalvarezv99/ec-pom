@@ -94,6 +94,12 @@ public class SolicitudCreditoSteps {
 	public void se_pasa_a_la_segunta_pestana_de_digitalizacion_se_agrega_el_codigo_proforences_aprueba_referencias(String codigo) throws InterruptedException {
 	     originacionaccion.Referenciaspositivas(codigo);
 	}
+	
+	@Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias digicredito {string}")
+	public void se_pasa_a_la_segunta_pestana_de_digitalizacion_se_agrega_el_codigo_proforences_aprueba_referencias_digicredito (String codigo) throws InterruptedException {
+	     originacionaccion.ReferenciaspositivasDigiCredito(codigo);
+	}
+
 
 	@Y("se marca identidida confirmada radicando la solicitud")
 	public void seMarcaIdentididaConfirmadaRadicandoLaSolicitud() throws InterruptedException {
