@@ -60,6 +60,10 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	LoginAccion loginaccion;
 	LeerArchivo archivo;
 	private static Logger log = Logger.getLogger(OriginacionCreditosAccion.class);
+	//Variables verificacion Plan de Pagos - OriginacionCCS
+	private String vg_MontoAprobado_Originacion;
+  	private String vg_SegundaTasaInteres_Originacion;
+  	private String vg_PrimaSeguroAnticipada_Originacion;
 
 	public SolicitudCompraCarteraSaneamientoAccion(WebDriver driver) throws InterruptedException {
 	//this.driver = driver;
@@ -285,12 +289,38 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosLey).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosLey).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descLey);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
 
+    		//Variables globales para posterior analisis Plan de Pagos - OriginacionCCS
+    		vg_MontoAprobado_Originacion= String.valueOf(calculoMontoSoli);
+    		vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos*100);
+    		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(PrimaAnticipadaSeguro);
     		}
       catch (Exception e) {
     	  	log.error("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno()  #######" + e);
 			assertTrue("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno() ########"+ e,false);
 		}
      }
+       
+       public void validelainformacioncabeceraconsusconceptosparaOriginacionCCS(String Tasa, String Plazo) throws InterruptedException {
+   		
+   		try {
+   		
+   		validarCabeceraPlanDePagos("Originacion",
+   				Tasa,
+       			Plazo,
+       			vg_MontoAprobado_Originacion,
+       			vg_SegundaTasaInteres_Originacion,
+       			vg_PrimaSeguroAnticipada_Originacion, 
+       			null, 
+       			null, 
+       			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 
+       			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
+   			
+   		} catch (Exception e) {
+   			log.error("########## Error - OriginacionCreditosAccion  - PestanaPlanDePagos () #######" + e);
+   			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+   		}
+   		
+   	}
     /************FINALIZA ACCIONES ANALISTA DE CREDITO COMPRA DE CARTERA*************/
        
     /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/

@@ -50,6 +50,11 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	   public void ValidaLosValoresDelSimuladorParaCompraDeCarteraConSaneamiento (String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2,String anoAnalisis, String fechaDesembolso) throws NumberFormatException, SQLException {
 		solicitudcompracarterasaneamientoaccion.ValidarSimuladorAnalistaCompraCartera(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,Cartera1,Saneamiento2,anoAnalisis, fechaDesembolso);
 	}
+	
+	@Y("valide la informacion cabecera con sus conceptos para OriginacionCCS{string}{string}")
+	public void validelainformacioncabeceraconsusconceptosparaOriginacionCCS (String Tasa, String Plazo) throws InterruptedException {
+		solicitudcompracarterasaneamientoaccion.validelainformacioncabeceraconsusconceptosparaOriginacionCCS(Tasa,Plazo);
+	}
 	//####################### FinalizaAnalisisCreditoParaCompraDeCartera ########################################################################
 
 	//####################### IniciaClientesBienvenidaCreditoParaCompraDeCartera ################################################################
