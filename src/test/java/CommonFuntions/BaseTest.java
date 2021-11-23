@@ -460,6 +460,13 @@ public class BaseTest {
      */
     public double remanenteEstimadoRetanqueo(int TotalMontoSoli, int saldoDia, int fianza, int estudioCredito,
                                              int comprasCartera, int gmf4x100, int primaSeguro) {
+        System.out.println("TotalMontoSoli = " + TotalMontoSoli);
+        System.out.println("saldoDia = " + saldoDia);
+        System.out.println("fianza = " + fianza);
+        System.out.println("estudioCredito = " + estudioCredito);
+        System.out.println("comprasCartera = " + comprasCartera);
+        System.out.println("gmf4x100 = " + gmf4x100);
+        System.out.println("primaSeguro = " + primaSeguro);
         double valor = 0;
         valor = TotalMontoSoli - (saldoDia + fianza + estudioCredito + comprasCartera + gmf4x100 + primaSeguro);
         log.info("Remanente estimado Retanqueo " + redondearDecimales(valor, 0));
@@ -607,6 +614,20 @@ public class BaseTest {
             log.info("ERROR AL CARGAR LOS ARCHIVOS EN LA PESTAÑA DIGITALIZACIÓN", e);
         }
 
+    }
+    
+    public void cargarPdfVisacionCarteras(By locator, String ruta) {
+    	File fichero = new File(ruta);
+		try {
+			List<WebElement> listaElement = driver.findElements(locator);
+			List<String> lisString = this.parseWebElementsToList(listaElement);
+			for (int i = 0; i < lisString.size(); i++) {
+				driver.findElement(By.id(lisString.get(i))).sendKeys(fichero.getAbsolutePath());;
+			}
+        	
+		} catch (Exception e) {
+			log.error("########## ERROR BASETEST - cargarPdfVisacionCarteras() ##########" + e);
+		}    	
     }
 
     public void llenarInputMultiples(By locator, String Text) throws InterruptedException {
@@ -759,6 +780,20 @@ public class BaseTest {
             hacerScrollAbajo();
         }
     }
+    
+    public void marcarCheckMultiple(By locator) throws InterruptedException  {
+         List<WebElement> list = driver.findElements(locator);
+         List<String> listString = this.parseWebElementsToList(list);
+         for(int i =0; i< listString.size() ; i++) {
+        	 String item = listString.get(i);
+        	 hacerClick(By.id(item));
+        	 ElementVisible();
+         }
+  
+         
+    	 
+        
+    }
 
     /********* INICIO FUNC AVANZADAS SELENIUM **************/
 
@@ -833,9 +868,11 @@ public class BaseTest {
         if (Totaldoc != 0) {
             String Borrar = clickvarios.get(0).getAttribute("id");
             for (int i = 0; i < Totaldoc; i++) {
+                hacerClicknotificacion();
                 Thread.sleep(2000);
                 Hacer_scroll_centrado(By.id(Borrar));
                 hacerClick(By.id(Borrar));
+                ElementVisible();
                 hacerClickVariasNotificaciones();
             }
             hacerClickVariasNotificaciones();
@@ -1252,7 +1289,6 @@ public class BaseTest {
     }
 
     public List<String> parseWebElementsToList(List<WebElement> list) {
-        int totalElementos = list.size();
         List<String> listString = new ArrayList<>();
         for (WebElement webElement : list) {
             listString.add(webElement.getAttribute("id"));
@@ -1499,7 +1535,7 @@ public class BaseTest {
     public void calculoCondicionesCreditoRecoger(int monto, int saldoAlDia, int retanqueoVlr, int sumaSaldoDiaRetanqueoMul) {
 
         if (monto != (saldoAlDia + retanqueoVlr)) {
-            assertBooleanImprimeMensaje("##### ERROR el monto es diferente al monto total solicitado de la lista de retanqueo #######", true);
+            assertBooleanImprimeMensaje("##### ERROR el monto " + monto + " es diferente al monto total solicitado de la lista de retanqueo " + (saldoAlDia + retanqueoVlr), true);
         } else if (sumaSaldoDiaRetanqueoMul != saldoAlDia) {
             assertBooleanImprimeMensaje("##### ERROR el saldo al dia sumado y el total no coinciden #######", true);
         } else if (monto < saldoAlDia) {

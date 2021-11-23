@@ -75,6 +75,7 @@ public class PestanaSimuladorInternoPage {
 	public By PestanaPlanDePagos;
 	public By KeyCabeceraPlanDePagos;
 	public By ValueCabeceraPlanDePagos;
+	public By listVerEditar;
 
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -149,5 +150,6 @@ public class PestanaSimuladorInternoPage {
         PestanaPlanDePagos = By.id("navegacionCredito:j_idt34");
         KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
         ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
+		listVerEditar = By.xpath("//a[starts-with(@id, 'form:listaCreditos')]");
 	}
 }
