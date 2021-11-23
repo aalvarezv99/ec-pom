@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import Acciones.ComunesAccion.LoginAccion;
 import Acciones.ComunesAccion.PanelPrincipalAccion;
@@ -348,24 +349,37 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     /************INICIA ACCIONES DESEMBOLSO CARTERA /
      * @throws InterruptedException*************/
        
-       public void ProcesarCartera (String Cedula) throws InterruptedException {
-    		panelnavegacionaccion.CreditoParaDesembolso();
-    	  	ElementVisible();     	
-    	  	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
-    	  	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
-    	  	ElementVisible();
-    	  	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-    	  	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
-    	  	hacerClick(pagescreditosdesembolso.TipoOperacionCompraCartera);
-    	  	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
-    	  	ElementVisible();
-    	  	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
-    	  	ElementVisible();
-    	  	hacerClick(pagescreditosdesembolso.ProcesarPagos);
-    	  	ElementVisible(); 
-    	  }
-       
-      public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
+	public void ProcesarCartera(String tipo, String Cedula) throws InterruptedException {
+		log.info("*** Procesar Desembolsos de cartera - saneamientos, OriginacionCreditosAccion - ProcesarCartera()***");
+		try {
+			panelnavegacionaccion.CreditoParaDesembolso();
+			ElementVisible();
+			esperaExplicita(PagesCreditosDesembolso.filtrocedula);
+			EscribirElemento(PagesCreditosDesembolso.filtrocedula, Cedula);
+			ElementVisible();
+			Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
+			hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
+			if (tipo.equals("Cartera")) {
+				hacerClick(pagescreditosdesembolso.TipoOperacionCompraCartera);
+				ElementVisible();
+			} else {
+				hacerClick(pagescreditosdesembolso.TipoOperacionSaneamiento);
+				ElementVisible();
+			}
+			Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
+			ElementVisible();
+			marcarCheckMultiple(pagescreditosdesembolso.CheckProcesarPagos);
+			hacerClick(pagescreditosdesembolso.ProcesarPagos);
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - ProcesarCartera() #######" + e);
+ 			assertTrue("########## Error - OriginacionCreditosAccion - ProcesarCartera()########"+ e,false);
+		}
+
+	}
+     
+     //ThainePerez 21/Nov/2021 - Se comentarea este codigo al parecer no se utiliza borrar despues de dos meses se no se explota 
+     // y se llega a este metodo 
+    /*  public void DescargarMediosDispercionCartera(String Monto, String Banco, String Pdf) throws InterruptedException {
       	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
       	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
       	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,Monto);
@@ -392,41 +406,32 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
       	ElementVisible(); 
       	hacerClick(PagesCreditosDesembolso.Guardar);
       	ElementVisible();    	
-      }
+      }*/
       /************FINALIZA ACCIONES DESEMBOLSO CARTERA *************/  
       
       /************INICIA ACCIONES VISACION CARTERA 
      * @throws InterruptedException *************/  
       
-      public void VisacionCartera (String Pdf) throws InterruptedException {
-    	  recorerpestanas("CARTERAS Y SANEAMIENTOS");
-    	  Hacer_scroll(pagesclienteparavisacion.PazYSalvoCartera);
-    	  cargarpdf(pagesclienteparavisacion.PazYSalvoCartera,Pdf);
-    	  cargarpdf(pagesclienteparavisacion.PazYSalvoSaneamiento,Pdf);
-    	  ElementVisible();
+      /*ThainePerez 17/Nov/2021 V1.2 Se actualiza el metodo para que utilice el metodo cargarPdfVisacionCarteras*/ 
+      public void VisacionCartera(String Pdf) throws InterruptedException {
+    	log.info("***Se visan las carteras o saneamientos agregando el PDF,OriginacionCreditosAccion  - VisacionCartera()  ***");
+    	try {
+    		  recorerpestanas("CARTERAS Y SANEAMIENTOS");
+        	  Hacer_scroll(pagesclienteparavisacion.listPazYSalvoPdf);
+        	  cargarPdfVisacionCarteras(pagesclienteparavisacion.listPazYSalvoPdf, Pdf);
+        	  ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - VisacionCartera() #######" + e);
+ 			assertTrue("########## Error - OriginacionCreditosAccion - VisacionCartera()########"+ e,false);
+		}
+    	  
       }
       
       /************FINALIZA ACCIONES VISACION CARTERA *************/ 
       
       /************INICIA ACCIONES DESEMBOLSO SANEAMIENTO /
        * @throws InterruptedException*************/
-         
-        public void ProcesarSaneamiento (String Cedula) throws InterruptedException {
-      	panelnavegacionaccion.CreditoParaDesembolso();
-        	ElementVisible();     	
-        	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
-        	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
-        	ElementVisible();
-        	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-        	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
-        	hacerClick(pagescreditosdesembolso.TipoOperacionSaneamiento);
-        	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
-        	ElementVisible();
-        	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
-        	ElementVisible();
-        	hacerClick(pagescreditosdesembolso.ProcesarPagos);
-        	ElementVisible(); 
-        }
+                
          
         public void DescargarMediosDispercionSaneamiento(String Saneamiento2, String Banco, String Pdf) throws InterruptedException {
         	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
@@ -484,38 +489,49 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
           	ElementVisible(); 
      }
           
-     public void DescargarMediosDispercionRemanente(String Monto, String Cartera1,String Saneamiento2, String Banco, String Pdf) throws InterruptedException {
-      	  	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
-      	  	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
-      	           	
-      	
-        int TotalCarteras = (Integer.parseInt(Cartera1)+Integer.parseInt(Saneamiento2));
-        int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
-      	int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));
-      	int Remanente =  (Integer.parseInt(Monto) - (DescuentosPorCartera));
-      	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,String.valueOf(Remanente));
-      	    Thread.sleep(2000);
-      	  	ElementVisible(); 	  	
-      	  	String pattern = "###,###,###.###";
-      	      int value = Remanente;
+     public void DescargarMediosDispercionRemanente(DataTable tablaFeature) throws InterruptedException {
+    	 log.info("***Se descargan los medios de dispercion del remanente restando carteras y saneamientos, OriginacionCreditosAccion -  DescargarMediosDispercionRemanente() ***");
+    	try {
+    		 panelnavegacionaccion.CreditoParaDesembolsoDescargar();
+    	      	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
+    	      	List<Map<String, String>> data = tablaFeature.asMaps(String.class, String.class); 
+    			
+    			int contador = 0;
+    			for (Map<String, String> dataFeature : data) {
+    	      	
+    	        int TotalCarteras = (Integer.parseInt(dataFeature.get("Cartera"))+Integer.parseInt(dataFeature.get("Saneamiento")));
+    	        int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
+    	      	int DescuentosPorCartera = ((Gmf4100 + TotalCarteras));
+    	      	int Remanente =  (Integer.parseInt(dataFeature.get("Monto")) - (DescuentosPorCartera));
+    	      	  	EscribirElemento(PagesCreditosDesembolso.FiltroMonto,String.valueOf(Remanente));
+    	      	    Thread.sleep(2000);
+    	      	  	ElementVisible(); 	  	
+    	      	  	String pattern = "###,###,###.###";
+    	      	      int value = Remanente;
 
-      	      DecimalFormat myFormatter = new DecimalFormat(pattern);
-      	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
-      	      String output = myFormatter.format(value);    	
-      	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
-      	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
-      	  	ElementVisible(); 
-      	  	hacerClick(PagesCreditosDesembolso.Banco);
-      	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+Banco+"' ]"));    	
-      	  	ElementVisible(); 
-      	  	cargarpdf(PagesCreditosDesembolso.CargarEvidencia,Pdf);
-      	  	esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
-      	  	ElementVisible(); 
-      	  	hacerClick(PagesCreditosDesembolso.CrearArchivo);
-      	  	esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
-      	  	ElementVisible(); 
-      	  	hacerClick(PagesCreditosDesembolso.Guardar);
-      	  	ElementVisible();    	
+    	      	      DecimalFormat myFormatter = new DecimalFormat(pattern);
+    	      	      myFormatter = new DecimalFormat(pattern,DecimalFormatSymbols.getInstance(Locale.GERMANY));
+    	      	      String output = myFormatter.format(value);    	
+    	      	  	esperaExplicita(By.xpath("//td[text()='"+output+"']"));
+    	      	  	ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
+    	      	  	ElementVisible(); 
+    	      	  	hacerClick(PagesCreditosDesembolso.Banco);
+    	      	  	hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='"+dataFeature.get("Banco")+"' ]"));    	
+    	      	  	ElementVisible(); 
+    	      	  	cargarpdf(PagesCreditosDesembolso.CargarEvidencia,dataFeature.get("RutaPdf"));
+    	      	  	esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
+    	      	  	ElementVisible(); 
+    	      	  	hacerClick(PagesCreditosDesembolso.CrearArchivo);
+    	      	  	esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
+    	      	  	ElementVisible(); 
+    	      	  	hacerClick(PagesCreditosDesembolso.Guardar);
+    	      	  	ElementVisible(); 
+    			}	
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - DescargarMediosDispercionRemanente() #######" + e);
+ 			assertTrue("########## Error - OriginacionCreditosAccion - DescargarMediosDispercionRemanente()########"+ e,false);
+		}
+    	
     }
 /************FINALIZA ACCIONES DESEMBOLSO SANEAMIENTO*************/
 

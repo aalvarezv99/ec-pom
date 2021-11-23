@@ -310,24 +310,7 @@ public class OriginacionCreditoSaneamientoAccion extends BaseTest {
 /************FINALIZA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO SANEAMIENTO*************/
 
 /************INICIA ACCIONES DESEMBOLSO SANEAMIENTO /
-        * @throws InterruptedException*************/
-          
-         public void ProcesarSaneamiento (String Cedula) throws InterruptedException {
-       	panelnavegacionaccion.CreditoParaDesembolso();
-         	ElementVisible();     	
-         	esperaExplicita(PagesCreditosDesembolso.filtrocedula);
-         	EscribirElemento(PagesCreditosDesembolso.filtrocedula,Cedula);
-         	ElementVisible();
-         	Hacer_scroll(pagescreditosdesembolso.FiltroEstadoPago);
-         	hacerClick(PagesCreditosDesembolso.FiltroTipoOperacion);
-         	hacerClick(pagescreditosdesembolso.TipoOperacionSaneamiento);
-         	Hacer_scroll(pagescreditosdesembolso.CheckProcesarPagos);
-         	ElementVisible();
-         	hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
-         	ElementVisible();
-         	hacerClick(pagescreditosdesembolso.ProcesarPagos);
-         	ElementVisible(); 
-         }
+        * @throws InterruptedException*************/               
           
          public void DescargarMediosDispercionSaneamiento(String saneamiento, String Banco, String Pdf) throws InterruptedException {
          	panelnavegacionaccion.CreditoParaDesembolsoDescargar();
