@@ -1621,15 +1621,22 @@ public class BaseTest {
         	
         	if (validacion.equals("Retanqueos")) {
         		
-    		ToleranciaPesoMensaje("Fallo: Validando Prima No Devengada",
+    		ToleranciaPesoMensaje("Validando Prima No Devengada",
     				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
     						.split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
-    		ToleranciaPesoMensaje("Fallo: Validando Prima Neta",
+    		ToleranciaPesoMensaje("Validando Prima Neta",
     				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
     				Integer.parseInt(vg_PrimaNetaSeguro));
         	}
         	
             log.info("*********** Datos cabecera Validados -> OK ***********");
+            log.info("*********** Tomando Capturas Pantall Datos cabecera Validados ***********");
+            //Captura De Pantalla
+			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Inicio");
+			//Hacer Scroll hasta valor cabecera : Plazo
+			Hacer_scroll(By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label[contains(text(), 'Plazo')]"));
+			//Captura De Pantalla
+			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Final");
 
         } catch (Exception e) {
             log.error("########## Error - VerificacionCabeceraAnalisisCredito() - validarCabeceraPlanDePagos() ####### : " + e);

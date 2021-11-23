@@ -67,7 +67,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 	Map<String, String> ValoresCarta = new HashMap<>();
 	Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
 	int DesPrimaAntic = 0;
-	//Variables verificacion Plan de Pagos
+	//Variables verificacion Plan de Pagos - Originacion
 	private String vg_MontoAprobado_Originacion;
   	private String vg_SegundaTasaInteres_Originacion;
   	private String vg_PrimaSeguroAnticipada_Originacion;
@@ -1024,7 +1024,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 				.substring(0, TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length() - 2)
 				.replaceAll("[^a-zA-Z0-9]", ""), descNomina);
 
-		//Variables globales para posterior analisis Plan de Pagos
+		//Variables globales para posterior analisis Plan de Pagos - Originacion
 		vg_MontoAprobado_Originacion= String.valueOf(calculoMontoSoli);
 		vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos*100);
 		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(PrimaAnticipadaSeguro);
@@ -1057,7 +1057,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 		}
 	}
 	
-	public void validelainformacioncabeceraconsusconceptosparaOriginacion(String Tasa, String Plazo) {
+	public void validelainformacioncabeceraconsusconceptosparaOriginacion(String Tasa, String Plazo) throws InterruptedException {
+		
+		try {
 		
 		validarCabeceraPlanDePagos("Originacion",
 				Tasa,
@@ -1069,6 +1071,12 @@ public class OriginacionCreditosAccion extends BaseTest {
     			null, 
     			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 
     			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
+					
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - PestanaPlanDePagos () #######" + e);
+			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+		}
+		
 	}
 
 	public void VerificacionCabeceraAnalisisCredito(String Monto, String Tasa, String Plazo)
@@ -1123,6 +1131,11 @@ public class OriginacionCreditosAccion extends BaseTest {
 			log.info("*********** Validando ultimo SALDO CAPITAL = '0' ***********");
 			assertvalidarEquals(saldoCapital_Plazo_N, "0");
 			log.info("*********** Datos Plan de PAGOS Validados -> OK ***********");
+			
+			//Hacer Scroll hasta valor cabecera : Plazo
+			Hacer_scroll(By.xpath("//tbody[@id='form:j_idt212_data' and @class='ui-datatable-data ui-widget-content']/child::tr[@data-ri=\"" + campoDeVerificacion + "\"]/child::td[@role=\"gridcell\"][7]"));
+			//Captura De Pantalla
+			adjuntarCaptura("AnalisisCredito - Ultimo plazo desglose plan de Pagos");
 			
 		} catch (Exception e) {
 			log.error("########## Error - VerificacionUltimoSaldoCapitalPlanDePagos() - Validacion Plazo #######" + e);

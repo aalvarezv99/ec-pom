@@ -123,7 +123,7 @@ public class SolicitudCreditoSteps {
 	}
 	
 	@Y("valide la informacion cabecera con sus conceptos para Originacion{string}{string}")
-	public void validelainformacioncabeceraconsusconceptosparaOriginacion (String Tasa, String Plazo) {
+	public void validelainformacioncabeceraconsusconceptosparaOriginacion (String Tasa, String Plazo) throws InterruptedException {
 		originacionaccion.validelainformacioncabeceraconsusconceptosparaOriginacion(Tasa,Plazo);
 	}
 
