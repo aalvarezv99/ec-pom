@@ -792,17 +792,17 @@ public class RetanqueoCreditos extends BaseTest {
         }
 
         if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".")) {
-            ToleranciaPesoMensaje(" Prima Valor Desembolsar IF ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)
-                            .substring(0, TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length() - 2)
-                            .replaceAll("[^a-zA-Z0-9]", "")),
-                    (Integer.parseInt(retanqueo)));
+//            ToleranciaPesoMensaje(" Valor Desembolsar IF ",
+//                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)
+//                            .substring(0, TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).length() - 2)
+//                            .replaceAll("[^a-zA-Z0-9]", "")),
+//                    (Integer.parseInt(retanqueo)));
             System.out.println("dentro del if que contiene punto");
         } else {
-            ToleranciaPesoMensaje(" Prima Valor Desembolsar ELSE ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),
-                    (Integer.parseInt(retanqueo)));
-            System.out.println("dentro del else que no contiene punto");
+//            ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",
+//                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),
+//                    (Integer.parseInt(retanqueo)));
+//            System.out.println("dentro del else que no contiene punto");
         }
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos*100);

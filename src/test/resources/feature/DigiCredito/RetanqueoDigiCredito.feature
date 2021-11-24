@@ -5,16 +5,9 @@ Característica: Retanqueo de creditos
     Dado Un agente en el sistema core abacus con sesion iniciada
 
   @Retanqueo
-  Esquema del escenario: Retanqueo libre inversion
-    Y se busca el credito por <Cedula>
-    Y se selecciona el retanqueo
-    Y borrar archivos
+  Esquema del escenario: Retanqueo libre inversion digicredito
+    Cuando el agente ingrese a la pestana solicitud filtra por el numero de radicacion del credito <NumRadicadoCredito><NombreCredito>
     Y cargar archivos nuevos <rutaPDF>
-    Y se solicita la consulta a centrales de riesgo
-    Y marcar el credito viable
-    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
-    Y se da clic en solicitar
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se presiona en verificacion en la pestana digitalizacion
@@ -22,11 +15,10 @@ Característica: Retanqueo de creditos
     Y se marca identidida confirmada radicando la solicitud
     Y se aprueban las referencias de la pagaduria
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
-
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCredito
-      | "8000000" | "24580532" | "78635" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.8" | "90"  | "10"                 | "6500000" | "380000" | "100000"   | "0"                  | "2258" | "BLANCA NURY" | "Octubre" | "14/06/1969" | "2021"        | "3115128152" | "dandresabogadog@mail.com" | "Efectivo" | "20/10/2021" | "Remanentes - 60237038927 - REMANENTE" |                    |
+   |"7500000"   |"10092369"   |"68003"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"250000"   |"300000"   |"0"   |"2258"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86292"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -42,9 +34,9 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |    |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCredito
-      | "8000000" | "24580532" | "78635" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.8" | "90"  | "10"                 | "6500000" | "380000" | "100000"   | "0"                  | "2258" | "BLANCA NURY" | "Octubre" | "14/06/1969" | "2021"        | "3115128152" | "dandresabogadog@mail.com" | "Efectivo" | "20/10/2021" | "Remanentes - 60237038927 - REMANENTE" |
+   |"7500000"   |"10092369"   |"68003"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"250000"   |"300000"   |"0"   |"2258"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86292"|
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
@@ -55,9 +47,9 @@ Característica: Retanqueo de creditos
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |    |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCredito
-      | "8000000" | "24580532" | "78635" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.8" | "90"  | "10"                 | "6500000" | "380000" | "100000"   | "0"                  | "2258" | "BLANCA NURY" | "Octubre" | "14/06/1969" | "2021"        | "3115128152" | "dandresabogadog@mail.com" | "Efectivo" | "20/10/2021" | "Remanentes - 60237038927 - REMANENTE" |
+   |"7500000"   |"10092369"   |"68003"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"250000"   |"300000"   |"0"   |"2258"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86292"|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -65,9 +57,9 @@ Característica: Retanqueo de creditos
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |    |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCredito
-      | "8000000" | "24580532" | "78635" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.8" | "90"  | "10"                 | "6500000" | "380000" | "100000"   | "0"                  | "2258" | "BLANCA NURY" | "Octubre" | "14/06/1969" | "2021"        | "3115128152" | "dandresabogadog@mail.com" | "Efectivo" | "20/10/2021" | "Remanentes - 60237038927 - REMANENTE" |
+   |"7500000"   |"10092369"   |"68003"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"250000"   |"300000"   |"0"   |"2258"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86292"|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
@@ -76,6 +68,6 @@ Característica: Retanqueo de creditos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |    |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCredito
-      | "8000000" | "24580532" | "78635" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.8" | "90"  | "10"                 | "6500000" | "380000" | "100000"   | "0"                  | "2258" | "BLANCA NURY" | "Octubre" | "14/06/1969" | "2021"        | "3115128152" | "dandresabogadog@mail.com" | "Efectivo" | "20/10/2021" | "Remanentes - 60237038927 - REMANENTE" |
+   |"7500000"   |"10092369"   |"68003"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"250000"   |"300000"   |"0"   |"2258"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86292"|
