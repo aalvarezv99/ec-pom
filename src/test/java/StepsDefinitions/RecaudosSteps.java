@@ -42,11 +42,19 @@ public class RecaudosSteps {
 		recaudoAccion.recaudoCliente(vlrRecaudo, Descripcion, numCedula, null);
 	}
 	
+	/*ThainerPerez 24/Nov/2021 V1.2, Se actualiza el Step para que funcione con varios tipos de recaudo ingresando la condicion
+	 * */
 	@Y("^Realice el recaudo del credito (.+) con el valor total a pagar \"([^\"]*)\" para (.+) con los datos del cliente (.+)$")
 	public void realiceElRecaudoConElValorTotalAPagarPrepagoConLosDatosDelCliente(String numRadicado, String rutaCert,
 			String Descripcion, String numCedula) {
-		recaudoAccion.recaudoCliente(recaudoAccion.consultarVlrTotal(numRadicado, rutaCert), Descripcion, numCedula,
-				numRadicado);
+		if(Descripcion.equals("Prepago")) {
+			recaudoAccion.recaudoCliente(recaudoAccion.consultarVlrTotal(numRadicado, rutaCert), Descripcion, numCedula,
+					numRadicado);
+		}else {
+			String valor = rutaCert;
+			recaudoAccion.recaudoCliente(valor, Descripcion, numCedula,numRadicado);
+		}
+		
 	}
 
 	@Entonces("^se finaliza verificando el estado del credito (.+) que cambio a \"([^\"]*)\"$")
