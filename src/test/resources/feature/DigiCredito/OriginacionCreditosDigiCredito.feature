@@ -28,16 +28,13 @@ Característica: Originacion de Creditos
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando digicredito <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular><TipoContrato>
     Y se agregar las referencias en la segunta pestana del formulario guardando Digicredito <Ingresos><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
-    Y se presiona en verificacion en la pestana digitalizacion   
-    Y se crean los tipos de cartera o saneamiento a recoger
-      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                          | 100000 |    70000 | 30/09/2021       |         21236 |
-      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 830000 |    70000 | 30/09/2021       |         29123 |
+    Y se presiona en verificacion en la pestana digitalizacion
+    Y se crean los tipos de cartera o saneamiento a recoger creados en digicredito
     Y se guarda cartera
     Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 830000 |    70000 | 30/09/2021       |         29123 |
-      | Cartera     | 8600068225 - ACORE                          | 100000 |    70000 | 30/09/2021       |         21236 |
+      | Tipo        | Entidad                            | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Saneamiento | AMERICAS BUSINESS PROCESS SERVICES | 250000 | 60000    | 30/12/2021       | 29124         |
+      | Cartera     | AMERICAS BUSINESS PROCESS SERVICES | 200000 | 50000    | 30/12/2021       | 21237         |
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis

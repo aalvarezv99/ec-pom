@@ -1655,71 +1655,71 @@ public class OriginacionCreditosAccion extends BaseTest {
 			Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
 			esperaExplicita(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
 			hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-//			List<Map<String, String>> data = tabla.asMaps(String.class, String.class);
-//			int contador = 0;
-//			for (Map<String, String> e : data) {
-//				Hacer_scroll_Abajo(pestanadigitalizacionPage.AgregarCartera);
-//				esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
-//				hacerClick(pestanadigitalizacionPage.AgregarCartera);
-//				ElementVisible();
-//				// formRadicacion:j_idt93:1:tipoCarteraSO:1
-//				String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento)
-//						.replaceAll("By.id: ", "");
-//				String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ", "");
-//				String competidor = String.valueOf(pestanadigitalizacionPage.EntidadCompetidor).replaceAll("By.id: ",
-//						"");
-//				String filtroCompetidor = String.valueOf(pestanadigitalizacionPage.FiltroEntidad).replaceAll("By.id: ",
-//						"");
-//				String monto = String.valueOf(pestanadigitalizacionPage.MontoSaneamiento).replaceAll("By.id: ", "");
-//				String valorCuota = String.valueOf(pestanadigitalizacionPage.ValorCuotaSaneamiento)
-//						.replaceAll("By.id: ", "");
-//				String fechaVencimiento = String.valueOf(pestanadigitalizacionPage.FechaVencimientoSaneamiento)
-//						.replaceAll("By.id: ", "");
-//				String numOblogacion = String.valueOf(pestanadigitalizacionPage.NumeroObligacionSaneamiento)
-//						.replaceAll("By.id: ", "");
-//
-//				switch (e.get("Tipo")) {
-//				case "Saneamiento":
-//					log.info("********* Se ha seleccionado senamiento ***");
-//					Hacer_scroll_Abajo(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					esperaExplicita(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					hacerClick(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					ElementVisible();
-//					break;
-//				case "Cartera":
-//					log.info("********* Se ha seleccionado Cartera ***");
-//					Hacer_scroll_Abajo(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					esperaExplicita(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					hacerClick(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
-//							":" + String.valueOf(contador) + ":")));
-//					ElementVisible();
-//					break;
-//				}
-//
-//				esperaExplicita(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")));
-//				hacerClick(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")));
-//				EscribirElemento(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")), e.get("Entidad"));
-//				EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")));
-//				EscribirElemento(By.id(
-//						monto.replaceAll(":" + String.valueOf(contador) + ":", ":" + String.valueOf(contador) + ":")),
-//						e.get("Monto"));
-//				EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
-//				EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
-//				EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
-//						":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
-//				contador = contador + 1;
-//			}
+			List<Map<String, String>> data = tabla.asMaps(String.class, String.class);
+			int contador = 0;
+			for (Map<String, String> e : data) {
+				Hacer_scroll_Abajo(pestanadigitalizacionPage.AgregarCartera);
+				esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
+				hacerClick(pestanadigitalizacionPage.AgregarCartera);
+				ElementVisible();
+				// formRadicacion:j_idt93:1:tipoCarteraSO:1
+				String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento)
+						.replaceAll("By.id: ", "");
+				String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ", "");
+				String competidor = String.valueOf(pestanadigitalizacionPage.EntidadCompetidor).replaceAll("By.id: ",
+						"");
+				String filtroCompetidor = String.valueOf(pestanadigitalizacionPage.FiltroEntidad).replaceAll("By.id: ",
+						"");
+				String monto = String.valueOf(pestanadigitalizacionPage.MontoSaneamiento).replaceAll("By.id: ", "");
+				String valorCuota = String.valueOf(pestanadigitalizacionPage.ValorCuotaSaneamiento)
+						.replaceAll("By.id: ", "");
+				String fechaVencimiento = String.valueOf(pestanadigitalizacionPage.FechaVencimientoSaneamiento)
+						.replaceAll("By.id: ", "");
+				String numOblogacion = String.valueOf(pestanadigitalizacionPage.NumeroObligacionSaneamiento)
+						.replaceAll("By.id: ", "");
+
+				switch (e.get("Tipo")) {
+				case "Saneamiento":
+					log.info("********* Se ha seleccionado senamiento ***");
+					Hacer_scroll_Abajo(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					esperaExplicita(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					hacerClick(By.id(RadioSaneamiento.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					ElementVisible();
+					break;
+				case "Cartera":
+					log.info("********* Se ha seleccionado Cartera ***");
+					Hacer_scroll_Abajo(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					esperaExplicita(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					hacerClick(By.id(radioCompra.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					ElementVisible();
+					break;
+				}
+
+				esperaExplicita(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")));
+				hacerClick(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")));
+				EscribirElemento(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")), e.get("Entidad"));
+				EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")));
+				EscribirElemento(By.id(
+						monto.replaceAll(":" + String.valueOf(contador) + ":", ":" + String.valueOf(contador) + ":")),
+						e.get("Monto"));
+				EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
+				EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
+				EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
+						":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
+				contador = contador + 1;
+			}
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras() #######" + e);
 			assertTrue("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras()########" + e,
