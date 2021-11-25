@@ -745,7 +745,7 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
-          //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - IF
+            //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - IF
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
         } else {
@@ -782,11 +782,11 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
-          //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - ELSE
+            //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - ELSE
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
-          	vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
-          	vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(PrimaNoDevengada);
+            vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
+            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(PrimaNoDevengada);
 
 
         }
@@ -805,7 +805,7 @@ public class RetanqueoCreditos extends BaseTest {
 //            System.out.println("dentro del else que no contiene punto");
         }
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
-        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos*100);
+        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
 
 
     }
@@ -1095,10 +1095,11 @@ public class RetanqueoCreditos extends BaseTest {
             int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
                     Tasaxmillonseguro, DesPrimaAntic);
             int resultFianza = ValorFianza - fianzaPadre;
-            resultFianza = (resultFianza < 0) ? resultFianza * 0 : resultFianza;
-            ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)),
+            resultFianza = Math.max(resultFianza, 0);
+            ToleranciaPesoMensaje("Falló haciendo la tolerancia de la fianza -->",
+                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)),
                     resultFianza);
-          //Variables globales - RetanqueoCSS - Validaciones Cabecera Plan De Pagos - IF (prima == "")
+            //Variables globales - RetanqueoCSS - Validaciones Cabecera Plan De Pagos - IF (prima == "")
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
 
@@ -1140,11 +1141,11 @@ public class RetanqueoCreditos extends BaseTest {
             resultFianza = (resultFianza < 0) ? resultFianza * 0 : resultFianza;
             ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)),
                     resultFianza);
-          //Variables globales - RetanqueoCSS - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
+            //Variables globales - RetanqueoCSS - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
-          	vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
-          	vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(PrimaNoDevengada);
+            vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
+            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(PrimaNoDevengada);
         }
 
         if (TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar).contains(".") == true) {
@@ -1160,8 +1161,8 @@ public class RetanqueoCreditos extends BaseTest {
                     (Integer.parseInt(retanqueo) - DescuentosPorCartera));
             System.out.println("dentro del else que no contiene punto");
         }
-      //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - Generales
-        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos*100);
+        //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - Generales
+        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
     }
 
     public void DescargarMediosdedispercionRetanqueo(String Monto, String Banco, String Pdf) throws InterruptedException {
@@ -2047,14 +2048,14 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
-          //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
+            //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
-          	vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
-          	vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(primaNoDevengada);
+            vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
+            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(primaNoDevengada);
         }
-      //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - Generales
-        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos*100);
+        //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - Generales
+        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
         this.limpiarCreditosPadre();
     }
 
