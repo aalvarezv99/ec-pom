@@ -41,7 +41,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -59,7 +59,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
 
   @AnalisisCreditoRetanqueoCCS
   Esquema del escenario: Analisis del credito
@@ -76,7 +76,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
@@ -89,7 +89,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -99,7 +99,7 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
@@ -110,4 +110,4 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes       | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoDigiCreditoCCS
-   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86308"|
+   |"8000000"   |"10092369"   |"134950"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"50"   |"50"   |"8700000"   |"200000"   |"300000"   |"2258"   |"450000"   |"OSCAR"   |"Octubre"   |"14/06/1969"   |"2021"   |"200000"   |"250000"   |"3228483385"   |"dandresabogadog@mail.com"   |"Efectivo"   |"25/11/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"86318"|
