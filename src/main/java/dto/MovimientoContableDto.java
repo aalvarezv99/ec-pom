@@ -19,8 +19,39 @@ public class MovimientoContableDto {
 	
 	private String mmensaje;
 	
+	/*Valores de planilla*/
+	private Boolean vlrBoolean;
+	
+	private String estadoCredito;
+	
+	private String estadoIncor;
 	
 	
+	public Boolean getVlrBoolean() {
+		return vlrBoolean;
+	}
+
+	public void setVlrBoolean(Boolean vlrBoolean) {
+		this.vlrBoolean = vlrBoolean;
+	}
+
+	public String getEstadoCredito() {
+		return estadoCredito;
+	}
+
+	public void setEstadoCredito(String estadoCredito) {
+		this.estadoCredito = estadoCredito;
+	}
+
+	public String getEstadoIncor() {
+		return estadoIncor;
+	}
+
+	public void setEstadoIncor(String estadoIncor) {
+		this.estadoIncor = estadoIncor;
+	}
+
+
 	public String getMmensaje() {
 		return mmensaje;
 	}

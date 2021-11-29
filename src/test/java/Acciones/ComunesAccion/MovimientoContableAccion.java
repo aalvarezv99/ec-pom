@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -12,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import CommonFuntions.BaseTest;
 import Consultas.MovimientoContableQuery;
 import dto.MovimientoContableDto;
+import jdk.internal.org.jline.utils.Log;
 
 
 /* Autor:ThainerPerez ----- Fecha:12/11/2021 -----  Version:V1.0 --- 
@@ -256,5 +258,138 @@ public class MovimientoContableAccion extends BaseTest{
 		}
 		return numRadicado;
 	}
+	
+	/*Acciones aplicacion*/
+	public void validarCargueContraLibranzas(String idPagaduria, String accoutingsource, String fechaRegistro) {
+		log.info(
+				"***Validar los  registros cargados de la planilla conta la Base de datos, MovimientoContableAccion - validarCargueContraLibranzas()***");
+		ResultSet result = null;
+		List<MovimientoContableDto> listDocumento = new ArrayList<MovimientoContableDto>();
+		try {
+			result = queryDinamica.buscarCreditosPlanilla(idPagaduria, fechaRegistro, accoutingsource);
 
+			while (result.next()) {
+				MovimientoContableDto creditosCargados = new MovimientoContableDto();
+				creditosCargados.setNumeroRadicado(result.getString(1));
+				creditosCargados.setVlrBoolean(result.getBoolean(2));
+				creditosCargados.setEstadoCredito(result.getString(3));
+				creditosCargados.setEstadoIncor(result.getString(4));
+				creditosCargados.setMmensaje(result.getString(5));
+				listDocumento.add(creditosCargados);
+			}
+			result.close();
+
+			int count = 0;
+			for (MovimientoContableDto object : listDocumento) {
+
+				if (count == 0) {
+					log.info("**** 'REVISAR' ----> los siguientes Creditos no generaron movimientos contables ****");
+					log.info("|NumRadicado|Bloqueocausal|EstadoCre|Causal");
+				}
+				log.info("|"+object.getNumeroRadicado() + "|" + object.getVlrBoolean() + "|"
+						+ object.getEstadoCredito() + "|" + object.getMmensaje()+ "|");
+				count++;
+			}
+			
+		} catch (Exception e) {
+			log.error(
+					"############## 'ERROR' MovimientoContableAccion - consultarNumradicadoPorCedula() ################"
+							+ e);
+			assertTrue("########## MovimientoContableAccion - consultarNumradicadoPorCedula()########" + e, false);
+		}
+
+	}
+	
+	public void validarBridgeMasivo(String idPagaduria,String accountingSource, String fechaRegistro ) {
+		log.info(
+				"***Validar que se procesaron los movimientos por el bridge, validarBridgeMasivo - validarCargueContraLibranzas()***");
+		ResultSet result = null;
+		List<MovimientoContableDto> resultBridge = new ArrayList<MovimientoContableDto>();
+		try {
+			MovimientoContableDto validacionBridge = new MovimientoContableDto();
+			long start_time = System.currentTimeMillis();
+			long wait_time = 200000;
+			long end_time = start_time + wait_time;
+			Boolean repetir = true;
+			while (System.currentTimeMillis() < end_time && repetir == true) {
+				result = queryDinamica.validarProcesamientoBridge(idPagaduria, fechaRegistro, accountingSource);
+				while (result.next()) {
+					validacionBridge = new MovimientoContableDto();
+					validacionBridge.setValor(result.getString(1));
+					validacionBridge.setMmensaje(result.getString(2));
+					resultBridge.add(validacionBridge);
+				}
+				log.info("*** Validando mensaje masivo 'Registered in the accounting bridge' ****");
+				if (resultBridge.size() == 1) {
+					for (MovimientoContableDto movimientoContableDto : resultBridge) {
+						if (movimientoContableDto.getMmensaje().equals("Registered in the accounting bridge")) {
+							log.info("'EXITOSO' creditos se procesaron por el bridge'"+movimientoContableDto.getValor() + "|" + movimientoContableDto.getMmensaje());
+							repetir = false;
+							resultBridge.removeAll(resultBridge);
+							break;
+						}
+					}
+				}
+				resultBridge.removeAll(resultBridge);
+			}
+			result.close();
+			if (repetir == true) {
+				   log.error(" ###### 'ERROR' - VALIDAR LOS MOVIMIENTOS DE LA TABLA 'movimiento contable' YA QUE CUMPLIO EL LIMITE DE TIEMPO Y NO SE PROCESARON POR EL BRIDGE ######## ");
+				   assertTrue("########## MovimientoContableAccion - consultarNumradicadoPorCedula()########" , false);
+				}
+
+		} catch (Exception e) {
+			log.error(
+					"############## 'ERROR' MovimientoContableAccion - consultarNumradicadoPorCedula() ################"
+							+ e);
+			assertTrue("########## MovimientoContableAccion - consultarNumradicadoPorCedula()########" + e, false);
+		}
+	}
+	
+	public void validarCausacionMovimientosMasivo(String accountingSource, String idPagaduria,String fechaRegistro) {
+		log.info("**** Validar Causacion de manera masiva, MovimientoContableAccion- validarCausacionMovimientosMasivo() ****");
+		ResultSet result = null;
+		List<MovimientoContableDto> creditosRadicado = new ArrayList<MovimientoContableDto>();
+		try {
+			result = queryDinamica.consultarCreditosMasivos(accountingSource, idPagaduria, fechaRegistro);
+			while (result.next()) {
+				MovimientoContableDto radicadoDto = new MovimientoContableDto();
+				radicadoDto.setNumeroRadicado(result.getString(1));
+				creditosRadicado.add(radicadoDto);
+			}
+			result.close();
+		log.info(creditosRadicado.size());
+		
+		List<String> erroCausacion = new ArrayList<String>();
+			
+		for (MovimientoContableDto movimientoContableDto : creditosRadicado) {
+			Boolean caousacion = false;
+			result = queryDinamica.validarCausacionMovimientos(accountingSource, movimientoContableDto.getNumeroRadicado(), fechaRegistro);
+			while(result.next()) {
+				caousacion = result.getBoolean(1);
+			}
+			if(caousacion==false) {
+				erroCausacion.add("ERROR CAUSACION " + movimientoContableDto.getNumeroRadicado());
+			}
+		}
+		
+		if(erroCausacion.size()>0) {
+			log.error("########## ERROR EN LOS SIGUIENTES CREDITOS CON LA CAUSACION ###########");
+			for (String string : erroCausacion) {
+				log.error(string);
+			}
+			assertTrue("########## ERROR CAUSACION DE MOVIMIENTOS ########", false);
+		}
+		
+		log.info("*** ' EXITOSO ' - no hubieron errores en la causacion de movimientos ***");
+		
+		} catch (Exception e) {
+			log.error(
+					"############## 'ERROR' MovimientoContableAccion - validarCausacionMovimientosMasivo() ################"
+							+ e);
+			assertTrue("########## MovimientoContableAccion - validarCausacionMovimientosMasivo()########" + e, false);
+		}
+		
+		
+	}
 }
