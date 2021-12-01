@@ -164,7 +164,7 @@ public class MovimientoContableQuery {
 	public ResultSet consultarMovimientos(String numeroRadicado, String accountinSource, String fecha) {
 		ResultSet r=null;
 		try {
-			r = dbconector.conexion("select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion\r\n"
+			r = dbconector.conexion("select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion, c.numero_radicacion\r\n"
 					+ "from movimiento_contable mc\r\n"
 					+ "inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\r\n"
 					+ "inner join credito c on mc.id_credito = c.id\r\n"

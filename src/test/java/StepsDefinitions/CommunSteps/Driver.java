@@ -58,8 +58,8 @@ public class Driver {
 		log.info("***********************************************************************************************************");
 		log.info("[ Configuracion ] - Inicializando la configuracion del Driver");
 		log.info("***********************************************************************************************************");
-	    driver = CrearDriver.inicialConfig();
-		levantarURL();
+	   // driver = CrearDriver.inicialConfig();
+	//	levantarURL();
     	log.info("***********************************************************************************************************");
     	
     	System.out.println("Escenario Antes de la asignacion:   "+scenario);	

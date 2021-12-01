@@ -44,7 +44,6 @@ public class MovimientoContableStep {
     /*STEPS Aplicacion de pagos Inicio*/
     @Cuando("^Se consulten los creditos cargados para (.+) y se comparen con los que generaron movimientos contables (.+) en la (.+)$")
     public void seConsultenLosCreditosCargadosParaYSeComparenConLosQueGeneraronMovimientosContablesEnLa(String idpagaduria, String accountingsource, String fecharegistro) throws Throwable {
-    
     	movimientoContableAccion.validarCargueContraLibranzas(idpagaduria, accountingsource.replaceAll("\"", ""), fecharegistro);
     }
     
@@ -56,6 +55,11 @@ public class MovimientoContableStep {
     @Y("^valide la causacion de movimientos (.+) con sus tipos y valores usando la (.+) en la (.+)$")
     public void valideLaCausacionDeMovimientosConSusTiposYValoresUsandoLa(String accountingsource, String idPagaduria, String fechaRegistro) throws Throwable {
     	movimientoContableAccion.validarCausacionMovimientosMasivo(accountingsource.replaceAll("\"", ""), idPagaduria, fechaRegistro);
+    }
+    
+    @Y("^valida que las cuentas de libranzas (.*) sean las del bridge (.*) con el (.+) en la (.+)$")
+    public void validaQueLasCuentasDeLibranzasSeanLasDelBridgeConElY(String accountingsource, String accountingname, String numradicado, String fechaRegistro) throws Throwable {
+    	movimientoContableAccion.compararCuentasLibranzasVsBridge(numradicado, accountingsource.replaceAll("\"", ""),accountingname.replaceAll("\"", ""), fechaRegistro);
     }
     
     /*Step Aplicacion de pagos final*/
