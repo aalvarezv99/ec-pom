@@ -1643,4 +1643,17 @@ public class BaseTest {
             assertTrue("########## Error - BaseTest - validarCabeceraPlanDePagos() ######## : " + e, false);
         }
     }
+    
+    public void eliminarReferencias(By locator) throws InterruptedException {  
+    	List<WebElement> listMenosReferencia = driver.findElements(locator);
+    	List<String> listString = parseWebElementsToList(listMenosReferencia);
+    	
+        for (int i=0;i<2;i++) {         
+        	 Hacer_scroll_centrado(By.id(listString.get(i)));
+        	 esperaExplicita(By.id(listString.get(i)));
+        	 hacerClick(By.id(listString.get(i)));
+             ElementVisible();
+        }
+    }
+    
 }
