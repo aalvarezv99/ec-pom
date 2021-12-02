@@ -57,9 +57,15 @@ public class MovimientoContableStep {
     	movimientoContableAccion.validarCausacionMovimientosMasivo(accountingsource.replaceAll("\"", ""), idPagaduria, fechaRegistro);
     }
     
-    @Y("^valida que las cuentas de libranzas (.*) sean las del bridge (.*) con el (.+) en la (.+)$")
-    public void validaQueLasCuentasDeLibranzasSeanLasDelBridgeConElY(String accountingsource, String accountingname, String numradicado, String fechaRegistro) throws Throwable {
-    	movimientoContableAccion.compararCuentasLibranzasVsBridge(numradicado, accountingsource.replaceAll("\"", ""),accountingname.replaceAll("\"", ""), fechaRegistro);
+    @Y("^validando las cuentas de libranzas (.*) sean las del bridge (.*) en la (.+)$")
+    public void validandoLasCuentasDeLibranzasSeanLasDelBridgeConElY(String accountingsource, String accountingname, String fechaRegistro) throws Throwable {
+    	movimientoContableAccion.compararCuentasLibranzasVsBridge( accountingsource.replaceAll("\"", ""),accountingname.replaceAll("\"", ""), fechaRegistro);
+    }
+    
+    
+    @Y("^finalmente se valida la transaccion (.*) con (.+) en la base de datos de PSL$")
+    public void finalmenteSeValidaLaTransaccionConEnLaBaseDeDatosDePSL(String accountingsource, String fecharegistro) throws Throwable {
+    	movimientoContableAccion.validacionPSL(accountingsource.replaceAll("\"", ""), fecharegistro);
     }
     
     /*Step Aplicacion de pagos final*/
