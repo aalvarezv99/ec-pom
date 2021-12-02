@@ -11,6 +11,91 @@ public class MovimientoContableQuery {
 	private static Logger log = Logger.getLogger(MovimientoContableQuery.class);
 	ConexionBase dbconector = new ConexionBase();
 	
+	/*CONSULTAS APLICACION DE PAGOS APLPAG*/
+	/**/
+	public ResultSet consultarCreditosMasivos(String accoutingSource, String idPagaduria, String fecharegistro) {
+		ResultSet r= null;
+		try {
+			r = dbconector.conexion("select c.numero_radicacion\r\n"
+					+ "					from movimiento_contable mc \r\n"
+					+ "					join credito c on c.id = mc.id_credito \r\n"
+					+ "					join pagaduria p on c.id_pagaduria = p.id \r\n"
+					+ "					where 1=1\r\n"
+					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') in ('"+fecharegistro+"')\r\n"
+					+ "					and p.id = "+idPagaduria+" \r\n"
+					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accoutingSource+")\r\n"
+					+ "				order by c.numero_radicacion asc	");
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarCreditosConMovimientos() ********");
+			assertTrue("########## MovimientoContableAccion - consultarCreditosConMovimientos()########"+ e.getMessage(),false);
+		}
+		return r;
+	}
+	
+	public ResultSet validarProcesamientoBridge(String idPagaduria, String fechaRegistro, String accoutingSource) {
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("with bridgeLibranza as (	\r\n"
+					+ "select count (distinct movCont.detalles), movCont.detalles\r\n"
+					+ "from detalle_pago_nomina dp \r\n"
+					+ "left join causal ca on dp.id_causal = ca.id\r\n"
+					+ "join credito c on c.id = dp.id_credito \r\n"
+					+ "join  (select c.id, c.numero_radicacion, c.estado, mc.detalles \r\n"
+					+ "					from movimiento_contable mc \r\n"
+					+ "					join credito c on c.id = mc.id_credito \r\n"
+					+ "					join pagaduria p on c.id_pagaduria = p.id \r\n"
+					+ "					where 1=1\r\n"
+					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') = '"+fechaRegistro+"'\r\n"
+					+ "					and p.id = "+idPagaduria+"\r\n"
+					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accoutingSource+")\r\n"
+					+ "				order by c.numero_radicacion asc) movCont on movCont.id = dp.id_credito \r\n"
+					+ "join pagaduria p on c.id_pagaduria = p.id\r\n"
+					+ "where 1=1\r\n"
+					+ "and p.id = "+idPagaduria+"\r\n"
+					+ "and to_char(dp.fecha_recepcion_pago ::date,'DD/MM/YYYY') in ('"+fechaRegistro+"')\r\n"
+					+ "and dp.estado_incorporacion not in ('NUEVO_FUTURO')\r\n"
+					+ "group  by movCont.detalles)\r\n"
+					+ "select * from bridgeLibranza;");
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - buscarCreditosPlanilla() ********");
+			assertTrue("########## MovimientoContableAccion - buscarCreditosPlanilla()########"+ e.getMessage(),false);
+		}
+		return r;
+	}
+	
+	public ResultSet buscarCreditosPlanilla(String idPagaduria, String fechaRegistro, String accoutingSource) {
+		ResultSet r = null;
+		try {
+			r= dbconector.conexion("select c.numero_radicacion, dp.bloqueo_causal, c.estado, dp.estado_incorporacion, coalesce(ca.nombre,'Sin Causal') causal\r\n"
+					+ "from detalle_pago_nomina dp \r\n"
+					+ "left join causal ca on dp.id_causal = ca.id\r\n"
+					+ "join credito c on c.id = dp.id_credito \r\n"
+					+ "left join (select c.id, c.numero_radicacion, c.estado, mc.detalles \r\n"
+					+ "					from movimiento_contable mc \r\n"
+					+ "					join credito c on c.id = mc.id_credito \r\n"
+					+ "					join pagaduria p on c.id_pagaduria = p.id \r\n"
+					+ "					where 1=1\r\n"
+					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') in ('"+fechaRegistro+"')\r\n"
+					+ "					and p.id = "+idPagaduria+" \r\n"
+					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accoutingSource+")\r\n"
+					+ "				order by c.numero_radicacion asc) movCont on movCont.id = dp.id_credito \r\n"
+					+ "join pagaduria p on c.id_pagaduria = p.id\r\n"
+					+ "where 1=1\r\n"
+					+ "and movCont.id is null\r\n"
+					+ "and p.id = "+idPagaduria+" \r\n"
+					+ "and to_char(dp.fecha_recepcion_pago ::date,'DD/MM/YYYY') in ('"+fechaRegistro+"')\r\n"
+					+ "and dp.estado_incorporacion not in ('NUEVO_FUTURO')\r\n"
+					+ "order by c.numero_radicacion asc;");
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - buscarCreditosPlanilla() ********");
+			assertTrue("########## MovimientoContableAccion - buscarCreditosPlanilla()########"+ e.getMessage(),false);
+		}
+		return r;
+	}
+	
+	
+	/*CONSULTAS DINAMICAS CSAD, CCRED Y ACRED*/
 	/*ThainerPerez 11/nov/2021 - Se valida que se halla registrado en el bridge contable*/
 	public ResultSet validarDetalleBridge(String numRadicado, String accountingSource, String fecha) {		
 		ResultSet r = null;
@@ -79,7 +164,7 @@ public class MovimientoContableQuery {
 	public ResultSet consultarMovimientos(String numeroRadicado, String accountinSource, String fecha) {
 		ResultSet r=null;
 		try {
-			r = dbconector.conexion("select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion\r\n"
+			r = dbconector.conexion("select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion, c.numero_radicacion\r\n"
 					+ "from movimiento_contable mc\r\n"
 					+ "inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\r\n"
 					+ "inner join credito c on mc.id_credito = c.id\r\n"

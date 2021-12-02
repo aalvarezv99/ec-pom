@@ -32,13 +32,10 @@ public class SimuladorAsesorSteps {
 	
 	@Dado("Un agente en el sistema core abacus con sesion iniciada")
 	public void unAgenteEnElSistemaCoreAbacusConSesionIniciada() throws Exception {
-
 		try {
 			loginaccion.iniciarSesion();
 		} catch (Exception e) {
 			log.error("#ERROR###"+e);
-			throw new Exception();
-			
 		}
 	}
 
