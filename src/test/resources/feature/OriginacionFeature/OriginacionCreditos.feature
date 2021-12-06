@@ -3,13 +3,14 @@ Característica: Originacion de Creditos
 
   Antecedentes: 
     Dado Un agente en el sistema core abacus con sesion iniciada
+    Y con las funciones sql necesarias del proyecto creadas
 
   @SimuladorAsesor
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
     # Y cambia la fecha del servidor <FechaServidor>
     Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria> <Cedula> <fecha> <Oficina> <Actividad> <Tasa> <Plazo> <Monto> <DiasHabilesIntereses> <Ingresos> <descLey> <descNomina> <vlrCompasSaneamientos> <tipo> <colchon>
-    Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+    Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><Pagaduria>
     Y guarda la simulacion presionando el boton guardar
     Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
     Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
@@ -24,7 +25,7 @@ Característica: Originacion de Creditos
   Esquema del escenario: Solicitar credito sin saneamientos
     Cuando el agente ingrese a la pestana solicitud credito con la cedula del cliente <Cedula><NombreCredito>
     Y consulta la pestana seguridad dejando el cliente viable
-    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon><rutaPDF>
+    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><Pagaduria><rutaPDF>
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>

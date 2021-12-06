@@ -38,6 +38,11 @@ public class SimuladorAsesorSteps {
 			log.error("#ERROR###"+e);
 		}
 	}
+	
+	 @Y("^con las funciones sql necesarias del proyecto creadas$")
+	    public void conLasFuncionesSqlNecesariasDelProyectoCreadas() throws Throwable {
+	       originacionaccion.crearFuncionesSql();
+	    }
 
 	@Cuando("el agente ingresa a la pestana de simulador asesor")
 	public void elAgenteIngreseALaPestanaDeSimuladorAsesor() {

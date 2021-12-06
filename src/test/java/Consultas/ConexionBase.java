@@ -45,8 +45,6 @@ public class ConexionBase {
 	
 	public ResultSet conexion(String query) throws SQLException, ClassNotFoundException {
 		ResultSet rs = null;
-		
-
 		try {
 			if(instancia == null) {
 				instancia = leerPropiedades("instancia");
@@ -136,6 +134,34 @@ public class ConexionBase {
 			log.error(e.getMessage());
 		}
 		return rs;
+	}
+	
+	public void ejecutorFunciones(String query) throws SQLException, ClassNotFoundException {
+		try {
+			if(instancia == null) {
+				instancia = leerPropiedades("instancia");
+				log.info("====================");
+				log.info("[ Base de Datos ] - " + instancia.toUpperCase());
+				log.info("====================");
+				dbUrl = leerPropiedades("jdbc-url")+instancia;
+
+				username = leerPropiedades("username");
+
+				password = leerPropiedades("password");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrl, username, password);
+			
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			stmt.close();
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
+			log.error(e.getMessage());
+		}
 	}
 	
 }
