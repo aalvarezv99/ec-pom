@@ -17,7 +17,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/feature/OriginacionFeature/OriginacionCreditos.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@ValidarDinamicasContablesOriginacion"},
+		tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@Desembolso"},
 	    snippets = SnippetType.CAMELCASE
 		)
 

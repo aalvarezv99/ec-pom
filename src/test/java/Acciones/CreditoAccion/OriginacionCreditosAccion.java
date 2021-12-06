@@ -896,7 +896,6 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             adjuntarCaptura("CodigoPreforences");
             hacerClick(pestanadigitalizacionPage.Guardar);
-            hacerClick(pestanadigitalizacionPage.Guardar);
             ElementVisible();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
@@ -1646,10 +1645,11 @@ public class OriginacionCreditosAccion extends BaseTest {
             int contador = 0;
             for (Map<String, String> e : data) {
                 Hacer_scroll_Abajo(pestanadigitalizacionPage.AgregarCartera);
+                ElementVisible();
                 esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
                 hacerClick(pestanadigitalizacionPage.AgregarCartera);
                 ElementVisible();
-                // formRadicacion:j_idt93:1:tipoCarteraSO:1
+               
                 String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento)
                         .replaceAll("By.id: ", "");
                 String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ", "");
@@ -1687,24 +1687,30 @@ public class OriginacionCreditosAccion extends BaseTest {
                         ElementVisible();
                         break;
                 }
-
+                ElementVisible();
                 esperaExplicita(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 hacerClick(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 EscribirElemento(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("Entidad"));
+                ElementVisible();
                 EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
+                ElementVisible();
                 EscribirElemento(By.id(
                                 monto.replaceAll(":" + String.valueOf(contador) + ":", ":" + String.valueOf(contador) + ":")),
                         e.get("Monto"));
+                ElementVisible();
                 EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
+                ElementVisible();
                 EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
+                ElementVisible();
                 EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
+                ElementVisible();
                 contador = contador + 1;
             }
         } catch (Exception e) {
@@ -1908,6 +1914,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClick(pagesclienteparabienvenida.CalificacionProceso);
             hacerClick(pagesclienteparabienvenida.CalificacionCobro);
             hacerScrollAbajo();
+            Thread.sleep(1000);
             hacerClick(pagesclienteparabienvenida.Acepta);
             ElementVisible();
         } catch (Exception e) {

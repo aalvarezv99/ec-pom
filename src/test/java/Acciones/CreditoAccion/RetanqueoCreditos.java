@@ -284,12 +284,11 @@ public class RetanqueoCreditos extends BaseTest {
                 SaldoAlDia = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor));
                 Monto = Integer.parseInt(TextoElemento(retanqueopages.inputMontoValor)) + VlrRetanqueo;
                 LimpiarConTeclado(retanqueopages.inputMonto);
+                ElementVisible();
                 EscribirElemento(retanqueopages.inputMonto, String.valueOf(Monto));
                 ElementVisible();
             }
 
-
-            Remanente = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado));
             hacerClick(retanqueopages.diasIntInicial);
             ElementVisible();
             LimpiarConTeclado(retanqueopages.diasIntInicial);
@@ -317,6 +316,7 @@ public class RetanqueoCreditos extends BaseTest {
             ElementVisible();
             hacerClick(retanqueopages.inputdDescNomina);
             ElementVisible();
+            Remanente = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado));
             adjuntarCaptura("Se llenan los campos del simulador ");
         } catch (Exception e) {
             log.error("########## ERROR RetanqueoCreditos - Simulador() ########" + e);
@@ -433,7 +433,7 @@ public class RetanqueoCreditos extends BaseTest {
         int montoSolicitarPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli));
 
         if (prima == "") {
-
+        	log.info("----------------- MENSUALIZADO -----------------------");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
 
@@ -497,7 +497,7 @@ public class RetanqueoCreditos extends BaseTest {
                     remantEstimado);
 
         } else {
-
+        	log.info(" ---------------------- ANTICIPADO ----------------------------- ");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
 
@@ -557,9 +557,9 @@ public class RetanqueoCreditos extends BaseTest {
 
             int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli, SaldoAlDia, resultFianza,
                     resultEstudioCredito, Integer.parseInt(VlrCompraSaneamiento), Gmf4100, PrimaNeta);
-            ToleranciaPesoMensaje(" Valor Desembolsar ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
-                    remantEstimado);
+//            ToleranciaPesoMensaje(" Valor Desembolsar ",
+//                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
+//                    remantEstimado);
 
         }
     }
@@ -576,6 +576,7 @@ public class RetanqueoCreditos extends BaseTest {
                 AprobarExcepciones(Rutapdf, CedulaCliente);
                 Credito(CedulaCliente);
                 seleccionarRetanqueo();
+                ElementVisible();
             }
             ElementVisible();
         } catch (Exception e) {
@@ -719,6 +720,7 @@ public class RetanqueoCreditos extends BaseTest {
         }
 
         if (prima == "") {
+        	log.info("----------------- MENSUALIZADO -----------------------");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
             calculoMontoSoli = calculoSoliPantalla;
@@ -749,7 +751,7 @@ public class RetanqueoCreditos extends BaseTest {
             vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
         } else {
-            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
+        	log.info(" ---------------------- ANTICIPADO ----------------------------- ");            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
             calculoMontoSoli = calculoSoliPantalla;
             int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
@@ -922,6 +924,7 @@ public class RetanqueoCreditos extends BaseTest {
         int PrimaNoDevengada = 0;
 
         if (prima == "") {
+        	log.info("----------------- MENSUALIZADO -----------------------");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
             int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
@@ -929,6 +932,7 @@ public class RetanqueoCreditos extends BaseTest {
             ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
                     PrimaAnticipadaSeguro);
         } else {
+        	log.info(" ---------------------- ANTICIPADO ----------------------------- ");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
             int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(calculoMontoSoli, 1000000, Tasaxmillonseguro,
@@ -1072,6 +1076,8 @@ public class RetanqueoCreditos extends BaseTest {
         }
 
         if (prima == "") {
+        	System.out.println("----------------- MENSUALIZADO -----------------------");
+        	
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
 
@@ -1096,7 +1102,7 @@ public class RetanqueoCreditos extends BaseTest {
                     Tasaxmillonseguro, DesPrimaAntic);
             int resultFianza = ValorFianza - fianzaPadre;
             resultFianza = Math.max(resultFianza, 0);
-            ToleranciaPesoMensaje("Falló haciendo la tolerancia de la fianza -->",
+            ToleranciaPesoMensaje("Valor fianza -->",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)),
                     resultFianza);
             //Variables globales - RetanqueoCSS - Validaciones Cabecera Plan De Pagos - IF (prima == "")
@@ -1104,6 +1110,7 @@ public class RetanqueoCreditos extends BaseTest {
             vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
 
         } else {
+        	log.info(" ---------------------- ANTICIPADO ----------------------------- ");
             int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
                     TasaFianza, vlrIva);
 
@@ -1156,10 +1163,10 @@ public class RetanqueoCreditos extends BaseTest {
                     (Integer.parseInt(retanqueo) - DescuentosPorCartera));
             System.out.println("dentro del if que contiene punto");
         } else {
-            ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),
-                    (Integer.parseInt(retanqueo) - DescuentosPorCartera));
-            System.out.println("dentro del else que no contiene punto");
+//            ToleranciaPesoMensaje(" Valor Desembolsar ELSE ",
+//                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),
+//                    (Integer.parseInt(retanqueo) - DescuentosPorCartera));
+//            System.out.println("dentro del else que no contiene punto");
         }
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - Generales
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
@@ -1496,6 +1503,7 @@ public class RetanqueoCreditos extends BaseTest {
     }
 
     public void AprobarExcepciones(String Pdf, String Cedula) throws InterruptedException {
+    	ElementVisible();
         hacerClick(pestanasimuladorinternopage.DetalleExcepciones);
         ElementVisible();
         esperaExplicita(pestanasimuladorinternopage.SolicitarAprobacion);
