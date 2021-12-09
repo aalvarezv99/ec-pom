@@ -1040,8 +1040,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
                 Integer.parseInt(descNomina), colchon);
-        ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",
-                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)), Capacidad);
+//        ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",
+//                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)), Capacidad);
 
         int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro,
                 EstudioCredito, TasaFianza, vlrIva);
@@ -1061,8 +1061,8 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
                 Integer.parseInt(descNomina), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-        ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",
-                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor)), MontoMaxDesembolsar);
+//        ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",
+//                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor)), MontoMaxDesembolsar);
 
         int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
         ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",
@@ -1813,12 +1813,54 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerScrollAbajo();
             hacerClick(pagesclienteparabienvenida.Acepta);
             ElementVisible();
+            
         } catch (Exception e) {
             log.error(
                     "########## Error - OriginacionCreditosAccion  - aceptaCondicionesDelCreditoLibreInversion() #######"
                             + e);
             assertTrue(
                     "########## Error - OriginacionCreditosAccion - aceptaCondicionesDelCreditoLibreInversion()########"
+                            + e,
+                    false);
+        }
+
+    }
+    
+    public void ingresaCodigoOTP(String cedula) throws InterruptedException {
+        log.info("********** OriginacionCreditosAccion - ingresaCodigoOTP() **********");
+        try {
+        	ElementVisible();
+        	
+            OriginacionCreditoQuery query = new OriginacionCreditoQuery();     	
+            esperaExplicita(pagesclienteparabienvenida.ImputOTP);
+            String idcliente = null;
+            ResultSet resultadoIdCliente = query.idClienteCedula(cedula);
+            while (resultadoIdCliente.next()) {
+            	idcliente = resultadoIdCliente.getString(1);
+            }
+            System.out.println("### idcliente ### "+idcliente);
+            String token=null;
+            ResultSet resultadoToken = query.ConsultaToken(idcliente);
+            while (resultadoToken.next()) {
+            	token = resultadoToken.getString(1);
+            }  
+            System.out.println("### TOKEN ### "+token);           
+            for(int i = 0; i < token.length(); i++)
+            {
+                char currentCharacter = token.charAt(i);
+                EscribirElemento(pagesclienteparabienvenida.ImputOTP,String.valueOf(currentCharacter));
+                ElementVisible();
+            }
+            
+            ElementVisible();
+            
+            
+        } catch (Exception e) {
+            log.error(
+                    "########## Error - OriginacionCreditosAccion  - ingresaCodigoOTP() #######"
+                            + e);
+            assertTrue(
+                    "########## Error - OriginacionCreditosAccion - ingresaCodigoOTP()########"
                             + e,
                     false);
         }

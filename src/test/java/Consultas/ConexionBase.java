@@ -34,6 +34,11 @@ public class ConexionBase {
 	private static String userPsl;	
 	private static String passwordPsl;
 	
+	private static String dbtoken;	
+	private static String dbUrltoken;
+	private static String usertoken;	
+	private static String passwordtoken;
+	
 	public String leerPropiedades(String valor) {
 		try {
 			pro.load(in);
@@ -162,6 +167,37 @@ public class ConexionBase {
 			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
 			log.error(e.getMessage());
 		}
+	}
+	
+	public ResultSet BDtoken(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		try {
+			if(dbtoken == null) {
+				dbtoken = leerPropiedades("DBToken");
+				log.info("====================");
+				log.info("[ Base de Datos TOKEN ] - " + dbtoken.toUpperCase());
+				log.info("====================");
+				dbUrltoken = leerPropiedades("jdbc-url-token")+dbtoken;
+
+				usertoken = leerPropiedades("userToken");
+
+				passwordtoken = leerPropiedades("PasswordToken");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+            Connection con = DriverManager.getConnection(dbUrltoken, usertoken, passwordtoken);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS TOKEN*******");
+			log.error(e.getMessage());
+		}
+		
+		return rs;
 	}
 	
 }
