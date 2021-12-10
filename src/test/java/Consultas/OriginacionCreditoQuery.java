@@ -299,6 +299,34 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	public ResultSet idClienteCedula(String Cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select id from cliente where identificacion ='"+Cedula+"';");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	
+	public ResultSet ConsultaToken(String idCliente) {
+		ResultSet r=null;
+		try {
+			r = dbconector.BDtoken("SELECT token from otp o where id_cliente ='"+idCliente+"';");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
 }
 
 

@@ -253,4 +253,9 @@ public class SolicitudCreditoSteps {
     public void seCreanLosTiposDeCarteraOSaneamientoARecogerDigicredito() {
         originacionaccion.agregarSaneamientosCarterasDigicredito();
     }
+    
+    @Entonces("se ingresa el codigo OTP {string}")
+    public void seingresaelcodigoOTP(String Cedula) throws InterruptedException {
+    	originacionaccion.ingresaCodigoOTP(Cedula);
+    }
 }

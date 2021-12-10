@@ -32,4 +32,4 @@ public class OriginacionDigicreditosRunner {
 
 }
 
-//tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@Desembolso,@@ValidarDinamicasContablesOriginacion"},
+//tags = {"@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@Desembolso,@@ValidarDinamicasContablesOriginacion"},
