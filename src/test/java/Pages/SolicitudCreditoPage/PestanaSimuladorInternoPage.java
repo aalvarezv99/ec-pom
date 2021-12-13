@@ -116,7 +116,7 @@ public class PestanaSimuladorInternoPage {
 	    MontoMaximoAsesor =By.id("formSimulador:montoMaximoSugerencias_hinput");
 	    CapacidadAsesor= By.id("formSimulador:valorCuotaMontoMaximoSugerencias_hinput");     
 	    ValorEstudioCreditoCXC= By.id("formSimulador:valorEstudio_hinput");
-	    ValorFianzaCXC = By.id("formSimulador:valorFianza_hinput");
+	    ValorFianzaCXC = By.id("formSimulador:valorFianzaNeta_hinput");
 	    Gravamento4x1000 = By.id("formSimulador:cuatroPorMil_hinput");
 	    ValoraDesembolsar = By.id("formSimulador:valorDesembolsar_hinput");
 	    SimuladorInternorValoraDesembolsar =   By.id("formSimuladorCredito:remanenteCr_hinput");
