@@ -35,6 +35,7 @@ import Pages.SolicitudCreditoPage.PestanaDigitalizacionPage;
 import Pages.SolicitudCreditoPage.PestanaFormularioPage;
 import Pages.SolicitudCreditoPage.PestanaReferenciacionPage;
 import Pages.SolicitudCreditoPage.PestanaSimuladorInternoPage;
+import dto.SimuladorDto;
 import io.cucumber.datatable.DataTable;
 //import StepsDefinitions.string;
 
@@ -42,6 +43,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 
 	WebDriver driver;
 	SimuladorAsesorPages simuladorasesorpage;
+	OriginacionCreditosAccion origicacionCreditoAccion;
 	PanelPrincipalAccion panelnavegacionaccion;
 	PanelNavegacionPage PanelNavegacionPage;
 	CreditoSolicitudPage creditocolicitudpage;
@@ -84,7 +86,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	pagesclienteparabienvenida = new PagesClienteParaBienvenida(driver);
 	pagescreditosdesembolso = new PagesCreditosDesembolso(driver);
 	jSchSSHConnection = new JSchSSHConnection();
-	archivo = new LeerArchivo();
+	origicacionCreditoAccion = new OriginacionCreditosAccion(driver);
 	}
 	
 	/********* INICIO ACCIONES PARA COMPRA CARTERA SANEAMIENTO *****
@@ -216,12 +218,13 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 				DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 				log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
 			}
+			
+			int TotalCarteras = (Integer.parseInt(Cartera1)+Integer.parseInt(Saneamiento2));
     		
-    		int colchon = 0;
-    		ResultSet resultadocolchon = query.colchonpagaduria(Pagaduria);
-    		while (resultadocolchon.next()) {
-    			colchon = Integer.parseInt(resultadocolchon.getString(1));
-    		}
+			SimuladorDto calculosSimulador = new SimuladorDto();
+	      	
+	      	calculosSimulador = origicacionCreditoAccion.consultarCalculosSimulador(Monto,DesPrimaAntic,Tasa,Plazo,DiasHabilesIntereses,String.valueOf(TotalCarteras), 
+	        		Ingresos, descLey, descNomina, Pagaduria);
 
     		// Consultar los conceptos para el cambio de tasa
     		double EstudioCredito = 0;
@@ -241,46 +244,17 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 			log.info("Valor mes Dos " + mesDos);
 			log.info("Tasa Dos" + tasaDos);
 
-          // Valores para la funciones estaticos
-    		int Tasaxmillonseguro = 4625;
-    		double variableFianza = 1.19;
-    		double tasaUno = Double.parseDouble(Tasa)/100;
     		
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);
-    		
-    		int Capacidad = (int) CapacidadPagaduria(Integer.parseInt(Ingresos), Integer.parseInt(descLey),Integer.parseInt(descNomina), colchon);
-    		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)), Capacidad);
-
-    		int calculoMontoSoli = (int)  MontoaSolicitar(Integer.parseInt(Monto), DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO SOLICITUD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal)) , calculoMontoSoli);
-
-    		int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-    		ToleranciaPesoMensaje("######### ERROR SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", "")) , CuotaCorriente);
-
-    		int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(Integer.parseInt(Monto), 1000000, Tasaxmillonseguro,
-    				DesPrimaAntic);
-    		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO PRIMA SEGURO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)) ,PrimaAnticipadaSeguro);
-
-    		int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-    				Integer.parseInt(descNomina), colchon, tasaUno,
-    				Integer.parseInt(Plazo), tasaDos, mesDos);
-    		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor)) ,MontoMaxDesembolsar);
-       		
-    	    int EstudioCreditoIva = (int) EstudioCreditoIva(Integer.parseInt(Monto), EstudioCredito);
-    	    ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC)) , EstudioCreditoIva);
-    		
-    		int ValorFianza = (int) ValorFianza(Integer.parseInt(Monto), TasaFianza, variableFianza);
-    		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO FIANZA ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC)) , ValorFianza);
-    		
-    		int TotalCarteras = (Integer.parseInt(Cartera1)+Integer.parseInt(Saneamiento2));
-    		
-    		int Gmf4100 = (int) Gmf4100(TotalCarteras, 0.004);
-    		ToleranciaPesoMensaje("###### ERROR SIM ANALISTA - CALCULANDO 4X1000 ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000)) , Gmf4100);
-    		
-    		
-    		int RemanenteEstimado = (int) RemanenteEstimado(calculoMontoSoli, TotalCarteras,
-    				Gmf4100, PrimaAnticipadaSeguro, EstudioCreditoIva, ValorFianza);
-    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar), String.valueOf(RemanenteEstimado));
+    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado),Monto);    	
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)), calculosSimulador.getCapacidadCliente());
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO SOLICITUD ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal)) , calculosSimulador.getMontoSolicitar());
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorCuota).replaceAll("[^a-zA-Z0-9]", "")) , calculosSimulador.getCuotaCorriente());
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO PRIMA SEGURO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)) ,calculosSimulador.getPrimaSeguroAnticipada());
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO MAXIMO DESEMBOLSAR ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoAsesor)) ,calculosSimulador.getMontoMaxDesembolsar());
+    	    ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO ESTUDIO CREDITO ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorEstudioCreditoCXC)) , calculosSimulador.getEstudioCredito());
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO FIANZA ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaCXC)) , calculosSimulador.getFianza());    		
+    		ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO 4X1000 ########",Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000)) , calculosSimulador.getGmf4X100());    		
+    		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar), String.valueOf(calculosSimulador.getRemanenteEstimado()));
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCompraCartera), String.valueOf(TotalCarteras));
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoAsesor),Monto);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PlazoAsesor),Plazo);
@@ -290,9 +264,9 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
 
     		//Variables globales para posterior analisis Plan de Pagos - OriginacionCCS
-    		vg_MontoAprobado_Originacion= String.valueOf(calculoMontoSoli);
+    		vg_MontoAprobado_Originacion= String.valueOf(calculosSimulador.getMontoSolicitar());
     		vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos*100);
-    		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(PrimaAnticipadaSeguro);
+    		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());
     		}
       catch (Exception e) {
     	  	log.error("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno()  #######" + e);

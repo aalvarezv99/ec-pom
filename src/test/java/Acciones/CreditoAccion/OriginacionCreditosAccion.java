@@ -228,7 +228,7 @@ public class OriginacionCreditosAccion extends BaseTest {
       	 
          ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO CAPACIDAD",
                  Integer.parseInt(TextoElemento(simuladorasesorpage.CapacidadAproximada)), calculosSimulador.getCapacidadCliente());
-         ToleranciaPesoMensaje(" SIM ASESOR - CALCULANDO MONTO SOLICITUD ",
+         ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO MONTO SOLICITUD ",
                  Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
          ToleranciaPesoMensaje("SIM ASESOR -CALCULANDO CUOTA CORRIENTE ",
                  Integer.parseInt(TextoElemento(simuladorasesorpage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
@@ -242,7 +242,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                  Integer.parseInt(TextoElemento(simuladorasesorpage.Valorinteresesini)), calculosSimulador.getInteresesIniciales());
          ToleranciaPesoMensaje("SIM ASESOR - CALCULO PRIMA SEGURO ANTICIPADO ",
                  Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)), calculosSimulador.getPrimaSeguroAnticipada());
-         ToleranciaPesoMensaje(" SIM ASESOR - CALCULO REMANENTE ESTIMADO ",
+         ToleranciaPesoMensaje("SIM ASESOR - CALCULO REMANENTE ESTIMADO ",
                  Integer.parseInt(TextoElemento(simuladorasesorpage.RemanenteEstimado)), calculosSimulador.getRemanenteEstimado());
          if (calculosSimulador.getRemanenteEstimado() < 0) {
              assertBooleanImprimeMensaje(
@@ -440,9 +440,9 @@ public class OriginacionCreditosAccion extends BaseTest {
         		Ingresos, descLey, descNomina, pagaduria);
       	
       	 int edad = (int) edad(Fecha);
-         ToleranciaPesoMensaje("CALCULANDO LA EDAD DEL CLIENTE ",
+         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO LA EDAD DEL CLIENTE ",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.edad)), edad);
-         ToleranciaPesoMensaje("IM INTERNO - CALCULANDO MONTO SOLICITUD ",
+         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO MONTO SOLICITUD ",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
          ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO CUOTA CORRIENTE ",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
@@ -450,9 +450,9 @@ public class OriginacionCreditosAccion extends BaseTest {
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)), calculosSimulador.getEstudioCredito());
          ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR FIANZA ",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)), calculosSimulador.getFianza());
-         ToleranciaPesoMensaje(" SIM INTERNO - CALCULANDO VALOR GMF 4X1000",
+         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR GMF 4X1000",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), calculosSimulador.getGmf4X100());
-         ToleranciaPesoMensaje("IM INTERNO - CALCULANDO VALOR INT INICIALES ",
+         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR INT INICIALES ",
                  Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Valorinteresesini)),
                  calculosSimulador.getInteresesIniciales());
          ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR PRIMA SEGURO ANTICIPADA ",
