@@ -799,6 +799,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             adjuntarCaptura("CodigoPreforences");
             hacerClick(pestanadigitalizacionPage.Guardar);
+            ElementVisible();
             hacerClick(pestanadigitalizacionPage.Guardar);
             ElementVisible();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
@@ -1591,23 +1592,30 @@ public class OriginacionCreditosAccion extends BaseTest {
                         break;
                 }
 
+                ElementVisible();
                 esperaExplicita(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 hacerClick(By.id(competidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 EscribirElemento(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("Entidad"));
+                ElementVisible();
                 EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
+                ElementVisible();
                 EscribirElemento(By.id(
                                 monto.replaceAll(":" + String.valueOf(contador) + ":", ":" + String.valueOf(contador) + ":")),
                         e.get("Monto"));
+                ElementVisible();
                 EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
+                ElementVisible();
                 EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
+                ElementVisible();
                 EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
+                ElementVisible();
                 contador = contador + 1;
             }
         } catch (Exception e) {
