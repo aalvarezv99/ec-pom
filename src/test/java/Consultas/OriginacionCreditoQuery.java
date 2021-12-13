@@ -278,6 +278,55 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	/*
+	 * ThainerPerez V1.0 - 03/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
+	 * 									2. Parametros utilizados: (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
+	 *  															p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
+ 																	p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
+	public ResultSet consultarCalculosSimuladorOriginacion(String Monto,int DesPrimaAntic,String Tasa,String Plazo,
+    		String DiasHabilesIntereses,String vlrCompasSaneamientos, String Ingresos, String descLey, 
+    		String descNomina,String pagaduria) {
+		String Pagaduria = "'"+pagaduria+"'";
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select * from public.calculos_automatizacion_pruebas ("+Monto +","+DesPrimaAntic+","+Tasa+
+					","+Plazo+","+DiasHabilesIntereses+","+vlrCompasSaneamientos+","+Ingresos+","+descLey+
+					","+descNomina+","+Pagaduria+");");
+		} catch (Exception e) {
+			log.error("********consultarCalculosSimuladorOriginacion() ********");
+			log.error(e.getMessage());
+		}
+		return r;
+	}
+	
+	public ResultSet idClienteCedula(String Cedula) {
+		ResultSet r=null;
+		try {
+			r = dbconector.conexion("select id from cliente where identificacion ='"+Cedula+"';");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
+	
+	
+	public ResultSet ConsultaToken(String idCliente) {
+		ResultSet r=null;
+		try {
+			r = dbconector.BDtoken("SELECT token from otp o where id_cliente ='"+idCliente+"';");
+			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultarRegistroCertificacion() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
 }
 
 

@@ -34,6 +34,11 @@ public class ConexionBase {
 	private static String userPsl;	
 	private static String passwordPsl;
 	
+	private static String dbtoken;	
+	private static String dbUrltoken;
+	private static String usertoken;	
+	private static String passwordtoken;
+	
 	public String leerPropiedades(String valor) {
 		try {
 			pro.load(in);
@@ -45,8 +50,6 @@ public class ConexionBase {
 	
 	public ResultSet conexion(String query) throws SQLException, ClassNotFoundException {
 		ResultSet rs = null;
-		
-
 		try {
 			if(instancia == null) {
 				instancia = leerPropiedades("instancia");
@@ -135,6 +138,65 @@ public class ConexionBase {
 			log.error("********ERROR CONEXION BASE DATOS PSL PRUEBAS *******");
 			log.error(e.getMessage());
 		}
+		return rs;
+	}
+	
+	public void ejecutorFunciones(String query) throws SQLException, ClassNotFoundException {
+		try {
+			if(instancia == null) {
+				instancia = leerPropiedades("instancia");
+				log.info("====================");
+				log.info("[ Base de Datos ] - " + instancia.toUpperCase());
+				log.info("====================");
+				dbUrl = leerPropiedades("jdbc-url")+instancia;
+
+				username = leerPropiedades("username");
+
+				password = leerPropiedades("password");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrl, username, password);
+			
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			stmt.close();
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
+			log.error(e.getMessage());
+		}
+	}
+	
+	public ResultSet BDtoken(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		try {
+			if(dbtoken == null) {
+				dbtoken = leerPropiedades("DBToken");
+				log.info("====================");
+				log.info("[ Base de Datos TOKEN ] - " + dbtoken.toUpperCase());
+				log.info("====================");
+				dbUrltoken = leerPropiedades("jdbc-url-token")+dbtoken;
+
+				usertoken = leerPropiedades("userToken");
+
+				passwordtoken = leerPropiedades("PasswordToken");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+            Connection con = DriverManager.getConnection(dbUrltoken, usertoken, passwordtoken);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS TOKEN*******");
+			log.error(e.getMessage());
+		}
+		
 		return rs;
 	}
 	

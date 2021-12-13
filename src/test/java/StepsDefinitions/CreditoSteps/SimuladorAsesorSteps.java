@@ -32,15 +32,17 @@ public class SimuladorAsesorSteps {
 	
 	@Dado("Un agente en el sistema core abacus con sesion iniciada")
 	public void unAgenteEnElSistemaCoreAbacusConSesionIniciada() throws Exception {
-
 		try {
 			loginaccion.iniciarSesion();
 		} catch (Exception e) {
 			log.error("#ERROR###"+e);
-			throw new Exception();
-			
 		}
 	}
+	
+	 @Y("^con las funciones sql necesarias del proyecto creadas$")
+	    public void conLasFuncionesSqlNecesariasDelProyectoCreadas() throws Throwable {
+	       originacionaccion.crearFuncionesSql();
+	    }
 
 	@Cuando("el agente ingresa a la pestana de simulador asesor")
 	public void elAgenteIngreseALaPestanaDeSimuladorAsesor() {

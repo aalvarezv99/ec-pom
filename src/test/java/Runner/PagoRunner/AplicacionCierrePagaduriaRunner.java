@@ -9,13 +9,13 @@ import Runner.RunnerPersonalizado;
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 
-//@CarguePlanillaAlSistema, @RecaudoPagaduria, @PreaplicacionPagaduria, @AplicacionFinalPagaduria, @CierrePagaduria
+//@CarguePlanillaAlSistema, @RecaudoPagaduria, @PreaplicacionPagaduria, @AplicacionFinalPagaduria , @ValidarDinamicasContablesAPLPAG, @CierrePagaduria
 
 //@RunWith(Cucumber.class)
 @CucumberOptions(
 		features = "src/test/resources/feature/PagosFeature/AplicacionCierrePagaduria.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@CarguePlanillaAlSistema, @RecaudoPagaduria, @PreaplicacionPagaduria, @AplicacionFinalPagaduria, @CierrePagaduria"},				
+		tags = {"@ValidarDinamicasContablesAPLPAG"},				
 	    snippets = SnippetType.CAMELCASE
 		)
 @RunWith(RunnerPersonalizado.class)
