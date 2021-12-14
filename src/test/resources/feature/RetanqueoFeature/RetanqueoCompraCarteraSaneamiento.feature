@@ -34,9 +34,9 @@ Característica: Retanqueo de creditos
       | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/12/2021       | 21236         |
       | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 | 70000    | 30/12/2021       | 29123         |
       | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 830000 |    70000 | 30/12/2021       |         29123 |
-    #Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
-    #Y se marca identidida confirmada radicando la solicitud
-    #Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
+    Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
+    Y se marca identidida confirmada radicando la solicitud
+    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
