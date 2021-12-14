@@ -1574,19 +1574,16 @@ public class OriginacionCreditosAccion extends BaseTest {
                         ":" + String.valueOf(contador) + ":")));
                 ElementVisible();
 				if (e.get("Tipo").equals("Saneamiento") && e.get("Entidad").contains("PAN AMERICA")) {
-					log.info("Entro ");
 					String selectMonto = String.valueOf(pestanadigitalizacionPage.montoDesplegable)
 							.replaceAll("By.id: ", "");
 					String listMonto = String.valueOf(pestanadigitalizacionPage.listMontoDesplegable)
 							.replaceAll("By.xpath: ", "");
-					log.info(listMonto);
 					hacerClick(By.id(selectMonto.replaceAll(":" + String.valueOf(contador) + ":",
 							":" + String.valueOf(contador) + ":")));
 					selectValorLista(By.xpath(listMonto.replaceAll(":" + String.valueOf(contador) + ":",
 							":" + String.valueOf(contador) + ":")), e.get("Monto"));
 					// Hacer el replace aqui y agregar los valores
 				} else {
-					log.info("No entro");
 					EscribirElemento(By.id(monto.replaceAll(":" + String.valueOf(contador) + ":",
 							":" + String.valueOf(contador) + ":")), e.get("Monto"));
 					ElementVisible();
