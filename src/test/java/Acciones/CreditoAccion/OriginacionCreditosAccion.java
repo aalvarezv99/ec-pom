@@ -1538,6 +1538,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                         .replaceAll("By.id: ", "");
                 String numOblogacion = String.valueOf(pestanadigitalizacionPage.NumeroObligacionSaneamiento)
                         .replaceAll("By.id: ", "");
+                
 
                 switch (e.get("Tipo")) {
                     case "Saneamiento":
@@ -1573,19 +1574,30 @@ public class OriginacionCreditosAccion extends BaseTest {
                 EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 ElementVisible();
-                EscribirElemento(By.id(
-                                monto.replaceAll(":" + String.valueOf(contador) + ":", ":" + String.valueOf(contador) + ":")),
-                        e.get("Monto"));
-                ElementVisible();
-                EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
-                        ":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
-                ElementVisible();
-                EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
-                        ":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
-                ElementVisible();
-                EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
-                        ":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
-                ElementVisible();
+				if (e.get("Tipo").equals("Saneamiento") && e.get("Entidad").contains("PAN AMERICA")) {
+					String selectMonto = String.valueOf(pestanadigitalizacionPage.montoDesplegable)
+							.replaceAll("By.id: ", "");
+					String listMonto = String.valueOf(pestanadigitalizacionPage.listMontoDesplegable)
+							.replaceAll("By.xpath: ", "");
+					hacerClick(By.id(selectMonto.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")));
+					selectValorLista(By.xpath(listMonto.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")), e.get("Monto"));
+					// Hacer el replace aqui y agregar los valores
+				} else {
+					EscribirElemento(By.id(monto.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")), e.get("Monto"));
+					ElementVisible();
+					EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
+					ElementVisible();
+					EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
+					ElementVisible();
+					EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
+							":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
+					ElementVisible();
+				}
                 contador = contador + 1;
             }
         } catch (Exception e) {

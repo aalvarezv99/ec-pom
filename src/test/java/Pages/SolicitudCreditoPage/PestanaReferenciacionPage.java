@@ -47,6 +47,7 @@ public class PestanaReferenciacionPage {
 	public By FiltroEntidad;
 	public By NumObligacion;
 	public By SeleccionarSaneamiento;
+	public By listDescEntidad;
 
 	
 	public  PestanaReferenciacionPage  (WebDriver driver) {
@@ -88,6 +89,8 @@ public class PestanaReferenciacionPage {
 		FiltroEntidad =  By.xpath("//input[starts-with(@id,'formConsultas:j_idt170') and contains (@id,'j_idt203_filter')]");
 		Aprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt170') and contains (@id,'j_idt218') and contains (text (),'Aprobar')]");
 		NumObligacion = By.name("formConsultas:j_idt170:0:j_idt216");
+		
+		listDescEntidad = By.xpath("//div[@class='conmasX2 padding-right50']//child::span[@class='form-control']");
 
 		Guardar = By.id("formConsultas:guardar");
 		ReferenciaPositiva = By.xpath("//*[@value='REFERENCIA_POSITIVA']");

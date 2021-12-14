@@ -1112,10 +1112,12 @@ public class BaseTest {
     /*
      * ThainerPerez 22/Sep/2021 - Se actualiza el metodo para que seleccione el tipo
      * (Cartera - saneamiento) en los radio button
+     * ThainerPerez 14/Dic/2021 V1.2 - 1.	Se crea el metodo confirmarCarterasReferenciacion(), para llenar las referencias
+     * 										cuando los nombres son diferentes.	
      */
     public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
                                   By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
-                                  String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
+                                  By ListDescEntidad,String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
                                   String VlrObligacion[]) throws InterruptedException {
         List<WebElement> Entidad = driver.findElements(ListEntidad);
         List<WebElement> Filtro = driver.findElements(ListFiltro);
@@ -1125,40 +1127,39 @@ public class BaseTest {
         List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
         List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
         List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-        List<WebElement> Tipo = driver.findElements(ListTipo);
+        List<WebElement> Tipo = driver.findElements(ListTipo);        
         List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
+        
+        List<WebElement> descEntidad =  driver.findElements(ListDescEntidad);
+        
         String a[] = new String[VlrCuota.length];
 
         for (int i = 0; i < Entidad.size(); i++) {
 
             Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
             esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
-
-            if (Tipo.get(i).getText().trim().contains("SANEAMIENTO")) {
+            String radio = Tipo.get(i).getText().trim();
+            if (radio.contains("SANEAMIENTO")) {
                 driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
             } else {
                 driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
-            }
-
-            // Llenar la entidad
-            driver.findElement(By.id(Entidad.get(i).getAttribute("id"))).click();
-            driver.findElement(By.id(Filtro.get(i).getAttribute("id"))).sendKeys(EntidadSaneamiento[i]);
-            EnviarEnter(By.id(Filtro.get(i).getAttribute("id")));
-            // llenar el monto
-            Hacer_scroll(By.name(Monto.get(i).getAttribute("name")));
-            Clear(By.name(Monto.get(i).getAttribute("name")));
-            driver.findElement(By.name(Monto.get(i).getAttribute("name"))).sendKeys(VlrMonto[i]);
-            // llenar la cuota
-            Clear(By.name(Cuota.get(i).getAttribute("name")));
-            driver.findElement(By.name(Cuota.get(i).getAttribute("name"))).sendKeys(VlrCuota[i]);
-            // llenar la fecha
-            Clear(By.name(Fecha.get(i).getAttribute("name")));
-            driver.findElement(By.name(Fecha.get(i).getAttribute("name"))).sendKeys(VlrFecha[i]);
-            // llenar numero de obligacion
-            Clear(By.name(NumObligacion.get(i).getAttribute("name")));
-            driver.findElement(By.name(NumObligacion.get(i).getAttribute("name"))).sendKeys(VlrObligacion[i]);
-            a[i] = BtnAprobar.get(i).getAttribute("id");
-        }
+			}
+			String[] parts = EntidadSaneamiento[i].split("- ");
+			if (!descEntidad.get(i).getText().equals(parts[1])) {
+				for (int j = 0; j < EntidadSaneamiento.length; j++) {
+					parts = EntidadSaneamiento[j].split("- ");
+					if (descEntidad.get(i).getText().equals(parts[1])) {
+						confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+								EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, j);
+						break;
+					}
+				}
+			} else {
+				confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+						EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);
+			}
+			a[i] = BtnAprobar.get(i).getAttribute("id");
+		}
 
         // Aprobar las compras
         for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -1170,6 +1171,42 @@ public class BaseTest {
             driver.findElement(By.id(a[i])).click();
             hacerClicknotificacion();
         }
+    }
+    
+	public void confirmarCarterasReferenciacion(String desRadio, List<WebElement> Entidad, List<WebElement> Filtro,
+			List<WebElement> Monto, List<WebElement> Cuota, List<WebElement> Fecha, List<WebElement> NumObligacion,
+			String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
+            String VlrObligacion[],
+			int indexUno, int indexDos) {
+		try {
+			if (desRadio.contains("SANEAMIENTO")
+					&& EntidadSaneamiento[indexDos].contains("PAN AMERICAN")) {
+				log.info("*** Se Agrego un saneamiento de PAN AMERICAN ***");
+			} else {
+			
+			// Llenar la entidad
+			driver.findElement(By.id(Entidad.get(indexUno).getAttribute("id"))).click();
+			driver.findElement(By.id(Filtro.get(indexUno).getAttribute("id"))).sendKeys(EntidadSaneamiento[indexDos]);
+			EnviarEnter(By.id(Filtro.get(indexUno).getAttribute("id")));
+			// llenar el monto
+			Hacer_scroll(By.name(Monto.get(indexUno).getAttribute("name")));
+			Clear(By.name(Monto.get(indexUno).getAttribute("name")));
+			driver.findElement(By.name(Monto.get(indexUno).getAttribute("name"))).sendKeys(VlrMonto[indexDos]);
+			// llenar la cuota
+			Clear(By.name(Cuota.get(indexUno).getAttribute("name")));
+			driver.findElement(By.name(Cuota.get(indexUno).getAttribute("name"))).sendKeys(VlrCuota[indexDos]);
+			// llenar la fecha
+			Clear(By.name(Fecha.get(indexUno).getAttribute("name")));
+			driver.findElement(By.name(Fecha.get(indexUno).getAttribute("name"))).sendKeys(VlrFecha[indexDos]);
+			// llenar numero de obligacion
+			Clear(By.name(NumObligacion.get(indexUno).getAttribute("name")));
+			driver.findElement(By.name(NumObligacion.get(indexUno).getAttribute("name"))).sendKeys(VlrObligacion[indexDos]);
+			}
+		} catch (Exception e) {
+			log.error("########## Error - BAseTest - confirmarCarterasReferenciacion() ####### : " + e);
+            assertTrue("########## Error - BaseTest - confirmarCarterasReferenciacion() ######## : " + e, false);
+		}
+    	
     }
 
     public void ToleranciaPeso(int a, int b) {
