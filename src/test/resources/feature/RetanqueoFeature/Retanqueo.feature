@@ -29,7 +29,9 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"6000000"   |"98577223"   |"85543"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"120"   |"60"   |"6000000"   |"440000"   |"70000"   |"0"   |"2258"   |"SERGIO IVAN"   |"Noviembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"01/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+      |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -47,12 +49,14 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"6000000"   |"98577223"   |"85543"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"120"   |"60"   |"6000000"   |"440000"   |"70000"   |"0"   |"2258"   |"SERGIO IVAN"   |"Noviembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"01/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
+#    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
     Y se validan los valores de las condiciones del credito <Credito>
     Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
@@ -60,7 +64,9 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"6000000"   |"98577223"   |"85543"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"120"   |"60"   |"6000000"   |"440000"   |"70000"   |"0"   |"2258"   |"SERGIO IVAN"   |"Noviembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"01/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -70,7 +76,9 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"6000000"   |"98577223"   |"85543"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"120"   |"60"   |"6000000"   |"440000"   |"70000"   |"0"   |"2258"   |"SERGIO IVAN"   |"Noviembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"01/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
@@ -81,4 +89,4 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"6000000"   |"98577223"   |"85543"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"120"   |"60"   |"6000000"   |"440000"   |"70000"   |"0"   |"2258"   |"SERGIO IVAN"   |"Noviembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"01/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
