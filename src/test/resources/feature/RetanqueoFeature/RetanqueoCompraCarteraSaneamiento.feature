@@ -39,7 +39,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @AnalisisCreditoRetanqueoCCS
   Esquema del escenario: Analisis del credito
@@ -48,16 +48,16 @@ Característica: Retanqueo de creditos
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
-    #Y ingrese a la pestana del plan de pagos 
-    #Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
-    #Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
+    Y ingrese a la pestana del plan de pagos
+    Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @ClientesBienvenidaRetanqueoCCS
   Esquema del escenario: Clientes para Bienvenida
@@ -70,7 +70,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @CreditosVisacionRetanqueosCCS
   Esquema del escenario: Creditos para Visacion
@@ -80,7 +80,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @DesembolsoCarteraCCS
   Esquema del escenario: Carteras para Desembolso
@@ -91,7 +91,7 @@ Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @VisacionSaneamientoCCS
   Esquema del escenario: Visacion de la cartera
@@ -101,7 +101,7 @@ Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
@@ -112,7 +112,7 @@ Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
   @DesembolsoRetanqueosCCS
   Esquema del escenario: Creditos para Desembolso
@@ -125,4 +125,4 @@ Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes | fecha | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Noviembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"22/11/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"1030000"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"200000"   |"830000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"14/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|

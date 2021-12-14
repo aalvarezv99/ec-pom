@@ -76,6 +76,11 @@ public class PestanaSimuladorInternoPage {
 	public By KeyCabeceraPlanDePagos;
 	public By ValueCabeceraPlanDePagos;
 	public By listVerEditar;
+	public By valorFianzaTotal;
+	public By valorFianzaPadotal;
+	public By valorFianzaPadre;
+	public By valorFianzaTotalAna;
+	public By valorFianzaPadreAna;
 
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
@@ -141,7 +146,7 @@ public class PestanaSimuladorInternoPage {
         Notificacion = By.xpath("//*[@class='ui-growl-title']");
         SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");        
         EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
-        ValorFianzaAnalista = By.id("formSimulador:valorFianza_hinput");
+        ValorFianzaAnalista = By.id("formSimulador:valorFianzaNeta_hinput");
         DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
         listaCreditosRecoger = By.xpath("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
         checksMultiples = By.xpath("//span[@class = 'ui-chkbox-icon ui-icon ui-icon-check ui-c']");
@@ -151,5 +156,10 @@ public class PestanaSimuladorInternoPage {
         KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
         ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
 		listVerEditar = By.xpath("//a[starts-with(@id, 'form:listaCreditos')]");
+
+		valorFianzaPadre = By.id("formSimuladorCredito:fianzaCrPadre_hinput");
+		valorFianzaTotal = By.id("formSimuladorCredito:totalFianza_hinput");
+		valorFianzaPadreAna = By.id("formSimulador:valorFianzaPadres_hinput");
+		valorFianzaTotalAna = By.id("formSimulador:valorFianza_hinput");
 	}
 }
