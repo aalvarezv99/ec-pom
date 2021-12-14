@@ -29,7 +29,9 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+      |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -47,7 +49,9 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+
    |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
@@ -60,7 +64,9 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+
    |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -70,7 +76,9 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
+
    |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso

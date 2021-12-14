@@ -1596,10 +1596,14 @@ public class BaseTest {
         log.info("*********** Iniciando la VALIDACION Cabecera Plan De Pagos ***********");
 
         try {
-        	assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
-        			ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito").replace("0", ""), Tasa);
+        	String tasaFront = String.format("%.2f",Double.parseDouble(ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito")));
+        	tasaFront=tasaFront.replace(",",".") ;
+        	log.info("############ tasa  front ############## "+ tasaFront);
+           	assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
+           			tasaFront , Tasa);
         	assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO Uno",
         			ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+        	log.info("### Validando Monto aprobado (capital total cŕedito): ## "+Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):"))+"## vg_MontoAprobado ##"+vg_MontoAprobado);
         	ToleranciaPesoMensaje("Validando Monto aprobado (capital total cŕedito):",
         			Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
         			Integer.parseInt(vg_MontoAprobado));
@@ -1613,9 +1617,12 @@ public class BaseTest {
         	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
         			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):").replace("0", ""), vg_SegundaTasaInteres);
         	*/	
+        	
+        	log.info(" mensaje de plazo   ######## "+Plazo);
+        	
         	ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
         			Integer.parseInt(ValoresCabeceraPlanDePagos
-        					.get("Prima de seguro anticipada a favor de Asegurador (24 Cuotas anticipadas):")
+        					.get("Prima de seguro anticipada a favor de Asegurador ("+(Integer.parseInt(Plazo)+1)+" Cuotas anticipadas):")
         					.split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
         	
         	
