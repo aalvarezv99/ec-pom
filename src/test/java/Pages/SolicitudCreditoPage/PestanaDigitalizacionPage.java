@@ -54,7 +54,9 @@ public class PestanaDigitalizacionPage {
 		CodigoProforenses= By.id("formRadicacion:proforenses");
 		IdentidadConfirmada= By.id("formRadicacion:resultadoProforenses:0_clone");
 		Radicar= By.id("formRadicacion:radicar");
+
 		AgregarCartera = By.xpath("//a[starts-with(@id,'formRadicacion:j_idt') and contains(@aria-label,'Agregar cartera')]");
+
 		
 		//Compra cartera
 		Entidad = By.id("formRadicacion:j_idt93:0:competidorSO_label");	
@@ -76,7 +78,9 @@ public class PestanaDigitalizacionPage {
 		NumeroObligacionSaneamiento	= By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
 		SeleccionSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
 		
+
 		BotonGuardarCartera = By.xpath("//*[text()='Guardar']");
+
 		listCheckSiCarteras = By.xpath("//input[starts-with(@id,'formRadicacion:certificacionesDeuda:') and contains(@id,'estadoCertificacion:') and contains(@value,'true') and not(@disabled)] ");
 		MarcarCartera1 = By.id("formRadicacion:certificacionesDeuda:0:estadoCertificacion:0_clone");
 		MarcarCartera2 = By.id("formRadicacion:certificacionesDeuda:1:estadoCertificacion:2_clone");

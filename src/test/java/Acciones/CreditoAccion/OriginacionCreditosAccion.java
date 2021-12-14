@@ -1310,34 +1310,34 @@ public class OriginacionCreditosAccion extends BaseTest {
             }
         }
 
-        log.info("suma retanqueo y saldo al dia  " + (Integer.parseInt(ValoresCredito.get(11)) + SaldoAlDia));
+        log.info("suma retanqueo y saldo al dia  " + (Integer.parseInt(ValoresCredito.get(12)) + SaldoAlDia));
 
-        int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito.get(11)) + SaldoAlDia,
+        int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito.get(12)) + SaldoAlDia,
                 DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
 
-        int monto = (int) Double.parseDouble(ValoresCredito.get(0)) - Integer.parseInt(ValoresCredito.get(10))
-                - Integer.parseInt(ValoresCredito.get(16));
+        int monto = (int) Double.parseDouble(ValoresCredito.get(0)) - Integer.parseInt(ValoresCredito.get(9))
+                - Integer.parseInt(ValoresCredito.get(15));
         int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(monto, 1000000, Tasaxmillonseguro, DesPrimaAntic);
-        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - PRIMA", Integer.parseInt(ValoresCredito.get(10)),
+        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - PRIMA", Integer.parseInt(ValoresCredito.get(9)),
                 PrimaAnticipadaSeguro);
 
 
-//        if (ValoresCredito.get(10).isEmpty()) {
-//            calculoMontoSoli = calculoMontoSoli - PrimaAnticipadaSeguro;
-//            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",
-//                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
-//        } else {
-//            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",
-//                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
-//        }
+        if (ValoresCredito.get(10).isEmpty()) {
+            calculoMontoSoli = calculoMontoSoli - PrimaAnticipadaSeguro;
+            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",
+                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
+        } else {
+            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",
+                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
+        }
 
 
         int ValorFianza = (int) ValorFianza(monto, TasaFianza, variableFianza);
-        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - CALCULANDO VALOR FIANZA", Integer.parseInt(ValoresCredito.get(16)),
+        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - CALCULANDO VALOR FIANZA", Integer.parseInt(ValoresCredito.get(15)),
                 ValorFianza);
         int EstudioCreditoIva = (int) EstudioCreditoIva(monto, EstudioCredito);
         ToleranciaPesoMensaje("LLAMADA BIENVENID- CALCULANDO ESTUDIO CREDITO ",
-                Integer.parseInt(ValoresCredito.get(18)), EstudioCreditoIva);
+                Integer.parseInt(ValoresCredito.get(17)), EstudioCreditoIva);
 
     }
 
@@ -1519,10 +1519,11 @@ public class OriginacionCreditosAccion extends BaseTest {
             int contador = 0;
             for (Map<String, String> e : data) {
                 Hacer_scroll_Abajo(pestanadigitalizacionPage.AgregarCartera);
+                ElementVisible();
                 esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
                 hacerClick(pestanadigitalizacionPage.AgregarCartera);
                 ElementVisible();
-                // formRadicacion:j_idt93:1:tipoCarteraSO:1
+               
                 String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento)
                         .replaceAll("By.id: ", "");
                 String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ", "");
@@ -1698,7 +1699,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 }
                 if (entry.getKey().contains("Valor prima de seguro anticipada")) {
                     ToleranciaPesoMensaje("Valor prima de seguro anticipada ", Integer.parseInt(entry.getValue()),
-                            Integer.parseInt(ValoresCredito.get(10)));
+                            Integer.parseInt(ValoresCredito.get(9)));
                 }
                 if (entry.getKey().equals("Prima de seguro no devengada crédito retanqueado")) {
                     ToleranciaPesoMensaje("Prima de seguro no devengada crédito retanqueado ",
@@ -1711,7 +1712,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 }
                 if (entry.getKey().contains("Valor de la fianza (IVA incluido)")) {
                     ToleranciaPesoMensaje("Valor de la fianza (IVA incluido) a pagar ",
-                            Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(16)));
+                            Integer.parseInt(entry.getValue()), Integer.parseInt(ValoresCredito.get(15)));
                 }
 
                 if (entry.getKey().equals("Valor credito a recoger")) {
@@ -1726,12 +1727,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 
                 if (entry.getKey().equals("totalGmf")) {
                     ToleranciaPesoMensaje("total 4*1000 ", Integer.parseInt(entry.getValue()),
-                            Integer.parseInt(ValoresCredito.get(9)));
+                            Integer.parseInt(ValoresCredito.get(8)));
                 }
 
                 if (entry.getKey().equals("Valor total a desembolsar")) {
                     ToleranciaPesoMensaje("Valor total a desembolsar (REMANENTE) ", Integer.parseInt(entry.getValue()),
-                            Integer.parseInt(ValoresCredito.get(13)));
+                            Integer.parseInt(ValoresCredito.get(12)));
                 }
 
                 if (entry.getKey().equals("Tasa EA inicial") || entry.getKey().equals("Tasa de interés EA inicial")) {
@@ -1800,6 +1801,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClick(pagesclienteparabienvenida.CalificacionProceso);
             hacerClick(pagesclienteparabienvenida.CalificacionCobro);
             hacerScrollAbajo();
+            Thread.sleep(1000);
             hacerClick(pagesclienteparabienvenida.Acepta);
             ElementVisible();
             
