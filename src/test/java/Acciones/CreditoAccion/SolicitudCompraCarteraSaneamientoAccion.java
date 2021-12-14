@@ -137,7 +137,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 					pestanareferenciacionpage.ListLabelEntidad,pestanareferenciacionpage.ListFiltroEntidad,
 					pestanareferenciacionpage.ListMonto,pestanareferenciacionpage.ListValorCuota,
 					pestanareferenciacionpage.ListFecha,pestanareferenciacionpage.ListNumObligacion,pestanareferenciacionpage.ListRadioSaneamiento,
-					pestanareferenciacionpage.ListBtnAprobar,pestanareferenciacionpage.ListTipo, pestanareferenciacionpage.ListRadioCompra,
+					pestanareferenciacionpage.ListBtnAprobar,pestanareferenciacionpage.ListTipo, pestanareferenciacionpage.ListRadioCompra,pestanareferenciacionpage.listDescEntidad,
 					ListCompetidores,ListMonto,ListCuota,
 					ListFecha,ListVlrObligacion);
 			

@@ -92,10 +92,8 @@ public class RetanqueoCreditos extends BaseTest {
         log.info("************ Buscar credito a retanquear, RetanqueoCreditos - FiltrarCredito()*****");
         try {
             BuscarenGrilla(retanqueopages.cedula, Cedula);
-            Thread.sleep(5000);
             ElementVisible();
             BuscarenGrilla(retanqueopages.credito, Credito);
-            Thread.sleep(5000);
             ElementVisible();
             esperaExplicitaTexto(Credito);
             adjuntarCaptura("Se filtra el retanqueo ");

@@ -41,6 +41,8 @@ public class PestanaDigitalizacionPage {
 	public By MarcarCartera;
 	public By SeleccionSaneamiento;
 	
+	public By montoDesplegable;
+	public By listMontoDesplegable;
 	
 	public PestanaDigitalizacionPage(WebDriver driver) {
 		
@@ -67,6 +69,8 @@ public class PestanaDigitalizacionPage {
 		RadioSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
 		RadioCompra = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:1");
 		MontoSaneamiento = By.id("formRadicacion:j_idt93:0:montoSO_input");
+		montoDesplegable = By.id("formRadicacion:j_idt93:0:montoSegurosAP_label");
+		listMontoDesplegable = By.xpath("//ul[@id='formRadicacion:j_idt93:0:montoSegurosAP_items']/child::li");
 		ValorCuotaSaneamiento = By.id("formRadicacion:j_idt93:0:valorCuotaSO_input");
 		FechaVencimientoSaneamiento = By.id("formRadicacion:j_idt93:0:fechaVencimientoSO_input");
 		NumeroObligacionSaneamiento	= By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
