@@ -59,6 +59,7 @@ public class RetanqueoCreditos extends BaseTest {
     private String vg_PrimaSeguroAnticipada_Retanqueo;
     private String vg_PrimaNoDevengadaSeguro_Retanqueo;
     private String vg_PrimaNetaSeguro_Retanqueo;
+    private String vg_CuotasPrimaSeguroAnticipada;
 
     public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
         // this.driver = driver;
@@ -694,7 +695,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         int PrimaPadre = 0;
         ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
         while (resultado4.next()) {
@@ -835,6 +836,7 @@ public class RetanqueoCreditos extends BaseTest {
                 vg_SegundaTasaInteres_Retanqueo,
                 vg_PrimaSeguroAnticipada_Retanqueo,
                 vg_PrimaNoDevengadaSeguro_Retanqueo,
+                vg_CuotasPrimaSeguroAnticipada,
                 vg_PrimaNetaSeguro_Retanqueo,
                 pestanasimuladorinternopage.KeyCabeceraPlanDePagos,
                 pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
@@ -1028,7 +1030,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         int PrimaPadre = 0;
         ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
         while (resultado4.next()) {
