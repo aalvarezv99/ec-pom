@@ -85,7 +85,7 @@ Característica: Originacion de Creditos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
-    Y se validan los valores de las condiciones del credito
+    Y se validan los valores de las condiciones del credito <Ingresos><descLey><descNomina><Pagaduria>
     Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
     Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
     Entonces se ingresa el codigo OTP <Cedula>
@@ -100,7 +100,7 @@ Característica: Originacion de Creditos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
-    Y se validan los valores de las condiciones del credito
+    Y se validan los valores de las condiciones del credito <Ingresos><descLey><descNomina><Pagaduria>
     Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
     Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
     Ejemplos:

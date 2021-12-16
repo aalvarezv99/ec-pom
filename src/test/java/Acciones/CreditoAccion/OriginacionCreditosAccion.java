@@ -1250,7 +1250,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         }
     }
 
-    public void ValidarValoresLlamadoBienvenida() throws NumberFormatException, SQLException {
+    public void ValidarValoresLlamadoBienvenida(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException {
         recorerpestanas("CONDICIONES DEL CRÉDITO");
 
         ResultSet resultado;
@@ -1273,73 +1273,26 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         log.info("******** Valor de prima **** " + DesPrimaAntic);
 
-        double EstudioCredito = 0;
-        double TasaFianza = 0;
-        int mesDos = 0;
-        double tasaDos = 0;
-        String Tasa = ValoresCredito.get(2).replace(",", ".");
-        log.info("Tasa Creada " + Tasa);
-        resultado = query.consultarValoresCapitalizador(Tasa);
-        while (resultado.next()) {
-            tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
-            EstudioCredito = Double.parseDouble(resultado.getString(3));
-            TasaFianza = Double.parseDouble(resultado.getString(4));
-            mesDos = resultado.getInt(5);
-        }
-        // EstudioCredito = 2.35; //EliminarLinea
-        log.info("Tasa Estudio Credito " + EstudioCredito);
-        log.info("Tasa Fianza " + TasaFianza);
-        log.info("Valor mes Dos " + mesDos);
-        log.info("Tasa Dos" + tasaDos);
-        double tasaUno = Double.parseDouble(Tasa) / 100;
+        SimuladorDto calculosSimulador = new SimuladorDto();
+      	
+        /*
+         * Parametros del metodo 
+         * (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
+	 *  	p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
+			p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
+      	calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(12),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
+      			ValoresCredito.get(6),ValoresCredito.get(7), 
+      			ingresos, descLey, descNomina, pagaduria);
 
-        // Valores para la funciones estaticos
-        int Tasaxmillonseguro = 4625;
-        double variableFianza = 1.19;
-        int SaldoAlDia = 0;
-
-        if (!ValidarElementoPresente(pagesclienteparabienvenida.SaldoAlDia)) {
-            int coma = GetText(pagesclienteparabienvenida.ValorSaldoAlDia).indexOf(",");
-            GetText(pagesclienteparabienvenida.ValorSaldoAlDia);
-            if (coma == -1) {
-                SaldoAlDia = Integer.parseInt(
-                        GetText(pagesclienteparabienvenida.ValorSaldoAlDia).replace(".", "").replace(",", "."));
-                System.out.println(" Resultado de valor SALDO AL DIA IF " + SaldoAlDia);
-            } else {
-                SaldoAlDia = Integer.parseInt(
-                        GetText(pagesclienteparabienvenida.ValorSaldoAlDia).substring(0, coma).replace(".", ""));
-                System.out.println(" Resultado de valor SALDO AL DIA ELSE " + SaldoAlDia);
-            }
-        }
-
-        log.info("suma retanqueo y saldo al dia  " + (Integer.parseInt(ValoresCredito.get(12)) + SaldoAlDia));
-
-        int calculoMontoSoli = (int) MontoaSolicitar(Integer.parseInt(ValoresCredito.get(12)) + SaldoAlDia,
-                DesPrimaAntic, Tasaxmillonseguro, EstudioCredito, TasaFianza, vlrIva);
-
-        int monto = (int) Double.parseDouble(ValoresCredito.get(0)) - Integer.parseInt(ValoresCredito.get(9))
-                - Integer.parseInt(ValoresCredito.get(15));
-        int PrimaAnticipadaSeguro = (int) PrimaAnticipadaSeguro(monto, 1000000, Tasaxmillonseguro, DesPrimaAntic);
-        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - PRIMA", Integer.parseInt(ValoresCredito.get(9)),
-                PrimaAnticipadaSeguro);
-
-
-        if (ValoresCredito.get(10).isEmpty()) {
-            calculoMontoSoli = calculoMontoSoli - PrimaAnticipadaSeguro;
-            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD IF ########",
-                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
-        } else {
-            ToleranciaPesoMensaje("###### ERROR CALCULANDO MONTO SOLICITUD ELSE ########",
-                    (int) Double.parseDouble(ValoresCredito.get(0)), calculoMontoSoli);
-        }
-
-
-        int ValorFianza = (int) ValorFianza(monto, TasaFianza, variableFianza);
-        ToleranciaPesoMensaje("LLAMADA BIENVENIDA - CALCULANDO VALOR FIANZA", Integer.parseInt(ValoresCredito.get(15)),
-                ValorFianza);
-        int EstudioCreditoIva = (int) EstudioCreditoIva(monto, EstudioCredito);
-        ToleranciaPesoMensaje("LLAMADA BIENVENID- CALCULANDO ESTUDIO CREDITO ",
-                Integer.parseInt(ValoresCredito.get(17)), EstudioCreditoIva);
+     
+        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA PRIMA *****", Integer.parseInt(ValoresCredito.get(9)),
+        		calculosSimulador.getPrimaSeguroAnticipada());
+        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA MONTO SOLICITUD ******",
+                    (int) Double.parseDouble(ValoresCredito.get(0)), calculosSimulador.getMontoSolicitar());
+        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA VALOR FIANZA *****", Integer.parseInt(ValoresCredito.get(17)),
+        		calculosSimulador.getFianza());
+        ToleranciaPesoMensaje("***** LLAMADA BIENVENID- COMPARA ESTUDIO CREDITO ****",
+                Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
 
     }
 
@@ -1975,6 +1928,8 @@ public class OriginacionCreditosAccion extends BaseTest {
     public SimuladorDto consultarCalculosSimulador(String Monto,int DesPrimaAntic,String Tasa,String Plazo,
     		String DiasHabilesIntereses,String vlrCompasSaneamientos, String Ingresos, String descLey, 
     		String descNomina,String pagaduria) {
+    	
+    	log.info("****** Calculando valores simulador Originacion por funcion SQL, OriginacionCreditosAccion -  consultarCalculosSimulador()*******");
     	
     	SimuladorDto resultSimulador = new SimuladorDto();
     	OriginacionCreditoQuery query = new OriginacionCreditoQuery();
