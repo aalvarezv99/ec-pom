@@ -2000,7 +2000,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         System.out.println(" Variable prima: " + prima);
 
         int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
