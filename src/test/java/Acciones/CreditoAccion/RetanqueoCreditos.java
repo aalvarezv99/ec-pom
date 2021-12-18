@@ -793,9 +793,9 @@ public class RetanqueoCreditos extends BaseTest {
             int resultFianza = ValorFianza - fianzaPadre;
             resultFianza = Math.max(resultFianza, 0);
             ToleranciaPesoMensaje(" Comparación fianza total ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaTotal)), fianzaPadre + resultFianza);
+                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaTotalAna)), fianzaPadre + resultFianza);
             ToleranciaPesoMensaje(" Comparación fianza padre ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadre)), fianzaPadre);
+                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadreAna)), fianzaPadre);
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
@@ -835,8 +835,8 @@ public class RetanqueoCreditos extends BaseTest {
                 vg_MontoAprobado_Retanqueo,
                 vg_SegundaTasaInteres_Retanqueo,
                 vg_PrimaSeguroAnticipada_Retanqueo,
-                vg_PrimaNoDevengadaSeguro_Retanqueo,
                 vg_CuotasPrimaSeguroAnticipada,
+                vg_PrimaNoDevengadaSeguro_Retanqueo,
                 vg_PrimaNetaSeguro_Retanqueo,
                 pestanasimuladorinternopage.KeyCabeceraPlanDePagos,
                 pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
