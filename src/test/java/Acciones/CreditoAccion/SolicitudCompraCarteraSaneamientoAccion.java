@@ -66,6 +66,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	private String vg_MontoAprobado_Originacion;
   	private String vg_SegundaTasaInteres_Originacion;
   	private String vg_PrimaSeguroAnticipada_Originacion;
+  	private String vg_CuotasPrimaSeguroAnticipada;
 
 	public SolicitudCompraCarteraSaneamientoAccion(WebDriver driver) throws InterruptedException {
 	//this.driver = driver;
@@ -218,7 +219,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 				DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
 				log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
 			}
-			
+			vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
 			int TotalCarteras = (Integer.parseInt(Cartera1)+Integer.parseInt(Saneamiento2));
     		
 			SimuladorDto calculosSimulador = new SimuladorDto();
@@ -258,7 +259,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCompraCartera), String.valueOf(TotalCarteras));
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoAsesor),Monto);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PlazoAsesor),Plazo);
-    		assertvalidarEquals(GetText(pestanasimuladorinternopage.TasaAsesor).replace("0", ""),Tasa);
+    		assertvalidarEquals(GetText(pestanasimuladorinternopage.TasaAsesor),Tasa);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.IngresosAsesor).substring(0,TextoElemento(pestanasimuladorinternopage.IngresosAsesor).length()-2).replaceAll("[^a-zA-Z0-9]", ""),Ingresos);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosLey).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosLey).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descLey);
     		assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.DescuentosNomina).substring(0,TextoElemento(pestanasimuladorinternopage.DescuentosNomina).length()-2).replaceAll("[^a-zA-Z0-9]", ""),descNomina);
@@ -283,7 +284,8 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
        			Plazo,
        			vg_MontoAprobado_Originacion,
        			vg_SegundaTasaInteres_Originacion,
-       			vg_PrimaSeguroAnticipada_Originacion, 
+       			vg_PrimaSeguroAnticipada_Originacion,
+       			vg_CuotasPrimaSeguroAnticipada,
        			null, 
        			null, 
        			pestanasimuladorinternopage.KeyCabeceraPlanDePagos, 

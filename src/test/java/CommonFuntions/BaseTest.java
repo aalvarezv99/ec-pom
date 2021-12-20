@@ -1615,9 +1615,16 @@ public class BaseTest {
         return listString;
     }
 
-    public void validarCabeceraPlanDePagos(String validacion,String Tasa, String Plazo, 
-    		String vg_MontoAprobado, String vg_SegundaTasaInteres, 
-    		String vg_PrimaSeguroAnticipada, String vg_PrimaNoDevengadaSeguro, String vg_PrimaNetaSeguro,
+    public void validarCabeceraPlanDePagos(
+    		String validacion,
+    		String Tasa,
+    		String Plazo, 
+    		String vg_MontoAprobado,
+    		String vg_SegundaTasaInteres,
+    		String vg_PrimaSeguroAnticipada,
+    		String vg_CuotasPrimaSeguroAnticipada,
+    		String vg_PrimaNoDevengadaSeguro,
+    		String vg_PrimaNetaSeguro,
     		By keyPage, By valuePage) {
 
         //MAP Variables Locales
@@ -1633,6 +1640,7 @@ public class BaseTest {
         log.info("*********** Iniciando la VALIDACION Cabecera Plan De Pagos ***********");
 
         try {
+        	
         	String tasaFront = String.format("%.2f",Double.parseDouble(ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito")));
         	tasaFront=tasaFront.replace(",",".") ;
         	log.info("############ tasa  front ############## "+ tasaFront);
@@ -1655,11 +1663,9 @@ public class BaseTest {
         			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):").replace("0", ""), vg_SegundaTasaInteres);
         	*/	
         	
-        	log.info(" mensaje de plazo   ######## "+Plazo);
-        	
         	ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
         			Integer.parseInt(ValoresCabeceraPlanDePagos
-        					.get("Prima de seguro anticipada a favor de Asegurador ("+(Integer.parseInt(Plazo)+1)+" Cuotas anticipadas):")
+        					.get("Prima de seguro anticipada a favor de Asegurador ("+vg_CuotasPrimaSeguroAnticipada+" Cuotas anticipadas):")
         					.split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
         	
         	

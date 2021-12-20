@@ -61,6 +61,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     private String vg_MontoAprobado_Originacion;
     private String vg_SegundaTasaInteres_Originacion;
     private String vg_PrimaSeguroAnticipada_Originacion;
+    private String vg_CuotasPrimaSeguroAnticipada;
 
 
     public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
@@ -998,13 +999,13 @@ public class OriginacionCreditosAccion extends BaseTest {
             DesPrimaAntic = Integer.parseInt(resultado.getString(1));
         }
         log.info("******** Valor de prima **** " + DesPrimaAntic);
-
         String DiasHabilesIntereses = TextoElemento(pestanasimuladorinternopage.DiasInteresesIniciales);
         if (Integer.parseInt(Plazo) < DesPrimaAntic) {
             int periodoGracia = (int) Math.ceil((double) Integer.parseInt(DiasHabilesIntereses) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
             log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
         }
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         
         // Valores CXC capitalizadas
         /* Consultar los conceptos para el cambio de tasa */
@@ -1054,7 +1055,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 calculosSimulador.getRemanenteEstimado());       
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCompraCartera), vlrCompasSaneamientos);
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PlazoAsesor), Plazo);
-        assertvalidarEquals(GetText(pestanasimuladorinternopage.TasaAsesor).replace("0", ""), Tasa);
+        assertvalidarEquals(GetText(pestanasimuladorinternopage.TasaAsesor), Tasa);
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.IngresosAsesor)
                 .substring(0, TextoElemento(pestanasimuladorinternopage.IngresosAsesor).length() - 2)
                 .replaceAll("[^a-zA-Z0-9]", ""), Ingresos);
@@ -1107,6 +1108,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                     vg_MontoAprobado_Originacion,
                     vg_SegundaTasaInteres_Originacion,
                     vg_PrimaSeguroAnticipada_Originacion,
+                    vg_CuotasPrimaSeguroAnticipada,
                     null,
                     null,
                     pestanasimuladorinternopage.KeyCabeceraPlanDePagos,

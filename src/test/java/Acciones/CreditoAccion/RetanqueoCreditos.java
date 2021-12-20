@@ -59,6 +59,7 @@ public class RetanqueoCreditos extends BaseTest {
     private String vg_PrimaSeguroAnticipada_Retanqueo;
     private String vg_PrimaNoDevengadaSeguro_Retanqueo;
     private String vg_PrimaNetaSeguro_Retanqueo;
+    private String vg_CuotasPrimaSeguroAnticipada;
 
     public RetanqueoCreditos(WebDriver driver) throws InterruptedException {
         // this.driver = driver;
@@ -694,7 +695,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         int PrimaPadre = 0;
         ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
         while (resultado4.next()) {
@@ -792,9 +793,9 @@ public class RetanqueoCreditos extends BaseTest {
             int resultFianza = ValorFianza - fianzaPadre;
             resultFianza = Math.max(resultFianza, 0);
             ToleranciaPesoMensaje(" Comparación fianza total ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaTotal)), fianzaPadre + resultFianza);
+                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaTotalAna)), fianzaPadre + resultFianza);
             ToleranciaPesoMensaje(" Comparación fianza padre ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadre)), fianzaPadre);
+                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadreAna)), fianzaPadre);
             ToleranciaPesoMensaje(" Valor fianza ",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
 
@@ -834,6 +835,7 @@ public class RetanqueoCreditos extends BaseTest {
                 vg_MontoAprobado_Retanqueo,
                 vg_SegundaTasaInteres_Retanqueo,
                 vg_PrimaSeguroAnticipada_Retanqueo,
+                vg_CuotasPrimaSeguroAnticipada,
                 vg_PrimaNoDevengadaSeguro_Retanqueo,
                 vg_PrimaNetaSeguro_Retanqueo,
                 pestanasimuladorinternopage.KeyCabeceraPlanDePagos,
@@ -1028,7 +1030,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         int PrimaPadre = 0;
         ResultSet resultado4 = query.ValorPrimaCreditoPadre(Credito);
         while (resultado4.next()) {
@@ -1998,7 +2000,7 @@ public class RetanqueoCreditos extends BaseTest {
                     .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
-
+        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
         System.out.println(" Variable prima: " + prima);
 
         int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
