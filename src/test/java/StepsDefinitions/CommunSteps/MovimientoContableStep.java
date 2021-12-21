@@ -20,8 +20,8 @@ public class MovimientoContableStep {
 		movimientoContableAccion = new MovimientoContableAccion(driver);
 	}
 	
-    @Y("^el sistema valida por (.+) y (.+) en la tabla movimiento contable las (.*) que se proceso por el bridge en la (.+)$")
-    public void elSistemaValidaPorEnLaTablaMovimientoContableQueSeProcesoPorElBridge(String numeroradicadocredito, String numCedula, String accountingSource, String fecha) throws Throwable {
+    @Y("^se valida por (.+) y (.+) en la tabla movimiento contable las (.*) que se proceso por el bridge en la (.+)$")
+    public void seValidaPorEnLaTablaMovimientoContableQueSeProcesoPorElBridge(String numeroradicadocredito, String numCedula, String accountingSource, String fecha) throws Throwable {
     	movimientoContableAccion.validarProcesoBridge(numeroradicadocredito, numCedula.replace("\"", ""), accountingSource.replace("\"", ""), fecha);
     }
     

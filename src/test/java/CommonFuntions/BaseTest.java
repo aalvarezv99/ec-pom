@@ -1073,6 +1073,8 @@ public class BaseTest {
         return result;
     }
 
+    /*ThainerPerez 12/Dic/2021, V1.2 - 1.	Se ajusta el metodo de buscar archivo donde al parametro vlrBuscar se le quita el ultimo caracter
+     * 								   2.	La funcion tolerancia no funciona debido a que se estan comparando Dos String*/
     public boolean buscarVlrArchivoPDF(String nombreArchivo, String vlrBuscar, String ruta) {
         boolean result = false;
         log.info("************Buscando valor " + nombreArchivo + " : " + vlrBuscar + " ************");
@@ -1081,7 +1083,7 @@ public class BaseTest {
             PdfReader reader = new PdfReader(ruta + nombreArchivo);
             // empezamos la coversion a pdf
             String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", "").replace(".", ""));
-            assertThat(page.toUpperCase(), containsString(vlrBuscar.toUpperCase()));
+            assertThat(page.toUpperCase(), containsString(vlrBuscar.substring(0, vlrBuscar.length()-1).toUpperCase()));
         } catch (Exception e) {
             log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
             // assertTrue("########## ErrorAplicacionCierreAccion -
