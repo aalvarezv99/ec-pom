@@ -65,7 +65,7 @@ Característica: Retanqueo de creditos
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
-    Y se validan los valores de las condiciones del credito <Credito>
+    Y se validan los valores de las condiciones del credito <Credito><Plazo><DiasHabilesIntereses>
     Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
 
