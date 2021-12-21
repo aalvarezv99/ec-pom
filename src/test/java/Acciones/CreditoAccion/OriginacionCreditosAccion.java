@@ -94,6 +94,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         log.info("***********************************************************************************************************");
         log.info("[ Configuracion ] - Ejecutando Funciones SQL");
         log.info("***********************************************************************************************************");
+        FuncionesSqlQuery.funcionCxcFianzaCertSaldo();
         FuncionesSqlQuery.ejecutarFuncionOriginacion();
     }
 

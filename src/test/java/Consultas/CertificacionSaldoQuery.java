@@ -112,11 +112,13 @@ public class CertificacionSaldoQuery {
 			
 			
 			// Intereses corrientes
+			/*Thainer Perez 21/Dic/2021, V1.2:	1.	Se ajusta el parametro de consulta y en ambas condiciones se deja "ultimoDiaFechaVencimiento"
+			 * 									2.  El parametro se ahusto en la segunda fecha de la consulta*/
 			query = new StringBuilder();
 			query.append("select sum(distinct(pdp.interes)) - sum(distinct(dcp.intereses_corrientes)) + \n");
 			query.append("(select (round(interes / 30) * DATE_PART('day', '" + fechaVencimiento
 					+ "'::date)) from plan_de_pagos where id_credito = " + idCredito + " and  fecha = '"
-					+ fechaEjecucionCierreUltimoDiaMes + "') as intereses_corrientes_total\n");
+					+ ultimoDiaFechaVencimiento + "') as intereses_corrientes_total\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pdp.id\n");
 			query.append("where id_credito = " + idCredito + "\n");

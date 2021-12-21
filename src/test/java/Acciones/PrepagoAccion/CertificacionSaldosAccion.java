@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -235,7 +236,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 	}
 	
 	public Map<String, String> conceptosCertificacion(SaldoInsolutoDto valores,String estado, String vlrFianza, String cuentasCXC){
-		Map<String,String> conceptos = new HashMap<String,String>();
+		Map<String,String> conceptos = new LinkedHashMap<>();
 		
 		conceptos.put("Capital", "Capital $ " +  valores.getCapital().intValue());
 		conceptos.put("IntCorriente", "Intereses Corrientes $ " + valores.getInteresesCorrientes().intValue());
