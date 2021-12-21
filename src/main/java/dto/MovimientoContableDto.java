@@ -18,7 +18,9 @@ public class MovimientoContableDto {
 	private String nombreCuentaAcouting;
 	
 	private String mmensaje;
-	
+
+	private String descripcionCuenta;
+
 	/*Valores de planilla*/
 	private Boolean vlrBoolean;
 	
@@ -50,7 +52,6 @@ public class MovimientoContableDto {
 	public void setEstadoIncor(String estadoIncor) {
 		this.estadoIncor = estadoIncor;
 	}
-
 
 	public String getMmensaje() {
 		return mmensaje;
@@ -115,7 +116,13 @@ public class MovimientoContableDto {
 	public void setValor(String valor) {
 		this.valor = valor;
 	}
-	
-	
+
+	public String getDescripcionCuenta() {
+		return descripcionCuenta;
+	}
+
+	public void setDescripcionCuenta(String descripcionCuenta) {
+		this.descripcionCuenta = descripcionCuenta;
+	}
 
 }

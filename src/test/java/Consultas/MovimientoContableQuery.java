@@ -100,10 +100,11 @@ public class MovimientoContableQuery {
 	public ResultSet validarDetalleBridge(String numRadicado, String accountingSource, String fecha) {		
 		ResultSet r = null;
 		try {
-			r= dbconector.conexion("select (mc.transaccion_contable::json->>'origin'::text) origin,  mc.detalles, mc.transaccion_contable from movimiento_contable mc \r\n"
+			String sql = "select (mc.transaccion_contable::json->>'origin'::text) origin,  mc.detalles, mc.transaccion_contable from movimiento_contable mc \r\n"
 					+ "					where id_credito in (select id from credito where numero_radicacion in ("+numRadicado+"))\r\n"
 					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') = '"+fecha+"'\r\n"
-					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountingSource+");"); 
+					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountingSource+");";
+			r= dbconector.conexion(sql);
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - validarDetalleBridge() ********");
 			assertTrue("########## MovimientoContableAccion - validarProcesoBridge()########"+ e.getMessage(),false);
@@ -116,7 +117,7 @@ public class MovimientoContableQuery {
 	public ResultSet validarCausacionMovimientos(String accountingSource, String numRadicado, String fecha) {
 		ResultSet r = null;
 		try {
-			r= dbconector.conexion("with consulta as (select c.numero_radicacion ,mcc.tipo_movimiento , mcc.valor valor\r\n"
+			String sql = "with consulta as (select c.numero_radicacion ,mcc.tipo_movimiento , mcc.valor valor, mcc.cuenta \r\n"
 					+ "from movimiento_contable mc\r\n"
 					+ "inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\r\n"
 					+ "inner join credito c on mc.id_credito = c.id\r\n"
@@ -124,14 +125,15 @@ public class MovimientoContableQuery {
 					+ "where mc.id_credito in (select id from credito where numero_radicacion in ("+numRadicado+"))\r\n"
 					+ "and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountingSource+")\r\n"
 					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') = '"+fecha+"'\r\n"
-					+ "group by c.numero_radicacion,  mcc.tipo_movimiento,  mcc.valor),\r\n"
+					+ "group by c.numero_radicacion, mcc.tipo_movimiento, mcc.valor, mcc.cuenta), \r\n"
 					+ "movTipoDos as (select round(sum(mu.valor)) sumaDos from consulta mu where mu.tipo_movimiento = 2),\r\n"
 					+ "movTipoUno as (select round(sum(mu.valor)) sumaUno from consulta mu where mu.tipo_movimiento = 1)\r\n"
 					+ "select case when  mu.sumaUno=md.sumaDos then\r\n"
 					+ "true\r\n"
 					+ "else false\r\n"
 					+ "end as causacion\r\n"
-					+ "from movTipoDos md, movTipoUno mu;"); 
+					+ "from movTipoDos md, movTipoUno mu;";
+			r= dbconector.conexion(sql);
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - validarDetalleBridge() ********");
 			log.error(e.getMessage());	
@@ -164,19 +166,22 @@ public class MovimientoContableQuery {
 	public ResultSet consultarMovimientos(String numeroRadicado, String accountinSource, String fecha) {
 		ResultSet r=null;
 		try {
-			r = dbconector.conexion("select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion, c.numero_radicacion\r\n"
-					+ "from movimiento_contable mc\r\n"
-					+ "inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\r\n"
-					+ "inner join credito c on mc.id_credito = c.id\r\n"
-					+ "inner join pagaduria p on c.id_pagaduria = p.id\r\n"
-					+ "where 1=1\r\n"
-					+ "and mc.id_credito in (select id from credito c where c.numero_radicacion ="+ numeroRadicado+")\r\n"
-					+ "and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accountinSource+")\r\n"
-					+ "	and to_char(mc.fecha_registro::date,'DD/MM/YYYY') = '"+fecha+"'\r\n"
-					+ "and mcc.valor <> 0\r\n"
-					+ "order by mcc.cuenta asc;	");
-			
-			
+			String sql = "select distinct  mcc.tipo_movimiento ,mcc.cuenta, mc.tipo_transaccion, c.numero_radicacion,\n" +
+					"'('|| replace(replace((array(select ''''||json_object_keys((mc.transaccion_contable::json->>'accountingMovements'::text)::json)||''''))::text ,'{',''),'}','') ||')' as desNombres,\n" +
+					"mcc.valor,case vn.id_linea_fondeo when 3 then true else false end ventaFirme\n" +
+					"from movimiento_contable mc\n" +
+					"inner join movimiento_contable_cuenta mcc on mc.id = mcc.id_movimiento_contable\n" +
+					"inner join credito c on mc.id_credito = c.id\n" +
+					"left join credito_gestion_inventario cg on cg.id_credito = c.id\n" +
+					"left join venta_negociada vn on cg.id_venta_negociada = vn.id\n" +
+					"inner join pagaduria p on c.id_pagaduria = p.id\n" +
+					"where 1=1\n" +
+					"and mc.id_credito in (select id from credito c where c.numero_radicacion = " + numeroRadicado + ") \n" +
+					"and (mc.transaccion_contable::json->>'accountingSource'::text) in (" + accountinSource +") \n" +
+					"and to_char(mc.fecha_registro::date,'DD/MM/YYYY') = '" + fecha + "' \n" +
+					"and mcc.valor <> 0\n" +
+					"order by mcc.cuenta asc;";
+			r = dbconector.conexion(sql);
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarMovimientos() ********");
 			log.error(e.getMessage());			
@@ -188,20 +193,21 @@ public class MovimientoContableQuery {
 	/*ThainerPerez 12/11/2021 Se consultan las cuentas en la base de datos del bridge correspondiente a cada instancia
 	 * 
 	 * */
-	public ResultSet consultarCuentasBridge(String acoountinName , String cuentas) {
+	public ResultSet consultarCuentasBridge(String acoountinName , String cuentas, String descripcion) {
 		ResultSet r=null;
 		try {
-			r = dbconector.conexionAcountingBridge("select ad.name, ac.\"name\", ac.account, cc.accounting_nature_id\r\n"
+			String sql = "select ad.name, ac.\"name\", ac.account, cc.accounting_nature_id \r\n"
 					+ "from accounting_dynamics ad \r\n"
 					+ "inner join concept_configuration cc on cc.accounting_dynamics_id = ad.id \r\n"
 					+ "inner join accounting_concept ac on ac.id = cc.accounting_concept_id \r\n"
 					+ "where 1=1\r\n"
-					+ "and ac.account in ("+cuentas+")\r\n"
-					+ "and upper(ad.\"name\") in ("+acoountinName+")\r\n"
-					+ "and ac.enabled is true\r\n"
-					+ "order by ac.account asc ;");
-			
-			
+					+ "and ac.account in ("+cuentas+") \r\n"
+					+ "and upper(ad.\"name\") in ("+acoountinName+") \r\n"
+					+ "and ac.enabled is true \r\n"
+					+ "and ac.name in " + descripcion + " \r\n"
+					+ "order by ac.account asc ;";
+			r = dbconector.conexionAcountingBridge(sql);
+
 		} catch (Exception e) {
 			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarCuentasBridge() ********");
 			log.error(e.getMessage());			
@@ -252,4 +258,26 @@ public class MovimientoContableQuery {
 
 		return r;
 	}
+
+	public ResultSet consultarCuentasBridgeNumRadicado(String acoountinName , String cuentas) {
+		ResultSet r=null;
+		try {
+			String sql = "select ad.name, ac.\"name\", ac.account, cc.accounting_nature_id \r\n"
+					+ "from accounting_dynamics ad \r\n"
+					+ "inner join concept_configuration cc on cc.accounting_dynamics_id = ad.id \r\n"
+					+ "inner join accounting_concept ac on ac.id = cc.accounting_concept_id \r\n"
+					+ "where 1=1\r\n"
+					+ "and ac.account in ("+cuentas+") \r\n"
+					+ "and upper(ad.\"name\") in ("+acoountinName+") \r\n"
+					+ "and ac.enabled is true \r\n"
+					+ "order by ac.account asc ;";
+			r = dbconector.conexionAcountingBridge(sql);
+
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - consultarCuentasBridgeNumRadicado() ********");
+			log.error(e.getMessage());
+		}
+		return r;
+	}
+
 }
