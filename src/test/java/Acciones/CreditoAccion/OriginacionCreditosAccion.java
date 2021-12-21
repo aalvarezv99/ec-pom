@@ -98,6 +98,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     	log.info("[ Configuracion ] - Ejecutando Funciones SQL");
     	log.info("***********************************************************************************************************");
     	FuncionesSqlQuery.ejecutarFuncionOriginacion();
+    	FuncionesSqlQuery.ejecutarFuncionRetanqueo();
     }
 
     public void CambiarFechaServidor(String FechaServidor) {

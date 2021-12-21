@@ -12,7 +12,14 @@ public class SimuladorDto {
  	private int remanenteEstimado;
  	private int montoMaxDesembolsar;
  	private int capacidadCliente;
- 	
+ 	//Retanqueo - Jonathan Varon
+ 	private String tipoCalculos;
+ 	private int primaNoDevengada;
+ 	private int primaNeta;
+ 	private int sumaFianzas;
+ 	private int fianzaPadre;
+ 	private int fianzaNeta;
+ 	private int saldoAlDia;
  	
  	
 	public int getCapacidadCliente() {
@@ -74,6 +81,49 @@ public class SimuladorDto {
 	}
 	public void setMontoMaxDesembolsar(int montoMaxDesembolsar) {
 		this.montoMaxDesembolsar = montoMaxDesembolsar;
+	}
+	//Getters - Setters, Retanqueo - Jonathan Varon
+	public String getTipoCalculos() {
+		return tipoCalculos;
+	}
+	public void setTipoCalculos(String tipoCalculos) {
+		this.tipoCalculos = tipoCalculos;
+	}
+	public int getPrimaNoDevengada() {
+		return primaNoDevengada;
+	}
+	public void setPrimaNoDevengada(int primaNoDevengada) {
+		this.primaNoDevengada = primaNoDevengada;
+	}
+	public int getPrimaNeta() {
+		return primaNeta;
+	}
+	public void setPrimaNeta(int primaNeta) {
+		this.primaNeta = primaNeta;
+	}
+	public int getSumaFianzas() {
+		return sumaFianzas;
+	}
+	public void setSumaFianzas(int sumaFianzas) {
+		this.sumaFianzas = sumaFianzas;
+	}
+	public int getFianzaPadre() {
+		return fianzaPadre;
+	}
+	public void setFianzaPadre(int fianzaPadre) {
+		this.fianzaPadre = fianzaPadre;
+	}
+	public int getFianzaNeta() {
+		return fianzaNeta;
+	}
+	public void setFianzaNeta(int fianzaNeta) {
+		this.fianzaNeta = fianzaNeta;
+	}
+	public int getSaldoAlDia() {
+		return saldoAlDia;
+	}
+	public void setSaldoAlDia(int saldoAlDia) {
+		this.saldoAlDia = saldoAlDia;
 	}
  	
  	

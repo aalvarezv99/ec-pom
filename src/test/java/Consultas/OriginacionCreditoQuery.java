@@ -298,6 +298,25 @@ public class OriginacionCreditoQuery {
 		}
 		return r;
 	}
+	/*
+	 * Jonathan Varon V1.0 - 20/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
+	 * 									2. Parametros utilizados: (creditopadre numeric,
+																	tasa numeric,
+																	plazo numeric,
+																	diashabilesintereses numeric,
+																	monto numeric,
+																	sumamontocarteras numeric)*/
+	public ResultSet consultarCalculosSimuladorRetanqueo(String Credito,String Tasa,String Plazo,String DiasHabilesIntereses,String Monto,String VlrCompraSaneamiento) {
+		
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select	* from	calculos_simulador_interno_retanqueo_adp ("+Credito+","+Tasa+","+Plazo+","+DiasHabilesIntereses+","+Monto+","+VlrCompraSaneamiento+");");
+		} catch (Exception e) {
+			log.error("********consultarCalculosSimuladorOriginacion() ********");
+			log.error(e.getMessage());
+		}
+		return r;
+	}
 	
 	public ResultSet idClienteCedula(String Cedula) {
 		ResultSet r=null;

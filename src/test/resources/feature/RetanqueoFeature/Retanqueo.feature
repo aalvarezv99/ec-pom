@@ -3,6 +3,7 @@ Característica: Retanqueo de creditos
 
   Antecedentes: 
     Dado Un agente en el sistema core abacus con sesion iniciada
+    Y con las funciones sql necesarias del proyecto creadas
 
   @Retanqueo
   Esquema del escenario: Retanqueo libre inversion
@@ -38,19 +39,18 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa>
+    Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
     Y ingrese a la pestana del plan de pagos 
     Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
     Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
-    Y Pasa a la pestana endeudamiento global aprobando
-    Y Aprueba la tarea del credito<Cedula>
+    #Y Pasa a la pestana endeudamiento global aprobando
+    #Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
       | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes | fecha | AnnoAfetacion | Celular | Correo | TipoDesen | fechaActual | Banco |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-
-   |"8000000"   |"9696579"   |"72949"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"MANUEL ERACLIO"   |"Diciembre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"3115128152"   |"dandresabogadog@mail.com"   |"Efectivo"    |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
 
 
   @ClientesBienvenidaRetanqueos
