@@ -16,7 +16,7 @@ import cucumber.api.SnippetType;
 //@RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/PrepagoFeature/CertificacionSaldos.feature",
               glue = "StepsDefinitions",
-              tags = {" @ValidarDinamicasContablesOriginacion" },
+              tags = {"@ValidarDinamicasContablesCSALD" },
               snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)

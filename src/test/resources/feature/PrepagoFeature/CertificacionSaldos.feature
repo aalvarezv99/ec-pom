@@ -2,7 +2,7 @@
 Característica: Prepago de Creditos
 
   Antecedentes: Usuario en el sistema
-   # Dado Un agente en el sistema core abacus con sesion iniciada
+    Dado Un agente en el sistema core abacus con sesion iniciada
 
   @CertidicacionSaldoActivaCXCFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc y fianza
@@ -21,20 +21,20 @@ Característica: Prepago de Creditos
     Y Realice el recaudo del credito <NumRadicado> con el valor total a pagar <RutaDocumento> para <TipoPago> con los datos del cliente <NumCedula>
     Entonces se finaliza verificando el estado del credito <NumRadicado> que cambio a "Prepagado"
     #Y la amortizacion del prepago y lo movimientos contables en bases de datos
-    Ejemplos: 
-      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento |AccountingSource|AccountingName|FechaRegistro|
+    Ejemplos:
+      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento                                  | AccountingSource | AccountingName                          | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@CertificacionSaldo
-   |66994   |16343742   |10   |0   |18000   |Prepago   |"src/test/resources/Data/CertificacionSaldos/"   |"'CSALD'"   |"upper('Recaudo certificado de saldo')"   |10/11/2021|
+   |66994   |16343742   |21   |0   |18000   |Prepago   |"src/test/resources/Data/CertificacionSaldos/"   |"'CSALD'"   |"upper('Recaudo certificado de saldo')"   |21/12/2021|
 
   @ValidarDinamicasContablesCSALD
   Esquema del escenario: Validar dinamicas contables CERTIFICACION SALDO
-    Cuando el sistema valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
-   	Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
+    Cuando se valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
     Y valida que las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> con el <NumRadicado> y <NumCedula> en la <FechaRegistro>
     Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
-    Ejemplos: 
-      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento |AccountingSource|AccountingName|FechaRegistro|
+    Ejemplos:
+      | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento                                  | AccountingSource | AccountingName                          | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@CertificacionSaldo
-   |66994   |16343742   |10   |0   |18000   |Prepago   |"src/test/resources/Data/CertificacionSaldos/"   |"'CSALD'"   |"upper('Recaudo certificado de saldo')"   |10/11/2021|
+   |66994   |16343742   |21   |0   |18000   |Prepago   |"src/test/resources/Data/CertificacionSaldos/"   |"'CSALD'"   |"upper('Recaudo certificado de saldo')"   |21/12/2021|
 
    

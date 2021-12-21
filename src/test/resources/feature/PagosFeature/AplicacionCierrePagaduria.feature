@@ -16,10 +16,10 @@ Característica: Aplicacion de pagos y cierre
     Y se valida el valor listado de la <NombrePagaduria> para el <Periodo> con el valor del sistema terminando con el proceso
 
     #Tener en cuenta que en el periodo y el numero deben ir dos espacios
-    Ejemplos: 
-      |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
 
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -29,10 +29,10 @@ Característica: Aplicacion de pagos y cierre
     Entonces se pasa a la pestana de recaudo
     Y se agrega el pago de recaudo <NombrePagaduria><Ano><PeriodoEspacio>
 
-    Ejemplos: 
-    |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
 
   @PreaplicacionPagaduria
   Esquema del escenario: Preaplicacion Pagaduria
@@ -43,10 +43,10 @@ Característica: Aplicacion de pagos y cierre
     Entonces permite realizar la preaplicacion mostrando el mensaje "Ha iniciado la preaplicación"
     Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
 
-    Ejemplos: 
-       |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
 
   @AplicacionFinalPagaduria
   Esquema del escenario: Aplicacion final de pagaduria en abacus
@@ -56,23 +56,23 @@ Característica: Aplicacion de pagos y cierre
     Entonces en pantalla se visualiza el siguiente mensaje "se ha iniciado la aplicación de pagos"
     Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <NombrePagaduria> y <FiltroFecha>
 
-    Ejemplos: 
-       |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
-   
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+
   @ValidarDinamicasContablesAPLPAG
   Esquema del escenario: Validar dinamicas contables en la Aplicacion de pagos
     Cuando Se consulten los creditos cargados para <IdPagaduria> y se comparen con los que generaron movimientos contables <AccountingSource> en la <FechaRegistro>
     Y el sistema valida por <IdPagaduria> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
-   	Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando la <IdPagaduria> en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando la <IdPagaduria> en la <FechaRegistro>
     Y validando las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> en la <FechaRegistro>
     Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL
-    Ejemplos: 
-   	 |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
  ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
-   
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+
 
   @CierrePagaduria
   Esquema del escenario: Cierre de pagaduria en abacus
@@ -82,7 +82,7 @@ Característica: Aplicacion de pagos y cierre
     Entonces en pantalla se visualiza el siguiente mensaje "el cierre de la pagaduria se ha iniciado"
     Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <NombrePagaduria> y <FiltroFecha>
 
-    Ejemplos: 
-      |IdPagaduria|	Periodo|	NombrePagaduria	|RutaPagaduria|	Ano	|PeriodoEspacio|	FiltroFecha|AccountingSource|	AccountingName	|FechaRegistro|
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |271   |Octubre 30   |"BANCO DE LA REPUBLICA NOMINA JUBILADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Octubre  30"   |30/10/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría')"   |25/11/2021|
+   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|

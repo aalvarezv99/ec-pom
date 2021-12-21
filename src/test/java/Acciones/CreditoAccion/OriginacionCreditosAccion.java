@@ -10,7 +10,6 @@ import JSch.JSchSSHConnection;
 import Pages.ComunesPage.PanelNavegacionPage;
 import Pages.CreditosPage.*;
 import Pages.SolicitudCreditoPage.*;
-import dto.MovimientoContableDto;
 import dto.SimuladorDto;
 import io.cucumber.datatable.DataTable;
 import org.apache.log4j.Logger;
@@ -22,8 +21,6 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
-
-import javax.management.Query;
 
 import static org.junit.Assert.assertTrue;
 
@@ -92,12 +89,12 @@ public class OriginacionCreditosAccion extends BaseTest {
     public void ingresarSimuladorAsesor() {
         panelnavegacionaccion.navegarSimulador();
     }
-    
+
     public void crearFuncionesSql() {
-    	log.info("***********************************************************************************************************");
-    	log.info("[ Configuracion ] - Ejecutando Funciones SQL");
-    	log.info("***********************************************************************************************************");
-    	FuncionesSqlQuery.ejecutarFuncionOriginacion();
+        log.info("***********************************************************************************************************");
+        log.info("[ Configuracion ] - Ejecutando Funciones SQL");
+        log.info("***********************************************************************************************************");
+        FuncionesSqlQuery.ejecutarFuncionOriginacion();
     }
 
     public void CambiarFechaServidor(String FechaServidor) {
@@ -202,7 +199,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                                 String pagaduria) throws NumberFormatException, SQLException {
 
         log.info("************ OriginacionCreditosAccion - assertSimulador() *********************");
-        
+
         ResultSet resultado;
         // consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -211,46 +208,46 @@ public class OriginacionCreditosAccion extends BaseTest {
             DesPrimaAntic = Integer.parseInt(resultado.getString(1));
         }
         log.info("******** Valor de prima **** " + DesPrimaAntic);
-        
+
         if (Integer.valueOf(Plazo) < DesPrimaAntic) {
             int periodoGracia = (int) Math.ceil((double) Integer.parseInt(DiasHabilesIntereses) / 30);
             DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
             log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
         }
-        
-      	SimuladorDto calculosSimulador = new SimuladorDto();
-      	
-      	calculosSimulador = this.consultarCalculosSimulador(Monto,DesPrimaAntic,Tasa,Plazo,DiasHabilesIntereses,vlrCompasSaneamientos, 
-        		Ingresos, descLey, descNomina, pagaduria);
-        
-      	 int edad = (int) edad(Fecha);
-         // assertvalidarEquals(TextoElemento(simuladorasesorpage.edad),
-         // String.valueOf(edad));
-      	 
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO CAPACIDAD",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.CapacidadAproximada)), calculosSimulador.getCapacidadCliente());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO MONTO SOLICITUD ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
-         ToleranciaPesoMensaje("SIM ASESOR -CALCULANDO CUOTA CORRIENTE ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO ESTUDIO CREDITO ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.EstudioCreditoIVA)), calculosSimulador.getEstudioCredito());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO VALOR FIANZA ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.ValorFianza)), calculosSimulador.getFianza());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULO GMF4100 ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.Gmf4100)), calculosSimulador.getGmf4X100());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULO VLR INT INICIALES ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.Valorinteresesini)), calculosSimulador.getInteresesIniciales());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULO PRIMA SEGURO ANTICIPADO ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)), calculosSimulador.getPrimaSeguroAnticipada());
-         ToleranciaPesoMensaje("SIM ASESOR - CALCULO REMANENTE ESTIMADO ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.RemanenteEstimado)), calculosSimulador.getRemanenteEstimado());
-         if (calculosSimulador.getRemanenteEstimado() < 0) {
-             assertBooleanImprimeMensaje(
-                     "El valor del remanente estimado es negativo, remanente estimado: " + calculosSimulador.getRemanenteEstimado(), true);
-         }
-         ToleranciaPesoMensaje("SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)), calculosSimulador.getMontoMaxDesembolsar());
+
+        SimuladorDto calculosSimulador = new SimuladorDto();
+
+        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+                Ingresos, descLey, descNomina, pagaduria);
+
+        int edad = (int) edad(Fecha);
+        // assertvalidarEquals(TextoElemento(simuladorasesorpage.edad),
+        // String.valueOf(edad));
+
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO CAPACIDAD",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.CapacidadAproximada)), calculosSimulador.getCapacidadCliente());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO MONTO SOLICITUD ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
+        ToleranciaPesoMensaje("SIM ASESOR -CALCULANDO CUOTA CORRIENTE ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO ESTUDIO CREDITO ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.EstudioCreditoIVA)), calculosSimulador.getEstudioCredito());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULANDO VALOR FIANZA ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.ValorFianza)), calculosSimulador.getFianza());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULO GMF4100 ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.Gmf4100)), calculosSimulador.getGmf4X100());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULO VLR INT INICIALES ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.Valorinteresesini)), calculosSimulador.getInteresesIniciales());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULO PRIMA SEGURO ANTICIPADO ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)), calculosSimulador.getPrimaSeguroAnticipada());
+        ToleranciaPesoMensaje("SIM ASESOR - CALCULO REMANENTE ESTIMADO ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.RemanenteEstimado)), calculosSimulador.getRemanenteEstimado());
+        if (calculosSimulador.getRemanenteEstimado() < 0) {
+            assertBooleanImprimeMensaje(
+                    "El valor del remanente estimado es negativo, remanente estimado: " + calculosSimulador.getRemanenteEstimado(), true);
+        }
+        ToleranciaPesoMensaje("SIM ASESOR -  CALCULO MONTO MAXIMO DESEMBOLSAR ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.MontoMaximoSugerido)), calculosSimulador.getMontoMaxDesembolsar());
     }
 
     public void GuardarSimulacion() throws InterruptedException {
@@ -434,32 +431,32 @@ public class OriginacionCreditosAccion extends BaseTest {
             int periodoGracia = (int) Math.ceil((double) Integer.parseInt(DiasHabilesIntereses) / 30);
             DesPrimaAntic = periodoGracia + Integer.valueOf(Plazo);
             log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
-        }      
+        }
         SimuladorDto calculosSimulador = new SimuladorDto();
-      	
-      	calculosSimulador = this.consultarCalculosSimulador(Monto,DesPrimaAntic,Tasa,Plazo,DiasHabilesIntereses,vlrCompasSaneamientos, 
-        		Ingresos, descLey, descNomina, pagaduria);
-      	
-      	 int edad = (int) edad(Fecha);
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO LA EDAD DEL CLIENTE ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.edad)), edad);
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO MONTO SOLICITUD ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO CUOTA CORRIENTE ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO ESTUDIO CREDITO ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)), calculosSimulador.getEstudioCredito());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR FIANZA ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)), calculosSimulador.getFianza());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR GMF 4X1000",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), calculosSimulador.getGmf4X100());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR INT INICIALES ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Valorinteresesini)),
-                 calculosSimulador.getInteresesIniciales());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR PRIMA SEGURO ANTICIPADA ",
-                 Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)), calculosSimulador.getPrimaSeguroAnticipada());
-         ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ",
-                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado)), calculosSimulador.getRemanenteEstimado());
+
+        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+                Ingresos, descLey, descNomina, pagaduria);
+
+        int edad = (int) edad(Fecha);
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO LA EDAD DEL CLIENTE ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.edad)), edad);
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO MONTO SOLICITUD ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli)), calculosSimulador.getMontoSolicitar());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO CUOTA CORRIENTE ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), calculosSimulador.getCuotaCorriente());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO ESTUDIO CREDITO ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)), calculosSimulador.getEstudioCredito());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR FIANZA ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)), calculosSimulador.getFianza());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR GMF 4X1000",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), calculosSimulador.getGmf4X100());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR INT INICIALES ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Valorinteresesini)),
+                calculosSimulador.getInteresesIniciales());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR PRIMA SEGURO ANTICIPADA ",
+                Integer.parseInt(TextoElemento(simuladorasesorpage.PrimaAnticipadaSeguro)), calculosSimulador.getPrimaSeguroAnticipada());
+        ToleranciaPesoMensaje("SIM INTERNO - CALCULANDO VALOR REMANENTE ESTIMADO ",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.RemanenteEstimado)), calculosSimulador.getRemanenteEstimado());
 
         Hacer_scroll(pestanasimuladorinternopage.btnGuardar);
         adjuntarCaptura("SimuladorInterno");
@@ -482,7 +479,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             recorerpestanas("DIGITALIZACIÓN");
             esperaExplicita(pestanadigitalizacionPage.Titulo);
             cargarPdfDigitalizacion(Pdf);
-            hacerClicknotificacion();
+            // hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
             log.error("########## Error - OriginacionCreditosAccion Cargue PDF - Digitalizacion()  #######" + e);
@@ -1006,7 +1003,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             log.info("******** Nuevo valor de prima plazo menor a 24  **** " + DesPrimaAntic);
         }
         vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
-        
+
         // Valores CXC capitalizadas
         /* Consultar los conceptos para el cambio de tasa */
         double EstudioCredito = 0;
@@ -1020,20 +1017,19 @@ public class OriginacionCreditosAccion extends BaseTest {
             TasaFianza = Double.parseDouble(resultado.getString(4));
             mesDos = resultado.getInt(5);
         }
-        
-        
-        SimuladorDto calculosSimulador = new SimuladorDto();
-      	
-      	calculosSimulador = this.consultarCalculosSimulador(Monto,DesPrimaAntic,Tasa,Plazo,DiasHabilesIntereses,vlrCompasSaneamientos, 
-        		Ingresos, descLey, descNomina, pagaduria);
 
-       
+
+        SimuladorDto calculosSimulador = new SimuladorDto();
+
+        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+                Ingresos, descLey, descNomina, pagaduria);
+
 
         // Validar resultados de simulacion
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.MontoSolicitado), Monto);
 
         ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO CAPACIDAD ########",
-                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)),calculosSimulador.getCapacidadCliente());
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapacidadAsesor)), calculosSimulador.getCapacidadCliente());
         ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO MONTO SOLICITUD ########",
                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal)), calculosSimulador.getMontoSolicitar());
         ToleranciaPesoMensaje("######### SIM ANALISTA - CALCULANDO CUOTA CORRIENTE ##############",
@@ -1052,7 +1048,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gravamento4x1000)), calculosSimulador.getGmf4X100());
         ToleranciaPesoMensaje("###### SIM ANALISTA - CALCULANDO REMANENTE ESTIMADO ########",
                 Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),
-                calculosSimulador.getRemanenteEstimado());       
+                calculosSimulador.getRemanenteEstimado());
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.ValorCompraCartera), vlrCompasSaneamientos);
         assertvalidarEquals(TextoElemento(pestanasimuladorinternopage.PlazoAsesor), Plazo);
         assertvalidarEquals(GetText(pestanasimuladorinternopage.TasaAsesor), Tasa);
@@ -1274,23 +1270,23 @@ public class OriginacionCreditosAccion extends BaseTest {
         log.info("******** Valor de prima **** " + DesPrimaAntic);
 
         SimuladorDto calculosSimulador = new SimuladorDto();
-      	
+
         /*
-         * Parametros del metodo 
+         * Parametros del metodo
          * (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
 	 *  	p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
 			p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
-      	calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(12),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
-      			ValoresCredito.get(6),ValoresCredito.get(7), 
-      			ingresos, descLey, descNomina, pagaduria);
+        calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(12),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
+                ValoresCredito.get(6),ValoresCredito.get(7),
+                ingresos, descLey, descNomina, pagaduria);
 
-     
+
         ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA PRIMA *****", Integer.parseInt(ValoresCredito.get(9)),
-        		calculosSimulador.getPrimaSeguroAnticipada());
+                calculosSimulador.getPrimaSeguroAnticipada());
         ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA MONTO SOLICITUD ******",
-                    (int) Double.parseDouble(ValoresCredito.get(0)), calculosSimulador.getMontoSolicitar());
+                (int) Double.parseDouble(ValoresCredito.get(0)), calculosSimulador.getMontoSolicitar());
         ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA VALOR FIANZA *****", Integer.parseInt(ValoresCredito.get(17)),
-        		calculosSimulador.getFianza());
+                calculosSimulador.getFianza());
         ToleranciaPesoMensaje("***** LLAMADA BIENVENID- COMPARA ESTUDIO CREDITO ****",
                 Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
 
@@ -1478,7 +1474,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 esperaExplicita(pestanadigitalizacionPage.AgregarCartera);
                 hacerClick(pestanadigitalizacionPage.AgregarCartera);
                 ElementVisible();
-               
+
                 String RadioSaneamiento = String.valueOf(pestanadigitalizacionPage.RadioSaneamiento)
                         .replaceAll("By.id: ", "");
                 String radioCompra = String.valueOf(pestanadigitalizacionPage.RadioCompra).replaceAll("By.id: ", "");
@@ -1493,7 +1489,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                         .replaceAll("By.id: ", "");
                 String numOblogacion = String.valueOf(pestanadigitalizacionPage.NumeroObligacionSaneamiento)
                         .replaceAll("By.id: ", "");
-                
+
 
                 switch (e.get("Tipo")) {
                     case "Saneamiento":
@@ -1529,30 +1525,30 @@ public class OriginacionCreditosAccion extends BaseTest {
                 EnviarEnter(By.id(filtroCompetidor.replaceAll(":" + String.valueOf(contador) + ":",
                         ":" + String.valueOf(contador) + ":")));
                 ElementVisible();
-				if (e.get("Tipo").equals("Saneamiento") && e.get("Entidad").contains("PAN AMERICA")) {
-					String selectMonto = String.valueOf(pestanadigitalizacionPage.montoDesplegable)
-							.replaceAll("By.id: ", "");
-					String listMonto = String.valueOf(pestanadigitalizacionPage.listMontoDesplegable)
-							.replaceAll("By.xpath: ", "");
-					hacerClick(By.id(selectMonto.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")));
-					selectValorLista(By.xpath(listMonto.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")), e.get("Monto"));
-					// Hacer el replace aqui y agregar los valores
-				} else {
-					EscribirElemento(By.id(monto.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")), e.get("Monto"));
-					ElementVisible();
-					EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
-					ElementVisible();
-					EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
-					ElementVisible();
-					EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
-							":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
-					ElementVisible();
-				}
+                if (e.get("Tipo").equals("Saneamiento") && e.get("Entidad").contains("PAN AMERICA")) {
+                    String selectMonto = String.valueOf(pestanadigitalizacionPage.montoDesplegable)
+                            .replaceAll("By.id: ", "");
+                    String listMonto = String.valueOf(pestanadigitalizacionPage.listMontoDesplegable)
+                            .replaceAll("By.xpath: ", "");
+                    hacerClick(By.id(selectMonto.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")));
+                    selectValorLista(By.xpath(listMonto.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")), e.get("Monto"));
+                    // Hacer el replace aqui y agregar los valores
+                } else {
+                    EscribirElemento(By.id(monto.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")), e.get("Monto"));
+                    ElementVisible();
+                    EscribirElemento(By.id(valorCuota.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")), e.get("VlrCuota"));
+                    ElementVisible();
+                    EscribirElemento(By.id(fechaVencimiento.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")), e.get("FechaVencimiento"));
+                    ElementVisible();
+                    EscribirElemento(By.id(numOblogacion.replaceAll(":" + String.valueOf(contador) + ":",
+                            ":" + String.valueOf(contador) + ":")), e.get("NumObligacion"));
+                    ElementVisible();
+                }
                 contador = contador + 1;
             }
         } catch (Exception e) {
@@ -1759,7 +1755,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             Thread.sleep(1000);
             hacerClick(pagesclienteparabienvenida.Acepta);
             ElementVisible();
-            
+
         } catch (Exception e) {
             log.error(
                     "########## Error - OriginacionCreditosAccion  - aceptaCondicionesDelCreditoLibreInversion() #######"
@@ -1771,36 +1767,35 @@ public class OriginacionCreditosAccion extends BaseTest {
         }
 
     }
-    
+
     public void ingresaCodigoOTP(String cedula) throws InterruptedException {
         log.info("********** OriginacionCreditosAccion - ingresaCodigoOTP() **********");
         try {
-        	ElementVisible();
-        	
-            OriginacionCreditoQuery query = new OriginacionCreditoQuery();     	
+            ElementVisible();
+
+            OriginacionCreditoQuery query = new OriginacionCreditoQuery();
             esperaExplicita(pagesclienteparabienvenida.ImputOTP);
             String idcliente = null;
             ResultSet resultadoIdCliente = query.idClienteCedula(cedula);
             while (resultadoIdCliente.next()) {
-            	idcliente = resultadoIdCliente.getString(1);
+                idcliente = resultadoIdCliente.getString(1);
             }
-            System.out.println("### idcliente ### "+idcliente);
-            String token=null;
+            System.out.println("### idcliente ### " + idcliente);
+            String token = null;
             ResultSet resultadoToken = query.ConsultaToken(idcliente);
             while (resultadoToken.next()) {
-            	token = resultadoToken.getString(1);
-            }  
-            System.out.println("### TOKEN ### "+token);           
-            for(int i = 0; i < token.length(); i++)
-            {
+                token = resultadoToken.getString(1);
+            }
+            System.out.println("### TOKEN ### " + token);
+            for (int i = 0; i < token.length(); i++) {
                 char currentCharacter = token.charAt(i);
-                EscribirElemento(pagesclienteparabienvenida.ImputOTP,String.valueOf(currentCharacter));
+                EscribirElemento(pagesclienteparabienvenida.ImputOTP, String.valueOf(currentCharacter));
                 ElementVisible();
             }
-            
+
             ElementVisible();
-            
-            
+
+
         } catch (Exception e) {
             log.error(
                     "########## Error - OriginacionCreditosAccion  - ingresaCodigoOTP() #######"
@@ -1920,45 +1915,45 @@ public class OriginacionCreditosAccion extends BaseTest {
                     false);
         }
     }
-    
-	/* * ThainerPerez V1.0 - 03/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
-	 * 									2. Parametros utilizados: (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
-	 *  															p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
-																	p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
-    public SimuladorDto consultarCalculosSimulador(String Monto,int DesPrimaAntic,String Tasa,String Plazo,
-    		String DiasHabilesIntereses,String vlrCompasSaneamientos, String Ingresos, String descLey, 
-    		String descNomina,String pagaduria) {
-    	
-    	log.info("****** Calculando valores simulador Originacion por funcion SQL, OriginacionCreditosAccion -  consultarCalculosSimulador()*******");
-    	
-    	SimuladorDto resultSimulador = new SimuladorDto();
-    	OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-    	
-    	ResultSet r = null;
-    	try {
-			r = query.consultarCalculosSimuladorOriginacion( Monto, DesPrimaAntic, Tasa, Plazo,
-		    		 DiasHabilesIntereses, vlrCompasSaneamientos,  Ingresos,  descLey, 
-		    		 descNomina, pagaduria);
-			while(r.next()) {
-				
-				resultSimulador.setMontoSolicitar(r.getInt(1));
-				resultSimulador.setCuotaCorriente(r.getInt(2));
-				resultSimulador.setEstudioCredito(r.getInt(3));
-				resultSimulador.setFianza(r.getInt(4));
-				resultSimulador.setGmf4X100(r.getInt(5));
-				resultSimulador.setInteresesIniciales(r.getInt(6));
-				resultSimulador.setPrimaSeguroAnticipada(r.getInt(7));
-				resultSimulador.setRemanenteEstimado(r.getInt(8));
-				resultSimulador.setMontoMaxDesembolsar(r.getInt(9));
-				resultSimulador.setCapacidadCliente(r.getInt(10));
-			}
-		} catch (Exception e) {
-			  log.error("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador() #######" + e);
-	            assertTrue("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador()########" + e,
-	                    false);
-		}
-    	
-    	return resultSimulador;
-    	
+
+    /* * ThainerPerez V1.0 - 03/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
+     * 									2. Parametros utilizados: (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
+     *  															p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
+                                                                    p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
+    public SimuladorDto consultarCalculosSimulador(String Monto, int DesPrimaAntic, String Tasa, String Plazo,
+                                                   String DiasHabilesIntereses, String vlrCompasSaneamientos, String Ingresos, String descLey,
+                                                   String descNomina, String pagaduria) {
+
+        log.info("****** Calculando valores simulador Originacion por funcion SQL, OriginacionCreditosAccion -  consultarCalculosSimulador()*******");
+
+        SimuladorDto resultSimulador = new SimuladorDto();
+        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+
+        ResultSet r = null;
+        try {
+            r = query.consultarCalculosSimuladorOriginacion(Monto, DesPrimaAntic, Tasa, Plazo,
+                    DiasHabilesIntereses, vlrCompasSaneamientos, Ingresos, descLey,
+                    descNomina, pagaduria);
+            while (r.next()) {
+
+                resultSimulador.setMontoSolicitar(r.getInt(1));
+                resultSimulador.setCuotaCorriente(r.getInt(2));
+                resultSimulador.setEstudioCredito(r.getInt(3));
+                resultSimulador.setFianza(r.getInt(4));
+                resultSimulador.setGmf4X100(r.getInt(5));
+                resultSimulador.setInteresesIniciales(r.getInt(6));
+                resultSimulador.setPrimaSeguroAnticipada(r.getInt(7));
+                resultSimulador.setRemanenteEstimado(r.getInt(8));
+                resultSimulador.setMontoMaxDesembolsar(r.getInt(9));
+                resultSimulador.setCapacidadCliente(r.getInt(10));
+            }
+        } catch (Exception e) {
+            log.error("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador()########" + e,
+                    false);
+        }
+
+        return resultSimulador;
+
     }
 }
