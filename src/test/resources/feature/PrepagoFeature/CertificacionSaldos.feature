@@ -3,6 +3,7 @@ Característica: Prepago de Creditos
 
   Antecedentes: Usuario en el sistema
     Dado Un agente en el sistema core abacus con sesion iniciada
+    Y con las funciones sql necesarias del proyecto creadas
 
   @CertidicacionSaldoActivaCXCFianza
   Esquema del escenario: Certificacion de saldo con credito en estado activo con cxc y fianza
