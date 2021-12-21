@@ -91,11 +91,13 @@ public class OriginacionCreditosAccion extends BaseTest {
     }
 
     public void crearFuncionesSql() {
+
         log.info("***********************************************************************************************************");
         log.info("[ Configuracion ] - Ejecutando Funciones SQL");
         log.info("***********************************************************************************************************");
         FuncionesSqlQuery.funcionCxcFianzaCertSaldo();
         FuncionesSqlQuery.ejecutarFuncionOriginacion();
+        FuncionesSqlQuery.ejecutarFuncionRetanqueo();
     }
 
     public void CambiarFechaServidor(String FechaServidor) {
