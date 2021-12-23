@@ -17,9 +17,9 @@ Característica: Aplicacion de pagos y cierre
 
     #Tener en cuenta que en el periodo y el numero deben ir dos espacios
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
 
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -30,9 +30,9 @@ Característica: Aplicacion de pagos y cierre
     Y se agrega el pago de recaudo <NombrePagaduria><Ano><PeriodoEspacio>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
 
   @PreaplicacionPagaduria
   Esquema del escenario: Preaplicacion Pagaduria
@@ -44,9 +44,9 @@ Característica: Aplicacion de pagos y cierre
     Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
 
   @AplicacionFinalPagaduria
   Esquema del escenario: Aplicacion final de pagaduria en abacus
@@ -57,9 +57,9 @@ Característica: Aplicacion de pagos y cierre
     Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <NombrePagaduria> y <FiltroFecha>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
 
   @ValidarDinamicasContablesAPLPAG
   Esquema del escenario: Validar dinamicas contables en la Aplicacion de pagos
@@ -69,9 +69,9 @@ Característica: Aplicacion de pagos y cierre
     Y validando las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> en la <FechaRegistro>
     Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
  ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
 
 
   @CierrePagaduria
@@ -83,6 +83,6 @@ Característica: Aplicacion de pagos y cierre
     Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <NombrePagaduria> y <FiltroFecha>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                    | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |103   |Noviembre 30   |"CONSORCIO DE PENSIONES DEL HUILA"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |10/12/2021|
+   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
