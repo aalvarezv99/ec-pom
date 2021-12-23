@@ -15,7 +15,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/feature/PagosFeature/AplicacionCierrePagaduria.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@ValidarDinamicasContablesAPLPAG"},
+		tags = {"@CarguePlanillaAlSistema, @RecaudoPagaduria, @PreaplicacionPagaduria, @AplicacionFinalPagaduria, @ValidarDinamicasContablesAPLPAG, @CierrePagaduria"},
 	    snippets = SnippetType.CAMELCASE
 		)
 @RunWith(RunnerPersonalizado.class)

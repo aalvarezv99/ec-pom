@@ -314,7 +314,7 @@ public class AplicacionCierreAccion extends BaseTest {
 		        long wait_time = 390000;
 		        long end_time = start_time + wait_time;
 		        
-				while (System.currentTimeMillis() < end_time && (aplicacionFinalizada == false || cierreFinalizado.equals("NULL"))) {
+				while (System.currentTimeMillis() < end_time && (!aplicacionFinalizada || cierreFinalizado.equals("NULL"))) {
 					log.info("**** Realizando la validacion del proceso ***" + proceso);
 					resultado = query.validarAplicacionCierre(Pagaduria);
 					while (resultado.next()) {
@@ -322,7 +322,7 @@ public class AplicacionCierreAccion extends BaseTest {
 						aplicacionFinalizada = resultado.getBoolean(2);
 						cierreFinalizado = resultado.getString(3);
 					}
-					if(proceso.equals("Aplicacion") && aplicacionFinalizada==true ) {
+					if(proceso.equals("Aplicacion") && aplicacionFinalizada) {
 						break;
 					}
 					if(proceso.equals("Cierre") && cierreFinalizado.equals("CERRADA")){

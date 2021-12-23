@@ -61,7 +61,7 @@ public class AplicacionCierreQuery {
 					+ "from aplicacion_pago_pagaduria app \r\n"
 					+ "join pagaduria p on app.id_pagaduria = p.id\r\n"
 					+ "where 1=1\r\n"
-					+ "and upper(p.nombre) = upper('"+nombrePagaduria+"') \r\n"
+					+ "and trim(upper(p.nombre)) = trim(upper('"+nombrePagaduria+"')) \r\n"
 					+ "order by app.id desc limit 1;");
 			
 		} catch (Exception e) {
