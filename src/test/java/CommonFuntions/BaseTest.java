@@ -571,16 +571,19 @@ public class BaseTest {
             throws InterruptedException {
         File fichero = new File(Pdf);
         driver.findElement(AutorizacionConsulta).sendKeys(fichero.getAbsolutePath());
+        Thread.sleep(1000);
         esperaExplicitaNopresente(AutorizacionConsulta);
         ElementVisible();
         hacerClicknotificacion();
         ElementVisible();
         driver.findElement(CopiaCedula).sendKeys(fichero.getAbsolutePath());
+        Thread.sleep(1000);
         esperaExplicitaNopresente(CopiaCedula);
         ElementVisible();
         hacerClicknotificacion();
         ElementVisible();
         driver.findElement(DesprendibleNomina).sendKeys(fichero.getAbsolutePath());
+        Thread.sleep(1000);
         esperaExplicitaNopresente(DesprendibleNomina);
         ElementVisible();
         hacerClicknotificacion();
@@ -1522,8 +1525,7 @@ public class BaseTest {
         this.cambiarFocoDriver(index);
     }
 
-    public void esperaporestadoBD(By locator, String Cedula, String Estado)
-            throws InterruptedException, NumberFormatException, SQLException {
+    public void esperaporestadoBD(By locator, String Cedula, String Estado) throws NumberFormatException, SQLException {
         String ConsulEstado = "";
         String notificacion = "";
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1545,7 +1547,7 @@ public class BaseTest {
             Contador++;
         }
 
-        if (Contador >= 3) {
+        if (Contador >= 3 && (notificacion.contains("pendiente") || notificacion.contains("error") || notificacion.contains("no se pudo crear la tarea"))) {
             assertTrue("Falló al realizar la consulta a centrales, # Intentos: " + Contador, false);
         }
     }
@@ -1554,7 +1556,6 @@ public class BaseTest {
         List<WebElement> list = driver.findElements(locator);
         int value = 0;
         for (WebElement webElement : list) {
-            System.out.println("res ---------" + limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."), "\\d+(?:[.,]\\d+)?"));
             value += (int) Double.parseDouble(limpiarCadenaRegex(webElement.getText().replace(".", "").replace(",", "."), "\\d+(?:[.,]\\d+)?"));
         }
         return value;
