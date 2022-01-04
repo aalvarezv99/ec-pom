@@ -367,6 +367,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             this.NombreCredito = NombreCredito;
             panelnavegacionaccion.navegarCreditoSolicitud();
             BuscarenGrilla(creditocolicitudpage.inputCedula, Cedula);
+            ElementVisible();
             esperaExplicitaTexto(NombreCredito);
             ElementVisible();
             esperaExplicita(creditocolicitudpage.selectVerEditar);
@@ -1276,9 +1277,9 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         /*
          * Parametros del metodo
-         * (p_monto integer, p_xperiodoprima integer, p_tasainicial numeric,
-	 *  	p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric
-			p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)*/
+         * (String Monto, int DesPrimaAntic, String Tasa, String Plazo,
+              String DiasHabilesIntereses, String vlrCompasSaneamientos, String Ingresos, String descLey,
+              String descNomina, String pagaduriat)*/
         calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(12),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
                 ValoresCredito.get(6),ValoresCredito.get(7),
                 ingresos, descLey, descNomina, pagaduria);
