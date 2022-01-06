@@ -498,10 +498,10 @@ public class BaseTest {
     public void selectValorLista(By lista, String Texto) {
 
         List<WebElement> ListaElement = driver.findElements(lista);
-        for (int i = 0; i < ListaElement.size(); i++) {
-            String str = limpiarCadena(ListaElement.get(i).getText());
-            if (str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase())) == true) {
-                driver.findElement(By.id(ListaElement.get(i).getAttribute("id"))).click();
+        for (WebElement webElement : ListaElement) {
+            String str = limpiarCadena(webElement.getText());
+            if (str.toUpperCase().contains(limpiarCadena(Texto.toUpperCase()))) {
+                driver.findElement(By.id(webElement.getAttribute("id"))).click();
                 ElementVisible();
                 break;
             }
@@ -618,19 +618,20 @@ public class BaseTest {
         }
 
     }
-    
+
     public void cargarPdfVisacionCarteras(By locator, String ruta) {
-    	File fichero = new File(ruta);
-		try {
-			List<WebElement> listaElement = driver.findElements(locator);
-			List<String> lisString = this.parseWebElementsToList(listaElement);
-			for (int i = 0; i < lisString.size(); i++) {
-				driver.findElement(By.id(lisString.get(i))).sendKeys(fichero.getAbsolutePath());;
-			}
-        	
-		} catch (Exception e) {
-			log.error("########## ERROR BASETEST - cargarPdfVisacionCarteras() ##########" + e);
-		}    	
+        File fichero = new File(ruta);
+        try {
+            List<WebElement> listaElement = driver.findElements(locator);
+            List<String> lisString = this.parseWebElementsToList(listaElement);
+            for (int i = 0; i < lisString.size(); i++) {
+                driver.findElement(By.id(lisString.get(i))).sendKeys(fichero.getAbsolutePath());
+                ;
+            }
+
+        } catch (Exception e) {
+            log.error("########## ERROR BASETEST - cargarPdfVisacionCarteras() ##########" + e);
+        }
     }
 
     public void llenarInputMultiples(By locator, String Text) throws InterruptedException {
@@ -783,19 +784,17 @@ public class BaseTest {
             hacerScrollAbajo();
         }
     }
-    
-    public void marcarCheckMultiple(By locator) throws InterruptedException  {
-         List<WebElement> list = driver.findElements(locator);
-         List<String> listString = this.parseWebElementsToList(list);
-         for(int i =0; i< listString.size() ; i++) {
-        	 String item = listString.get(i);
-        	 hacerClick(By.id(item));
-        	 ElementVisible();
-         }
-  
-         
-    	 
-        
+
+    public void marcarCheckMultiple(By locator) throws InterruptedException {
+        List<WebElement> list = driver.findElements(locator);
+        List<String> listString = this.parseWebElementsToList(list);
+        for (int i = 0; i < listString.size(); i++) {
+            String item = listString.get(i);
+            hacerClick(By.id(item));
+            ElementVisible();
+        }
+
+
     }
 
     /********* INICIO FUNC AVANZADAS SELENIUM **************/
@@ -1086,7 +1085,7 @@ public class BaseTest {
             PdfReader reader = new PdfReader(ruta + nombreArchivo);
             // empezamos la coversion a pdf
             String page = limpiarCadena(PdfTextExtractor.getTextFromPage(reader, 1).replace(",", "").replace(".", ""));
-            assertThat(page.toUpperCase(), containsString(vlrBuscar.substring(0, vlrBuscar.length()-1).toUpperCase()));
+            assertThat(page.toUpperCase(), containsString(vlrBuscar.substring(0, vlrBuscar.length() - 1).toUpperCase()));
         } catch (Exception e) {
             log.error("########## ERROR VALIDACION PDF ########" + vlrBuscar + e);
             // assertTrue("########## ErrorAplicacionCierreAccion -
@@ -1118,11 +1117,11 @@ public class BaseTest {
      * ThainerPerez 22/Sep/2021 - Se actualiza el metodo para que seleccione el tipo
      * (Cartera - saneamiento) en los radio button
      * ThainerPerez 14/Dic/2021 V1.2 - 1.	Se crea el metodo confirmarCarterasReferenciacion(), para llenar las referencias
-     * 										cuando los nombres son diferentes.	
+     * 										cuando los nombres son diferentes.
      */
     public void ClickBtnMultiples(By ListEntidad, By ListFiltro, By ListMonto, By ListValorCuota, By ListFecha,
                                   By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
-                                  By ListDescEntidad,String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
+                                  By ListDescEntidad, String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
                                   String VlrObligacion[]) throws InterruptedException {
         List<WebElement> Entidad = driver.findElements(ListEntidad);
         List<WebElement> Filtro = driver.findElements(ListFiltro);
@@ -1132,11 +1131,11 @@ public class BaseTest {
         List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
         List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
         List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-        List<WebElement> Tipo = driver.findElements(ListTipo);        
+        List<WebElement> Tipo = driver.findElements(ListTipo);
         List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
-        
-        List<WebElement> descEntidad =  driver.findElements(ListDescEntidad);
-        
+
+        List<WebElement> descEntidad = driver.findElements(ListDescEntidad);
+
         String a[] = new String[VlrCuota.length];
 
         for (int i = 0; i < Entidad.size(); i++) {
@@ -1148,23 +1147,23 @@ public class BaseTest {
                 driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
             } else {
                 driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
-			}
-			String[] parts = EntidadSaneamiento[i].split("- ");
-			if (!descEntidad.get(i).getText().equals(parts[1])) {
-				for (int j = 0; j < EntidadSaneamiento.length; j++) {
-					parts = EntidadSaneamiento[j].split("- ");
-					if (descEntidad.get(i).getText().equals(parts[1])) {
-						confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
-								EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, j);
-						break;
-					}
-				}
-			} else {
-				confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
-						EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);
-			}
-			a[i] = BtnAprobar.get(i).getAttribute("id");
-		}
+            }
+            String[] parts = EntidadSaneamiento[i].split("- ");
+            if (!descEntidad.get(i).getText().equals(parts[1])) {
+                for (int j = 0; j < EntidadSaneamiento.length; j++) {
+                    parts = EntidadSaneamiento[j].split("- ");
+                    if (descEntidad.get(i).getText().equals(parts[1])) {
+                        confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+                                EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, j);
+                        break;
+                    }
+                }
+            } else {
+                confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+                        EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);
+            }
+            a[i] = BtnAprobar.get(i).getAttribute("id");
+        }
 
         // Aprobar las compras
         for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -1177,41 +1176,41 @@ public class BaseTest {
             hacerClicknotificacion();
         }
     }
-    
-	public void confirmarCarterasReferenciacion(String desRadio, List<WebElement> Entidad, List<WebElement> Filtro,
-			List<WebElement> Monto, List<WebElement> Cuota, List<WebElement> Fecha, List<WebElement> NumObligacion,
-			String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
-            String VlrObligacion[],
-			int indexUno, int indexDos) {
-		try {
-			if (desRadio.contains("SANEAMIENTO")
-					&& EntidadSaneamiento[indexDos].contains("PAN AMERICAN")) {
-				log.info("*** Se Agrego un saneamiento de PAN AMERICAN ***");
-			} else {
-			
-			// Llenar la entidad
-			driver.findElement(By.id(Entidad.get(indexUno).getAttribute("id"))).click();
-			driver.findElement(By.id(Filtro.get(indexUno).getAttribute("id"))).sendKeys(EntidadSaneamiento[indexDos]);
-			EnviarEnter(By.id(Filtro.get(indexUno).getAttribute("id")));
-			// llenar el monto
-			Hacer_scroll(By.name(Monto.get(indexUno).getAttribute("name")));
-			Clear(By.name(Monto.get(indexUno).getAttribute("name")));
-			driver.findElement(By.name(Monto.get(indexUno).getAttribute("name"))).sendKeys(VlrMonto[indexDos]);
-			// llenar la cuota
-			Clear(By.name(Cuota.get(indexUno).getAttribute("name")));
-			driver.findElement(By.name(Cuota.get(indexUno).getAttribute("name"))).sendKeys(VlrCuota[indexDos]);
-			// llenar la fecha
-			Clear(By.name(Fecha.get(indexUno).getAttribute("name")));
-			driver.findElement(By.name(Fecha.get(indexUno).getAttribute("name"))).sendKeys(VlrFecha[indexDos]);
-			// llenar numero de obligacion
-			Clear(By.name(NumObligacion.get(indexUno).getAttribute("name")));
-			driver.findElement(By.name(NumObligacion.get(indexUno).getAttribute("name"))).sendKeys(VlrObligacion[indexDos]);
-			}
-		} catch (Exception e) {
-			log.error("########## Error - BAseTest - confirmarCarterasReferenciacion() ####### : " + e);
+
+    public void confirmarCarterasReferenciacion(String desRadio, List<WebElement> Entidad, List<WebElement> Filtro,
+                                                List<WebElement> Monto, List<WebElement> Cuota, List<WebElement> Fecha, List<WebElement> NumObligacion,
+                                                String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
+                                                String VlrObligacion[],
+                                                int indexUno, int indexDos) {
+        try {
+            if (desRadio.contains("SANEAMIENTO")
+                    && EntidadSaneamiento[indexDos].contains("PAN AMERICAN")) {
+                log.info("*** Se Agrego un saneamiento de PAN AMERICAN ***");
+            } else {
+
+                // Llenar la entidad
+                driver.findElement(By.id(Entidad.get(indexUno).getAttribute("id"))).click();
+                driver.findElement(By.id(Filtro.get(indexUno).getAttribute("id"))).sendKeys(EntidadSaneamiento[indexDos]);
+                EnviarEnter(By.id(Filtro.get(indexUno).getAttribute("id")));
+                // llenar el monto
+                Hacer_scroll(By.name(Monto.get(indexUno).getAttribute("name")));
+                Clear(By.name(Monto.get(indexUno).getAttribute("name")));
+                driver.findElement(By.name(Monto.get(indexUno).getAttribute("name"))).sendKeys(VlrMonto[indexDos]);
+                // llenar la cuota
+                Clear(By.name(Cuota.get(indexUno).getAttribute("name")));
+                driver.findElement(By.name(Cuota.get(indexUno).getAttribute("name"))).sendKeys(VlrCuota[indexDos]);
+                // llenar la fecha
+                Clear(By.name(Fecha.get(indexUno).getAttribute("name")));
+                driver.findElement(By.name(Fecha.get(indexUno).getAttribute("name"))).sendKeys(VlrFecha[indexDos]);
+                // llenar numero de obligacion
+                Clear(By.name(NumObligacion.get(indexUno).getAttribute("name")));
+                driver.findElement(By.name(NumObligacion.get(indexUno).getAttribute("name"))).sendKeys(VlrObligacion[indexDos]);
+            }
+        } catch (Exception e) {
+            log.error("########## Error - BAseTest - confirmarCarterasReferenciacion() ####### : " + e);
             assertTrue("########## Error - BaseTest - confirmarCarterasReferenciacion() ######## : " + e, false);
-		}
-    	
+        }
+
     }
 
     public void ToleranciaPeso(int a, int b) {
@@ -1591,7 +1590,6 @@ public class BaseTest {
         List<Integer> creditosOrdenados = parseWebElementsToListGetText(listCreditosPadre);
         Comparator<Integer> comparador = Collections.reverseOrder();
         creditosOrdenados.sort(comparador);
-        System.out.println("lista ordenada ------------->" + creditosOrdenados.toString());
         for (int i = 0; i < creditosOrdenados.size(); i++) {
             Map<String, String> credito = new HashMap<>();
             credito.put("numeroCredito", String.valueOf(creditosOrdenados.get(i)));
@@ -1619,16 +1617,16 @@ public class BaseTest {
     }
 
     public void validarCabeceraPlanDePagos(
-    		String validacion,
-    		String Tasa,
-    		String Plazo, 
-    		String vg_MontoAprobado,
-    		String vg_SegundaTasaInteres,
-    		String vg_PrimaSeguroAnticipada,
-    		String vg_CuotasPrimaSeguroAnticipada,
-    		String vg_PrimaNoDevengadaSeguro,
-    		String vg_PrimaNetaSeguro,
-    		By keyPage, By valuePage) {
+            String validacion,
+            String Tasa,
+            String Plazo,
+            String vg_MontoAprobado,
+            String vg_SegundaTasaInteres,
+            String vg_PrimaSeguroAnticipada,
+            String vg_CuotasPrimaSeguroAnticipada,
+            String vg_PrimaNoDevengadaSeguro,
+            String vg_PrimaNetaSeguro,
+            By keyPage, By valuePage) {
 
         //MAP Variables Locales
         Map<String, String> ValoresCabeceraPlanDePagos = new HashMap<>();
@@ -1643,18 +1641,18 @@ public class BaseTest {
         log.info("*********** Iniciando la VALIDACION Cabecera Plan De Pagos ***********");
 
         try {
-        	
-        	String tasaFront = String.format("%.2f",Double.parseDouble(ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito")));
-        	tasaFront=tasaFront.replace(",",".") ;
-        	log.info("############ tasa  front ############## "+ tasaFront);
-           	assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
-           			tasaFront , Tasa);
-        	assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO Uno",
-        			ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
-        	log.info("### Validando Monto aprobado (capital total cŕedito): ## "+Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):"))+"## vg_MontoAprobado ##"+vg_MontoAprobado);
-        	ToleranciaPesoMensaje("Validando Monto aprobado (capital total cŕedito):",
-        			Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
-        			Integer.parseInt(vg_MontoAprobado));
+
+            String tasaFront = String.format("%.2f", Double.parseDouble(ValoresCabeceraPlanDePagos.get("Tasa inicial del crédito")));
+            tasaFront = tasaFront.replace(",", ".");
+            log.info("############ tasa  front ############## " + tasaFront);
+            assertValidarEqualsImprimeMensaje("Fallo: Validando TASA INICIAL",
+                    tasaFront, Tasa);
+            assertValidarEqualsImprimeMensaje("Fallo: Validando PLAZO Uno",
+                    ValoresCabeceraPlanDePagos.get("Plazo:"), Plazo);
+            log.info("### Validando Monto aprobado (capital total cŕedito): ## " + Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")) + "## vg_MontoAprobado ##" + vg_MontoAprobado);
+            ToleranciaPesoMensaje("Validando Monto aprobado (capital total cŕedito):",
+                    Integer.parseInt(ValoresCabeceraPlanDePagos.get("Monto aprobado (capital total cŕedito):")),
+                    Integer.parseInt(vg_MontoAprobado));
         	/*
         	log.info("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):");
         	
@@ -1664,49 +1662,74 @@ public class BaseTest {
         	/*
         	assertValidarEqualsImprimeMensaje("Fallo: Validando Segunda TASA",
         			ValoresCabeceraPlanDePagos.get("Segunda tasa de interés (desde el mes "+(Integer.parseInt(Plazo)+1)+"):").replace("0", ""), vg_SegundaTasaInteres);
-        	*/	
-        	
-        	ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
-        			Integer.parseInt(ValoresCabeceraPlanDePagos
-        					.get("Prima de seguro anticipada a favor de Asegurador ("+vg_CuotasPrimaSeguroAnticipada+" Cuotas anticipadas):")
-        					.split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
-        	
-        	
-        	if (validacion.equals("Retanqueos")) {
-        		
-    		ToleranciaPesoMensaje("Validando Prima No Devengada",
-    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
-    						.split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
-    		ToleranciaPesoMensaje("Validando Prima Neta",
-    				Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
-    				Integer.parseInt(vg_PrimaNetaSeguro));
-        	}
-        	
+        	*/
+
+            ToleranciaPesoMensaje("Validando Prima de seguro anticipada ",
+                    Integer.parseInt(ValoresCabeceraPlanDePagos
+                            .get("Prima de seguro anticipada a favor de Asegurador (" + vg_CuotasPrimaSeguroAnticipada + " Cuotas anticipadas):")
+                            .split(",")[0]), Integer.parseInt(vg_PrimaSeguroAnticipada));
+
+
+            if (validacion.equals("Retanqueos")) {
+
+                ToleranciaPesoMensaje("Validando Prima No Devengada",
+                        Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima No Devengada de Seguro Crédito Padre:")
+                                .split(",")[0]), Integer.parseInt(vg_PrimaNoDevengadaSeguro));
+                ToleranciaPesoMensaje("Validando Prima Neta",
+                        Integer.parseInt(ValoresCabeceraPlanDePagos.get("Prima Neta de seguro:").split(",")[0]),
+                        Integer.parseInt(vg_PrimaNetaSeguro));
+            }
+
             log.info("*********** Datos cabecera Validados -> OK ***********");
             log.info("*********** Tomando Capturas Pantall Datos cabecera Validados ***********");
             //Captura De Pantalla
-			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Inicio");
-			//Hacer Scroll hasta valor cabecera : Plazo
-			Hacer_scroll(By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label[contains(text(), 'Plazo')]"));
-			//Captura De Pantalla
-			adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Final");
+            adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Inicio");
+            //Hacer Scroll hasta valor cabecera : Plazo
+            Hacer_scroll(By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label[contains(text(), 'Plazo')]"));
+            //Captura De Pantalla
+            adjuntarCaptura("AnalisisCredito - Cabecera Plan de Pagos - Final");
 
         } catch (Exception e) {
             log.error("########## Error - VerificacionCabeceraAnalisisCredito() - validarCabeceraPlanDePagos() ####### : " + e);
             assertTrue("########## Error - BaseTest - validarCabeceraPlanDePagos() ######## : " + e, false);
         }
     }
-    
-    public void eliminarReferencias(By locator) throws InterruptedException {  
-    	List<WebElement> listMenosReferencia = driver.findElements(locator);
-    	List<String> listString = parseWebElementsToList(listMenosReferencia);
-    	
-        for (int i=0;i<2;i++) {         
-        	 Hacer_scroll_centrado(By.id(listString.get(i)));
-        	 esperaExplicita(By.id(listString.get(i)));
-        	 hacerClick(By.id(listString.get(i)));
-             ElementVisible();
+
+    public void eliminarReferencias(By locator) throws InterruptedException {
+        List<WebElement> listMenosReferencia = driver.findElements(locator);
+        List<String> listString = parseWebElementsToList(listMenosReferencia);
+
+        for (int i = 0; i < 2; i++) {
+            Hacer_scroll_centrado(By.id(listString.get(i)));
+            esperaExplicita(By.id(listString.get(i)));
+            hacerClick(By.id(listString.get(i)));
+            ElementVisible();
         }
     }
-    
+
+    public void validarTelefonosRefs(String xpathSelects, By labelTelefonos) {
+        List<WebElement> listLabelTelefonos = driver.findElements(labelTelefonos);
+        List<WebElement> listSelectTelefonos = driver.findElements(By.xpath(xpathSelects));
+        List<String> idStringTelefonos = parseWebElementsToList(listSelectTelefonos);
+        for (int i = 0; i < listLabelTelefonos.size(); i++) {
+            if (listLabelTelefonos.get(i).getText().trim().isEmpty()) {
+                String hijos = "//ul[@id = '" + idStringTelefonos.get(i) + "']/child::li";
+                seleccionarTelefono(listLabelTelefonos.get(i), hijos);
+            }
+        }
+    }
+
+    public void seleccionarTelefono(WebElement xpathPadre, String xpathHijos) {
+        List<WebElement> listHijosSelect = driver.findElements(By.xpath(xpathHijos));
+
+        for (WebElement element : listHijosSelect) {
+            if (element.getAttribute("data-label") == null
+                    || !element.getAttribute("data-label").equals("&nbsp;")
+                    || element.getAttribute("data-label").isEmpty()) {
+                xpathPadre.click();
+                esperaExplicita(By.xpath(xpathHijos));
+                driver.findElement(By.id(element.getAttribute("id"))).click();
+            }
+        }
+    }
 }
