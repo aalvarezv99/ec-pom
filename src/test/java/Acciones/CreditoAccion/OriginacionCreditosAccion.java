@@ -59,7 +59,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     private String vg_SegundaTasaInteres_Originacion;
     private String vg_PrimaSeguroAnticipada_Originacion;
     private String vg_CuotasPrimaSeguroAnticipada;
-
+    String xpathSelectTelefonosRef = "//ul[starts-with(@id, 'formReferenciacion:j_idt91')]";
 
     public OriginacionCreditosAccion(WebDriver driver) throws InterruptedException {
         /// this.driver = driver;
@@ -1590,6 +1590,8 @@ public class OriginacionCreditosAccion extends BaseTest {
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
         ElementVisible();
+        Hacer_scroll(pestanareferenciacionpage.Titulo);
+        validarTelefonosRefs(xpathSelectTelefonosRef, pestanareferenciacionpage.labelTelefonos);
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         clickvarios(pestanareferenciacionpage.CheckSI);
         Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
