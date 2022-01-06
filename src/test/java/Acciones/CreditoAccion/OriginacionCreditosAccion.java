@@ -1536,9 +1536,12 @@ public class OriginacionCreditosAccion extends BaseTest {
                             .replaceAll("By.xpath: ", "");
                     hacerClick(By.id(selectMonto.replaceAll(":" + String.valueOf(contador) + ":",
                             ":" + String.valueOf(contador) + ":")));
+                    ////////////////////Jonathan Varon
+                    DecimalFormat formatMonto = new DecimalFormat("###,###", DecimalFormatSymbols.getInstance(Locale.ENGLISH));                    
+                    String pMonto = "$" + formatMonto.format(Double.parseDouble(e.get("Monto")));  
                     selectValorLista(By.xpath(listMonto.replaceAll(":" + String.valueOf(contador) + ":",
-                            ":" + String.valueOf(contador) + ":")), e.get("Monto"));
-                    // Hacer el replace aqui y agregar los valores
+                            ":" + String.valueOf(contador) + ":")), pMonto);
+                    ////////////////////
                 } else {
                     EscribirElemento(By.id(monto.replaceAll(":" + String.valueOf(contador) + ":",
                             ":" + String.valueOf(contador) + ":")), e.get("Monto"));
