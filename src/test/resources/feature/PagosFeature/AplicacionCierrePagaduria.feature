@@ -4,7 +4,7 @@
 Característica: Aplicacion de pagos y cierre
 
   Antecedentes: Usuario en el sistema
-    Dado Un agente en el sistema core abacus con sesion iniciada
+   Dado Un agente en el sistema core abacus con sesion iniciada
 
   @CarguePlanillaAlSistema
   Esquema del escenario: Cargue planilla de la pagaduria en abacus
@@ -17,9 +17,9 @@ Característica: Aplicacion de pagos y cierre
 
     #Tener en cuenta que en el periodo y el numero deben ir dos espacios
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
 
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
@@ -30,9 +30,9 @@ Característica: Aplicacion de pagos y cierre
     Y se agrega el pago de recaudo <NombrePagaduria><Ano><PeriodoEspacio>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
 
   @PreaplicacionPagaduria
   Esquema del escenario: Preaplicacion Pagaduria
@@ -44,9 +44,9 @@ Característica: Aplicacion de pagos y cierre
     Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
-      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+     | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+     ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
 
   @AplicacionFinalPagaduria
   Esquema del escenario: Aplicacion final de pagaduria en abacus
@@ -57,9 +57,9 @@ Característica: Aplicacion de pagos y cierre
     Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <NombrePagaduria> y <FiltroFecha>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
 
   @ValidarDinamicasContablesAPLPAG
   Esquema del escenario: Validar dinamicas contables en la Aplicacion de pagos
@@ -69,9 +69,9 @@ Característica: Aplicacion de pagos y cierre
     Y validando las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> en la <FechaRegistro>
     Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
- ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+ | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
 
 
   @CierrePagaduria
@@ -83,6 +83,18 @@ Característica: Aplicacion de pagos y cierre
     Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <NombrePagaduria> y <FiltroFecha>
 
     Ejemplos:
-      | IdPagaduria | Periodo      | NombrePagaduria                                            | RutaPagaduria                                  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName                                                                            | FechaRegistro |
+    | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+   @ValidarDinamicasContablesCIERRE
+  Esquema del escenario: Validar dinamicas contables en el Cierre Contable
+    Cuando Se consulten los creditos cargados para <IdPagaduria> y se comparen con los que generaron movimientos contables <AccountingSourceCierre> en la <FechaRegistro>
+    Y el sistema valida por <IdPagaduria> en la tabla movimiento contable las <AccountingSourceCierre> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSourceCierre> con sus tipos y valores usando la <IdPagaduria> en la <FechaRegistro>
+ 		Y validando las cuentas de libranzas <AccountingSourceCierre> sean las del bridge <AccountingNameCierre> en la <FechaRegistro>
+		Entonces finalmente se valida la transaccion <AccountingSourceCierre> con <FechaRegistro> en la base de datos de PSL
+ Ejemplos:
+     | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
-   |349   |Noviembre 30   |"ALCALDÍA MUNICIPAL DE BARRANCABERMEJA NÓMINA TRABAJADORES OFICIALES"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría'),  upper('Aplicación de pago venta en firme') "   |22/12/2021|
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|

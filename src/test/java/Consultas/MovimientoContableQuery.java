@@ -279,5 +279,37 @@ public class MovimientoContableQuery {
 		}
 		return r;
 	}
+	
+	/*ThainerPerez V1.0 17/Enero/2022 : 1. Se crea este metodo donde se consultan los creditos que generaron movimientos contables*/
+	public ResultSet buscarCreditosConMovContables(String idPagaduria, String fechaRegistro, String accoutingSource) {
+		ResultSet r = null;
+		try {
+			r= dbconector.conexion("select c.numero_radicacion\r\n"
+					+ "from detalle_pago_nomina dp \r\n"
+					+ "left join causal ca on dp.id_causal = ca.id\r\n"
+					+ "join credito c on c.id = dp.id_credito \r\n"
+					+ "left join (select c.id, c.numero_radicacion, c.estado, mc.detalles \r\n"
+					+ "					from movimiento_contable mc \r\n"
+					+ "					join credito c on c.id = mc.id_credito \r\n"
+					+ "					join pagaduria p on c.id_pagaduria = p.id \r\n"
+					+ "					where 1=1\r\n"
+					+ "					and to_char(fecha_registro::date,'DD/MM/YYYY') in ('"+fechaRegistro+"')\r\n"
+					+ "					and p.id = "+idPagaduria+" \r\n"
+					+ "					and (mc.transaccion_contable::json->>'accountingSource'::text) in ("+accoutingSource+")\r\n"
+					+ "				order by c.numero_radicacion asc) movCont on movCont.id = dp.id_credito \r\n"
+					+ "join pagaduria p on c.id_pagaduria = p.id\r\n"
+					+ "where 1=1\r\n"
+					+ "and movCont.id is not null\r\n"
+					+ "and p.id = "+idPagaduria+" \r\n"
+					+ "and to_char(dp.fecha_recepcion_pago ::date,'DD/MM/YYYY') in ('"+fechaRegistro+"')\r\n"
+					+ "and dp.estado_incorporacion not in ('NUEVO_FUTURO')\r\n"
+					+ "order by c.numero_radicacion asc;");
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - buscarCreditosPlanilla() ********");
+			assertTrue("########## MovimientoContableAccion - buscarCreditosPlanilla()########"+ e.getMessage(),false);
+		}
+		return r;
+	}
 
 }
