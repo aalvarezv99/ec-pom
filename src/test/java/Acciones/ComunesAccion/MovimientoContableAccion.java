@@ -362,21 +362,37 @@ public class MovimientoContableAccion extends BaseTest {
 
 
     /*ThainerPerez V1.0 26/Nov/2021,1. 	se crea este metodo con el fin de comparar masivamente la causacion de los creditos
-     * 								 	que se aplicaron en la pagaduria, en el proceso de aplicacion*/
+     * 								 	que se aplicaron en la pagaduria, en el proceso de aplicacion
+     *ThainerPerez V1.1 17/Enero/2022, 1. Se agrega el tipo de fuente "Cierre", para que consulte los creditos con movimientos
+     *									  debido a que si estan al dia no generan movimientos*/
+    
     public void validarCausacionMovimientosMasivo(String accountingSource, String idPagaduria, String fechaRegistro) {
         log.info("'INICIA PROCESO - VALIDACION CAUSACION MASIVO");
         log.info("**** Validar Causacion de manera masiva, MovimientoContableAccion- validarCausacionMovimientosMasivo() ****");
         ResultSet result = null;
         try {
-            result = queryDinamica.consultarCreditosMasivos(accountingSource, idPagaduria, fechaRegistro);
-            while (result.next()) {
-                MovimientoContableDto radicadoDto = new MovimientoContableDto();
-                radicadoDto.setNumeroRadicado(result.getString(1));
-                creditosRadicado.add(radicadoDto);
-            }
-            result.close();
+        	
+			if (accountingSource.equals("'CIERRE'")) {
+				result = queryDinamica.buscarCreditosConMovContables(idPagaduria, fechaRegistro, accountingSource);
+				while (result.next()) {
+					MovimientoContableDto radicadoDto = new MovimientoContableDto();
+					radicadoDto.setNumeroRadicado(result.getString(1));
+					creditosRadicado.add(radicadoDto);
+				}
+				result.close();
+				
+			} else {
+				result = queryDinamica.consultarCreditosMasivos(accountingSource, idPagaduria, fechaRegistro);
+				while (result.next()) {
+					MovimientoContableDto radicadoDto = new MovimientoContableDto();
+					radicadoDto.setNumeroRadicado(result.getString(1));
+					creditosRadicado.add(radicadoDto);
+				}
+				result.close();
+			}
+            
             log.info(" ****** Creditos a validar Causacion " + creditosRadicado.size() + " ******");
-
+            
             List<String> erroCausacion = new ArrayList<String>();
             for (MovimientoContableDto movimientoContableDto : creditosRadicado) {
                 Boolean caousacion = false;
@@ -421,10 +437,15 @@ public class MovimientoContableAccion extends BaseTest {
             this.CreditosCuentas = this.consultarCreditosconcuentas(this.listMovContable);
             this.cuentasConcatenadas = this.unirCuentasCreditosMasivos(this.CreditosCuentas);
             Map<String, List<String>> cuentasBridge = new LinkedHashMap<>();
-
+            String name = "";
             for (Entry<String, String> mapCuentas : this.cuentasConcatenadas.entrySet()) {
                 String descripcionCuenta = this.consultarDescripcionCuenta(mapCuentas.getKey());
-                String name = this.consultarAccountingName(mapCuentas.getKey());
+                if(accountingSource.equals("'CIERRE'")) {
+                	name = accountingName;
+                }
+                else {
+                	 name = this.consultarAccountingName(mapCuentas.getKey());	
+                }
                 cuentasBridge.put(mapCuentas.getKey(), this.consultarCuentasBridgeMasivo(name, mapCuentas.getValue(), descripcionCuenta));
             }
 
