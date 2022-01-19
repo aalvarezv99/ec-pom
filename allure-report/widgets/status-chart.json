@@ -1,0 +1,11 @@
+[ {
+  "uid" : "47cdd224d4c16af5",
+  "name" : "Simulador Asesor",
+  "time" : {
+    "start" : 1631728860974,
+    "stop" : 1631728910369,
+    "duration" : 49395
+  },
+  "status" : "broken",
+  "severity" : "normal"
+} ]

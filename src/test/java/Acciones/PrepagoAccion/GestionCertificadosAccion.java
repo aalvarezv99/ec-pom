@@ -37,6 +37,8 @@ public class GestionCertificadosAccion extends BaseTest{
 			EscribirElemento(gestioncertificacionpage.inputCedula, numCedula);			
 			ElementVisible();
 			contarFilasTablas(gestioncertificacionpage.countFilas);
+			esperaExplicita(gestioncertificacionpage.botonDescargar);
+			Hacer_scroll_Abajo(gestioncertificacionpage.botonDescargar);
 			hacerClick(gestioncertificacionpage.botonDescargar);
 		} catch (Exception e) {			
 			log.error("########### ERROR - descargarCertificadoPdf() ###########" + e);

@@ -1,106 +1,133 @@
 #language: es
 Característica: Retanqueo de creditos
 
- Antecedentes: 
-  Dado Un agente en el sistema core abacus con sesion iniciada                                        
-  
+  Antecedentes: 
+    Dado Un agente en el sistema core abacus con sesion iniciada
 
- @RetanqueoCompraCarteraSaneamiento
- Esquema del escenario:  Retanqueo libre inversion
-   Cuando El agente ingrese a la pestana retanqueo 
-   Y se filtra por <Cedula><Credito>
-   Y se da clic a retanquear   
-   Y se busca el credito por <Cedula>
-   Y se selecciona el retanqueo
-   Y borrar archivos
-   Y cargar archivos nuevos <rutaPDF>
-   Y se solicita la consulta a centrales de riesgo
-   Y marcar el credito viable
-   Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina>
-   Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo>
-   Y se da clic en solicitar
-   Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
-   Y marcar los check en correcto guardando en la pestana de digitalizacion
-   Y se presiona en verificacion en la pestana digitalizacion
-   Y se pasa a la segunda pestana de digitalizacion se compra cartera y saneamiento <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
-   Y se guarda cartera
-   Y se pasa a la primera pestana de referenciacion para confirmar la entidad <Competidor1><Cartera1><VlrCuota1><FechaVencimiento1><NumObligacion1><Competidor2><Saneamiento2><VlrCuota2><FechaVencimiento2><NumObligacion2>
-   Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
-   Y se marca identidida confirmada radicando la solicitud
-   Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
-   
-  Ejemplos: 
-  	|Retanqueo|Cedula    |Credito   |rutaPDF                                    |Tasa |Plazo|DiasHabilesIntereses|Ingresos |descLey  | descNomina | IngresosMes |codigo|Competidor1             | Cartera1   | VlrCuota1    | FechaVencimiento1   | NumObligacion1  | Competidor2            | Saneamiento2   | VlrCuota2    | FechaVencimiento2   | NumObligacion2  |         
-    |"3000000"|"9061939"|"39003"   |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"1.8"|"60" |"10"                |"8500000"|"280000" | "50000"    | "3500000"   |"2258"|"8600068225 - ACORE"    | "650000"   | "50000"      | "26/07/2021"        | "9123"          | "8110315267 - AMAR"    | "450000"       | "40000"      | "30/07/2021"        | "9321"          |
-      
-  @AnalisisCreditoRetanqueoCarteraSaneamiento
+  @RetanqueoCCS
+  Esquema del escenario: Retanqueo Compra de cartera y saneamiento
+    Cuando El agente ingrese a la pestana retanqueo
+    Y se filtra por <Cedula><Credito>
+    Y se da clic a retanquear
+    Y se busca el credito por <Cedula>
+    Y se selecciona el retanqueo
+    Y borrar archivos
+    Y cargar archivos nuevos <rutaPDF>
+    Y se solicita la consulta a centrales de riesgo
+    Y marcar el credito viable
+    Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
+    Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
+    Y se da clic en solicitar
+    Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
+    Y marcar los check en correcto guardando en la pestana de digitalizacion
+    Y se presiona en verificacion en la pestana digitalizacion
+    Y se crean los tipos de cartera o saneamiento a recoger
+      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/12/2021       | 21236         |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/12/2021       | 21236         |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 | 70000    | 30/12/2021       | 29123         |
+      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 830000 |    70000 | 30/12/2021       |         29123 |
+    Y se guarda cartera
+    Y se pasa a la primera pestana de referenciacion para confirmar la entidad
+       | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/12/2021       | 21236         |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/12/2021       | 21236         |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 | 70000    | 30/12/2021       | 29123         |
+      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 830000 |    70000 | 30/12/2021       |         29123 |
+    Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
+    Y se marca identidida confirmada radicando la solicitud
+    Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
+
+    Ejemplos: 
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @AnalisisCreditoRetanqueoCCS
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2>
+    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><Cartera1><Saneamiento2><DiasHabilesIntereses><Tasa>
     Y Guarda los datos del simulador
+    Y ingrese a la pestana del plan de pagos
+    Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-   Ejemplos: 
-    |Retanqueo|Cedula         |NombreCredito   |Ingresos |decLey    |descNomina|Mes    |Tasa  |Plazo|descLey  |descNomina|fecha       |Cartera1|Saneamiento2|
-    |"3000000"|"9061939"     |"CARLOS FIDEL" |"8500000"|"280000"  |"50000"   |"Julio"|"1.8" |"60" |"280000" |"50000"   |"16/07/2021"|"650000"|"450000"    |
 
-
-   @ClientesBienvenidaRetanqueosRetanqueoCarteraSaneamiento 
-   Esquema del escenario: Clientes para Bienvenida
-    Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    Entonces se pasa a la pestana condiciones de credito se marcan los check condiciones y de carteras y se acepta<TipoDesen>
     Ejemplos: 
-    |Cedula         |Celular     |Correo                     |TipoDesen  |
-    |"9061939"     |"3115128152"|"dandresabogadog@mail.com" |"Efectivo" |
-    
-    
-    @CreditosVisacionRetanqueosCarteraSaneamiento 
-    Esquema del escenario: Creditos para Visacion
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @ClientesBienvenidaRetanqueoCCS
+  Esquema del escenario: Clientes para Bienvenida
+    Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
+    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
+    Y se validan los valores de las condiciones del credito <Credito><Plazo><DiasHabilesIntereses>
+    Y validar las condiciones de la carta de notificacion de creditos <Cedula>
+    Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
+
+    Ejemplos: 
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @CreditosVisacionRetanqueosCCS
+  Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
-    
-    Ejemplos: 
-    |Cedula    |fechaActual |rutaPDF                                    |
-    |"9061939"|"14/07/2021"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
-    
-    @DesembolsoCarteraCarteraSaneamiento 
-    Esquema del escenario: Carteras para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar la cartera uno <Cedula>
-    Y se descargadescargan medios de dispersion para la cartera <Cartera1><Banco><rutaPDF>
-    
-    Ejemplos: 
-    |Cedula      |Cartera1|Banco                                  |rutaPDF                                    |
-    |"9061939"  |"650000"|"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
-       
-    @VisacionCarteraCarteraSaneamiento 
-    Esquema del escenario: Visacion de la cartera
-    Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
-    Y se navega hasta carteras <rutaPDF>
-    Ejemplos: 
-    |Cedula      |rutaPDF                                    |
-    |"9061939"  |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
-    
-    @DesembolsoSaneamientoCarteraSaneamiento 
-    Esquema del escenario: Saneamiento para Desembolso
-    Cuando el agente ingresa a la lista de pagos para procesar el saneamiento <Cedula>
-    Y se descargadescargan medios de dispersion para el saneamiento <Saneamiento2><Banco><rutaPDF>
 
     Ejemplos: 
-    |Cedula      |Saneamiento2|Banco                                  |rutaPDF                                    |
-    |"9061939"  |"450000"    |"Remanentes - 60237038927 - REMANENTE" |"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|
-        
-        
-    @DesembolsoRetanqueosCarteraSaneamiento 
-    Esquema del escenario: Creditos para Desembolso
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @DesembolsoCarteraCCS
+  Esquema del escenario: Carteras para Desembolso
+    Cuando el agente ingresa a la lista de pagos para procesar "Cartera" con <Cedula>
+    Y se descargan medios de dispersion para la cartera
+      | Monto  | Banco                                | RutaPdf                               |
+      | 200000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
+    Ejemplos: 
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @VisacionSaneamientoCCS
+  Esquema del escenario: Visacion de la cartera
+    Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
+    Y se navega hasta carteras <rutaPDF>
+
+    Ejemplos: 
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @DesembolsoSaneamientoCCS
+  Esquema del escenario: Saneamiento para Desembolso
+    Cuando el agente ingresa a la lista de pagos para procesar "Saneamiento" con <Cedula>
+    Y se descargan medios de dispersion para la cartera
+      | Monto  | Banco                                | RutaPdf                               |
+      | 830000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
+    Ejemplos: 
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|
+
+  @DesembolsoRetanqueosCCS
+  Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
-    Y se descarga medios de dispersion para el remanente <Retanqueo><Cartera1><Saneamiento2><Banco><rutaPDF>
-   
+    Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
+    Y se descarga medios de dispersion para el remanente
+      | Monto   | Cartera | Saneamiento | Banco                                | RutaPdf                               |
+      | 8000000 | 200000  | 830000      | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
     Ejemplos: 
-   |Retanqueo  |Cedula    |Banco                                 |rutaPDF                                    |Cartera1|Saneamiento2|
-   |"3000000"  |"9061939"|"Remanentes - 60237038927 - REMANENTE"|"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf"|"650000"|"450000"    |
-   
-   
+      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
+   |"8000000"   |"24580532"   |"78635"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.8"   |"25"   |"13"   |"6500000"   |"380000"   |"100000"   |"2258"   |"830000"   |"BLANCA NURY"   |"Octubre"   |"14/06/1969"   |"2021"   |"100000"   |"730000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"20/10/2021"   |"Remanentes - 60237038927 - REMANENTE"|

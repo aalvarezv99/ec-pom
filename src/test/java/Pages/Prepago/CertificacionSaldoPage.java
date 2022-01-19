@@ -39,9 +39,9 @@ public class CertificacionSaldoPage {
 		botonCerrarEstado = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos:j_idt77_panel\"]/div[1]/a/span");
 		conteColumnas = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos_data\"]/tr/td");
 		countFilas = By.xpath("//*[@id=\"formulario-certificaciones:listaRecaudos_data\"]/tr");
-		botonSolicitar = By.id("formulario-certificaciones:listaRecaudos:0:j_idt100");
+		botonSolicitar = By.id("formulario-certificaciones:listaRecaudos:0:j_idt103");
 		botonPresolicitar = By.id("formulario-certificaciones:listaRecaudos:0:presolicitar");
-		botonGuardarCertificado = By.id("formulario-certificaciones:j_idt150");		
+		botonGuardarCertificado = By.id("formulario-certificaciones:j_idt153");		
 		botonCerrarModal = By.xpath("//*[@id=\"formulario-certificaciones:formularioPopUp\"]/div[1]/a");
 		
 		//Modal

@@ -32,15 +32,17 @@ public class SimuladorAsesorSteps {
 	
 	@Dado("Un agente en el sistema core abacus con sesion iniciada")
 	public void unAgenteEnElSistemaCoreAbacusConSesionIniciada() throws Exception {
-
 		try {
 			loginaccion.iniciarSesion();
 		} catch (Exception e) {
 			log.error("#ERROR###"+e);
-			throw new Exception();
-			
 		}
 	}
+	
+	 @Y("^con las funciones sql necesarias del proyecto creadas$")
+	    public void conLasFuncionesSqlNecesariasDelProyectoCreadas() throws Throwable {
+	       originacionaccion.crearFuncionesSql();
+	    }
 
 	@Cuando("el agente ingresa a la pestana de simulador asesor")
 	public void elAgenteIngreseALaPestanaDeSimuladorAsesor() {
@@ -51,8 +53,9 @@ public class SimuladorAsesorSteps {
 	public void cambialafechadelservidor(String FechaServidor) {
 		originacionaccion.CambiarFechaServidor(FechaServidor);
 	}
-	@Y("cree la simulacion con la informacion del archivo contenida en la tabla {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-	public void creeLaSimulacionConLaInformacionDelArchivoContenidaEnLaTabla(String Pagaduria,String Cedula,  String fecha,  String Oficina,  String Actividad,  String Tasa,  String Plazo, 	String Monto,  String DiasHabilesIntereses,  String Ingresos,  String descLey,  String descNomina,  String vlrCompasSaneamientos,  String tipo, String colchon) throws InterruptedException, NumberFormatException, SQLException {
+	
+	@Y("cree la simulacion con la informacion del archivo contenida en la tabla {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string} {string}")
+	public void creeLaSimulacionConLaInformacionDelArchivoContenidaEnLaTabla(String Pagaduria,String Cedula, String fecha,String Oficina,  String Actividad,  String Tasa,  String Plazo, 	String Monto,  String DiasHabilesIntereses,  String Ingresos,  String descLey,  String descNomina,  String vlrCompasSaneamientos,  String tipo, String colchon) throws InterruptedException, NumberFormatException, SQLException {
 	originacionaccion.llenarFormularioAsesor(Pagaduria,Cedula,fecha,Oficina,Actividad,Tasa,Plazo,Monto,DiasHabilesIntereses,Ingresos,descLey,descNomina,vlrCompasSaneamientos,colchon);
 	}
 
@@ -76,9 +79,9 @@ public class SimuladorAsesorSteps {
 	originacionaccion.SubirDocumentos(ruta);
 	}
 
-	@Entonces("se finaliza con la consulta a centrales")
-	public void seFinalizaConLaConsultaACentrales() throws InterruptedException {
-	originacionaccion.ConsultaCentrales();
+	@Entonces("se finaliza con la consulta a centrales {string}")
+	public void seFinalizaConLaConsultaACentrales(String Cedula) throws InterruptedException {
+	originacionaccion.ConsultaCentrales(Cedula);
 	}
 
 }

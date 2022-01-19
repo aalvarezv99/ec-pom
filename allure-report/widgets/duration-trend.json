@@ -1,0 +1,29 @@
+[ {
+  "buildOrder" : 9,
+  "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/9/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "duration" : 49395
+  }
+}, {
+  "buildOrder" : 8,
+  "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/8/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "duration" : 5292
+  }
+}, {
+  "buildOrder" : 3,
+  "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/3/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "duration" : 16531
+  }
+}, {
+  "buildOrder" : 2,
+  "reportUrl" : "http://localhost:8080/job/Abacus%20Automation%20Demo/2/allure",
+  "reportName" : "AllureReport",
+  "data" : {
+    "duration" : 14812
+  }
+} ]

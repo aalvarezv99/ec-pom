@@ -1,0 +1,25 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "children" : [ {
+    "name" : "BPRO62",
+    "children" : [ {
+      "name" : "9440@BPRO62.main(1)",
+      "children" : [ {
+        "name" : "Simulador Asesor",
+        "uid" : "47cdd224d4c16af5",
+        "parentUid" : "52cdeda3714c549293288b8fd592d6b0",
+        "status" : "broken",
+        "time" : {
+          "start" : 1631728860974,
+          "stop" : 1631728910369,
+          "duration" : 49395
+        },
+        "flaky" : false,
+        "parameters" : [ "\"Pensionado\"", "\"Remanentes - 60237038927 - REMANENTE\"", "\"52912399\"", "\"3115128152\"", "\"Anapoima\"", "\"3112\"", "\"dandresabogadog@mail.com\"", "\"Educacion propia\"", "\"30\"", "\"Calle 2d #22-52\"", "\"Cundinamarca\"", "\"Soltero\"", "\"10/03/2000\"", "\"2021-04-20\"", "\"3500000\"", "\"3500000\"", "\"Agosto\"", "\"5000000\"", "\"ALEYDA\"", "\"Cartagena\"", "\"COLFONDOS\"", "\"RODRIGUEZ\"", "\"perez\"", "\"120\"", "\"ALEYDA\"", "\"alejandro\"", "\"GONZALEZ\"", "\"F\"", "\"1.8\"", "\"7210273\"", "\"9007146\"", "\"Pensionado por Tiempo (Vejez)\"", "\"Efectivo\"", "\"FAMILIAR\"", "\"20500000\"", "\"0\"", "\"280000\"", "\"50000\"", "\"01/Ago/1971\"", "\"12/Ago/1982\"", "\"04/08/2021\"", "\"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf\"", "\"xx\"", "\"0\"" ]
+      } ],
+      "uid" : "52cdeda3714c549293288b8fd592d6b0"
+    } ],
+    "uid" : "65e2f46ecfb93172b547a985ecc40c26"
+  } ],
+  "name" : "timeline"
+}

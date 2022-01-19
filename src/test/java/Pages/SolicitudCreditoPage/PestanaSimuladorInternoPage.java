@@ -16,6 +16,7 @@ public class PestanaSimuladorInternoPage {
 	public By CuotaCorriente;
 	public By edad;
 	public By MontoMaximoSugerido;
+	public By btnGuardar;
 	public By Solicitar;
 	public By FiltroCedula;
 	public By EditarVer;
@@ -25,6 +26,7 @@ public class PestanaSimuladorInternoPage {
 	public By SgdPestana;
 	public By MesDeAfecatcion;
 	public By ListaMes;
+	public By anoAfectacion;
 	public By CalcularDesglose;
 	public By FechaDesembolso;
 	public By FechasManuales;
@@ -51,7 +53,35 @@ public class PestanaSimuladorInternoPage {
 	public By CompraSaneamiento;
 	public By ValorCompraCartera;
 	public By Monto;
-	
+	public By SimuladorInternorValoraDesembolsar;
+	public By InteresesInicialesSimuladorAnalista;
+	public By PrimaNeta;
+	public By PrimaNetaSimuladorAnalista;
+	public By PrimaNoDevengadaSimuladorInterno;
+	public By PrimaNoDevengadaSimuladorAnalista;
+	public By EstudioCreditoSAnalista;
+	public By ValorFianzaAnalista;
+	public By FiltroCedulaCredito;
+	public By ModalExcepciones;
+	public By DetalleExcepciones;
+	public By SoportePdfExcepciones;
+	public By Notificacion;
+	public By SolicitarAprobacion;
+	public By PrimaAnticipadaSeguroSInterno;
+	public By DiasInteresesIniciales;
+	public By listaCreditosRecoger;
+	public By checksMultiples;
+	//ADP 98
+	public By PestanaPlanDePagos;
+	public By KeyCabeceraPlanDePagos;
+	public By ValueCabeceraPlanDePagos;
+	public By listVerEditar;
+	public By valorFianzaTotal;
+	public By valorFianzaPadotal;
+	public By valorFianzaPadre;
+	public By valorFianzaTotalAna;
+	public By valorFianzaPadreAna;
+
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
 		ResultMontoSoli = By.id("formSimuladorCredito:montoTotalCr_hinput");
@@ -59,11 +89,13 @@ public class PestanaSimuladorInternoPage {
         ValorFianza = By.id("formSimuladorCredito:fianzaCr_hinput");
         Gmf4100 = By.id("formSimuladorCredito:gmfCr_hinput");
         Valorinteresesini = By.id("formSimuladorCredito:diasICr_hinput");
-        PrimaAnticipadaSeguro = By.id("formSimuladorCredito:primaSeguro_hinput");
-        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput"); 
+        PrimaAnticipadaSeguro = By.id("formSimulador:primaAnticipadaSeguro_hinput");        
+        PrimaAnticipadaSeguroSInterno=By.id("formSimuladorCredito:primaSeguro_hinput");
+        RemanenteEstimado = By.id("formSimuladorCredito:remanenteCr_hinput");         						   
         CuotaCorriente = By.id("formSimuladorCredito:cuotaCr_hinput");
         edad = By.id("formSimuladorCredito:edad_hinput");
         MontoMaximoSugerido = By.id("formSimuladorCredito:montoMax_hinput");
+        btnGuardar = By.id("formSimuladorCredito:guardar_simulador_boton");
         Solicitar=By.id("formSimuladorCredito:solicitar_boton");
         FiltroCedula=By.id("form:listaCreditos:identificacion_analisis_filtro:filter");
         EditarVer=By.id("form:listaCreditos:0:j_idt98");
@@ -73,6 +105,7 @@ public class PestanaSimuladorInternoPage {
 	    SgdPestana = By.id("simuladorAnalista:vista_siguiente_analista_a");
 	    MesDeAfecatcion = By.id("formSimulador:mesAfectacion_label");
 	    ListaMes= By.xpath("//li[contains(@class,'ui-selectonemenu-item')]");
+	    anoAfectacion = By.id("formSimulador:anioAfectacion");
 	    CalcularDesglose = By.id("formSimulador:calcular_desglose_analista_b_boton");
 	    CompraSaneamiento = By.id("formSimulador:valorCompraCartera_hinput");
 	    ValorCompraCartera = By.id("formSimulador:valorCompraCartera_hinput");  
@@ -88,19 +121,45 @@ public class PestanaSimuladorInternoPage {
 	    MontoMaximoAsesor =By.id("formSimulador:montoMaximoSugerencias_hinput");
 	    CapacidadAsesor= By.id("formSimulador:valorCuotaMontoMaximoSugerencias_hinput");     
 	    ValorEstudioCreditoCXC= By.id("formSimulador:valorEstudio_hinput");
-	    ValorFianzaCXC = By.id("formSimulador:valorFianza_hinput");
+	    ValorFianzaCXC = By.id("formSimulador:valorFianzaNeta_hinput");
 	    Gravamento4x1000 = By.id("formSimulador:cuatroPorMil_hinput");
 	    ValoraDesembolsar = By.id("formSimulador:valorDesembolsar_hinput");
+	    SimuladorInternorValoraDesembolsar =   By.id("formSimuladorCredito:remanenteCr_hinput");
 	    MontoAsesor = By.id("formSimulador:monto_hinput");
 	    PlazoAsesor = By.id("formSimulador:plazo");
-	    TasaAsesor = By.id("formSimulador:tasaExcepcion_hinput");
+	    TasaAsesor = By.id("formSimulador:tasaExcepcion_label");
 	    IngresosAsesor = By.id("formSimulador:ingresos");
 	    DescuentosLey = By.id("formSimulador:descuentosLey");
 	    DescuentosNomina = By.id("formSimulador:descuentosNomina");
 	    GuardarSimulacion=By.id("formSimulador:guardar");
 	    Aprobar = By.id("form:aprobar");
 	    Monto =By.id("formSimuladorCredito:montoCr_hinput");
-	    
-	    
+	    InteresesInicialesSimuladorAnalista= By.id("formSimulador:diasInteresInicial_hinput");
+	    PrimaNeta=By.id("formSimuladorCredito:primaNetaSeguro_hinput");		    
+	    PrimaNetaSimuladorAnalista=By.id("formSimulador:primaNetaSeguro_hinput");    
+	    PrimaNoDevengadaSimuladorInterno=By.id("formSimuladorCredito:primaNoConsumidaCreditoPadre_hinput");
+	    PrimaNoDevengadaSimuladorAnalista=By.id("formSimulador:primaNoDevengadaCreditoPadre_hinput");
+	    FiltroCedulaCredito = By.id("form:listaCreditos:identificacion_cred_filtro:filter");
+	    ModalExcepciones = By.xpath("//div[@id='formSimuladorCredito:frmEx']");
+	    DetalleExcepciones = By.id("formSimuladorCredito:ver_det_excepciones");
+	    SoportePdfExcepciones = By.xpath("//input[starts-with(@id,'formularioExcepciones:j_idt') and @type='file' ]");
+        Notificacion = By.xpath("//*[@class='ui-growl-title']");
+        SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");        
+        EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
+        ValorFianzaAnalista = By.id("formSimulador:valorFianzaNeta_hinput");
+        DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
+        listaCreditosRecoger = By.xpath("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
+        checksMultiples = By.xpath("//span[@class = 'ui-chkbox-icon ui-icon ui-icon-check ui-c']");
+        
+        //ADP - 98
+        PestanaPlanDePagos = By.id("navegacionCredito:j_idt34");
+        KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
+        ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
+		listVerEditar = By.xpath("//a[starts-with(@id, 'form:listaCreditos')]");
+
+		valorFianzaPadre = By.id("formSimuladorCredito:fianzaCrPadre_hinput");
+		valorFianzaTotal = By.id("formSimuladorCredito:totalFianza_hinput");
+		valorFianzaPadreAna = By.id("formSimulador:valorFianzaPadres_hinput");
+		valorFianzaTotalAna = By.id("formSimulador:valorFianza_hinput");
 	}
 }

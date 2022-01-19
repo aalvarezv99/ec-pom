@@ -1,0 +1,25 @@
+{
+  "uid" : "4b4757e66a1912dae1a509f688f20b0f",
+  "children" : [ {
+    "name" : "Test defects",
+    "children" : [ {
+      "name" : "Expected condition failed: waiting for visibility of element located by By.id: formSimuladorCredito:tipoContrato_label (tried for 10 second(s) with 500 milliseconds interval)\nBuild info: version: '3.11.0', revision: 'e59cfb3', time: '2018-03-11T20:26:55.152Z'\nSystem info: host: 'BPRO62', ip: '192.168.112.46', os.name: 'Windows 10', os.arch: 'amd64', os.version: '10.0', java.version: '1.8.0_291'\nDriver info: org.openqa.selenium.chrome.ChromeDriver\nCapabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 93.0.4577.63, chrome: {chromedriverVersion: 92.0.4515.107 (87a818b10553..., userDataDir: C:\\Windows\\TEMP\\scoped_dir1...}, goog:chromeOptions: {debuggerAddress: localhost:51783}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}\nSession ID: ad0910bd68e37510eaef667a7b5ff81a",
+      "children" : [ {
+        "name" : "Simulador Asesor",
+        "uid" : "47cdd224d4c16af5",
+        "parentUid" : "84e74d8dd763fb54ae47f433930ff664",
+        "status" : "broken",
+        "time" : {
+          "start" : 1631728860974,
+          "stop" : 1631728910369,
+          "duration" : 49395
+        },
+        "flaky" : false,
+        "parameters" : [ "\"Pensionado\"", "\"Remanentes - 60237038927 - REMANENTE\"", "\"52912399\"", "\"3115128152\"", "\"Anapoima\"", "\"3112\"", "\"dandresabogadog@mail.com\"", "\"Educacion propia\"", "\"30\"", "\"Calle 2d #22-52\"", "\"Cundinamarca\"", "\"Soltero\"", "\"10/03/2000\"", "\"2021-04-20\"", "\"3500000\"", "\"3500000\"", "\"Agosto\"", "\"5000000\"", "\"ALEYDA\"", "\"Cartagena\"", "\"COLFONDOS\"", "\"RODRIGUEZ\"", "\"perez\"", "\"120\"", "\"ALEYDA\"", "\"alejandro\"", "\"GONZALEZ\"", "\"F\"", "\"1.8\"", "\"7210273\"", "\"9007146\"", "\"Pensionado por Tiempo (Vejez)\"", "\"Efectivo\"", "\"FAMILIAR\"", "\"20500000\"", "\"0\"", "\"280000\"", "\"50000\"", "\"01/Ago/1971\"", "\"12/Ago/1982\"", "\"04/08/2021\"", "\"C:\\Users\\User\\Documents\\PDFPRUEBA.pdf\"", "\"xx\"", "\"0\"" ]
+      } ],
+      "uid" : "84e74d8dd763fb54ae47f433930ff664"
+    } ],
+    "uid" : "bdbf199525818fae7a8651db9eafe741"
+  } ],
+  "name" : "categories"
+}

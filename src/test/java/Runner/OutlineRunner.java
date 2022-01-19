@@ -8,11 +8,10 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-features = "src/test/resources/feature/OutLine.feature",
-glue = "StepsDefinitions",
-tags = "not @Prueba",
-   snippets = SnippetType.CAMELCASE
-)
+		features = "src/test/resources/feature/OutLine.feature", 
+		glue = "StepsDefinitions",
+		tags = "@Prueba", 
+		snippets = SnippetType.CAMELCASE)
 public class OutlineRunner {
 
 }

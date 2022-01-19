@@ -13,7 +13,7 @@ public class PagesClienteParaVisacion {
 	public static By DocumentoLibranza;
 	public static By Aprobar;
 	public static By cargapdf;
-	public static By PazYSalvoCartera;
+	public static By listPazYSalvoPdf;
 	public static By PazYSalvoSaneamiento;
 	
 	public PagesClienteParaVisacion(WebDriver driver) {
@@ -24,7 +24,7 @@ public class PagesClienteParaVisacion {
 	    DocumentoLibranza = By.id("formulario-visacion:j_idt96_input");
 	    cargapdf =By.xpath("//*[text()='Ver PDF']");
 	    Aprobar= By.xpath("//*[text()='Aprobar']");
-	    PazYSalvoCartera = By.id("formCarteras:carteras:0:j_idt88_input");
+	    listPazYSalvoPdf = By.xpath("//input[starts-with(@id,'formCarteras:carteras')]");
 	    PazYSalvoSaneamiento = By.id("formCarteras:carteras:1:j_idt88_input");
 	}
 }

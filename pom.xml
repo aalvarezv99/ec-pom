@@ -19,7 +19,7 @@
 		<log.version>1.2.17</log.version>
 		<slf4Simple.version>1.6.1</slf4Simple.version>
 		<json.verison>1.1.1</json.verison>
-		<poi.version>3.10-FINAL</poi.version>
+		<poi.version>3.15</poi.version>
 
 		<allurecucumber.version>2.13.2</allurecucumber.version>
 		<picocontainer.version>1.2.5</picocontainer.version>
@@ -122,8 +122,13 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
-		</dependency>
-		
+		</dependency>	
+		<!--TP 11/Nov/2021 se agrega dependencia de SqlServer-->
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+		    <version>9.4.0.jre8</version>
+		</dependency>	
 		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
@@ -180,13 +185,19 @@
 						<allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
 					</systemPropertyVariables>
 					<argLine>
-                       -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                       -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
-                   	</argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -Dcucumber.options="--plugin io.qameta.allure.cucumber4jvm.AllureCucumber4Jvm"
+                    </argLine>
+                    <systemProperties>
+                       <property>
+                          <name>allure.results.directory</name>
+                          <value>D:\ThainerPerez\Repositorios\testautomationpom\target\allure-results</value>                       
+                       </property>
+                    </systemProperties>
 					<includes>
-						<!-- <include>**/*Steps.java</include> -->
 <!-- 						<include>**/*Runner.java</include> -->
-					<include>**/AplicacionCierrePagaduriaRunner.java</include>
+					<include>**/CertificacionSaldosRunner.java</include>
+					<include>**/OriginacionCreditosRunner.java</include>
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
 				</configuration>

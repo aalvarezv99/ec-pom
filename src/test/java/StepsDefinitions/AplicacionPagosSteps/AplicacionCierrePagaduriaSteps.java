@@ -31,12 +31,12 @@ public class AplicacionCierrePagaduriaSteps {
     	aplicacioncierreaccion.SeleccionarPeriodoAno(periodo);
     }
 
-    @Y("^Ingrese el (.+) en el campo pagaduria verificando que no se ha cargado anteriormente$")
+    @Y("Ingrese el \"([^\"]*)\" en el campo pagaduria verificando que no se ha cargado anteriormente")
     public void ingreseElEnElCampoPagaduriaVerificandoQueNoSeHaCargadoAnteriormente(String nombrepagaduria) throws Throwable {
         aplicacioncierreaccion.escribirPagaduriaValidarCargue(nombrepagaduria);
     }    
 
-    @Y("^cargue la pagaduria (.+) que se encuentra en la ruta \"([^\"]*)\"$")
+    @Y("cargue la pagaduria \"([^\"]*)\" que se encuentra en la ruta \"([^\"]*)\"")
     public void cargueLaPagaduriaQueSeEncuentraEnLaRuta(String nombrepagaduria, String rutapagaduria) throws Throwable {
         aplicacioncierreaccion.cargarArchivoPagaduria(nombrepagaduria, rutapagaduria);
     }
@@ -46,7 +46,7 @@ public class AplicacionCierrePagaduriaSteps {
        aplicacioncierreaccion.validarMensajeCargueTerminado(Mensaje);
     }
 
-    @Y("^se valida el valor listado de la (.+) para el (.+) con el valor del sistema terminando con el proceso$")
+    @Y("^se valida el valor listado de la \"([^\"]*)\" para el (.+) con el valor del sistema terminando con el proceso$")
     public void seValidaElValorListadoDeLaParaElConElValorDelSistemaTerminandoConElProceso(String nombrepagaduria, String periodo) throws Throwable {
        aplicacioncierreaccion.validarVlrPlanillaContraSistema(nombrepagaduria, periodo);
     }
