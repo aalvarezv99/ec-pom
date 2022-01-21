@@ -16,7 +16,7 @@ import cucumber.api.SnippetType;
 // @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/Retanqueo.feature",
                  glue = "StepsDefinitions",
-                 tags = {"@AnalisisCreditoRetanqueo" },
+                 tags = {"@ValidarDinamicasContablesRetanqueoHijo,@ValidarDinamicasContablesRetanqueoPadre" },
                  snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)

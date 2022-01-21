@@ -443,6 +443,9 @@ public class MovimientoContableAccion extends BaseTest {
                 if(accountingSource.equals("'CIERRE'")) {
                 	name = accountingName;
                 }
+                else if (accountingSource.equals("'RETANQ'")) {
+                	name = accountingName;
+                }
                 else {
                 	 name = this.consultarAccountingName(mapCuentas.getKey());	
                 }

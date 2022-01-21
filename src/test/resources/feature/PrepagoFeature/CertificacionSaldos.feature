@@ -32,7 +32,7 @@ Característica: Prepago de Creditos
     Cuando se valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
     Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
     Y valida que las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> con el <NumRadicado> y <NumCedula> en la <FechaRegistro>
-    #Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
+    Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
     Ejemplos:
       | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento                                  | AccountingSource | AccountingName                          | FechaRegistro | AccountingSourcePrepag	| AcountingNamePrepag |
       ##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@CertificacionSaldo
@@ -44,6 +44,7 @@ Característica: Prepago de Creditos
 		Cuando se valida por <NumRadicado> y <NumCedula> en la tabla movimiento contable las <AccountingSourcePrepag> que se proceso por el bridge en la <FechaRegistro>
     Y valide la causacion de movimientos <AccountingSourcePrepag> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
     Y validando las cuentas de libranzas <AccountingSourcePrepag> sean las del bridge <AccountingNamePrepag> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion <AccountingSourcePrepag> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
     Ejemplos:
     | NumRadicado | NumCedula | DiaCertificacion | VencimientoCert | ValorCertificacion | TipoPago | RutaDocumento                                  | AccountingSource | AccountingName                          | FechaRegistro | AccountingSourcePrepag	| AcountingNamePrepag |
 		##@externaldata@./src/test/resources/Data/AutomationDataCertSaldos.xlsx@CertificacionSaldo

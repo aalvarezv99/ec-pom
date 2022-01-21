@@ -22,12 +22,12 @@ public class MovimientoContableStep {
 	
     @Y("^se valida por (.+) y (.+) en la tabla movimiento contable las (.*) que se proceso por el bridge en la (.+)$")
     public void seValidaPorEnLaTablaMovimientoContableQueSeProcesoPorElBridge(String numeroradicadocredito, String numCedula, String accountingSource, String fecha) throws Throwable {
-    	movimientoContableAccion.validarProcesoBridge(numeroradicadocredito, numCedula.replace("\"", ""), accountingSource.replace("\"", ""), fecha);
+    	movimientoContableAccion.validarProcesoBridge(numeroradicadocredito.replace("\"", ""), numCedula.replace("\"", ""), accountingSource.replace("\"", ""), fecha);
     }
     
     @Y("^valide la causacion de movimientos (.+) con sus tipos y valores usando el (.+) en la (.+)$")
     public void valideLaCausacionDeMovimientosConSusTiposYValoresUsandoEl(String accountingsource, String numRadicado, String fechaRegistro) throws Throwable {
-    	movimientoContableAccion.validarCausacionMovimientos(accountingsource.replaceAll("\"", ""), numRadicado, fechaRegistro);
+    	movimientoContableAccion.validarCausacionMovimientos(accountingsource.replaceAll("\"", ""), numRadicado.replaceAll("\"", ""), fechaRegistro);
     }
 
     @Y("^valida que las cuentas de libranzas (.*) sean las del bridge (.*) con el (.+) y (.+) en la (.+)$")
