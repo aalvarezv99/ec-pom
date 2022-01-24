@@ -318,6 +318,33 @@ public class OriginacionCreditoQuery {
 		return r;
 	}
 	
+	/*
+	 * ThainePerez V1.0 - 20/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
+	 * 									2. Parametros utilizados: (	v_cedula text,
+	 * 																v_nombre_pagaduria text,
+	 * 																v_tasa numeric, 
+	 * 																v_plazo numeric,
+	 * 																v_diashabilesintereses numeric,
+	 * 																v_monto numeric,
+	 * 																v_sumamontocarteras numeric)*/
+	public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula,String pagaduria,String tasa,String plazo,String diasIntIniciales,int monto, String compraCarteraSuma) {
+		log.info("********************** Ejecutando Funcion Retanqueo Multiple - consultarCalculosSimuladorRetanqueoMultiple() **************");
+		ResultSet r = null;
+		try {
+			String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador("+agregarComillas(cedula)+","+agregarComillas(pagaduria)+","+tasa+","+plazo+","+diasIntIniciales+","+monto+","+compraCarteraSuma+");";
+			log.info(sql);
+			r = dbconector.conexion(sql);
+		} catch (Exception e) {
+			log.error("********consultarCalculosSimuladorRetanqueoMultiple() ********");
+			log.error(e.getMessage());
+		}
+		return r;
+	}
+	
+	public String agregarComillas(String valor) {
+		return "'"+ valor +"'";
+	}
+	
 	public ResultSet idClienteCedula(String Cedula) {
 		ResultSet r=null;
 		try {

@@ -137,9 +137,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
 	}
 
-	@Y("se validan los datos del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}")
-	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
-		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
+	@Y("se validan los datos del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String cedula, String pagaduria,String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(cedula,pagaduria,Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
 	}
 
 	@Entonces("Valida los valores del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}")
