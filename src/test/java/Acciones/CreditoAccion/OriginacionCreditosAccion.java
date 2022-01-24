@@ -98,6 +98,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         FuncionesSqlQuery.funcionCxcFianzaCertSaldo();
         FuncionesSqlQuery.ejecutarFuncionOriginacion();
         FuncionesSqlQuery.ejecutarFuncionRetanqueo();
+        FuncionesSqlQuery.ejecutarFuncionRetanqueoMultiple();
     }
 
     public void CambiarFechaServidor(String FechaServidor) {
