@@ -17,7 +17,7 @@ import cucumber.api.SnippetType;
                  snippets = SnippetType.CAMELCASE)
 //
 //RETANQUEO COMPRA CARTERA SANEAMIENTO
-//@SolicitudRetanqueoMultipleCompraCarteraSaneamiento
+//@RetanqueoMultipleSeleccion, @SolicitudRetanqueoMultiple
 @RunWith(RunnerPersonalizado.class)
 
 public class RetanqueoMultipleRunner {
