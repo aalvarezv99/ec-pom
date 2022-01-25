@@ -25,7 +25,7 @@ Característica: Retanqueo de creditos
     Y se solicita la consulta a centrales de riesgo
     Y marcar el credito viable
     Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-    Y se validan los datos del simulador retanqueo multiple <Ingresos><descLey><descNomina><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
+    Y se validan los datos del simulador retanqueo multiple <Cedula><Pagaduria><Ingresos><descLey><descNomina><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     Y se da clic en solicitar
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
@@ -49,7 +49,7 @@ Característica: Retanqueo de creditos
     Y se solicita la consulta a centrales de riesgo
     Y marcar el credito viable
     Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
-    Y se validan los datos del simulador retanqueo multiple <Ingresos><descLey><descNomina><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
+    Y se validan los datos del simulador retanqueo multiple <Cedula><Pagaduria><Ingresos><descLey><descNomina><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     Y se da clic en solicitar
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
