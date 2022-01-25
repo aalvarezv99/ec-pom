@@ -860,7 +860,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(PagesCreditosDesembolso.VerEditar);
         ElementVisible();
         hacerClick(PagesCreditosDesembolso.Banco);
-        hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='" + Banco + "' ]"));
+        hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and contains(text(),'" + Banco + "' )]"));
         ElementVisible();
         cargarpdf(PagesCreditosDesembolso.CargarEvidencia, Pdf);
         esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
