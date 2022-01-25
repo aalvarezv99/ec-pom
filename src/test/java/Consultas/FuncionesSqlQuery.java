@@ -781,7 +781,7 @@ private static Logger log = Logger.getLogger(FuncionesSqlQuery.class);
 					+ "\r\n"
 					+ "/*Consulta Saldo al dia*/\r\n"
 					+ "select\r\n"
-					+ "	sum(round(saldo_al_dia))\r\n"
+					+ "	coalesce(sum(round(saldo_al_dia)),0)\r\n"
 					+ "	into\r\n"
 					+ "	saldoAlDia\r\n"
 					+ "from\r\n"
