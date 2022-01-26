@@ -14,7 +14,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @SolicitudRetanqueoMultiple
   Esquema del escenario: Solicitud Retanqueo Multiple
@@ -37,7 +37,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo      | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
     #COMPRA CARTERA Y SANEAMIENTOS
   @SolicitudRetanqueoMultipleCCS
@@ -69,14 +69,14 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @AnalisisCreditoRetanqueoMultiple
   Esquema del escenario: Analisis del credito
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueo multiple <AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Tasa>
+    Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
     Y ingrese a la pestana del plan de pagos 
     Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
@@ -86,7 +86,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @AnalisisCreditoRetanqueoMultipleCCS
   Esquema del escenario: Analisis del credito
@@ -100,19 +100,19 @@ Característica: Retanqueo de creditos
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
-    Y se validan los valores de las condiciones del credito Multiple
+    Y se validan los valores de las condiciones del credito Multiple <Cedula><Pagaduria><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     #Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -121,7 +121,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
@@ -131,7 +131,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   #Pasos para credito despues de llamada de bienvenida cuando tienen compra de cartera y la visacion
   @DesembolsoCarteraCCS
@@ -143,7 +143,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @VisacionSaneamientoCCS
   Esquema del escenario: Visacion de la cartera
@@ -152,7 +152,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
@@ -163,7 +163,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
   @DesembolsoRetanqueosCCS
   Esquema del escenario: Creditos para Desembolso
@@ -176,4 +176,4 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10002426"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOHN FREDY"   |"Enero"   |"14/06/1969"   |"2021"   |"21/01/2021"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|

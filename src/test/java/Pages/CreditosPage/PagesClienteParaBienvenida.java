@@ -73,7 +73,7 @@ public class PagesClienteParaBienvenida {
         ValoresCondicionesCredito = By.xpath("//span[@class='form-control fecha-inline']");
         SaldoAlDia = By.xpath("/html/body/div[2]/div/div[2]/div/form/div[1]/div[2]/div[3]/div[2]/label");
         ValorSaldoAlDia = By.xpath("//label[@class='form-control fecha-inline']");
-        ListaCreditosRecoger = By.xpath("//div[@id='formCondicionCredito:j_idt305']/child::div//child::span");
+        ListaCreditosRecoger = By.xpath("//div[@id='formCondicionCredito:j_idt317']/child::div//child::span");
         saldoAlDiaRetanqueo = By.xpath("//div[@class='col-xs-8 control-label' and text() = 'Saldo al día']//following-sibling::div//child::label");
         ImputOTP = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_idt') and contains(@onkeyup,'mensajeOtpTemp') ]");
         

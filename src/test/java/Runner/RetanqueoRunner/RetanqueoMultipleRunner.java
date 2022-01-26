@@ -27,3 +27,5 @@ public class RetanqueoMultipleRunner {
         DataToFeature.overrideFeatureFiles("src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature");
     }
 }
+
+//Retanqueo Multi-Libre @RetanqueoMultipleSeleccion,@SolicitudRetanqueoMultiple,@AnalisisCreditoRetanqueoMultiple,@ClientesBienvenidaRetanqueoMult,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
