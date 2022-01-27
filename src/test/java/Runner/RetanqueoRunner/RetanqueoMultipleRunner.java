@@ -13,7 +13,7 @@ import cucumber.api.SnippetType;
 // @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature",
                  glue = "StepsDefinitions",
-                 tags = {"@RetanqueoCCS"},
+                 tags = {"@RetanqueoMultipleSeleccion,@SolicitudRetanqueoMultipleCCS"},
                  snippets = SnippetType.CAMELCASE)
 //
 //RETANQUEO COMPRA CARTERA SANEAMIENTO

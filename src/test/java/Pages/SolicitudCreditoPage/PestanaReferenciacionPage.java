@@ -59,16 +59,16 @@ public class PestanaReferenciacionPage {
         CargoCheck = By.id("formConsultas:cargo:0_clone");
 
         RadioSaneamiento = By.id("formConsultas:j_idt170:2:j_idt198:0");
-        ListLabelEntidad = By.xpath("//label[starts-with(@id,'formConsultas:j_idt170:')]");
-        ListFiltroEntidad = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170') and @class='ui-selectonemenu-filter ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all']");
-        ListMonto = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt207')]");
-        ListValorCuota = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt213')]");
-        ListFecha = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt210')]");
-        ListNumObligacion = By.xpath("//input[starts-with(@name,'formConsultas:j_idt170:') and contains(@name,'j_idt216')]");
-        ListBtnAprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt170:') and contains(@id,'j_idt218')]");
+        ListLabelEntidad = By.xpath("//label[starts-with(@id,'formConsultas:j_idt171') and not (contains(@id,'montoSegurosAP'))]");
+        ListFiltroEntidad = By.xpath("//input[starts-with(@name,'formConsultas:j_idt17') and @class='ui-selectonemenu-filter ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all']");
+        ListMonto = By.xpath("//input[starts-with(@name,'formConsultas:j_idt17') and contains(@name,'j_idt20') and @class='form-control']");
+        ListValorCuota = By.xpath("//input[starts-with(@name,'formConsultas:j_idt17') and contains(@name,'j_idt215') and @class='form-control']");
+        ListFecha = By.xpath("//input[starts-with(@name,'formConsultas:j_idt17') and contains(@name,'j_idt212')]");
+        ListNumObligacion = By.xpath("//input[starts-with(@name,'formConsultas:j_idt17') and contains(@name,'j_idt218')]");
+        ListBtnAprobar = By.xpath("//a[starts-with(@id,'formConsultas:j_idt') and contains(@id,'j_idt') and text()='Aprobar']");
         ListTipo = By.xpath("//label[contains(text(),'SANEAMIENTO') or contains(text(),'COMPRA')]");
-        ListRadioCompra = By.xpath("//input[starts-with(@id,'formConsultas:j_idt170:') and contains(@name,'j_idt198') and contains(@value,'COMPRA') and not (contains(@value,'LIBRANZA'))]");
-        ListRadioSaneamiento = By.xpath("//input[starts-with(@id,'formConsultas:j_idt170:') and contains(@name,'j_idt198') and contains(@value,'SANEAMIENTO') and not (contains(@value,'LIBRANZA'))]");
+        ListRadioCompra = By.xpath("//input[starts-with(@id,'formConsultas:j_idt1') and contains(@name,'j_idt') and contains(@value,'COMPRA') and not (contains(@value,'LIBRANZA'))]");
+        ListRadioSaneamiento = By.xpath("//input[starts-with(@id,'formConsultas:j_idt') and contains(@name,'j_idt') and contains(@value,'SANEAMIENTO') and not (contains(@value,'LIBRANZA'))]");
         Competidor1 = By.id("formConsultas:j_idt170:0:j_idt203_label");
         FiltroCompetidor1 = By.id("formConsultas:j_idt170:0:j_idt203_filter");
         Cartera1 = By.name("formConsultas:j_idt170:0:j_idt207");

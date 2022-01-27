@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RetanqueoCreditos extends BaseTest {
@@ -486,7 +487,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
 
         // consulta base de datos calculo de prima true o false
         String prima = "";
@@ -607,7 +608,7 @@ public class RetanqueoCreditos extends BaseTest {
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-
+*/
 
     }
 
@@ -1554,7 +1555,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClicknotificacion();
         esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         String numCredito = listaCreditosPadre.size() > 0 ? listaCreditosPadre.get(1).get("numeroCredito") : "";
-        System.out.println("listaCreditosPadre = " + listaCreditosPadre);
+        System.out.println("listaCreditosPadre = " + listaCreditosPadre);/*
         System.out.println("numCredito = " + numCredito);
 
         // consulta base de datos calculo de prima true o false
@@ -1691,7 +1692,7 @@ public class RetanqueoCreditos extends BaseTest {
         }
         //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - Generales
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-        this.limpiarCreditosPadre();
+        this.limpiarCreditosPadre();*/
     }
 
     public void validarSimuladorAnalistaRetanqueosCCS(String anno, String retanqueo,
@@ -1911,5 +1912,40 @@ public class RetanqueoCreditos extends BaseTest {
     	
     	return resultSimulador;
     	
+    }
+    
+    public void validarEstadoCreditoPadre(String Credito, String FechaRegistro) throws InterruptedException, SQLException {
+    	// consulta base de datos estado del credito padre true o false
+        Boolean estado = null ;
+        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+        ResultSet resultado= query.ConsultaEstadoCredito(Credito, FechaRegistro);
+        while (resultado.next()) {
+        	estado = resultado.getBoolean(1);
+        }
+        assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"+Credito,estado);        
+    }
+    
+    public void validarEstadoCreditoPadreMultiple(String FechaRegistro) throws InterruptedException, SQLException {
+    	// consulta base de datos estado del credito padre true o false
+    	
+        Boolean estado = null ;
+        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+        
+        int value = 0;
+        for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
+            for (Map.Entry<String, String> credito : entry.getValue().entrySet()) {
+                
+            	if (credito.getKey().equals("numeroCredito")) {
+            		ResultSet resultado= query.ConsultaEstadoCredito(credito.getValue(), FechaRegistro);
+                    while (resultado.next()) {
+                    	estado = resultado.getBoolean(1);
+                    }
+                    assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"+credito.getValue(),estado);  
+                }
+                
+            }
+        }
+        
+              
     }
 }

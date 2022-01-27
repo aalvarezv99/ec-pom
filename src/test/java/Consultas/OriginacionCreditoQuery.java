@@ -346,6 +346,43 @@ public class OriginacionCreditoQuery {
 
 		return r;
 	}
+	
+	
+	public ResultSet ConsultaEstadoCredito(String Credito, String FechaRegistro) {
+		ResultSet r=null;
+		try {
+			String sql=("with suma_capital as (select sum(dcp.capital) capital\r\n"
+					+ "from plan_de_pagos pp\r\n"
+					+ "left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pp.id\r\n"
+					+ "where 1 = 1\r\n"
+					+ "and to_char(dcp.fecha_recaudo::date,'DD/MM/YYYY')='"+FechaRegistro+"' \r\n" 
+					+ "and pp.id_credito in (select id from credito where numero_radicacion in ('"+Credito+"'))),\r\n"
+					+ "saldo_capital_suma as (select pp.saldo_capital sCapital\r\n"
+					+ "from plan_de_pagos pp\r\n"
+					+ "where 1 = 1\r\n"
+					+ "and pp.id=(select pp.id \r\n"
+					+ "from plan_de_pagos pp\r\n"
+					+ "left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pp.id\r\n"
+					+ "where 1 = 1\r\n"
+					+ "and to_char(dcp.fecha_recaudo::date,'DD/MM/YYYY')='"+FechaRegistro+"' \r\n"
+					+ "and pp.id_credito in (select id from credito where numero_radicacion in ('"+Credito+"'))\r\n"
+					+ "order by pp.numero_cuota, dcp.fecha_recaudo asc\r\n"
+					+ "FETCH FIRST 1 ROW ONLY)-1),estado_credito as (select c.estado estadoCredito from credito c where c.numero_radicacion in ('"+Credito+"'))\r\n"
+					+ "select case when  sc.capital=scm.sCapital and c.estadoCredito='TERMINADO_POR_RETANQUEO'  then\r\n"
+					+ " true\r\n"
+					+ "else false\r\n"
+					+ "end as finalizar_retanqueo from suma_capital sc ,saldo_capital_suma scm,estado_credito c;");
+			
+			
+			r= dbconector.conexion(sql);			
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultaEstadoCredito() ********");
+			log.error(e.getMessage());			
+		}
+
+		return r;
+	}
 }
 
 

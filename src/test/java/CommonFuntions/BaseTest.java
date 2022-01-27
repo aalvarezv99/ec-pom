@@ -1123,58 +1123,77 @@ public class BaseTest {
                                   By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
                                   By ListDescEntidad, String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
                                   String VlrObligacion[]) throws InterruptedException {
-        List<WebElement> Entidad = driver.findElements(ListEntidad);
-        List<WebElement> Filtro = driver.findElements(ListFiltro);
-        List<WebElement> Monto = driver.findElements(ListMonto);
-        List<WebElement> Cuota = driver.findElements(ListValorCuota);
-        List<WebElement> Fecha = driver.findElements(ListFecha);
-        List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
-        List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
-        List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
-        List<WebElement> Tipo = driver.findElements(ListTipo);
-        List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
+    	
+    	try {
+    		
+    		List<WebElement> Entidad = driver.findElements(ListEntidad);
+            List<WebElement> Filtro = driver.findElements(ListFiltro);
+            List<WebElement> Monto = driver.findElements(ListMonto);
+            List<WebElement> Cuota = driver.findElements(ListValorCuota);
+            List<WebElement> Fecha = driver.findElements(ListFecha);
+            List<WebElement> NumObligacion = driver.findElements(ListNumObligacion);
+            List<WebElement> BtnAprobar = driver.findElements(ListBtnAprobar);
+            List<WebElement> RadioSaneamiento = driver.findElements(ListRadioSaneamiento);
+            List<WebElement> Tipo = driver.findElements(ListTipo);
+            List<WebElement> RadioCompra = driver.findElements(Listradiocompra);
 
-        List<WebElement> descEntidad = driver.findElements(ListDescEntidad);
+            List<WebElement> descEntidad = driver.findElements(ListDescEntidad);
+            String a[] = new String[VlrCuota.length];
+            
+            String descEntidadGet[] = new String[VlrCuota.length];
+            for(int i=0;i<descEntidad.size();i++) {
+            	descEntidadGet[i]=descEntidad.get(i).getText();
+            	a[i] = BtnAprobar.get(i).getAttribute("id");
+            }           
 
-        String a[] = new String[VlrCuota.length];
+            
+    		log.info("************ se confirman las carteras y saneamientos  basetest() **********");
 
-        for (int i = 0; i < Entidad.size(); i++) {
+            for (int i = 0; i < BtnAprobar.size(); i++) {
 
-            Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
-            esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
-            String radio = Tipo.get(i).getText().trim();
-            if (radio.contains("SANEAMIENTO")) {
-                driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
-            } else {
-                driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
-            }
-            String[] parts = EntidadSaneamiento[i].split("- ");
-            if (!descEntidad.get(i).getText().equals(parts[1])) {
-                for (int j = 0; j < EntidadSaneamiento.length; j++) {
-                    parts = EntidadSaneamiento[j].split("- ");
-                    if (descEntidad.get(i).getText().equals(parts[1])) {
-                        confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
-                                EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, j);
-                        break;
-                    }
+                Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+                esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
+                String radio = Tipo.get(i).getText().trim();
+                if (radio.contains("SANEAMIENTO")) {
+                    driver.findElement(By.id(RadioSaneamiento.get(i).getAttribute("id"))).click();
+                } else {
+                    driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
                 }
-            } else {
-                confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
-                        EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);
+                
+                String[] parts = EntidadSaneamiento[i].split("- ");          
+                if (!descEntidadGet[i].equals(parts[1])) {
+                    for (int j = 0; j < EntidadSaneamiento.length; j++) {
+                        parts = EntidadSaneamiento[j].split("- ");
+                        if (descEntidadGet[i].equals(parts[1])) {
+                            confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+                                    EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, j);
+                            break;
+                        }
+                    }
+                } else {
+                    confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
+                            EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);         	                 
+                }
+                
             }
-            a[i] = BtnAprobar.get(i).getAttribute("id");
-        }
 
-        // Aprobar las compras
-        for (int i = 0; i < BtnAprobar.size(); i++) {
-            assertEstaPresenteElemento(By.id(a[i]));
-            Hacer_scroll_Abajo(By.id(a[i]));
-            driver.findElement(By.id(a[i])).click();
-            hacerClicknotificacion();
-            i = i++;
-            driver.findElement(By.id(a[i])).click();
-            hacerClicknotificacion();
-        }
+            // Aprobar las compras
+           
+            for (int i = 0; i < BtnAprobar.size(); i++) {        	
+                assertEstaPresenteElemento(By.id(a[i]));
+                Hacer_scroll_Abajo(By.id(a[i]));
+                driver.findElement(By.id(a[i])).click();
+                hacerClicknotificacion();
+                i = i++;
+                driver.findElement(By.id(a[i])).click();
+                hacerClicknotificacion();
+            }
+			
+		} catch (Exception e) {
+			log.error("########## Error - BAseTest - ClickBtnMultiples() ####### : " + e);
+		}
+    	
+        
     }
 
     public void confirmarCarterasReferenciacion(String desRadio, List<WebElement> Entidad, List<WebElement> Filtro,
@@ -1187,7 +1206,7 @@ public class BaseTest {
                     && EntidadSaneamiento[indexDos].contains("PAN AMERICAN")) {
                 log.info("*** Se Agrego un saneamiento de PAN AMERICAN ***");
             } else {
-
+            	log.info("*** Se Agrega un saneamiento");
                 // Llenar la entidad
                 driver.findElement(By.id(Entidad.get(indexUno).getAttribute("id"))).click();
                 driver.findElement(By.id(Filtro.get(indexUno).getAttribute("id"))).sendKeys(EntidadSaneamiento[indexDos]);
