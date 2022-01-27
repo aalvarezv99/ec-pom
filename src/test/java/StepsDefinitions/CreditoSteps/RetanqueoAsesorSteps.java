@@ -122,6 +122,16 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);
 	}
 	
+	@Y("se valida el estado del credito padre {string}{string}")
+	public void sevalidaelestadodelcreditopadre(String Credito,String FechaRegistro) throws InterruptedException, SQLException {
+		retanqueocreditos.validarEstadoCreditoPadre(Credito,FechaRegistro);
+	}
+	
+	@Y("se valida el estado del credito padre {string}")
+	public void sevalidaelestadodelcreditopadre(String FechaRegistro) throws InterruptedException, SQLException {
+		retanqueocreditos.validarEstadoCreditoPadreMultiple(FechaRegistro);
+	}
+	
 	@Y("se validan los valores de las condiciones del credito {string}{string}{string}")
 	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito, String Plazo, String DiasHabilesIntereses ) throws NumberFormatException, SQLException, InterruptedException {
 		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito, Plazo, DiasHabilesIntereses);

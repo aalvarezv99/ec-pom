@@ -1010,7 +1010,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
 
         // Valores CXC capitalizadas
-        /* Consultar los conceptos para el cambio de tasa */
+        // Consultar los conceptos para el cambio de tasa 
         double EstudioCredito = 0;
         double TasaFianza = 0;
         int mesDos = 0;

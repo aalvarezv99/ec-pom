@@ -22,6 +22,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class RetanqueoCreditos extends BaseTest {
@@ -1788,4 +1789,43 @@ public SimuladorDto consultarCalculosSimuladorRetanqueoMultiple(String cedula,St
     	return resultSimulador;
     	
     }
+
+	public void validarEstadoCreditoPadre(String Credito, String FechaRegistro)
+			throws InterruptedException, SQLException {
+		// consulta base de datos estado del credito padre true o false
+		Boolean estado = null;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado = query.ConsultaEstadoCredito(Credito, FechaRegistro);
+		while (resultado.next()) {
+			estado = resultado.getBoolean(1);
+		}
+		assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #" + Credito,
+				estado);
+	}
+
+	public void validarEstadoCreditoPadreMultiple(String FechaRegistro) throws InterruptedException, SQLException {
+		// consulta base de datos estado del credito padre true o false
+
+		Boolean estado = null;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+
+		int value = 0;
+		for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
+			for (Map.Entry<String, String> credito : entry.getValue().entrySet()) {
+
+				if (credito.getKey().equals("numeroCredito")) {
+					ResultSet resultado = query.ConsultaEstadoCredito(credito.getValue(), FechaRegistro);
+					while (resultado.next()) {
+						estado = resultado.getBoolean(1);
+					}
+					assertTrue(
+							" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"
+									+ credito.getValue(),
+							estado);
+				}
+
+			}
+		}
+
+	}
 }

@@ -11,10 +11,12 @@ Característica: Retanqueo de creditos
     Y se filtra por <Cedula> <Pagaduria> para retanqueo multiple
     Y se da clic a retanquear a todos los creditos
     Y se ingresa el monto a solicitar <Retanqueo>
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10157598"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"600000"   |"2258"   |"AMADEO"   |"Enero"   |"14/06/1969"   |"2021"   |"25/01/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"200000"   |"400000"|
+
 
   @SolicitudRetanqueoMultiple
   Esquema del escenario: Solicitud Retanqueo Multiple
@@ -34,12 +36,15 @@ Característica: Retanqueo de creditos
     Y se marca identidida confirmada radicando la solicitud
     Y se aprueban las referencias de la pagaduria
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo      | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+
+   | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo      | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
 
-    #COMPRA CARTERA Y SANEAMIENTOS
+
+  #COMPRA CARTERA Y SANEAMIENTOS
   @SolicitudRetanqueoMultipleCCS
   Esquema del escenario: Retanqueo Multiple Compra de cartera y saneamiento
     Cuando se busca el credito por <Cedula>
@@ -55,21 +60,23 @@ Característica: Retanqueo de creditos
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se presiona en verificacion en la pestana digitalizacion
     Y se crean los tipos de cartera o saneamiento a recoger
-      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                          | 100000 |    70000 | 30/10/2021       |         21236 |
-      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 730000 |    70000 | 30/10/2021       |         29123 |
+      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                                         | 200000 |    70000 | 30/10/2021       |         21236 |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/10/2021       |         29123 |
     Y se guarda cartera
     Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 730000 |    70000 | 30/10/2021       |         29123 |
-      | Cartera     | 8600068225 - ACORE                          | 100000 |    70000 | 30/10/2021       |         21236 |
+      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                                         | 200000 |    70000 | 30/10/2021       |         21236 |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/10/2021       |         29123 |
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @AnalisisCreditoRetanqueoMultiple
   Esquema del escenario: Analisis del credito
@@ -78,15 +85,17 @@ Característica: Retanqueo de creditos
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
-    Y ingrese a la pestana del plan de pagos 
+    Y ingrese a la pestana del plan de pagos
     Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
-    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>   
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
+
     Ejemplos: 
-      | Cedula    | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @AnalisisCreditoRetanqueoMultipleCCS
   Esquema del escenario: Analisis del credito
@@ -97,10 +106,12 @@ Característica: Retanqueo de creditos
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
-    Ejemplos:
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+
+    Ejemplos: 
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
@@ -109,29 +120,36 @@ Característica: Retanqueo de creditos
     Y se validan los valores de las condiciones del credito Multiple <Cedula><Pagaduria><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     #Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
-      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+     ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
+    Y se valida el estado del credito padre <fechaActual>
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   #Pasos para credito despues de llamada de bienvenida cuando tienen compra de cartera y la visacion
   @DesembolsoCarteraCCS
@@ -140,19 +158,23 @@ Característica: Retanqueo de creditos
     Y se descargan medios de dispersion para la cartera
       | Monto  | Banco                                | RutaPdf                               |
       | 100000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @VisacionSaneamientoCCS
   Esquema del escenario: Visacion de la cartera
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se navega hasta carteras <rutaPDF>
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
@@ -160,10 +182,12 @@ Característica: Retanqueo de creditos
     Y se descargan medios de dispersion para la cartera
       | Monto  | Banco                                | RutaPdf                               |
       | 730000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
 
   @DesembolsoRetanqueosCCS
   Esquema del escenario: Creditos para Desembolso
@@ -173,7 +197,9 @@ Característica: Retanqueo de creditos
     Y se descarga medios de dispersion para el remanente
       | Monto   | Cartera | Saneamiento | Banco                                | RutaPdf                               |
       | 5000000 |  100000 |      730000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+
     Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
    |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+
