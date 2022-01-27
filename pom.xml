@@ -134,6 +134,15 @@
 			<artifactId>jsch</artifactId>
 			<version>0.1.53</version>
 		</dependency>
+		
+		<!--JV 27/01/2022 , Se agrega dependencia para Rest Assured (API TEST)-->
+		<dependency>
+		    <groupId>io.rest-assured</groupId>
+		    <artifactId>rest-assured</artifactId>
+		    <version>4.5.0</version>
+		    <scope>test</scope>
+		</dependency>
+				
 
 		<!-- <dependency> -->
 		<!-- <groupId>io.qameta.allure</groupId> -->
