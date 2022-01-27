@@ -28,5 +28,5 @@ public class RetanqueoRunner {
         DataToFeature.overrideFeatureFiles("src/test/resources/feature/RetanqueoFeature/Retanqueo.feature");
     }
 }
-//@Retanqueo,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos
+//@Retanqueo,@AnalisisCreditoRetanqueo,@ClientesBienvenidaRetanqueos,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos,@ValidarDinamicasContablesRetanqueoHijo,@ValidarDinamicasContablesRetanqueoPadre
 //tags = {"@SimuladorAsesor,@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida"},

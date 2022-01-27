@@ -17,7 +17,7 @@ import cucumber.api.SnippetType;
                  snippets = SnippetType.CAMELCASE)
 //
 //RETANQUEO COMPRA CARTERA SANEAMIENTO
-//@SolicitudRetanqueoMultipleCompraCarteraSaneamiento
+//@RetanqueoMultipleSeleccion, @SolicitudRetanqueoMultiple
 @RunWith(RunnerPersonalizado.class)
 
 public class RetanqueoMultipleRunner {
@@ -27,3 +27,5 @@ public class RetanqueoMultipleRunner {
         DataToFeature.overrideFeatureFiles("src/test/resources/feature/RetanqueoFeature/RetanqueoMultiple.feature");
     }
 }
+
+//Retanqueo Multi-Libre @RetanqueoMultipleSeleccion,@SolicitudRetanqueoMultiple,@AnalisisCreditoRetanqueoMultiple,@ClientesBienvenidaRetanqueoMult,@CreditosVisacionRetanqueos,@DesembolsoRetanqueos

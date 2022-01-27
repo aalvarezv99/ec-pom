@@ -487,7 +487,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 
         // consulta base de datos calculo de prima true o false
         String prima = "";
@@ -608,7 +608,7 @@ public class RetanqueoCreditos extends BaseTest {
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-*/
+
 
     }
 
@@ -861,7 +861,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(PagesCreditosDesembolso.VerEditar);
         ElementVisible();
         hacerClick(PagesCreditosDesembolso.Banco);
-        hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and text()='" + Banco + "' ]"));
+        hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and contains(text(),'" + Banco + "' )]"));
         ElementVisible();
         cargarpdf(PagesCreditosDesembolso.CargarEvidencia, Pdf);
         esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
@@ -983,65 +983,13 @@ public class RetanqueoCreditos extends BaseTest {
     }
 
     //***************************************** 
-    public void ValidarValoresLlamadoBienvenidaRetanqueoMultiple()//Multiples Creditos
+    public void ValidarValoresLlamadoBienvenidaRetanqueoMultiple(String cedula, String pagaduria,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento)//Multiples Creditos
             throws NumberFormatException, SQLException, InterruptedException {
         recorerpestanas("CONDICIONES DEL CRÉDITO");
 
-        ResultSet resultado;
-        double iva = 1.19;
         ValoresCredito = RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
-
-        // consulta base de datos
-        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-        resultado = query.ConsultaDescuentoPrimaAntic();
-        while (resultado.next()) {
-            DesPrimaAntic = Integer.parseInt(resultado.getString(1));
-        }
-
-        // consulta para validar prima menor a 24 meses
-
-        if (Integer.parseInt(ValoresCredito.get(1)) < DesPrimaAntic) {
-            int periodoGracia = (int) Math.ceil((double) Integer.parseInt(ValoresCredito.get(7)) / 30);
-            DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito.get(1));
-        }
-
-        log.info("******** Valor de prima **** " + DesPrimaAntic);
-
-        // Consultar los conceptos para el cambio de tasa
-        double EstudioCredito = 0;
-        double TasaFianza = 0;
-        int mesDos = 0;
-        double tasaDos = 0;
-        String Tasa = ValoresCredito.get(2);
-        log.info("Tasa Creada " + Tasa);
-        resultado = query.consultarValoresCapitalizador(Tasa);
-        while (resultado.next()) {
-            tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
-            EstudioCredito = Double.parseDouble(resultado.getString(3));
-            TasaFianza = Double.parseDouble(resultado.getString(4));
-            mesDos = resultado.getInt(5);
-        }
-        // EstudioCredito = 2.35; //EliminarLinea
-        log.info("Tasa Estudio Credito " + EstudioCredito);
-        log.info("Tasa Fianza " + TasaFianza);
-        log.info("Valor mes Dos " + mesDos);
-        log.info("Tasa Dos" + tasaDos);
-
-        double tasaUno = Double.parseDouble(ValoresCredito.get(2)) / 100;
-
-        //Llenado de Lista - Ordenada Creditos padres
-        String numCredito = listaCreditosPadre.size() > 0 ? listaCreditosPadre.get(1).get("numeroCredito") : "";
-        System.out.println("listaCreditosPadre = " + listaCreditosPadre);
-        System.out.println("numCredito = " + numCredito);
-
-        // consulta base de datos calculo de prima true o false
-        String prima = "";
-        ResultSet resultadoPrima = query.CalculoPrima(numCredito);
-        while (resultadoPrima.next()) {
-            prima = resultadoPrima.getString(1);
-        }
-        System.out.println(" Variable prima: " + prima);
-
+        log.info("################# VALORES CAPTURADOS");
+        log.info(ValoresCredito);
 
         // Valores para la funciones estaticos
         if (!ValidarElementoPresente(pagesclienteparabienvenida.ValorSaldoAlDia)) {
@@ -1064,68 +1012,62 @@ public class RetanqueoCreditos extends BaseTest {
         }
 
         log.info("suma retanqueo y saldo al dia mas prima neta "
-                + (Integer.parseInt(ValoresCredito.get(13)) + SaldoAlDia + Integer.parseInt(ValoresCredito.get(12))));
+                + (Integer.parseInt(ValoresCredito.get(12)) + SaldoAlDia + Integer.parseInt(ValoresCredito.get(11))));
 
-        // int calculoMontoSoli = (int)
-        // MontoaSolicitar(Integer.parseInt(ValoresCredito.get(13)) + SaldoAlDia +
-        // Integer.parseInt(ValoresCredito.get(12)), DesPrimaAntic, Tasaxmillonseguro);
+        //**************Funcion SQL
+        
+        int montoSolicitarPantalla = Integer.parseInt(ValoresCredito.get(0));
+        
+        SimuladorDto calculosSimulador = new SimuladorDto();
+        
+        calculosSimulador = consultarCalculosSimuladorRetanqueoMultiple(cedula,pagaduria,Tasa,Plazo,DiasHabilesIntereses,montoSolicitarPantalla, VlrCompraSaneamiento);
+    
+        log.info("Tipo Calculos : " + calculosSimulador.getTipoCalculos());
+        log.info("Prima Seguro Anticipada : " + calculosSimulador.getPrimaSeguroAnticipada());
+        log.info("Cuota Corriente : " + calculosSimulador.getCuotaCorriente());
+        log.info("Gmf4X1000 : " + calculosSimulador.getGmf4X100());
+        log.info("Prima No Devengada : " + calculosSimulador.getPrimaNoDevengada());
+        log.info("Prima Neta : " + calculosSimulador.getPrimaNeta());
+        log.info("Suma Fianzas : " + calculosSimulador.getSumaFianzas());
+        log.info("Fianza Padre : " + calculosSimulador.getFianzaPadre());
+        log.info("fianza neta : " + calculosSimulador.getFianzaNeta());
+        log.info("Estudio Credito : " + calculosSimulador.getEstudioCredito());
+        log.info("Saldo al Dia : " + calculosSimulador.getSaldoAlDia());
+        log.info("Remanente Estimado : " + calculosSimulador.getRemanenteEstimado());
+        
+        
 
-        int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo((int) Double.parseDouble(ValoresCredito.get(0)),
-                TasaFianza, iva, EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-        ToleranciaPesoMensaje(" Prima Anticipada ", Integer.parseInt(ValoresCredito.get(10)), PrimaAnticipadaSeguro);
-        System.out.println("######## CALCULO DE PRIMA ######## " + PrimaAnticipadaSeguro + " "
-                + ValoresCredito.get(13).isEmpty() + " " + DesPrimaAntic);
+        ToleranciaPesoMensaje(" Prima Anticipada ", Integer.parseInt(ValoresCredito.get(9)), calculosSimulador.getPrimaSeguroAnticipada());
+        //System.out.println("######## CALCULO DE PRIMA ######## " + PrimaAnticipadaSeguro + " "
+        //        + ValoresCredito.get(13).isEmpty() + " " + DesPrimaAntic);
 
 
-        // Llenado del mapa con la lista de los creditos padre
-        if (listaCreditosPadre.size() > 1) {
-            for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
-                consultarDatosCreditosPadre(entry.getValue());
-            }
-        }
+        String tipoprima = calculosSimulador.getTipoCalculos();
 
-        int primaNoDevengada = returnValuesCredits("primaNoDevengada");
-        log.info(" primaNoDevengada credito padre " + primaNoDevengada);
-        int estudioCreditoPadre = returnValuesCredits("estudioCreditoPadre");
-        log.info(" estudioCreditoPadre " + estudioCreditoPadre);
-        int fianzaPadre = returnValuesCredits("fianzaPadre");
-        log.info(" fianzaPadre " + fianzaPadre);
-        System.out.println("------ lista creditos padre - ValidarSimuladorRetanqueoMultiple() -----" + listaCreditosPadre.toString());
-
-
-        if (prima != "") {
+        if (tipoprima.equals("anticipado")) {
             log.info("------------ ANTICIPADO ----------------");
-            int PrimaNeta = Math.max(PrimaAnticipadaSeguro - primaNoDevengada, 0); //jv
-            ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(ValoresCredito.get(12)), PrimaNeta);
 
-            ToleranciaPesoMensaje(" Prima neta no Devengada", Integer.parseInt(ValoresCredito.get(11)),
-                    primaNoDevengada);
+            ToleranciaPesoMensaje(" Prima neta", Integer.parseInt(ValoresCredito.get(11)), calculosSimulador.getPrimaNeta());
+
+            ToleranciaPesoMensaje(" Prima neta no Devengada", Integer.parseInt(ValoresCredito.get(10)),
+            		calculosSimulador.getPrimaNoDevengada());
         } else {
             log.info("----------- MENSUALIZADO ---------------");
 
         }
 
+        ToleranciaPesoMensaje("Pantalla GMF 4X1000 ", Integer.parseInt(ValoresCredito.get(8)), calculosSimulador.getGmf4X100());
+ 
+        ToleranciaPesoMensaje("######  CALCULANDO VALOR FIANZA ########", Integer.parseInt(ValoresCredito.get(15)),
+        		calculosSimulador.getSumaFianzas());
 
-        int Gmf4100 = (int) Gmf4100(Integer.parseInt(ValoresCredito.get(8)), 0.004);
-        ToleranciaPesoMensaje("Pantalla GMF 4X1000 ", Integer.parseInt(ValoresCredito.get(9)), Gmf4100);
-        int ValorFianza = (int) vlrFianzaRetanqueoHijo((int) Double.parseDouble(ValoresCredito.get(0)), TasaFianza, iva,
-                EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-        int resultFianza = Math.max(ValorFianza - fianzaPadre, 0); //jv
-        resultFianza = (resultFianza < 0) ? resultFianza * 0 : resultFianza;
-        ToleranciaPesoMensaje("######  CALCULANDO VALOR FIANZA ########", Integer.parseInt(ValoresCredito.get(16)),
-                resultFianza);
-        int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo((int) Double.parseDouble(ValoresCredito.get(0)),
-                TasaFianza, iva, EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-        int resultEstudioCredito = Math.max(EstudioCreditoIva - estudioCreditoPadre, 0);//jv
-        resultEstudioCredito = (resultEstudioCredito < 0) ? resultEstudioCredito * 0 : resultEstudioCredito;
-        ToleranciaPesoMensaje("###### CALCULANDO ESTUDIO CREDITO ########", Integer.parseInt(ValoresCredito.get(18)),
-                resultEstudioCredito);
-        int remantEstimado = (int) remanenteEstimadoRetanqueo((int) Double.parseDouble(ValoresCredito.get(0)),
-                SaldoAlDia, resultFianza, resultEstudioCredito, Integer.parseInt(ValoresCredito.get(8)), Gmf4100,
-                PrimaAnticipadaSeguro);
+        ToleranciaPesoMensaje("###### CALCULANDO ESTUDIO CREDITO ########", Integer.parseInt(ValoresCredito.get(19)),
+        		calculosSimulador.getEstudioCredito());
+
+        /*
         ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(ValoresCredito.get(13)),
-                remantEstimado + Integer.parseInt(ValoresCredito.get(11)));
-
+        		calculosSimulador.getRemanenteEstimado() + Integer.parseInt(ValoresCredito.get(11)));
+         */
     }
 
     public void AprobarExcepciones(String Pdf, String Cedula) throws InterruptedException {
@@ -1282,14 +1224,12 @@ public class RetanqueoCreditos extends BaseTest {
         capturarCreditosPadre(locator, listaCreditosPadre);
     }
 
-    public void ValidarSimuladorRetanqueoMultiple(String Ingresos, String descLey, String descNomin, String Tasa, String Plazo,
+    public void ValidarSimuladorRetanqueoMultiple(String cedula, String pagaduria,String Ingresos, String descLey, String descNomin, String Tasa, String Plazo,
                                                   String DiasHabilesIntereses, String VlrCompraSaneamiento)
             throws NumberFormatException, SQLException {
         log.info("********Validar Simulador interno RETANQUEO MULTIPLE, RetanqueoCreditos - ValidarSimulador()***********");
 
         String numCredito = listaCreditosPadre.size() > 0 ? listaCreditosPadre.get(1).get("numeroCredito") : "";
-        // Valores para la funciones estaticos
-        double variableFianza = 1.19;
 
         // consulta base de datos descuento prima anticipada
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1297,175 +1237,74 @@ public class RetanqueoCreditos extends BaseTest {
         while (resultado.next()) {
             DesPrimaAntic = Integer.parseInt(resultado.getString(1));
         }
-
-        String pagaduria = "";
-        resultado = query.consultarPagaduriaRetanq(numCredito);
-        while (resultado.next()) {
-            pagaduria = resultado.getString(1);
-        }
-
-        int colchon = 0;
-        ResultSet resultadocolchon = query.colchonpagaduria(pagaduria);
-        while (resultadocolchon.next()) {
-            colchon = Integer.parseInt(resultadocolchon.getString(1));
-        }
-        log.info("Colchon Pagaduria " + colchon);
-
+        
         // consulta para validar prima menor a 24 meses
         if (Integer.parseInt(Plazo) < DesPrimaAntic) {
             int periodoGracia = (int) Math.ceil((double) Integer.parseInt(DiasHabilesIntereses) / 30);
             DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
         }
         log.info("********* Valor de prima " + DesPrimaAntic);
+        
+        int montoSolicitarPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli));
+        
+        SimuladorDto calculosSimulador = new SimuladorDto();
+        
+        calculosSimulador = consultarCalculosSimuladorRetanqueoMultiple(cedula,pagaduria,Tasa,Plazo,DiasHabilesIntereses,montoSolicitarPantalla, VlrCompraSaneamiento);
+    
+        log.info("Tipo Calculos : " + calculosSimulador.getTipoCalculos());
+        log.info("Prima Seguro Anticipada : " + calculosSimulador.getPrimaSeguroAnticipada());
+        log.info("Cuota Corriente : " + calculosSimulador.getCuotaCorriente());
+        log.info("Gmf4X1000 : " + calculosSimulador.getGmf4X100());
+        log.info("Prima No Devengada : " + calculosSimulador.getPrimaNoDevengada());
+        log.info("Prima Neta : " + calculosSimulador.getPrimaNeta());
+        log.info("Suma Fianzas : " + calculosSimulador.getSumaFianzas());
+        log.info("Fianza Padre : " + calculosSimulador.getFianzaPadre());
+        log.info("fianza neta : " + calculosSimulador.getFianzaNeta());
+        log.info("Estudio Credito : " + calculosSimulador.getEstudioCredito());
+        log.info("Saldo al Dia : " + calculosSimulador.getSaldoAlDia());
+        log.info("Remanente Estimado : " + calculosSimulador.getRemanenteEstimado());
+        
 
-        // consulta base de datos calculo de prima true o false
-        String prima = "";
-        ResultSet resultadoPrima = query.CalculoPrima(numCredito);
-        while (resultadoPrima.next()) {
-            prima = resultadoPrima.getString(1);
-        }
-        System.out.println(" Variable prima: " + prima);
-
-        // Valores CXC capitalizadas
-        /* Consultar los conceptos para el cambio de tasa */
-        double EstudioCredito = 0;
-        double TasaFianza = 0;
-        int mesDos = 0;
-        double tasaDos = 0;
-        resultado = query.consultarValoresCapitalizador(Tasa);
-        while (resultado.next()) {
-            tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
-            EstudioCredito = Double.parseDouble(resultado.getString(3));
-            TasaFianza = Double.parseDouble(resultado.getString(4));
-            mesDos = resultado.getInt(5);
-        }
-        log.info("Tasa Estudio Credito " + EstudioCredito);
-        log.info("Tasa Fianza " + TasaFianza);
-        log.info("Valor mes Dos " + mesDos);
-        log.info("Tasa Dos" + tasaDos);
+   
+       
 
         double tasaUno = Double.parseDouble(Tasa) / 100;
-        int montoSolicitarPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli));
+        /* Se cambia el valor por el de la pantalla */
+        int calculoMontoSoli = montoSolicitarPantalla;
         if (listaCreditosPadre.size() > 1) {
             for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
                 consultarDatosCreditosPadre(entry.getValue());
             }
         }
 
-        int primaNoDevengada = returnValuesCredits("primaNoDevengada");
-        log.info(" primaNoDevengada credito padre " + primaNoDevengada);
-        int estudioCreditoPadre = returnValuesCredits("estudioCreditoPadre");
-        log.info(" estudioCreditoPadre " + estudioCreditoPadre);
-        int fianzaPadre = returnValuesCredits("fianzaPadre");
-        log.info(" fianzaPadre " + fianzaPadre);
         System.out.println("------ lista creditos padre - ValidarSimuladorRetanqueoMultiple() -----" + listaCreditosPadre.toString());
 
-        if (prima.isEmpty()) {
-            System.out.println("----------------- MENSUALIZADO -----------------------");
-            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
-                    TasaFianza, vlrIva);
-
-            /* Se cambia el valor por el de la pantalla */
-            calculoMontoSoli = montoSolicitarPantalla;
-
-            int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            ToleranciaPesoMensaje("Prima Anticipada de seguro ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroSInterno)),
-                    PrimaAnticipadaSeguro);
-
-            int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos,
-                    mesDos);
-            ToleranciaPesoMensaje(" Cuota corriente ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), CuotaCorriente);
-
-            int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            int resultEstudioCredito = EstudioCreditoIva - estudioCreditoPadre;
-
-            resultEstudioCredito = Math.max(resultEstudioCredito, 0);
-            log.info("Result Pantalla Estudio Credito" + resultEstudioCredito);
-            ToleranciaPesoMensaje("Estudio Credito IVA ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)),
-                    resultEstudioCredito);
-
-            int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
-                    Tasaxmillonseguro, DesPrimaAntic);
-            int resultFianza = ValorFianza - fianzaPadre;
-            resultFianza = Math.max(resultFianza, 0);
-            log.info("Result Pantalla Fianza " + resultFianza);
-            ToleranciaPesoMensaje("Comparacion Fianza",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)), resultFianza);
-
-            int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-                    Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-
-            int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);
-            ToleranciaPesoMensaje("Pantalla Gmf 4x1000 ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
-
-            int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli, SaldoAlDia, resultFianza,
-                    resultEstudioCredito, Integer.parseInt(VlrCompraSaneamiento), Gmf4100, PrimaAnticipadaSeguro);
-            ToleranciaPesoMensaje(" Valor Desembolsar ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
-                    remantEstimado);
-
-        } else {
-            log.info(" ---------------------- ANTICIPADO ----------------------------- ");
-
-            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
-                    TasaFianza, vlrIva);
-
-            /* Se cambia el valor por el de la pantalla */
-            calculoMontoSoli = montoSolicitarPantalla;
-
-            int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            ToleranciaPesoMensaje("Prima Anticipada de seguro ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroSInterno)),
-                    PrimaAnticipadaSeguro);
-
-            ToleranciaPesoMensaje(" Prima No Devengada ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorInterno)),
-                    primaNoDevengada);
-
-            int PrimaNeta = Math.max(PrimaAnticipadaSeguro - primaNoDevengada, 0);
-            ToleranciaPesoMensaje(" Prima neta ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)), PrimaNeta);
-
-            int CuotaCorriente = (int) CuotaCorriente(calculoMontoSoli, tasaUno, Integer.parseInt(Plazo), tasaDos,
-                    mesDos);
-            ToleranciaPesoMensaje(" Cuota corriente ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)), CuotaCorriente);
-
-            int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            int resultEstudioCredito = Math.max(EstudioCreditoIva - estudioCreditoPadre, 0);
-            ToleranciaPesoMensaje(" Estudio Credito IVA",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)),
-                    resultEstudioCredito);
-
-            int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
-                    Tasaxmillonseguro, DesPrimaAntic);
-            int resultFianza = Math.max(ValorFianza - fianzaPadre, 0);
-            ToleranciaPeso(Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)), resultFianza);
-
-            int MontoMaxDesembolsar = (int) MontoMaxDesembolsar(Integer.parseInt(Ingresos), Integer.parseInt(descLey),
-                    Integer.parseInt(descNomin), colchon, tasaUno, Integer.parseInt(Plazo), tasaDos, mesDos);
-            // ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
-            // Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoMaximoSugerido)),
-            // MontoMaxDesembolsar);
-
-            int Gmf4100 = (int) Gmf4100(Integer.parseInt(VlrCompraSaneamiento), 0.004);
-            ToleranciaPesoMensaje("Pantalla MontoMaxDesembolsar ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), Gmf4100);
-
-            int remantEstimado = (int) remanenteEstimadoRetanqueo(calculoMontoSoli, SaldoAlDia, resultFianza,
-                    resultEstudioCredito, Integer.parseInt(VlrCompraSaneamiento), Gmf4100, PrimaNeta);
-            ToleranciaPesoMensaje(" Valor Desembolsar ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
-                    remantEstimado);
-        }
+		ToleranciaPesoMensaje("****** SIM INTERNO - Prima Anticipada de seguro ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroSInterno)),
+				calculosSimulador.getPrimaSeguroAnticipada());
+		ToleranciaPesoMensaje("****** SIM INTERNO - Prima No Devengada ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorInterno)),
+				calculosSimulador.getPrimaNoDevengada());
+		ToleranciaPesoMensaje("****** SIM INTERNO - Prima neta ******", Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNeta)),
+				calculosSimulador.getPrimaNeta());
+		ToleranciaPesoMensaje("****** SIM INTERNO - Cuota corriente ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CuotaCorriente)),
+				calculosSimulador.getCuotaCorriente());
+		ToleranciaPesoMensaje("****** SIM INTERNO - Estudio Credito IVA ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoIVA)),
+				calculosSimulador.getEstudioCredito());
+		ToleranciaPesoMensaje("****** SIM INTERNO - CALCULANDO Comparación fianza total ******",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaTotal)),calculosSimulador.getSumaFianzas());
+    	ToleranciaPesoMensaje("****** SIM INTERNO - CALCULANDO Comparación fianza padre ******",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadre)),calculosSimulador.getFianzaPadre());
+    	ToleranciaPesoMensaje("****** SIM INTERNO - CALCULANDO Comparacion Fianza ******",
+                Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianza)),calculosSimulador.getFianzaNeta());
+		ToleranciaPesoMensaje("****** SIM INTERNO - Pantalla Gmf 4x1000 ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.Gmf4100)), calculosSimulador.getGmf4X100());
+		/*ToleranciaPesoMensaje("****** SIM INTERNO - Valor Desembolsar ******",
+				Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),
+				calculosSimulador.getRemanenteEstimado());*/
+            
         this.limpiarCreditosPadre();
     }
 
@@ -1535,164 +1374,166 @@ public class RetanqueoCreditos extends BaseTest {
         return value;
     }
 
-    public void validarSimuladorAnalistaRetanqueosMultiple(String anno, String retanqueo, String fecha,
-                                                           String Mes, String Plazo, String Tasa) throws InterruptedException, SQLException {
-        esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
-        hacerClick(pestanasimuladorinternopage.FechaDesembolso);
-        Clear(pestanasimuladorinternopage.FechaDesembolso);
-        EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);
-        EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
-        hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
-        ElementVisible();
-        selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
-        ElementVisible();
-        Clear(pestanasimuladorinternopage.anoAfectacion);
-        EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
-        hacerClick(pestanasimuladorinternopage.FechasManuales);
-        ElementVisible();
-        hacerClick(pestanasimuladorinternopage.CalcularDesglose);
-        ElementVisible();
-        hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-        String numCredito = listaCreditosPadre.size() > 0 ? listaCreditosPadre.get(1).get("numeroCredito") : "";
-        System.out.println("listaCreditosPadre = " + listaCreditosPadre);/*
-        System.out.println("numCredito = " + numCredito);
-
-        // consulta base de datos calculo de prima true o false
-        String prima = "";
-        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-        ResultSet resultadoPrima = query.CalculoPrima(numCredito);
-        while (resultadoPrima.next()) {
-            prima = resultadoPrima.getString(1);
-        }
-
-        // consulta base de datos descuento prima anticipada
-        ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
-        while (resultado.next()) {
-            DesPrimaAntic = Integer.parseInt(resultado.getString(1));
-        }
-
-        // Consultar los conceptos para el cambio de tasa
-        double EstudioCredito = 0;
-        double TasaFianza = 0;
-        int mesDos = 0;
-        double tasaDos = 0;
-        resultado = query.consultarValoresCapitalizador(Tasa);
-        while (resultado.next()) {
-            tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
-            EstudioCredito = Double.parseDouble(resultado.getString(3));
-            TasaFianza = Double.parseDouble(resultado.getString(4));
-            mesDos = resultado.getInt(5);
-        }
-
-        log.info("Tasa Estudio Credito " + EstudioCredito);
-        log.info("Tasa Fianza " + TasaFianza);
-        log.info("Valor mes Dos " + mesDos);
-        log.info("Tasa Dos" + tasaDos);
-
-        // consulta para validar prima menor a 24 meses
-        if (Integer.parseInt(Plazo) < DesPrimaAntic) {
-            int periodoGracia = (int) Math.ceil((double) Integer
-                    .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
-            DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
-        }
-        vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
-        System.out.println(" Variable prima: " + prima);
-
-        int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
-
-        if (!ValidarElementoPresente(pestanasimuladorinternopage.listaCreditosRecoger)) {
-            log.info("Entra a validar los calculos de las condiciones del credito a recoger");
-            int creditoRecoger = sumarListaValoresCreditosValue(pestanasimuladorinternopage.listaCreditosRecoger);
-            int MontoSolicitado = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.MontoSolicitado));
-            calculoCondicionesCreditoRecoger(MontoSolicitado, creditoRecoger, Integer.parseInt(retanqueo), creditoRecoger);
-        }
-        // Llenado del mapa con la lista de los creditos padre
-        if (listaCreditosPadre.size() > 1) {
-            for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
-                consultarDatosCreditosPadre(entry.getValue());
+    public void validarSimuladorAnalistaRetanqueosMultiple(String cedula,
+    		String pagaduria,
+    		String DiasHabilesIntereses,
+    		String anno,
+    		String retanqueo,
+    		String fecha,
+    		String Mes,
+    		String Plazo,
+    		String Tasa,
+    		String VlrCompraSaneamiento) throws InterruptedException, SQLException {
+	
+            esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+            hacerClick(pestanasimuladorinternopage.FechaDesembolso);
+            Clear(pestanasimuladorinternopage.FechaDesembolso);
+            EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);
+            EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+            hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
+            ElementVisible();
+            selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
+            ElementVisible();
+            Clear(pestanasimuladorinternopage.anoAfectacion);
+            EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
+            hacerClick(pestanasimuladorinternopage.FechasManuales);
+            ElementVisible();
+            hacerClick(pestanasimuladorinternopage.CalcularDesglose);
+            ElementVisible();
+            hacerClicknotificacion();
+            esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+            
+   
+            OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+            
+            // consulta base de datos descuento prima anticipada
+            ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
+            while (resultado.next()) {
+                DesPrimaAntic = Integer.parseInt(resultado.getString(1));
             }
-        }
+            // Consultar los conceptos para el cambio de tasa
+            double EstudioCredito = 0;
+            double TasaFianza = 0;
+            int mesDos = 0;
+            double tasaDos = 0;
+            resultado = query.consultarValoresCapitalizador(Tasa);
+            while (resultado.next()) {
+                tasaDos = Double.parseDouble(resultado.getString(2)) / 100;
+                EstudioCredito = Double.parseDouble(resultado.getString(3));
+                TasaFianza = Double.parseDouble(resultado.getString(4));
+                mesDos = resultado.getInt(5);
+            }
 
-        int primaNoDevengada = returnValuesCredits("primaNoDevengada");
-        log.info(" primaNoDevengada credito padre " + primaNoDevengada);
-        int estudioCreditoPadre = returnValuesCredits("estudioCreditoPadre");
-        log.info(" estudioCreditoPadre " + estudioCreditoPadre);
-        int fianzaPadre = returnValuesCredits("fianzaPadre");
-        log.info(" fianzaPadre " + fianzaPadre);
-        System.out.println("------ lista creditos padre - ValidarSimuladorRetanqueoMultiple() -----" + listaCreditosPadre.toString());
+            log.info("Tasa Estudio Credito " + EstudioCredito);
+            log.info("Tasa Fianza " + TasaFianza);
+            log.info("Valor mes Dos " + mesDos);
+            log.info("Tasa Dos" + tasaDos);
 
-        if (prima.isEmpty()) {
-            System.out.println("-------------------- MENSUALIZADO -------------------------");
-            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
-                    TasaFianza, vlrIva);
-            calculoMontoSoli = calculoSoliPantalla;
-            // int montoSoli, double tasaFianza, double iva, double porEstudioCre, int
-            // tasaXmillon, int periodoPrima
-            int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            ToleranciaPesoMensaje(" Prima anticipada de seguro ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
-                    PrimaAnticipadaSeguro);
+            // consulta para validar prima menor a 24 meses
+            if (Integer.parseInt(Plazo) < DesPrimaAntic) {
+                int periodoGracia = (int) Math.ceil((double) Integer
+                        .parseInt(TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista)) / 30);
+                DesPrimaAntic = periodoGracia + Integer.parseInt(Plazo);
+            }
+            vg_CuotasPrimaSeguroAnticipada = String.valueOf(DesPrimaAntic);
+            
+            log.info("********* Valor de prima " + DesPrimaAntic);//*****************
+            
+            //int calculoSoliPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
+            int montoSolicitarPantalla = Integer.parseInt(TextoElemento(pestanasimuladorinternopage.CapitalTotal));
 
-            int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            int resultEstudioCredito = Math.max(EstudioCreditoIva - estudioCreditoPadre, 0);
-            ToleranciaPesoMensaje(" Estudio Credito IVA",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)),
-                    resultEstudioCredito);
+            
+            SimuladorDto calculosSimulador = new SimuladorDto();
+            
+            calculosSimulador = consultarCalculosSimuladorRetanqueoMultiple(cedula,pagaduria,Tasa,Plazo,DiasHabilesIntereses,montoSolicitarPantalla, VlrCompraSaneamiento);
+        
+         
+            
+            log.info("Tipo Calculos : " + calculosSimulador.getTipoCalculos());
+            log.info("Prima Seguro Anticipada : " + calculosSimulador.getPrimaSeguroAnticipada());
+            log.info("Cuota Corriente : " + calculosSimulador.getCuotaCorriente());
+            log.info("Gmf4X1000 : " + calculosSimulador.getGmf4X100());
+            log.info("Prima No Devengada : " + calculosSimulador.getPrimaNoDevengada());
+            log.info("Prima Neta : " + calculosSimulador.getPrimaNeta());
+            log.info("Suma Fianzas : " + calculosSimulador.getSumaFianzas());
+            log.info("Fianza Padre : " + calculosSimulador.getFianzaPadre());
+            log.info("fianza neta : " + calculosSimulador.getFianzaNeta());
+            log.info("Estudio Credito : " + calculosSimulador.getEstudioCredito());
+            log.info("Saldo al Dia : " + calculosSimulador.getSaldoAlDia());
+            log.info("Remanente Estimado : " + calculosSimulador.getRemanenteEstimado());
+            
+            // consulta base de datos calculo de prima true o false
+            String tipoprima = calculosSimulador.getTipoCalculos();
+            System.out.println(" Variable prima: " + tipoprima);
+            // Llenado del mapa con la lista de los creditos padre
+            if (listaCreditosPadre.size() > 1) {
+                for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
+                    consultarDatosCreditosPadre(entry.getValue());
+                }
+            }
 
-            int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
-                    Tasaxmillonseguro, DesPrimaAntic);
-            int resultFianza = Math.max(ValorFianza - fianzaPadre, 0);
-            ToleranciaPesoMensaje(" Valor fianza ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+            System.out.println("------ lista creditos padre - ValidarSimuladorRetanqueoMultiple() -----" + listaCreditosPadre.toString());
 
-            //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - IF (prima == "")
-            vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
-            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
-        } else {
-            System.out.println("-------------------- ANTICIPADO -------------------------");
+            if (tipoprima.equals("mensualizado")) {
+                System.out.println("-------------------- MENSUALIZADO -------------------------");
+                
+                int calculoMontoSoli = montoSolicitarPantalla;
+                
+                int PrimaAnticipadaSeguro = calculosSimulador.getPrimaSeguroAnticipada();
+                
+                ToleranciaPesoMensaje(" Prima anticipada de seguro ",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
+                        calculosSimulador.getPrimaSeguroAnticipada());
 
-            int calculoMontoSoli = (int) MontoaSolicitar(Monto, DesPrimaAntic, Tasaxmillonseguro, EstudioCredito,
-                    TasaFianza, vlrIva);
-            calculoMontoSoli = calculoSoliPantalla;
-            int PrimaAnticipadaSeguro = (int) PrimaSeguroRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            ToleranciaPesoMensaje(" Prima anticipada de seguro ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
-                    PrimaAnticipadaSeguro);
+                ToleranciaPesoMensaje(" Estudio Credito IVA",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)),
+                        calculosSimulador.getEstudioCredito());
 
-            int PrimaNeta = Math.max(PrimaAnticipadaSeguro - primaNoDevengada, 0);
-            ToleranciaPesoMensaje(" Prima neta",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)), PrimaNeta);
+                ToleranciaPesoMensaje(" Valor fianza ",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), calculosSimulador.getFianzaNeta());
 
-            ToleranciaPesoMensaje(" Prima neta No devengada",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)),
-                    primaNoDevengada);
+                vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
+                vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
+            } else {
+                System.out.println("-------------------- ANTICIPADO -------------------------");
 
-            int EstudioCreditoIva = (int) EstudioCreditoRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva,
-                    EstudioCredito, Tasaxmillonseguro, DesPrimaAntic);
-            int resultEstudioCredito = Math.max(EstudioCreditoIva - estudioCreditoPadre, 0);
-            ToleranciaPesoMensaje(" Estudio Credito IVA",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)),
-                    resultEstudioCredito);
+                int calculoMontoSoli = montoSolicitarPantalla;
+                
+                int PrimaAnticipadaSeguro = calculosSimulador.getPrimaSeguroAnticipada();
+                
+                ToleranciaPesoMensaje(" Prima anticipada de seguro ",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaAnticipadaSeguroAsesor)),
+                        calculosSimulador.getPrimaSeguroAnticipada());
 
-            int ValorFianza = (int) vlrFianzaRetanqueoHijo(calculoMontoSoli, TasaFianza, vlrIva, EstudioCredito,
-                    Tasaxmillonseguro, DesPrimaAntic);
-            int resultFianza = Math.max(ValorFianza - fianzaPadre, 0);
-            ToleranciaPesoMensaje(" Valor fianza ",
-                    Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), resultFianza);
+                int PrimaNeta = calculosSimulador.getPrimaNeta();
+                ToleranciaPesoMensaje(" Prima neta",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNetaSimuladorAnalista)), calculosSimulador.getPrimaNeta());
 
-            //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
-            vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
-            vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
-            vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
-            vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(primaNoDevengada);
-        }
-        //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - Generales
-        vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-        this.limpiarCreditosPadre();*/
+                int primaNoDevengada = calculosSimulador.getPrimaNoDevengada();
+                ToleranciaPesoMensaje(" Prima neta No devengada",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.PrimaNoDevengadaSimuladorAnalista)),
+                        calculosSimulador.getPrimaNoDevengada());
+
+                
+                ToleranciaPesoMensaje(" Estudio Credito IVA",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.EstudioCreditoSAnalista)),
+                        calculosSimulador.getEstudioCredito());
+
+                
+                ToleranciaPesoMensaje(" Valor fianza ",
+                        Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), calculosSimulador.getFianzaNeta());
+
+                //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - ELSE (prima == "")
+                vg_MontoAprobado_Retanqueo = String.valueOf(calculoMontoSoli);
+                vg_PrimaSeguroAnticipada_Retanqueo = String.valueOf(PrimaAnticipadaSeguro);
+                vg_PrimaNetaSeguro_Retanqueo = String.valueOf(PrimaNeta);
+                vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(primaNoDevengada);
+            }
+            //Variables globales - RetanqueoMultiple - Validaciones Cabecera Plan De Pagos - Generales
+            vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
+            this.limpiarCreditosPadre();
+            
+        
     }
 
     public void validarSimuladorAnalistaRetanqueosCCS(String anno, String retanqueo,
@@ -1914,38 +1755,77 @@ public class RetanqueoCreditos extends BaseTest {
     	
     }
     
-    public void validarEstadoCreditoPadre(String Credito, String FechaRegistro) throws InterruptedException, SQLException {
-    	// consulta base de datos estado del credito padre true o false
-        Boolean estado = null ;
-        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-        ResultSet resultado= query.ConsultaEstadoCredito(Credito, FechaRegistro);
-        while (resultado.next()) {
-        	estado = resultado.getBoolean(1);
-        }
-        assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"+Credito,estado);        
-    }
-    
-    public void validarEstadoCreditoPadreMultiple(String FechaRegistro) throws InterruptedException, SQLException {
-    	// consulta base de datos estado del credito padre true o false
+public SimuladorDto consultarCalculosSimuladorRetanqueoMultiple(String cedula,String pagaduria,String tasa,String plazo,String diasIntIniciales,int monto, String compraCarteraSuma) {
     	
-        Boolean estado = null ;
-        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-        
-        int value = 0;
-        for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
-            for (Map.Entry<String, String> credito : entry.getValue().entrySet()) {
-                
-            	if (credito.getKey().equals("numeroCredito")) {
-            		ResultSet resultado= query.ConsultaEstadoCredito(credito.getValue(), FechaRegistro);
-                    while (resultado.next()) {
-                    	estado = resultado.getBoolean(1);
-                    }
-                    assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"+credito.getValue(),estado);  
-                }
-                
-            }
-        }
-        
-              
+    	log.info("****** Calculando valores simulador Retanqueo por funcion SQL, RetanqueoCreditos -  consultarCalculosSimuladorRetanqueo()*******");
+    	
+    	SimuladorDto resultSimulador = new SimuladorDto();
+    	OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+    	
+    	ResultSet r = null;
+    	try {
+			r = query.consultarCalculosSimuladorRetanqueoMultiple(cedula,pagaduria,tasa,plazo,diasIntIniciales,monto, compraCarteraSuma);
+			while(r.next()) {
+								
+				resultSimulador.setTipoCalculos(r.getString(1));
+				resultSimulador.setPrimaSeguroAnticipada(r.getInt(2));
+				resultSimulador.setCuotaCorriente(r.getInt(3));
+				resultSimulador.setGmf4X100(r.getInt(4));
+				resultSimulador.setPrimaNoDevengada(r.getInt(5));
+				resultSimulador.setPrimaNeta(r.getInt(6));
+				resultSimulador.setSumaFianzas(r.getInt(7));
+				resultSimulador.setFianzaPadre(r.getInt(8));
+				resultSimulador.setFianzaNeta(r.getInt(9));
+				resultSimulador.setEstudioCredito(r.getInt(10));
+				resultSimulador.setSaldoAlDia(r.getInt(11));
+				resultSimulador.setRemanenteEstimado(r.getInt(12));
+			}
+		} catch (Exception e) {
+			  log.error("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador() #######" + e);
+	            assertTrue("########## Error - OriginacionCreditosAccion - consultarCalculosSimulador()########" + e,
+	                    false);
+		}
+    	
+    	return resultSimulador;
+    	
     }
+
+	public void validarEstadoCreditoPadre(String Credito, String FechaRegistro)
+			throws InterruptedException, SQLException {
+		// consulta base de datos estado del credito padre true o false
+		Boolean estado = null;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+		ResultSet resultado = query.ConsultaEstadoCredito(Credito, FechaRegistro);
+		while (resultado.next()) {
+			estado = resultado.getBoolean(1);
+		}
+		assertTrue(" El capital amortizado no coincide con el saldo a capital para el credito con radicado #" + Credito,
+				estado);
+	}
+
+	public void validarEstadoCreditoPadreMultiple(String FechaRegistro) throws InterruptedException, SQLException {
+		// consulta base de datos estado del credito padre true o false
+
+		Boolean estado = null;
+		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+
+		int value = 0;
+		for (Map.Entry<Integer, Map<String, String>> entry : listaCreditosPadre.entrySet()) {
+			for (Map.Entry<String, String> credito : entry.getValue().entrySet()) {
+
+				if (credito.getKey().equals("numeroCredito")) {
+					ResultSet resultado = query.ConsultaEstadoCredito(credito.getValue(), FechaRegistro);
+					while (resultado.next()) {
+						estado = resultado.getBoolean(1);
+					}
+					assertTrue(
+							" El capital amortizado no coincide con el saldo a capital para el credito con radicado #"
+									+ credito.getValue(),
+							estado);
+				}
+
+			}
+		}
+
+	}
 }
