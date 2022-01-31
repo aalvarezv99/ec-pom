@@ -6,8 +6,14 @@ import com.google.common.base.Function;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import io.qameta.allure.Allure;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import net.bytebuddy.asm.Advice.Return;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -1750,5 +1756,72 @@ public class BaseTest {
                 driver.findElement(By.id(element.getAttribute("id"))).click();
             }
         }
+    }
+    
+    public String obtenerTokenDevelopmentExcelCredit() {
+    	log.info("########## Obteniendo TOKEN Develop ExcelCredit ##########");
+    	
+    	String access_token = null;
+    	
+    	try {
+    		String developToken = leerPropiedades("UrlDevelopmentExcelCredit");
+    		String grant_type = leerPropiedades("grant_type");
+    		String client_id = leerPropiedades("client_id");
+    		String client_secret = leerPropiedades("client_secret");
+    		
+    		
+    		RestAssured.baseURI = developToken;
+    		RequestSpecification request = RestAssured.given()
+    				.contentType("application/x-www-form-urlencoded; charset=utf-8")
+    				.formParam("grant_type", grant_type)
+    				.formParam("client_id", client_id)
+    				.formParam("client_secret", client_secret);
+    		
+    		Response response = request.post("/token");
+    		
+    		assertvalidarEquals(String.valueOf(200),String.valueOf(response.getStatusCode()));
+    		
+    		access_token = response.then().extract().path("access_token");		   		  		
+			
+		} catch (Exception e) {
+			log.error("########## Error - BaseTest - Obtener Token Development ExcelCredit #######" + e);
+            assertTrue("########## Error - BaseTest - Obtener Token Development ExcelCredit - consumo de API########" + e,
+                    false);
+		}
+		return access_token;
+    }
+    
+    public String obtenerTokenAPI_notificacion_OPT(String tokenDevEC, String creditoHijo, String idCliente, String idUsuario) {
+    	
+    	log.info("########## Obteniendo TOKEN API Notificacion OPT ##########");
+    	
+    	String token_notificacion_OTP = null;
+    	
+    	try {
+			String ulrOnboarding = leerPropiedades("UrlOnboardingOTP");
+			RestAssured.baseURI = ulrOnboarding + "creditos/" + creditoHijo + "/prospeccion";
+			RequestSpecification request = RestAssured.given();
+			
+			request.header("Authorization","Bearer "+tokenDevEC);
+			request.header("content-type","application/json;charset=UTF-8");
+			
+			
+			JSONObject requestParams = new JSONObject();
+			requestParams.put("idCliente", idCliente);
+			requestParams.put("idUsuario", idUsuario);
+			request.body(requestParams.toJSONString());
+			
+			Response response = request.post("/notificacion-otp");
+
+			assertvalidarEquals(String.valueOf(200),String.valueOf(response.getStatusCode()));
+					
+			token_notificacion_OTP = response.then().extract().path("token");
+			
+		} catch (Exception e) {
+			log.error("########## Error - BaseTest - obtener TokenAPI notificacion OPT #######" + e);
+            assertTrue("########## Error - BaseTest - obtenerTokenAPI_notificacion_OPT - consumo de API########" + e,
+                    false);
+		}
+    	return token_notificacion_OTP;
     }
 }
