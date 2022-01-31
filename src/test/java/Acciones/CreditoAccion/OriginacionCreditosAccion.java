@@ -14,8 +14,10 @@ import dto.SimuladorDto;
 import io.cucumber.datatable.DataTable;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -1968,37 +1970,5 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         return resultSimulador;
 
-    }
-    
-    public void testAPI(String UrlApi) {
-    	try {
-			Response response = RestAssured.get(UrlApi);
-			
-			log.info("########## Inicio de Pruebas a consumo de API ##########");
-			
-			log.info("########## Transformar Respuesta a String ##########");
-			log.info(response.asString());
-			
-			log.info("########## Transformar Respuesta Body a String ##########");
-			log.info(response.getBody().asString());
-			
-			log.info("########## Obtener Codigo de Respuesta ##########");
-			log.info(response.getStatusCode());
-			
-			log.info("########## Obtener Respuesta y Parametro CABECERA ##########");
-			log.info(response.getHeader("content-type"));
-			
-			
-			log.info("########## Validaciones  y Assersiones ##########");
-			
-			int codigoDeEstado = response.getStatusCode();
-			
-			assertvalidarEquals(String.valueOf(codigoDeEstado), String.valueOf(200));
-			
-		} catch (Exception e) {
-			log.error("########## Error - OriginacionCreditosAccion - Validar respuestas a consumo de API #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - Validar respuestas a consumo de API########" + e,
-                    false);
-		}
     }
 }

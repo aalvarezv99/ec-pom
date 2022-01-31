@@ -259,8 +259,4 @@ public class SolicitudCreditoSteps {
     	originacionaccion.ingresaCodigoOTP(Cedula);
     }
     
-    @Cuando("se comprueba el status code del API {string}")
-    public void secompruebaelstatuscodedelAPI(String ApiUrl) throws InterruptedException {
-    	originacionaccion.testAPI(ApiUrl);
-    }
 }

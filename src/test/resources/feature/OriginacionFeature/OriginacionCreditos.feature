@@ -97,11 +97,3 @@ Característica: Originacion de Creditos
       | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos   | descLey   | descNomina | Mes         | fechaDesembolso | NombreCredito | Pnombre     | Snombre    | Papellido  | Sapellido  | fechaActual   | Oficina        | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                  | AccountingSource   | AccountingName                                                          | FechaRegistro | NumRadicado | NumRadicadoCredito |
       ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
    |"P.A COLPENSIONES"   |"45460440"   |"10/Ene/1956"   |"1.80"   |"120"   |"8000000"   |"120"   |"6000000"   |"600000"   |"0"   |"Enero"   |"05/01/2022"   |"NAYIBE"   |"NAYIBE"   |""   |"CORRALES"   |"MONTENEGRO"   |"05/Ene/2022"   |"Cartagena"   |"Pensionado"   |"20500000"   |"0"   |"xx"   |"360000"   |"Pensionado por Tiempo (Vejez)"   |"05/01/2000"   |"prueba321@gmail.com"    |"3125127718"   |"Cundinamarca"   |"Anapoima"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"2021-04-20"   |"Educación propia"   |"M"   |"Soltero"   |"Calle 2d #22-52"   |"FAMILIAR"   |"perez"   |"alejandro"   |"7210273"   |"9007146"   |"3112"   |"2022"   |"Efectivo"   |"Remanentes - 60237038927 - REMANENTE"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |05/01/2022   |90537   |"12345"|
-
-	@TestAPIRestAssured
-	Esquema del escenario: Validar respuestas a consumo de API
-		Cuando se comprueba el status code del API <UrlApi>
-		Ejemplos:
-		|UrlApi|
-		|"https://reqres.in/api/users?page=2"|
-	
