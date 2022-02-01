@@ -122,14 +122,24 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);
 	}
 	
+	@Y("se valida el estado del credito padre {string}{string}")
+	public void sevalidaelestadodelcreditopadre(String Credito,String FechaRegistro) throws InterruptedException, SQLException {
+		retanqueocreditos.validarEstadoCreditoPadre(Credito,FechaRegistro);
+	}
+	
+	@Y("se valida el estado del credito padre {string}")
+	public void sevalidaelestadodelcreditopadre(String FechaRegistro) throws InterruptedException, SQLException {
+		retanqueocreditos.validarEstadoCreditoPadreMultiple(FechaRegistro);
+	}
+	
 	@Y("se validan los valores de las condiciones del credito {string}{string}{string}")
 	public void sevalidanlosvaloresdelascondicionesdelcredito(String Credito, String Plazo, String DiasHabilesIntereses ) throws NumberFormatException, SQLException, InterruptedException {
 		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueo(Credito, Plazo, DiasHabilesIntereses);
 	}
 	
-	@Y("se validan los valores de las condiciones del credito Multiple")
-	public void sevalidanlosvaloresdelascondicionesdelcreditoMultiple() throws NumberFormatException, SQLException, InterruptedException {
-		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueoMultiple();
+	@Y("se validan los valores de las condiciones del credito Multiple {string}{string}{string}{string}{string}{string}")
+	public void sevalidanlosvaloresdelascondicionesdelcreditoMultiple(String cedula, String pagaduria,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException, InterruptedException {
+		retanqueocreditos.ValidarValoresLlamadoBienvenidaRetanqueoMultiple(cedula, pagaduria,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
 	}
 	
 	@Y("validar las condiciones de la carta de notificacion de creditos {string}")
@@ -137,14 +147,14 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
 	}
 
-	@Y("se validan los datos del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}")
-	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
-		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
+	@Y("se validan los datos del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void sevalidanlosdatosdelsimuladorRetanqueoMultiple(String cedula, String pagaduria,String Ingresos, String descLey, String descNomina,String Tasa,String Plazo,String DiasHabilesIntereses,String VlrCompraSaneamiento) throws NumberFormatException, SQLException {
+		retanqueocreditos.ValidarSimuladorRetanqueoMultiple(cedula,pagaduria,Ingresos, descLey, descNomina,Tasa,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento);
 	}
 
-	@Entonces("Valida los valores del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}")
-	public void validarSimuladorAnalistaRetanqueosMultiple(String Anno,String retanqueo,String fecha,String Mes, String Plazo, String Tasa) throws InterruptedException, SQLException {
-		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(Anno,retanqueo,fecha,Mes,Plazo, Tasa);
+	@Entonces("Valida los valores del simulador retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void validarSimuladorAnalistaRetanqueosMultiple(String cedula, String pagaduria,String DiasHabilesIntereses,String Anno,String retanqueo,String fecha,String Mes, String Plazo, String Tasa, String VlrCompraSaneamiento) throws InterruptedException, SQLException {
+		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(cedula, pagaduria, DiasHabilesIntereses ,  Anno , retanqueo , fecha , Mes , Plazo , Tasa, VlrCompraSaneamiento);
 	}
 
 	@Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}")

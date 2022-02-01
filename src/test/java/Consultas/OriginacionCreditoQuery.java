@@ -344,27 +344,4 @@ public class OriginacionCreditoQuery {
 
         return r;
     }
-
-    public ResultSet consultarCreditosPadreRetanqueoMultiple(String cedula, String pagaduria, String fecha) {
-        ResultSet r = null;
-        try {
-            String sql = "select c.numero_radicacion from historial_estado_credito hec \r\n"
-                    + "join credito c on c.id = hec.id_credito \r\n"
-                    + "where hec.id_credito in (select c.id from credito c join cliente cl on c.id_cliente = cl.id \r\n"
-                    + "where cl.identificacion = '" + cedula + "'  \r\n"
-                    + "and c.estado = 'TERMINADO_POR_RETANQUEO' \r\n"
-                    + "and c.id_pagaduria = (select id from pagaduria where nombre = '" + pagaduria + "') \r\n"
-                    + "order by c.id desc)"
-                    + "and to_char(fecha::date,'DD/MM/YYYY') = '" + fecha + "' order by hec.id desc;";
-            r = dbconector.conexion(sql);
-        } catch (Exception e) {
-            log.error("********ERROR EJECUTANDO consultarCreditosPadreMultiples()********");
-            log.error(e.getMessage());
-        }
-        return r;
-    }
 }
-
-
-	
-

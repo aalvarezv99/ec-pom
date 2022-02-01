@@ -134,7 +134,9 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 				contador++;
 			}
 			
-			ClickBtnMultiples(
+			log.info("************ se confirman las carteras y saneamientos  ClickBtnMultiples()  **********");
+						
+             ClickBtnMultiples(
 					pestanareferenciacionpage.ListLabelEntidad,pestanareferenciacionpage.ListFiltroEntidad,
 					pestanareferenciacionpage.ListMonto,pestanareferenciacionpage.ListValorCuota,
 					pestanareferenciacionpage.ListFecha,pestanareferenciacionpage.ListNumObligacion,pestanareferenciacionpage.ListRadioSaneamiento,

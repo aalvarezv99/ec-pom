@@ -258,4 +258,5 @@ public class SolicitudCreditoSteps {
     public void seingresaelcodigoOTP(String Cedula) throws InterruptedException {
     	originacionaccion.ingresaCodigoOTP(Cedula);
     }
+    
 }
