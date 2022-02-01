@@ -2,11 +2,13 @@ package Acciones.ComunesAccion;
 
 import CommonFuntions.BaseTest;
 import Consultas.MovimientoContableQuery;
+import Consultas.OriginacionCreditoQuery;
 import dto.MovimientoContableDto;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -31,6 +33,8 @@ public class MovimientoContableAccion extends BaseTest {
     private Map<String, String> cuentasConcatenadas = new LinkedHashMap<>();
     private Map<String, List<String>> CreditosCuentas = new LinkedHashMap<>();
     String numCedula = "";
+    OriginacionCreditoQuery originacionCreditoQuery = new OriginacionCreditoQuery();
+    List<String> creditosPadre = new ArrayList<>();
 
     public MovimientoContableAccion(WebDriver driver) {
         super(driver);
@@ -666,5 +670,40 @@ public class MovimientoContableAccion extends BaseTest {
         return listMovPslCo_detalcompr;
     }
 
+    public List<String> consultarCreditosPadre(String cedula, String pagaduria, String fecha) {
+        List<String> creditosPadre = new ArrayList<>();
+        try {
+            ResultSet result = originacionCreditoQuery.consultarCreditosPadreRetanqueoMultiple(cedula, pagaduria, fecha);
+            while (result.next()) {
+                creditosPadre.add(result.getString(1));
+            }
+            result.close();
+        } catch (Exception e) {
+            log.error("############## 'ERROR' consultarCreditosPadre - consultarCreditosPadre() ################" + e);
+            assertTrue("########## consultarCreditosPadre - consultarCreditosPadre()########" + e, false);
+        }
+        return creditosPadre;
+    }
 
+    public void validarBridgeCreditosPadreRetanqueoMultiple(String accountingSource, String cedula, String pagaduria, String fecha) {
+        creditosPadre = consultarCreditosPadre(cedula, pagaduria, fecha);
+        for (String radicadoCredito : creditosPadre) {
+            validarProcesoBridge(radicadoCredito.replace("\"", ""), cedula.replace("\"", ""), accountingSource.replace("\"", ""), fecha);
+        }
+    }
+
+    public void validarCausacionMovimientosCreditosPadre(String accountingSource, String fecha) {
+        for (String radicadoCredito : creditosPadre) {
+            MovimientoContableDto movimientoContableDto = new MovimientoContableDto();
+            movimientoContableDto.setNumeroRadicado(radicadoCredito);
+            creditosRadicado.add(movimientoContableDto);
+            validarCausacionMovimientos(accountingSource, radicadoCredito, fecha);
+        }
+    }
+
+    public void ValidarTransaccionEnLaBaseDeDatosDePSL(String accountingsource, String fecharegistro) {
+        for (String radicadoCredito : creditosPadre) {
+            validacionPSL(accountingsource, fecharegistro, radicadoCredito);
+        }
+    }
 }
