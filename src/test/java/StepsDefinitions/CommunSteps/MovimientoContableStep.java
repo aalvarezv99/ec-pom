@@ -1,5 +1,6 @@
 package StepsDefinitions.CommunSteps;
 
+import cucumber.api.java.es.Entonces;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 
@@ -67,7 +68,20 @@ public class MovimientoContableStep {
     public void finalmenteSeValidaLaTransaccionConEnLaBaseDeDatosDePSL(String accountingsource, String fecharegistro) throws Throwable {
     	movimientoContableAccion.validacionPSL(accountingsource.replaceAll("\"", ""), fecharegistro);
     }
-    
-    /*Step Aplicacion de pagos final*/
 
+    @Y("se valida los creditos multiples en la tabla movimiento contables {string}{string}{string}{string}")
+    public void seValidaLosCreditosMultiplesEnLaTablaMovimientoContableQueSeProcesoPorElBridge(String accountingSource, String numCedula, String pagaduria, String fecha) throws Throwable {
+        movimientoContableAccion.validarBridgeCreditosPadreRetanqueoMultiple(accountingSource.replace("\"", ""), numCedula.replace("\"", ""), pagaduria, fecha);
+    }
+
+    @Y("valide la causacion de movimientos con sus tipos y valores {string}{string}")
+    public void valideLaCausacionDeMovimientosConSusTiposYValores(String accountingsource, String fechaRegistro) throws Throwable {
+        movimientoContableAccion.validarCausacionMovimientosCreditosPadre(accountingsource.replaceAll("\"", ""), fechaRegistro);
+    }
+
+    @Entonces("finalmente se valida la transaccion en la base de datos de PSL {string}{string}")
+    public void finalmenteSeValidaLaTransaccionEnLaBaseDeDatosDePSL(String accountingsource, String fecharegistro) throws Throwable {
+        movimientoContableAccion.ValidarTransaccionEnLaBaseDeDatosDePSL(accountingsource.replaceAll("\"", ""), fecharegistro);
+    }
+    /*Step Aplicacion de pagos final*/
 }

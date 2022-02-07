@@ -1,7 +1,7 @@
 #language: es
 Característica: Retanqueo de creditos
 
-  Antecedentes: 
+  Antecedentes:
     Dado Un agente en el sistema core abacus con sesion iniciada
     Y con las funciones sql necesarias del proyecto creadas
 
@@ -12,11 +12,10 @@ Característica: Retanqueo de creditos
     Y se da clic a retanquear a todos los creditos
     Y se ingresa el monto a solicitar <Retanqueo>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10157598"   |"5000000"   |"P.A COLPENSIONES"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"600000"   |"2258"   |"AMADEO"   |"Enero"   |"14/06/1969"   |"2021"   |"25/01/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"200000"   |"400000"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @SolicitudRetanqueoMultiple
   Esquema del escenario: Solicitud Retanqueo Multiple
@@ -37,11 +36,10 @@ Característica: Retanqueo de creditos
     Y se aprueban las referencias de la pagaduria
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
-    Ejemplos: 
-
-   | Cedula     | Retanqueo | Pagaduria | Credito | Celular      | Correo      | TipoDesen  | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito    | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
 
   #COMPRA CARTERA Y SANEAMIENTOS
@@ -60,23 +58,22 @@ Característica: Retanqueo de creditos
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se presiona en verificacion en la pestana digitalizacion
     Y se crean los tipos de cartera o saneamiento a recoger
-      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                                         | 200000 |    70000 | 30/10/2021       |         21236 |
-      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/10/2021       |         29123 |
+      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/10/2021       | 21236         |
+      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 730000 | 70000    | 30/10/2021       | 29123         |
     Y se guarda cartera
     Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                                         | 200000 |    70000 | 30/10/2021       |         21236 |
-      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/10/2021       |         29123 |
+      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Saneamiento | 8600370136 - COMPAÑIA MUNDIAL DE SEGUROS SA | 730000 | 70000    | 30/10/2021       | 29123         |
+      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/10/2021       | 21236         |
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @AnalisisCreditoRetanqueoMultiple
   Esquema del escenario: Analisis del credito
@@ -91,11 +88,10 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @AnalisisCreditoRetanqueoMultipleCCS
   Esquema del escenario: Analisis del credito
@@ -107,11 +103,10 @@ Característica: Retanqueo de creditos
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @ClientesBienvenidaRetanqueoMult
   Esquema del escenario: Clientes para Bienvenida
@@ -121,35 +116,31 @@ Característica: Retanqueo de creditos
     #Y validar las condiciones de la carta de notificacion de creditos <Cedula>
     Y se marcan los chech y se acepta <TipoDesen> <Cedula>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
-     ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
     Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
-    Y se valida el estado del credito padre <fechaActual>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   #Pasos para credito despues de llamada de bienvenida cuando tienen compra de cartera y la visacion
   @DesembolsoCarteraCCS
@@ -159,22 +150,20 @@ Característica: Retanqueo de creditos
       | Monto  | Banco                                | RutaPdf                               |
       | 100000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @VisacionSaneamientoCCS
   Esquema del escenario: Visacion de la cartera
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se navega hasta carteras <rutaPDF>
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
@@ -183,11 +172,10 @@ Característica: Retanqueo de creditos
       | Monto  | Banco                                | RutaPdf                               |
       | 730000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
-
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
   @DesembolsoRetanqueosCCS
   Esquema del escenario: Creditos para Desembolso
@@ -196,10 +184,33 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
     Y se descarga medios de dispersion para el remanente
       | Monto   | Cartera | Saneamiento | Banco                                | RutaPdf                               |
-      | 5000000 |  100000 |      730000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+      | 5000000 | 100000  | 730000      | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
-    Ejemplos: 
-      | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | fechaActual  | Banco                                  | Cartera1 | Saneamiento2 |
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
-   |"10232660"   |"5000000"   |"P.A COLPENSIONES"   |"78777"   |"3204992496"   |"jvcutilidades@hotmail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"65"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"URIEL"   |"Abril"   |"22/01/1955"   |"2022"   |"25/01/2022"   |"Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"|
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
 
+  @ValidarDinamicasContablesRetanqueoHijo
+  Esquema del escenario: Validar dinamicas contables Retanqueo Hijo
+    Cuando se valida por <NumRadicado> y <Cedula> en la tabla movimiento contable las <AccountingSourceHijo> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSourceHijo> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
+    Y validando las cuentas de libranzas <AccountingSourceHijo> sean las del bridge <AccountingNameHijo> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion <AccountingSourceHijo> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
+
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
+
+  @ValidarDinamicasContablesRetanqueoPadre
+  Esquema del escenario: Validar dinamicas contables Retanqueo Padre
+    Cuando se valida los creditos multiples en la tabla movimiento contables <AccountingSourcePadre><Cedula><Pagaduria><FechaRegistro>
+    Y valide la causacion de movimientos con sus tipos y valores <AccountingSourcePadre><FechaRegistro>
+    Y validando las cuentas de libranzas <AccountingSourcePadre> sean las del bridge <AccountingNamePadre> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion en la base de datos de PSL <AccountingSourcePadre><FechaRegistro>
+
+    Ejemplos:
+      | Cedula     | Retanqueo | Pagaduria                                     | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito  | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
+      ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoMultiple
+   |"10112372"   |"5000000"   |"P.A. FIDUPREVISORA NÓMINA PENSIONADOS FOMAG"   |"85863"   |"3125117715"   |"dandresabogadog@mail.com"   |"Efectivo"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.80"   |"90"   |"10"   |"6500000"   |"380000"   |"100000"   |"0"   |"2258"   |"JOSE ALBEIRO"   |"Febrero"   |"20/07/1963"   |"2022"   |"01/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"0"   |"0"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'''   |"'upper('Desembolso egreso'), upper('Desembolso activación de crédito')'"   |null   |"01/02/2022"|
