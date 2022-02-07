@@ -65,7 +65,7 @@ public class MovimientoContableAccion extends BaseTest {
                 }
             }
             if (detalle.equals("Registered in the accounting bridge"))
-                log.info("******* 'Exitoso' - Se Proceso el movimiento por el Bridge contable ******");
+                log.info("******* 'Exitoso' - Se Proceso el movimiento por el Bridge contable numero de radicado -> " + numRadicado);
             else {
                 assertBooleanImprimeMensaje("#### " + origin + "  ERROR - No se ha procesado por el bridge revisar la tabla  'movimiento_contable' ###", true);
             }
@@ -95,7 +95,7 @@ public class MovimientoContableAccion extends BaseTest {
             if (!caousacion) {
                 assertBooleanImprimeMensaje("#### ERROR - validar la causacion de movimientos contables, no hizo match en la suma de los tipos debito y credito ###", true);
             }
-            log.info("******** 'Exitoso' - se validaron los debitos y creditos de los movimientos contables *******");
+            log.info("******** 'Exitoso' - se validaron los debitos y creditos de los movimientos contables numero de radicado -> " + numRadicado);
         } catch (Exception e) {
             log.error("############## 'ERROR' MovimientoContableAccion - validarCausacionMovimientos() ################" + e);
             assertTrue("########## MovimientoContableAccion - validarCausacionMovimientos()########" + e, false);

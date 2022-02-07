@@ -308,12 +308,16 @@ public class OriginacionCreditoQuery {
 
         ResultSet r = null;
         try {
-            r = dbconector.conexion("select	* from	calculos_simulador_interno_retanqueo_adp (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");");
+            r = dbconector.conexion("select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");");
         } catch (Exception e) {
             log.error("********consultarCalculosSimuladorOriginacion() ********");
             log.error(e.getMessage());
         }
         return r;
+    }
+
+    public String agregarComillas(String valor) {
+        return "'" + valor + "'";
     }
 
     public ResultSet idClienteCedula(String Cedula) {
@@ -344,4 +348,87 @@ public class OriginacionCreditoQuery {
 
         return r;
     }
+
+
+    public ResultSet ConsultaEstadoCredito(String Credito, String FechaRegistro) {
+        ResultSet r = null;
+        try {
+            String sql = ("with suma_capital as (select sum(dcp.capital) capital\r\n"
+                    + "from plan_de_pagos pp\r\n"
+                    + "left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pp.id\r\n"
+                    + "where 1 = 1\r\n"
+                    + "and to_char(dcp.fecha_recaudo::date,'DD/MM/YYYY')='" + FechaRegistro + "' \r\n"
+                    + "and pp.id_credito in (select id from credito where numero_radicacion in ('" + Credito + "'))),\r\n"
+                    + "saldo_capital_suma as (select pp.saldo_capital sCapital\r\n"
+                    + "from plan_de_pagos pp\r\n"
+                    + "where 1 = 1\r\n"
+                    + "and pp.id=(select pp.id \r\n"
+                    + "from plan_de_pagos pp\r\n"
+                    + "left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pp.id\r\n"
+                    + "where 1 = 1\r\n"
+                    + "and to_char(dcp.fecha_recaudo::date,'DD/MM/YYYY')='" + FechaRegistro + "' \r\n"
+                    + "and pp.id_credito in (select id from credito where numero_radicacion in ('" + Credito + "'))\r\n"
+                    + "order by pp.numero_cuota, dcp.fecha_recaudo asc\r\n"
+                    + "FETCH FIRST 1 ROW ONLY)-1),estado_credito as (select c.estado estadoCredito from credito c where c.numero_radicacion in ('" + Credito + "'))\r\n"
+                    + "select case when  sc.capital=scm.sCapital and c.estadoCredito='TERMINADO_POR_RETANQUEO'  then\r\n"
+                    + " true\r\n"
+                    + "else false\r\n"
+                    + "end as finalizar_retanqueo from suma_capital sc ,saldo_capital_suma scm,estado_credito c;");
+
+
+            r = dbconector.conexion(sql);
+
+        } catch (Exception e) {
+            log.error("********ERROR EJECUTANDO LA CONSULTA EL METODO - ConsultaEstadoCredito() ********");
+            log.error(e.getMessage());
+        }
+
+        return r;
+    }
+
+    /*
+     * ThainePerez V1.0 - 20/Dic/2021, 1. Se implementa la funcion de calculos directamente desde la base de datos
+     * 									2. Parametros utilizados: (	v_cedula text,
+     * 																v_nombre_pagaduria text,
+     * 																v_tasa numeric,
+     * 																v_plazo numeric,
+     * 																v_diashabilesintereses numeric,
+     * 																v_monto numeric,
+     * 																v_sumamontocarteras numeric)*/
+    public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula, String pagaduria, String tasa, String plazo, String diasIntIniciales, int monto, String compraCarteraSuma) {
+        log.info("********************** Ejecutando Funcion Retanqueo Multiple - consultarCalculosSimuladorRetanqueoMultiple() **************");
+        ResultSet r = null;
+        try {
+            String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador(" + agregarComillas(cedula) + "," + agregarComillas(pagaduria) + "," + tasa + "," + plazo + "," + diasIntIniciales + "," + monto + "," + compraCarteraSuma + ");";
+            log.info(sql);
+            r = dbconector.conexion(sql);
+        } catch (Exception e) {
+            log.error("********consultarCalculosSimuladorRetanqueoMultiple() ********");
+            log.error(e.getMessage());
+        }
+        return r;
+    }
+
+    public ResultSet consultarCreditosPadreRetanqueoMultiple(String cedula, String pagaduria, String fecha) {
+        ResultSet r = null;
+        try {
+            String sql = "select c.numero_radicacion from historial_estado_credito hec \r\n"
+                    + "join credito c on c.id = hec.id_credito \r\n"
+                    + "where hec.id_credito in (select c.id from credito c join cliente cl on c.id_cliente = cl.id \r\n"
+                    + "where cl.identificacion = '" + cedula + "'  \r\n"
+                    + "and c.estado = 'TERMINADO_POR_RETANQUEO' \r\n"
+                    + "and c.id_pagaduria = (select id from pagaduria where nombre = '" + pagaduria + "') \r\n"
+                    + "order by c.id desc)"
+                    + "and to_char(fecha::date,'DD/MM/YYYY') = '" + fecha + "' order by hec.id desc;";
+            r = dbconector.conexion(sql);
+        } catch (Exception e) {
+            log.error("********ERROR EJECUTANDO consultarCreditosPadreMultiples()********");
+            log.error(e.getMessage());
+        }
+        return r;
+    }
 }
+
+
+
+
