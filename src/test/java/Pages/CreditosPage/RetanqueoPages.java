@@ -47,6 +47,9 @@ public class RetanqueoPages {
 		public By listaCreditosPadre;
 		public By btnVerEditar;
 
+		public By listTasa;
+		public By optionsTasa;
+
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
 			cedula = By.id("form:listaCreditos:j_idt67:filter");
@@ -89,5 +92,8 @@ public class RetanqueoPages {
 	        inputSumaSaldoDiaRetanqMultiple = By.id("formSimuladorCredito:totalSaldoAlDia_hinput");
 			listaCreditosPadre = By.xpath("//tbody[@id='form:listaCreditos_data']/child::tr//child::td[2]");
 			btnVerEditar = By.xpath("//a[contains(@id,'ver_editar_cred')]");
+
+			listTasa = By.xpath("//ul[@id = 'formSimuladorCredito:tasa_items']");
+			optionsTasa = By.xpath("//li[starts-with(@id, 'formSimuladorCredito:tasa')]");
 		}	
 }

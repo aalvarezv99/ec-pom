@@ -248,8 +248,8 @@ public class RetanqueoCreditos extends BaseTest {
             esperaExplicita(retanqueopages.labelTasa);
             hacerClicknotificacion();
             hacerClick(retanqueopages.labelTasa);
-            EscribirElemento(retanqueopages.inputTasaFiltro, Tasa);
-            EnviarEnter(retanqueopages.inputTasaFiltro);
+            selectValorLista(retanqueopages.listTasa, retanqueopages.optionsTasa, Tasa);
+            assertTextoelemento(retanqueopages.labelTasa, Tasa);
 
             hacerClicknotificacion();
             ElementVisible();
