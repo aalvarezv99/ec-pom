@@ -866,7 +866,7 @@ public class FuncionesSqlQuery {
                     "where cliente.identificacion = v_cedula\n" +
                     "order by credito.id desc limit 1);\n" +
                     "\n" +
-                    "if (estadoCreditoHijo = 'LLAMADA_BIENVENIDA')\n" +
+                    "if (estadoCreditoHijo = 'LLAMADA_BIENVENIDA' || estadoCreditoHijo = 'PENDIENTE_DESEMBOLSO')\n" +
                     "\tthen\n" +
                     "\t\tif (fechaDesembolso <= current_date)\n" +
                     "\t\tthen\n" +
