@@ -308,7 +308,10 @@ public class OriginacionCreditoQuery {
 
         ResultSet r = null;
         try {
-            r = dbconector.conexion("select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");");
+        	String sql = "select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");";
+        	log.info(" ********** EJECUTANDO SQL ***********");
+        	log.info(sql);
+            r = dbconector.conexion(sql);
         } catch (Exception e) {
             log.error("********consultarCalculosSimuladorOriginacion() ********");
             log.error(e.getMessage());
