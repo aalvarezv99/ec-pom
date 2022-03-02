@@ -395,11 +395,11 @@ public class OriginacionCreditoQuery {
      * 																v_diashabilesintereses numeric,
      * 																v_monto numeric,
      * 																v_sumamontocarteras numeric)*/
-    public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula, String pagaduria, String tasa, String plazo, String diasIntIniciales, int monto, String compraCarteraSuma) {
+    public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula, String pagaduria, String tasa, String plazo, String diasIntIniciales, int monto, String compraCarteraSuma, String fecha) {
         log.info("********************** Ejecutando Funcion Retanqueo Multiple - consultarCalculosSimuladorRetanqueoMultiple() **************");
         ResultSet r = null;
         try {
-            String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador(" + agregarComillas(cedula) + "," + agregarComillas(pagaduria) + "," + tasa + "," + plazo + "," + diasIntIniciales + "," + monto + "," + compraCarteraSuma + ");";
+            String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador(" + agregarComillas(cedula) + "," + agregarComillas(pagaduria) + "," + tasa + "," + plazo + "," + diasIntIniciales + "," + monto + "," + compraCarteraSuma + "," + agregarComillas(fecha) + ");";
             log.info(sql);
             r = dbconector.conexion(sql);
         } catch (Exception e) {
