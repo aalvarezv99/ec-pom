@@ -358,232 +358,235 @@ public class FuncionesSqlQuery {
         log.info("***Ejecutando Funcion Retanqueo ***");
         try {
             dbconector.ejecutorFunciones(
-                    "create or replace\n" +
-                            "function public.calculos_simulador_retanqueo (\n" +
-                            "  creditoPadre numeric,\n" +
-                            "  tasa numeric,\n" +
-                            "  plazo numeric,\n" +
-                            "  diasHabilesIntereses numeric,\n" +
-                            "  monto numeric,\n" +
-                            "  sumaMontoCarteras numeric\n" +
-                            ")\n" +
-                            "returns table (\n" +
-                            "  tipoCalculos varchar,\n" +
-                            "  calculoPrimaAnticipadaSeguro numeric,\n" +
-                            "  calculoCuotaCorriente numeric,\n" +
-                            "  resultGmf41000 numeric,\n" +
-                            "  calculoPrimaNoDevengada numeric,\n" +
-                            "  calculoPrimaNeta numeric,\n" +
-                            "  calculoValorFianza numeric,\n" +
-                            "  fianzaPadre numeric,\n" +
-                            "  resultFianza numeric,\n" +
-                            "  resultEstudioCredito numeric,\n" +
-                            "  saldoAlDia numeric,\n" +
-                            "  calculoRemanenteEstimado numeric\n" +
-                            ")\n" +
-                            "language plpgsql\n" +
-                            "as $function$\n" +
-                            "\n" +
-                            "declare\n" +
-                            "\n" +
-                            "-- constantes\n" +
-                            "iva numeric = 1.19;\n" +
-                            "tasaXmillon numeric = 4625;\n" +
-                            "gmf41000 numeric = 0.004;\n" +
-                            "tasaUno numeric = tasa / 100;\n" +
-                            "variableMillon numeric = 1000000;\n" +
-                            "\n" +
-                            "-- variables de calculos\n" +
-                            "calculoPrimaAnticipadaSeguro numeric;\n" +
-                            "calculoEstudioCreditoHijo numeric;\n" +
-                            "calculoValorFianza numeric;\n" +
-                            "calculoPrimaNeta numeric;\n" +
-                            "calculoPrimaNoDevengada numeric;\n" +
-                            "calculoCuotaCorriente numeric;\n" +
-                            "calculoRemanenteEstimado numeric;\n" +
-                            "\n" +
-                            "-- variables\n" +
-                            "tienePrimaPadre varchar;\n" +
-                            "descuentoPrimaAnticipada numeric;\n" +
-                            "fianzaPadre numeric;\n" +
-                            "estudioCreditoPadre numeric;\n" +
-                            "idCredito integer;\n" +
-                            "idPagaduria integer;\n" +
-                            "estudioCredito numeric;\n" +
-                            "tasaFianza numeric;\n" +
-                            "tasaDos numeric;\n" +
-                            "mesDos numeric;\n" +
-                            "periodoGracia numeric;\n" +
-                            "primaPadre numeric;\n" +
-                            "montoPadre numeric;\n" +
-                            "mesesActivosPadre numeric;\n" +
-                            "tipoCalculos varchar;\n" +
-                            "resultFianza numeric;\n" +
-                            "resultEstudioCredito numeric;\n" +
-                            "resultGmf41000 numeric;\n" +
-                            "saldoAlDia numeric;\n" +
-                            "\n" +
-                            "begin\n" +
-                            "\n" +
-                            "-- consultar prima padre\n" +
-                            "select\n" +
-                            "case when c.numero_radicacion = null then 'true'\n" +
-                            "else 'false' end as prima\n" +
-                            "into tienePrimaPadre\n" +
-                            "from credito c\n" +
-                            "inner join desglose d on d.id_credito = c.id\n" +
-                            "inner join prima_seguro_anticipada ps on ps.id_desglose = d.id\n" +
-                            "where 1=1\n" +
-                            "and d.desglose_seleccionado is true \n" +
-                            "and c.credito_activo is true\n" +
-                            "and c.numero_radicacion = creditoPadre;\n" +
-                            "\n" +
-                            "-- consulta el descuento de la prima anticipada\n" +
-                            "select valor\n" +
-                            "into descuentoPrimaAnticipada\n" +
-                            "from parametro_configuracion\n" +
-                            "where nombre = 'PRIMA_SEGURO_PERIODOS_DESCONTAR'\n" +
-                            "order by id desc;\n" +
-                            "\n" +
-                            "-- consulta para obtener la fianza padre\n" +
-                            "select coalesce(round(d.valor_fianza),0) fianzaPadre\n" +
-                            "into fianzaPadre\n" +
-                            "from desglose d\n" +
-                            "where id_credito in (select  id from credito where numero_radicacion = creditoPadre)\n" +
-                            "and desglose_seleccionado is true\n" +
-                            "limit 1;\n" +
-                            "\n" +
-                            "-- consulta para obtener el id del credito y la pagaduría\n" +
-                            "select c.id, c.id_pagaduria into idCredito, idPagaduria from credito c where numero_radicacion = creditoPadre;\n" +
-                            "\n" +
-                            "-- consultar el saldo al dia\n" +
-                            "select round(saldo_al_dia) into saldoAlDia from saldo_al_dia sad where id_credito = idCredito;\n" +
-                            "\n" +
-                            "-- cunsulta para obtener el estudio del credito padre\n" +
-                            "select coalesce(round(obtener_valor_estudio_credito(current_date, idCredito, idPagaduria, false)),0) estudioCreditoPadre into estudioCreditoPadre;\n" +
-                            "\n" +
-                            "-- consulta para obtener valores capitalizador\n" +
-                            "select round(estudio_credito), segunda_tasa, fianza, mes_cambio_tasa\n" +
-                            "into estudioCredito, tasaDos, tasaFianza, mesDos\n" +
-                            "from configuracion_capitalizacion_cxc ccc\n" +
-                            "where tasa_inicial = tasa;\n" +
-                            "\n" +
-                            "-- calcular periodo de gracia\n" +
-                            "if (plazo < descuentoPrimaAnticipada)\n" +
-                            "\tthen\n" +
-                            "\t\tperiodoGracia = Ceiling(diasHabilesIntereses / 30);\n" +
-                            "\t\tdescuentoPrimaAnticipada = periodoGracia + plazo;\n" +
-                            "\n" +
-                            "end if;\n" +
-                            "\n" +
-                            "-- calcular prima credito padre\n" +
-                            "select round(valor) into primaPadre\n" +
-                            "from prima_seguro_anticipada psa\n" +
-                            "join desglose d2\n" +
-                            "on d2.id=psa.id_desglose\n" +
-                            "join credito c2\n" +
-                            "on c2.id = d2.id_credito\n" +
-                            "where d2.desglose_seleccionado is true\n" +
-                            "and c2.numero_radicacion = creditoPadre;\n" +
-                            "\n" +
-                            "-- consultar monto padre\n" +
-                            "select round(c2.monto_aprobado) into montoPadre\n" +
-                            "from prima_seguro_anticipada psa\n" +
-                            "join desglose d2\n" +
-                            "on d2.id=psa.id_desglose\n" +
-                            "join credito c2\n" +
-                            "on c2.id = d2.id_credito\n" +
-                            "where d2.desglose_seleccionado is true\n" +
-                            "and c2.numero_radicacion = creditoPadre;\n" +
-                            "\n" +
-                            "-- consultar meses activos padre\n" +
-                            "with ConteoPeriodos as (\n" +
-                            "select (count(fechas)+complemento-1) periodos\n" +
-                            "from (\n" +
-                            "select id_credito, generate_series(mes_contable, now(), cast('1 month' as interval) )fechas,\n" +
-                            "case when date_part('day', now()) < date_part('day', mes_contable) then 1 else 0 end complemento\n" +
-                            "from movimiento_contable as mc\n" +
-                            "where id_credito in(select c2.id from credito c2 where c2.numero_radicacion = creditoPadre)\n" +
-                            "and tipo_transaccion = 'ACTIVACION_CREDITO'\n" +
-                            ") x group by complemento, id_credito\n" +
-                            ")\n" +
-                            "select periodos into mesesActivosPadre from ConteoPeriodos;\n" +
-                            "\n" +
-                            "-- se realizan los calculos\n" +
-                            "\n" +
-                            "-- calcular prima anticipada de seguro\n" +
-                            "calculoPrimaAnticipadaSeguro = round((tasaXmillon / 1000000 * descuentoPrimaAnticipada) * monto);\n" +
-                            "\n" +
-                            "-- calcular cuota corriente\n" +
-                            "if(plazo < mesDos) then\n" +
-                            "  calculoCuotaCorriente = round(monto / ((power((1 + tasaUno), (plazo)) - 1) / (tasaUno * power((1 + tasaUno), (plazo)))));\n" +
-                            "else\n" +
-                            "  tasaDos = tasaDos / 100;\n" +
-                            "  calculoCuotaCorriente = round(monto\n" +
-                            "  / ((power((1 + tasaUno), (mesDos - 1)) - 1) / (tasaUno * power((1 + tasaUno), (mesDos - 1)))\n" +
-                            "  + ((power((1 + tasaDos), (plazo - (mesDos - 1))) - 1)\n" +
-                            "  / (tasaDos * power((1 + tasaDos), (plazo - (mesDos - 1)))))\n" +
-                            "  / (power((1 + tasaUno), (mesDos - 1)))));\n" +
-                            "end if;\n" +
-                            "\n" +
-                            "-- calcular 4*1000\n" +
-                            "resultGmf41000 = round(sumaMontoCarteras * gmf41000);\n" +
-                            "\n" +
-                            "-- calcular prima no devengada\n" +
-                            "calculoPrimaNoDevengada = round(coalesce(primaPadre, 0) - ((coalesce(montoPadre, 0) * tasaXmillon) / variableMillon) * mesesActivosPadre);\n" +
-                            "\n" +
-                            "-- calcular prima neta\n" +
-                            "calculoPrimaNeta = round(calculoPrimaAnticipadaSeguro - calculoPrimaNoDevengada);\n" +
-                            "\n" +
-                            "-- calcular estudio de credito retanqueo hijo\n" +
-                            "calculoEstudioCreditoHijo = round(monto / (1 + (estudioCredito / 100) * iva + (tasaFianza / 100) * iva +\n" +
-                            "\t\t\t\t\t\t\t(tasaXmillon / 1000000 * descuentoPrimaAnticipada)) * (estudioCredito / 100) * iva);\n" +
-                            "\n" +
-                            "-- calcular valor de la fianza\n" +
-                            "calculoValorFianza = round(monto * (tasaFianza / 100) * 1.19);\n" +
-                            "\n" +
-                            "-- result fianza\n" +
-                            "resultFianza = calculoValorFianza - fianzaPadre;\n" +
-                            "if (resultFianza < 0)\n" +
-                            "  then\n" +
-                            "  resultFianza = 0;\n" +
-                            "end if;\n" +
-                            "\n" +
-                            "-- estudio de crédito\n" +
-                            "resultEstudioCredito = round(monto * (estudioCredito / 100) * iva) - estudioCreditoPadre;\n" +
-                            "if (resultEstudioCredito < 0)\n" +
-                            "  then\n" +
-                            "  resultEstudioCredito = 0;\n" +
-                            "end if;\n" +
-                            "\n" +
-                            "-- calculo remanente estimado\n" +
-                            "calculoRemanenteEstimado = round(monto - (saldoAlDia + resultFianza + calculoPrimaNeta + resultEstudioCredito + sumaMontoCarteras + resultGmf41000));\n" +
-                            "\n" +
-                            "-- validaciones si es anticipado o mensualizado\n" +
-                            "if (tienePrimaPadre = '')\n" +
-                            "\tthen\n" +
-                            "\t\ttipoCalculos = 'mensualizado';\n" +
-                            "\telse\n" +
-                            "\t\ttipoCalculos = 'anticipado';\n" +
-                            "end if;\n" +
-                            "\n" +
-                            "-- return values\n" +
-                            "return query\n" +
-                            "select tipoCalculos,\n" +
-                            "coalesce(calculoPrimaAnticipadaSeguro, 0),\n" +
-                            "coalesce(calculoCuotaCorriente, 0),\n" +
-                            "coalesce(resultGmf41000, 0),\n" +
-                            "coalesce(calculoPrimaNoDevengada, 0),\n" +
-                            "coalesce(calculoPrimaNeta, 0),\n" +
-                            "coalesce(calculoValorFianza, 0),\n" +
-                            "coalesce(fianzaPadre, 0),\n" +
-                            "coalesce(resultFianza, 0),\n" +
-                            "coalesce(resultEstudioCredito, 0),\n" +
-                            "coalesce(saldoAlDia, 0),\n" +
-                            "coalesce(calculoRemanenteEstimado, 0);\n" +
-                            "end;\n" +
-                            "\n" +
-                            "$function$");
+                    "CREATE OR REPLACE FUNCTION public.calculos_simulador_retanqueo(creditopadre numeric, tasa numeric, plazo numeric, diashabilesintereses numeric, monto numeric, sumamontocarteras numeric, v_fecha varchar)\r\n"
+                    + " RETURNS TABLE(tipocalculos character varying, calculoprimaanticipadaseguro numeric, calculocuotacorriente numeric, resultgmf41000 numeric, calculoprimanodevengada numeric, calculoprimaneta numeric, calculovalorfianza numeric, fianzapadre numeric, resultfianza numeric, resultestudiocredito numeric, saldoaldia numeric, calculoremanenteestimado numeric)\r\n"
+                    + " LANGUAGE plpgsql\r\n"
+                    + "AS $function$\r\n"
+                    + "\r\n"
+                    + "declare\r\n"
+                    + "\r\n"
+                    + "-- constantes\r\n"
+                    + "iva numeric = 1.19;\r\n"
+                    + "tasaXmillon numeric = 4625;\r\n"
+                    + "gmf41000 numeric = 0.004;\r\n"
+                    + "tasaUno numeric = tasa / 100;\r\n"
+                    + "variableMillon numeric = 1000000;\r\n"
+                    + "\r\n"
+                    + "-- variables de calculos\r\n"
+                    + "calculoPrimaAnticipadaSeguro numeric;\r\n"
+                    + "calculoEstudioCreditoHijo numeric;\r\n"
+                    + "calculoValorFianza numeric;\r\n"
+                    + "calculoPrimaNeta numeric;\r\n"
+                    + "calculoPrimaNoDevengada numeric;\r\n"
+                    + "calculoCuotaCorriente numeric;\r\n"
+                    + "calculoRemanenteEstimado numeric;\r\n"
+                    + "\r\n"
+                    + "-- variables\r\n"
+                    + "tienePrimaPadre varchar;\r\n"
+                    + "descuentoPrimaAnticipada numeric;\r\n"
+                    + "fianzaPadre numeric;\r\n"
+                    + "estudioCreditoPadre numeric;\r\n"
+                    + "idCredito integer;\r\n"
+                    + "idPagaduria integer;\r\n"
+                    + "estudioCredito numeric;\r\n"
+                    + "tasaFianza numeric;\r\n"
+                    + "tasaDos numeric;\r\n"
+                    + "mesDos numeric;\r\n"
+                    + "periodoGracia numeric;\r\n"
+                    + "primaPadre numeric;\r\n"
+                    + "montoPadre numeric;\r\n"
+                    + "mesesActivosPadre numeric;\r\n"
+                    + "tipoCalculos varchar;\r\n"
+                    + "resultFianza numeric;\r\n"
+                    + "resultEstudioCredito numeric;\r\n"
+                    + "resultGmf41000 numeric;\r\n"
+                    + "saldoAlDia numeric;\r\n"
+                    + "fechaEstudioCredito Date = v_fecha::date;\r\n"
+                    + "fechaDesembolso Date;\r\n"
+                    + "estadoCreditoHijo varchar;\r\n"
+                    + "\r\n"
+                    + "begin\r\n"
+                    + "\r\n"
+                    + "-- consultar prima padre\r\n"
+                    + "select\r\n"
+                    + "case when c.numero_radicacion = null then 'true'\r\n"
+                    + "else 'false' end as prima\r\n"
+                    + "into tienePrimaPadre\r\n"
+                    + "from credito c\r\n"
+                    + "inner join desglose d on d.id_credito = c.id\r\n"
+                    + "inner join prima_seguro_anticipada ps on ps.id_desglose = d.id\r\n"
+                    + "where 1=1\r\n"
+                    + "and d.desglose_seleccionado is true \r\n"
+                    + "and c.credito_activo is true\r\n"
+                    + "and c.numero_radicacion = creditoPadre;\r\n"
+                    + "\r\n"
+                    + "-- consulta el descuento de la prima anticipada\r\n"
+                    + "select valor\r\n"
+                    + "into descuentoPrimaAnticipada\r\n"
+                    + "from parametro_configuracion\r\n"
+                    + "where nombre = 'PRIMA_SEGURO_PERIODOS_DESCONTAR'\r\n"
+                    + "order by id desc;\r\n"
+                    + "\r\n"
+                    + "-- consulta para obtener la fianza padre\r\n"
+                    + "select coalesce(round(d.valor_fianza),0) fianzaPadre\r\n"
+                    + "into fianzaPadre\r\n"
+                    + "from desglose d\r\n"
+                    + "where id_credito in (select  id from credito where numero_radicacion = creditoPadre)\r\n"
+                    + "and desglose_seleccionado is true\r\n"
+                    + "limit 1;\r\n"
+                    + "\r\n"
+                    + "-- consulta para obtener el id del credito y la pagaduría\r\n"
+                    + "select c.id, c.id_pagaduria into idCredito, idPagaduria from credito c where numero_radicacion = creditoPadre;\r\n"
+                    + "\r\n"
+                    + "-- consultar el saldo al dia\r\n"
+                    + "select round(saldo_al_dia) into saldoAlDia from saldo_al_dia sad where id_credito = idCredito;\r\n"
+                    + "\r\n"
+                    + "-- fehca desembolso crédito hijo\r\n"
+                    + "select coalesce(sian.fecha_desembolso, current_date), credito.estado\r\n"
+                    + "into fechaDesembolso, estadoCreditoHijo\r\n"
+                    + "from simulador_analista sian\r\n"
+                    + "inner join credito on(credito.id = sian.id_credito)\r\n"
+                    + "where id_credito in (select credito.id from credito where numero_radicacion = 79796)\r\n"
+                    + "order by credito.id desc limit 1;\r\n"
+                    + "\r\n"
+                    + "if (estadoCreditoHijo = 'LLAMADA_BIENVENIDA' or estadoCreditoHijo = 'PENDIENTE_DESEMBOLSO')\r\n"
+                    + "	then\r\n"
+                    + "		if (fechaDesembolso <= current_date)\r\n"
+                    + "		then\r\n"
+                    + "			fechaEstudioCredito = fechaDesembolso;\r\n"
+                    + "		else\r\n"
+                    + "			fechaEstudioCredito = current_date;\r\n"
+                    + "		end if;\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "raise notice 'fechaEstudioCredito %', fechaEstudioCredito;\r\n"
+                    + "\r\n"
+                    + "-- cunsulta para obtener el estudio del credito padre\r\n"
+                    + "select coalesce(round(obtener_valor_estudio_credito(fechaEstudioCredito, idCredito, idPagaduria, false)),0) estudioCreditoPadre into estudioCreditoPadre;\r\n"
+                    + "\r\n"
+                    + "-- consulta para obtener valores capitalizador\r\n"
+                    + "select round(estudio_credito), segunda_tasa, fianza, mes_cambio_tasa\r\n"
+                    + "into estudioCredito, tasaDos, tasaFianza, mesDos\r\n"
+                    + "from configuracion_capitalizacion_cxc ccc\r\n"
+                    + "where tasa_inicial = tasa;\r\n"
+                    + "\r\n"
+                    + "-- calcular periodo de gracia\r\n"
+                    + "if (plazo < descuentoPrimaAnticipada)\r\n"
+                    + "	then\r\n"
+                    + "		periodoGracia = Ceiling(diasHabilesIntereses / 30);\r\n"
+                    + "		descuentoPrimaAnticipada = periodoGracia + plazo;\r\n"
+                    + "\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "-- calcular prima credito padre\r\n"
+                    + "select round(valor) into primaPadre\r\n"
+                    + "from prima_seguro_anticipada psa\r\n"
+                    + "join desglose d2\r\n"
+                    + "on d2.id=psa.id_desglose\r\n"
+                    + "join credito c2\r\n"
+                    + "on c2.id = d2.id_credito\r\n"
+                    + "where d2.desglose_seleccionado is true\r\n"
+                    + "and c2.numero_radicacion = creditoPadre;\r\n"
+                    + "\r\n"
+                    + "-- consultar monto padre\r\n"
+                    + "select round(c2.monto_aprobado) into montoPadre\r\n"
+                    + "from prima_seguro_anticipada psa\r\n"
+                    + "join desglose d2\r\n"
+                    + "on d2.id=psa.id_desglose\r\n"
+                    + "join credito c2\r\n"
+                    + "on c2.id = d2.id_credito\r\n"
+                    + "where d2.desglose_seleccionado is true\r\n"
+                    + "and c2.numero_radicacion = creditoPadre;\r\n"
+                    + "\r\n"
+                    + "-- consultar meses activos padre\r\n"
+                    + "with ConteoPeriodos as (\r\n"
+                    + "select (count(fechas)+complemento-1) periodos\r\n"
+                    + "from (\r\n"
+                    + "select id_credito, generate_series(mes_contable, now(), cast('1 month' as interval) )fechas,\r\n"
+                    + "case when date_part('day', now()) < date_part('day', mes_contable) then 1 else 0 end complemento\r\n"
+                    + "from movimiento_contable as mc\r\n"
+                    + "where id_credito in(select c2.id from credito c2 where c2.numero_radicacion = creditoPadre)\r\n"
+                    + "and tipo_transaccion = 'ACTIVACION_CREDITO'\r\n"
+                    + ") x group by complemento, id_credito\r\n"
+                    + ")\r\n"
+                    + "select periodos into mesesActivosPadre from ConteoPeriodos;\r\n"
+                    + "\r\n"
+                    + "-- se realizan los calculos\r\n"
+                    + "\r\n"
+                    + "-- calcular prima anticipada de seguro\r\n"
+                    + "calculoPrimaAnticipadaSeguro = round((tasaXmillon / 1000000 * descuentoPrimaAnticipada) * monto);\r\n"
+                    + "\r\n"
+                    + "-- calcular cuota corriente\r\n"
+                    + "if(plazo < mesDos) then\r\n"
+                    + "  calculoCuotaCorriente = round(monto / ((power((1 + tasaUno), (plazo)) - 1) / (tasaUno * power((1 + tasaUno), (plazo)))));\r\n"
+                    + "else\r\n"
+                    + "  tasaDos = tasaDos / 100;\r\n"
+                    + "  calculoCuotaCorriente = round(monto\r\n"
+                    + "  / ((power((1 + tasaUno), (mesDos - 1)) - 1) / (tasaUno * power((1 + tasaUno), (mesDos - 1)))\r\n"
+                    + "  + ((power((1 + tasaDos), (plazo - (mesDos - 1))) - 1)\r\n"
+                    + "  / (tasaDos * power((1 + tasaDos), (plazo - (mesDos - 1)))))\r\n"
+                    + "  / (power((1 + tasaUno), (mesDos - 1)))));\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "-- calcular 4*1000\r\n"
+                    + "resultGmf41000 = round(sumaMontoCarteras * gmf41000);\r\n"
+                    + "\r\n"
+                    + "-- calcular prima no devengada\r\n"
+                    + "calculoPrimaNoDevengada = round(coalesce(primaPadre, 0) - ((coalesce(montoPadre, 0) * tasaXmillon) / variableMillon) * mesesActivosPadre);\r\n"
+                    + "\r\n"
+                    + "-- calcular prima neta\r\n"
+                    + "calculoPrimaNeta = round(calculoPrimaAnticipadaSeguro - calculoPrimaNoDevengada);\r\n"
+                    + "\r\n"
+                    + "-- calcular estudio de credito retanqueo hijo\r\n"
+                    + "calculoEstudioCreditoHijo = round(monto / (1 + (estudioCredito / 100) * iva + (tasaFianza / 100) * iva +\r\n"
+                    + "							(tasaXmillon / 1000000 * descuentoPrimaAnticipada)) * (estudioCredito / 100) * iva);\r\n"
+                    + "\r\n"
+                    + "-- calcular valor de la fianza\r\n"
+                    + "calculoValorFianza = round(monto * (tasaFianza / 100) * 1.19);\r\n"
+                    + "\r\n"
+                    + "-- result fianza\r\n"
+                    + "resultFianza = calculoValorFianza - fianzaPadre;\r\n"
+                    + "if (resultFianza < 0)\r\n"
+                    + "  then\r\n"
+                    + "  resultFianza = 0;\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "-- estudio de crédito\r\n"
+                    + "resultEstudioCredito = round(monto * (estudioCredito / 100) * iva) - estudioCreditoPadre;\r\n"
+                    + "if (resultEstudioCredito < 0)\r\n"
+                    + "  then\r\n"
+                    + "  resultEstudioCredito = 0;\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "-- calculo remanente estimado\r\n"
+                    + "calculoRemanenteEstimado = round(monto - (saldoAlDia + resultFianza + calculoPrimaNeta + resultEstudioCredito + sumaMontoCarteras + resultGmf41000));\r\n"
+                    + "\r\n"
+                    + "-- validaciones si es anticipado o mensualizado\r\n"
+                    + "if (tienePrimaPadre = '')\r\n"
+                    + "	then\r\n"
+                    + "		tipoCalculos = 'mensualizado';\r\n"
+                    + "	else\r\n"
+                    + "		tipoCalculos = 'anticipado';\r\n"
+                    + "end if;\r\n"
+                    + "\r\n"
+                    + "-- return values\r\n"
+                    + "return query\r\n"
+                    + "select tipoCalculos,\r\n"
+                    + "coalesce(calculoPrimaAnticipadaSeguro, 0),\r\n"
+                    + "coalesce(calculoCuotaCorriente, 0),\r\n"
+                    + "coalesce(resultGmf41000, 0),\r\n"
+                    + "coalesce(calculoPrimaNoDevengada, 0),\r\n"
+                    + "coalesce(calculoPrimaNeta, 0),\r\n"
+                    + "coalesce(calculoValorFianza, 0),\r\n"
+                    + "coalesce(fianzaPadre, 0),\r\n"
+                    + "coalesce(resultFianza, 0),\r\n"
+                    + "coalesce(resultEstudioCredito, 0),\r\n"
+                    + "coalesce(saldoAlDia, 0),\r\n"
+                    + "coalesce(calculoRemanenteEstimado, 0);\r\n"
+                    + "end;\r\n"
+                    + "\r\n"
+                    + "$function$\r\n"
+                    + ";");
         } catch (Exception e) {
             log.error(e.getMessage());
         }

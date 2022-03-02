@@ -304,11 +304,11 @@ public class OriginacionCreditoQuery {
                                                                     diashabilesintereses numeric,
                                                                     monto numeric,
                                                                     sumamontocarteras numeric)*/
-    public ResultSet consultarCalculosSimuladorRetanqueo(String Credito, String Tasa, String Plazo, String DiasHabilesIntereses, String Monto, String VlrCompraSaneamiento) {
+    public ResultSet consultarCalculosSimuladorRetanqueo(String Credito, String Tasa, String Plazo, String DiasHabilesIntereses, String Monto, String VlrCompraSaneamiento, String fecha) {
 
         ResultSet r = null;
         try {
-        	String sql = "select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");";
+        	String sql = "select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento +","+ agregarComillas(fecha)+");";
         	log.info(" ********** EJECUTANDO SQL ***********");
         	log.info(sql);
             r = dbconector.conexion(sql);

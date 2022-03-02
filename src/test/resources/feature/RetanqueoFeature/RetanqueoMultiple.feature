@@ -80,7 +80,7 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Tasa><VlrCompraSaneamiento>
+    Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fechaActual><Mes><Plazo><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
     Y ingrese a la pestana del plan de pagos
     Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
@@ -98,7 +98,7 @@ Característica: Retanqueo de creditos
     Cuando el agente ingresa a pestana analisis de credito busca con la cedula del cliente <Cedula><NombreCredito>
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
-    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple <AnnoAfetacion><Retanqueo><fecha><Mes><Plazo><Cartera1><Saneamiento2><Tasa>
+    Entonces Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple <AnnoAfetacion><Retanqueo><fechaActual><Mes><Plazo><Cartera1><Saneamiento2><Tasa>
     Y Guarda los datos del simulador
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
@@ -114,7 +114,7 @@ Característica: Retanqueo de creditos
     Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
     Y se validan los valores de las condiciones del credito Multiple <Cedula><Pagaduria><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     #Y validar las condiciones de la carta de notificacion de creditos <Cedula>
-    Y se marcan los chech y se acepta <TipoDesen> <Cedula>
+    Y se marcan los chech y se acepta <TipoDesen><Cedula>
 
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito      | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
