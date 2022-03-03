@@ -34,6 +34,7 @@ public class PagesClienteParaBienvenida {
     public By ListaCreditosRecoger;
     public By saldoAlDiaRetanqueo;
     public By ImputOTP;
+    public By AceptarCarteras;
 
     public PagesClienteParaBienvenida(WebDriver driver) {
         filtrocedula = By.id("form:listaClientesBienvenida:j_idt77:filter");
@@ -68,7 +69,8 @@ public class PagesClienteParaBienvenida {
                 "//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:0_clone') and contains (@value,'true')]");
         AceptarSaneamiento = By.xpath(
                 "//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:2_clone') and contains (@value,'true')]");
-
+        AceptarCarteras = By.xpath("//input[starts-with(@id,'formCondicionCredito:j_i') and contains (@id,'aceptaRadio:') and contains (@value,'true')  and not  (@disabled='disabled')]");
+        
         // valores validados condiciones del credito
         ValoresCondicionesCredito = By.xpath("//span[@class='form-control fecha-inline']");
         SaldoAlDia = By.xpath("/html/body/div[2]/div/div[2]/div/form/div[1]/div[2]/div[3]/div[2]/label");

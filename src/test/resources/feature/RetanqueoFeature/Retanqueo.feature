@@ -8,14 +8,14 @@ Característica: Retanqueo de creditos
   @Retanqueo
   Esquema del escenario: Retanqueo libre inversion
     Cuando El agente ingrese a la pestana retanqueo
-#    Y se filtra por <Cedula><Credito>
-#    Y se da clic a retanquear
+    Y se filtra por <Cedula><Credito>
+    Y se da clic a retanquear
     Y se busca el credito por <Cedula>
     Y se selecciona el retanqueo
-#    Y borrar archivos
-#    Y cargar archivos nuevos <rutaPDF>
-#    Y se solicita la consulta a centrales de riesgo
-#    Y marcar el credito viable
+    Y borrar archivos
+    Y cargar archivos nuevos <rutaPDF>
+    Y se solicita la consulta a centrales de riesgo
+    Y marcar el credito viable
     Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
     Y se validan los datos del simulador <Ingresos><descLey><descNomina><Tasa><Plazo><Credito><DiasHabilesIntereses><VlrCompraSaneamiento>
     Y se da clic en solicitar
@@ -30,7 +30,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @AnalisisCreditoRetanqueo
   Esquema del escenario: Analisis del credito
@@ -39,7 +39,7 @@ Característica: Retanqueo de creditos
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueos <AnnoAfetacion><Credito><Retanqueo><fecha><Mes><Plazo><Ingresos><descLey><descNomina><DiasHabilesIntereses><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
-    Y ingrese a la pestana del plan de pagos
+    #Y ingrese a la pestana del plan de pagos
     #Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>
     #Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
@@ -48,7 +48,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @ClientesBienvenidaRetanqueos
   Esquema del escenario: Clientes para Bienvenida
@@ -61,7 +61,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @CreditosVisacionRetanqueos
   Esquema del escenario: Creditos para Visacion
@@ -71,19 +71,19 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @DesembolsoRetanqueos
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
-    Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
+    Y se filtra por monto para retanqueo y se edita <Banco><rutaPDF><Cedula><Tasa><Credito><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento> 
     Y se valida el estado del credito padre <Credito><FechaRegistro>
 
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @ValidarDinamicasContablesRetanqueoHijo
   Esquema del escenario: Validar dinamicas contables Retanqueo Hijo
@@ -95,7 +95,7 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
 
   @ValidarDinamicasContablesRetanqueoPadre
   Esquema del escenario: Validar dinamicas contables Retanqueo Padre
@@ -107,4 +107,4 @@ Característica: Retanqueo de creditos
     Ejemplos: 
       | Retanqueo  | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito | Mes     | fecha        | AnnoAfetacion | Celular      | Correo                      | TipoDesen  | fechaActual  | Banco                                  | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                      | FechaRegistro | NumRadicado |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@Retanqueo
-   |"5000000"   |"13951080"   |"56530"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|
+   |"5000000"   |"13951080"   |"63275"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"30"   |"120"   |"6500000"   |"300000"   |"100000"   |"0"   |"2258"   |"HERNANDO"   |"Febrero"   |"05/05/1945"   |"2022"   |"3183903022"   |"aalvarez@excelcredit.co"   |"Efectivo"    |"07/02/2022"   |"Bancolombia Remanentes - 60237038927 - REMANENTE"   |"'RETANQ'"   |"upper('Retanqueo de créditos')"   |"'ACRED','EGRESO'"    |"upper('Desembolso egreso'), upper('Desembolso activación de crédito')"   |"07/02/2022"   |null|

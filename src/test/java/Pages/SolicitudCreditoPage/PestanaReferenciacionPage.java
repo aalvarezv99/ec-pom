@@ -49,6 +49,7 @@ public class PestanaReferenciacionPage {
     public By SeleccionarSaneamiento;
     public By listDescEntidad;
     public By labelTelefonos;
+    public By Aprobarsaneamiento;
 
     public PestanaReferenciacionPage(WebDriver driver) {
 
@@ -97,6 +98,7 @@ public class PestanaReferenciacionPage {
         CheckSI = By.xpath("//*[@value='true' and @data-itemindex='0']");
         GuardarReferencias = By.xpath("//a[text()='Guardar']");
         SolicitarAnalisis = By.id("formConsultas:analisis");
+        Aprobarsaneamiento = By.xpath("//a[text()='Aprobar']");
 
         //Compra cartera
         Aprobar = By.id("formConsultas:j_idt170:0:j_idt218");

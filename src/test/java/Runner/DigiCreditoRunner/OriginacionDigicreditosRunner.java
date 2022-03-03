@@ -17,7 +17,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/feature/DigiCredito/OriginacionCreditosDigiCredito.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@ClientesBienvenida"},
+		tags = {"@CreditosVisacion"},
 	    snippets = SnippetType.CAMELCASE
 		)
 
@@ -32,4 +32,4 @@ public class OriginacionDigicreditosRunner {
 
 }
 
-//tags = {"@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@Desembolso,@@ValidarDinamicasContablesOriginacion"},
+//tags = {"@SolicitudCredito,@AnalisisCredito,@ClientesBienvenida,@CreditosVisacion,@Desembolso,@ValidarDinamicasContablesOriginacion"},

@@ -308,8 +308,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 		   this.ClientesParaBienvenida(cedula);
       	   recorerpestanas("CONDICIONES DEL CRÉDITO");
       	   Refrescar();
-           hacerClick(pagesclienteparabienvenida.AceptarCartera);
-           hacerClick(pagesclienteparabienvenida.AceptarSaneamiento);     
+      	   clickvarioslist(pagesclienteparabienvenida.AceptarCarteras);    
            MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
            Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
            Thread.sleep(3000);          

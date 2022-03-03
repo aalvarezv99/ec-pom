@@ -29,10 +29,10 @@ public class PagesCreditosDesembolso {
 	
 	
 	public PagesCreditosDesembolso(WebDriver driver) {
-		filtrocedula = By.id("form:listaPagos:j_idt73:filter");
+		filtrocedula = By.xpath("//label[text()='Filter by C.C.']/following-sibling::input");
 		//CheckProcesarPagos = By.xpath("//div[@class='ui-chkbox-box ui-widget ui-corner-all ui-state-default']//child::span[@class='ui-chkbox-icon ui-icon ui-icon-blank ui-c']");
 		CheckProcesarPagos = By.xpath("//div[starts-with(@id,'form:listaPagos:') and starts-with(@class,'ui-chkbox ui-widget')]");
-		ProcesarPagos = By.id("form:j_idt59");
+		ProcesarPagos = By.id("form:btnProcesar");
 		FiltroMonto = By.id("form:listaLotes:j_idt68:filter");
 		VerEditar = By.xpath("//a[@class='ui-commandlink ui-widget icnotable iconoPuntos']");
 		Banco = By.id("formLote:j_idt89_label");

@@ -896,6 +896,9 @@ public class OriginacionCreditosAccion extends BaseTest {
         log.info("******************** OriginacionCreditosAccion - ReferenciacionSolicitarAnalisis()  ***************");
         try {
             recorerpestanas("REFERENCIACIÓN");
+            ElementVisible();
+            clickvarios(pestanareferenciacionpage.Aprobarsaneamiento);
+            ElementVisible();
             Hacer_scroll(pestanareferenciacionpage.SolicitarAnalisis);
             hacerClick(pestanareferenciacionpage.SolicitarAnalisis);
             ElementVisible();
@@ -999,7 +1002,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
 
         // consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1076,7 +1079,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         //Variables globales para posterior analisis Plan de Pagos - Originacion
         vg_MontoAprobado_Originacion = String.valueOf(calculosSimulador.getMontoSolicitar());
         vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos * 100);
-        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());
+        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());*/
     }
 
     public void GuardarSimulacionAnalista() throws InterruptedException {
