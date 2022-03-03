@@ -186,7 +186,7 @@ public class SolicitudCreditoSteps {
     }
 
 
-    @Y("se marcan los chech y se acepta {string} {string}")
+    @Y("se marcan los chech y se acepta {string}{string}")
     public void semarcanloschechyseacepta(String TipoDesen, String cedula) throws InterruptedException {
         originacionaccion.Aceptacondiconesdelcredito(TipoDesen, cedula);
     }
