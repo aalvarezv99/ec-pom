@@ -861,7 +861,7 @@ public class RetanqueoCreditos extends BaseTest {
         log.info("Remanente Estimado " + calculosSimulador.getRemanenteEstimado());  
               
         esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
-        EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(calculosSimulador.getRemanenteEstimado()));
+        EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(calculosSimulador.getRemanenteEstimado()-1));
         ElementVisible();
         Thread.sleep(2000);
         String pattern = "###,###,###.###";

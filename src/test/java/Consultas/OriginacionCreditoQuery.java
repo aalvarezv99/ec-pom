@@ -304,11 +304,11 @@ public class OriginacionCreditoQuery {
                                                                     diashabilesintereses numeric,
                                                                     monto numeric,
                                                                     sumamontocarteras numeric)*/
-    public ResultSet consultarCalculosSimuladorRetanqueo(String Credito, String Tasa, String Plazo, String DiasHabilesIntereses, String Monto, String VlrCompraSaneamiento) {
+    public ResultSet consultarCalculosSimuladorRetanqueo(String Credito, String Tasa, String Plazo, String DiasHabilesIntereses, String Monto, String VlrCompraSaneamiento, String fecha) {
 
         ResultSet r = null;
         try {
-        	String sql = "select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento + ");";
+        	String sql = "select	* from	calculos_simulador_retanqueo (" + Credito + "," + Tasa + "," + Plazo + "," + DiasHabilesIntereses + "," + Monto + "," + VlrCompraSaneamiento +","+ agregarComillas(fecha)+");";
         	log.info(" ********** EJECUTANDO SQL ***********");
         	log.info(sql);
             r = dbconector.conexion(sql);
@@ -398,11 +398,11 @@ public class OriginacionCreditoQuery {
      * 																v_diashabilesintereses numeric,
      * 																v_monto numeric,
      * 																v_sumamontocarteras numeric)*/
-    public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula, String pagaduria, String tasa, String plazo, String diasIntIniciales, int monto, String compraCarteraSuma) {
+    public ResultSet consultarCalculosSimuladorRetanqueoMultiple(String cedula, String pagaduria, String tasa, String plazo, String diasIntIniciales, int monto, String compraCarteraSuma, String fecha) {
         log.info("********************** Ejecutando Funcion Retanqueo Multiple - consultarCalculosSimuladorRetanqueoMultiple() **************");
         ResultSet r = null;
         try {
-            String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador(" + agregarComillas(cedula) + "," + agregarComillas(pagaduria) + "," + tasa + "," + plazo + "," + diasIntIniciales + "," + monto + "," + compraCarteraSuma + ");";
+            String sql = "select * from	autopruebas_retanqueo_multiple_cal_simulador(" + agregarComillas(cedula) + "," + agregarComillas(pagaduria) + "," + tasa + "," + plazo + "," + diasIntIniciales + "," + monto + "," + compraCarteraSuma + "," + agregarComillas(fecha) + ");";
             log.info(sql);
             r = dbconector.conexion(sql);
         } catch (Exception e) {
