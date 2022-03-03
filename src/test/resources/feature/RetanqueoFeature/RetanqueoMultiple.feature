@@ -135,7 +135,8 @@ Característica: Retanqueo de creditos
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
-    Y se filtra por monto para retanqueo y se edita <Retanqueo><Banco><rutaPDF>
+    Y se filtra por monto para retanqueo y se edita <Banco><rutaPDF><Cedula><Tasa><Credito><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento> 
+    Y se valida el estado del credito padre <Credito><FechaRegistro>
 
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito      | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |

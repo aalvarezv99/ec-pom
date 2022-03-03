@@ -430,6 +430,25 @@ public class OriginacionCreditoQuery {
         }
         return r;
     }
+    
+    public ResultSet consultarMontoSolicitar(String cedula){
+        ResultSet r = null;
+        try {
+            String sql = "select round(total_credito) from desglose\r\n"
+            		+ "where id_credito in (\r\n"
+            		+ "        select cr.id from credito cr\r\n"
+            		+ "        left join cliente c on(c.id = cr.id_cliente)\r\n"
+            		+ "        where c.identificacion = '"+cedula+"'\r\n"
+            		+ "        order by cr.id desc limit 1\r\n"
+            		+ ")\r\n"
+            		+ "and desglose_seleccionado is true;";
+            r = dbconector.conexion(sql);
+        } catch (Exception e) {
+            log.error("********ERROR EJECUTANDO consultarMontoSolicitar()********");
+            log.error(e.getMessage());
+        }
+        return r;
+    }
 }
 
 

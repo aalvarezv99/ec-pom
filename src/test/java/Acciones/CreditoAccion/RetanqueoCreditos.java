@@ -782,17 +782,30 @@ public class RetanqueoCreditos extends BaseTest {
 
     }
 
-    public void DescargarMediosdedispercionRetanqueo(String Monto, String Banco, String Pdf) throws InterruptedException {
+    public void DescargarMediosdedispercionRetanqueo(String Banco, String rutaPDF,String cedula,String tasa, String Credito, String Plazo, String DiasHabilesIntereses, String VlrCompraSaneamiento) throws InterruptedException, SQLException {
 
         panelnavegacionaccion.CreditoParaDesembolsoDescargar();
+        
+        OriginacionCreditoQuery query = new OriginacionCreditoQuery();        
+        String MontoSolicitar = "";
+        ResultSet resultado = query.consultarMontoSolicitar(cedula);
+        while (resultado.next()) {
+        	MontoSolicitar = resultado.getString(1);
+        }
+        
+        SimuladorDto calculosSimulador = new SimuladorDto();
+        
+        calculosSimulador = this.consultarCalculosSimuladorRetanqueo(Credito, tasa, Plazo, DiasHabilesIntereses, MontoSolicitar, VlrCompraSaneamiento,fechaActual);
+    
+        log.info("Remanente Estimado " + calculosSimulador.getRemanenteEstimado());  
+              
         esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
-        EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(Monto));
+        EscribirElemento(PagesCreditosDesembolso.FiltroMonto, String.valueOf(calculosSimulador.getRemanenteEstimado()-1));
         ElementVisible();
         Thread.sleep(2000);
-
         String pattern = "###,###,###.###";
-        double value = Double.parseDouble(Monto);
-
+        double value = Double.parseDouble(String.valueOf(calculosSimulador.getRemanenteEstimado()-1));     
+        
         DecimalFormat myFormatter = new DecimalFormat(pattern);
         myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
         String output = myFormatter.format(value);
@@ -802,7 +815,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(PagesCreditosDesembolso.Banco);
         hacerClick(By.xpath("//li[starts-with(@id,'formLote:j_idt89') and contains(text(),'" + Banco + "' )]"));
         ElementVisible();
-        cargarpdf(PagesCreditosDesembolso.CargarEvidencia, Pdf);
+        cargarpdf(PagesCreditosDesembolso.CargarEvidencia, rutaPDF);
         esperaExplicita(PagesCreditosDesembolso.VerEvidencias);
         ElementVisible();
         hacerClick(PagesCreditosDesembolso.CrearArchivo);
@@ -870,7 +883,7 @@ public class RetanqueoCreditos extends BaseTest {
         //DTO para almacenar consulta DB-SQL
         SimuladorDto calculosSimulador = new SimuladorDto();
 
-        calculosSimulador = this.consultarCalculosSimuladorRetanqueo(Credito, Tasa, Plazo, DiasHabilesIntereses, montoSolicitarPantalla, "0", fechaActual);
+        calculosSimulador = this.consultarCalculosSimuladorRetanqueo(Credito, Tasa, Plazo, DiasHabilesIntereses, montoSolicitarPantalla, ValoresCredito.get(7), fechaActual);
 
         // Valores para la funciones estaticos
         if (!ValidarElementoPresente(pagesclienteparabienvenida.ValorSaldoAlDia)) {

@@ -803,13 +803,19 @@ public class BaseTest {
 
     }
 
-    /********* INICIO FUNC AVANZADAS SELENIUM **************/
+    /********* INICIO FUNC AVANZADAS SELENIUM 
+     * @throws InterruptedException **************/
 
-    public void clickvarios(By locator) {
-        List<WebElement> clickvarios = driver.findElements(locator);
+    public void clickvarios(By locator) throws InterruptedException {
+        List<WebElement> clickvariosElement = driver.findElements(locator);
+        List<String> clickvarios = parseWebElementsToList(clickvariosElement);
+        
         for (int i = 0; i < clickvarios.size(); i++) {
-            clickvarios.get(i).click();
+        	Hacer_scroll_centrado(By.id(clickvarios.get(i))); 
+        	esperaExplicita(By.id(clickvarios.get(i)));                       
+            hacerClick(By.id(clickvarios.get(i)));
             ElementVisible();
+            hacerClicknotificacion();
             // driver.findElement(By.id(Input.get(i).getAttribute("id"))).click();
         }
     }
@@ -1823,5 +1829,15 @@ public class BaseTest {
                     false);
 		}
     	return token_notificacion_OTP;
+    }
+    
+    public void clickvarioslist(By locator) throws InterruptedException {
+        List<WebElement> clickvariosElement = driver.findElements(locator);
+        
+        for (int i = 0; i < clickvariosElement.size(); i++) {        	
+        	clickvariosElement.get(i).click();
+        	ElementVisible();        	
+         
+        }
     }
 }

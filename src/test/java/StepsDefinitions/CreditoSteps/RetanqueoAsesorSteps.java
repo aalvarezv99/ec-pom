@@ -117,9 +117,9 @@ public class RetanqueoAsesorSteps {
 	}
     
 	
-	@Y("se filtra por monto para retanqueo y se edita {string}{string}{string}")
-	public void sefiltrapormontopararetanqueoyseedita(String Retanqueo,String Banco, String rutaPDF) throws InterruptedException {
-		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Retanqueo,Banco,rutaPDF);
+	@Y("se filtra por monto para retanqueo y se edita {string}{string}{string}{string}{string}{string}{string}{string}")
+	public void sefiltrapormontopararetanqueoyseedita(String Banco, String rutaPDF,String cedula,String tasa, String Credito, String Plazo, String DiasHabilesIntereses, String VlrCompraSaneamiento) throws InterruptedException, SQLException {
+		retanqueocreditos.DescargarMediosdedispercionRetanqueo(Banco,rutaPDF,cedula,tasa,Credito,Plazo,DiasHabilesIntereses,VlrCompraSaneamiento); 
 	}
 	
 	@Y("se valida el estado del credito padre {string}{string}")
