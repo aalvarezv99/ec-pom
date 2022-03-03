@@ -22,25 +22,24 @@ Característica: Retanqueo de creditos
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se presiona en verificacion en la pestana digitalizacion
     Y se crean los tipos de cartera o saneamiento a recoger
-      | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/03/2022       | 21236         |
-      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/03/2022       | 21236         |
-      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 | 70000    | 30/03/2022       | 29123         |      
+      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                                         | 100000 |    70000 | 30/03/2022       |         21236 |
+      | Cartera     | 8600068225 - ACORE                                         | 100000 |    70000 | 30/03/2022       |         21236 |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/03/2022       |         29123 |
     Y se guarda cartera
     Y se pasa a la primera pestana de referenciacion para confirmar la entidad
-       | Tipo        | Entidad                                     | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
-      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/03/2022       | 21236         |
-      | Cartera     | 8600068225 - ACORE                          | 100000 | 70000    | 30/03/2022       | 21236         |
-      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 | 70000    | 30/03/2022       | 29123         |
+      | Tipo        | Entidad                                                    | Monto  | VlrCuota | FechaVencimiento | NumObligacion |
+      | Cartera     | 8600068225 - ACORE                                         | 100000 |    70000 | 30/03/2022       |         21236 |
+      | Cartera     | 8600068225 - ACORE                                         | 100000 |    70000 | 30/03/2022       |         21236 |
+      | Saneamiento | 8600382991 - PAN AMERICAN LIFE DE COLOMBIA COMPAÑIA DE SEG | 400000 |    70000 | 30/03/2022       |         29123 |
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences <codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @AnalisisCreditoRetanqueoCCS
   Esquema del escenario: Analisis del credito
@@ -56,10 +55,9 @@ Característica: Retanqueo de creditos
     Y Aprueba la tarea del credito<Cedula>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @ClientesBienvenidaRetanqueoCCS
   Esquema del escenario: Clientes para Bienvenida
@@ -70,10 +68,9 @@ Característica: Retanqueo de creditos
     Y se marcan los chech y se acepta carteras y saneamientos <TipoDesen><Cedula>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @CreditosVisacionRetanqueosCCS
   Esquema del escenario: Creditos para Visacion
@@ -81,10 +78,9 @@ Característica: Retanqueo de creditos
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @DesembolsoCarteraCCS
   Esquema del escenario: Carteras para Desembolso
@@ -94,10 +90,9 @@ Característica: Retanqueo de creditos
       | 200000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @VisacionSaneamientoCCS
   Esquema del escenario: Visacion de la cartera
@@ -105,10 +100,9 @@ Característica: Retanqueo de creditos
     Y se navega hasta carteras <rutaPDF>
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @DesembolsoSaneamientoCCS
   Esquema del escenario: Saneamiento para Desembolso
@@ -118,22 +112,22 @@ Característica: Retanqueo de creditos
       | 830000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
 
   @DesembolsoRetanqueosCCS
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
     Cuando el agente ingresa a la lista de pagos para procesar el remanente <Cedula>
-    Y se descarga medios de dispersion para el remanente
-      | Monto   | Cartera | Saneamiento | Banco                                | RutaPdf                               |
-      | 8000000 | 200000  | 830000      | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
+    Y se filtra por monto para retanqueo y se edita <Banco><rutaPDF><Cedula><Tasa><Credito><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
+    Y se valida el estado del credito padre <Credito><fechaActual>
+   # Y se descarga medios de dispersion para el remanente
+   #   | Monto   | Cartera | Saneamiento | Banco                                | RutaPdf                               |
+   #   | 8000000 |  200000 |      830000 | Remanentes - 60237038927 - REMANENTE | src/test/resources/Data/PDFPRUEBA.pdf |
 
     Ejemplos: 
-      | Retanqueo | Cedula     | Credito | rutaPDF                                 | Tasa  | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes         | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
+      | Retanqueo | Cedula    | Credito | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | codigo | VlrCompraSaneamiento | NombreCredito | Mes     | fecha        | AnnoAfetacion | Cartera1 | Saneamiento2 | Celular      | Correo                     | TipoDesen  | fechaActual  | Banco                                  |
       ##@externaldata@./src/test/resources/Data/AutomationDataRetanqueo.xlsx@RetanqueoCCS
-   |"6000000"   |"7412777"   |"72740"   |"src/test/resources/Data/PDFPRUEBA.pdf"   |"1.70"   |"120"   |"25"   |"6700000"   |"380000"   |"100000"   |"2258"   |"1000000"   |"EDUARDO"   |"Marzo"   |"14/06/1969"   |"2022"   |"200000"   |"400000"   |"3145363053"   |"dandresabogadog@mail.com"   |"Efectivo"   |"03/12/2021"   |"Remanentes - 60237038927 - REMANENTE"|
-  
+      | "6000000" | "7412777" | "72740" | "src/test/resources/Data/PDFPRUEBA.pdf" | "1.70" | "120" | "25"                 | "6700000" | "380000" | "100000"   | "2258" | "1000000"            | "EDUARDO"     | "Marzo" | "14/06/1969" | "2022"        | "200000" | "400000"     | "3145363053" | "dandresabogadog@mail.com" | "Efectivo" | "03/12/2021" | "Remanentes - 60237038927 - REMANENTE" |
