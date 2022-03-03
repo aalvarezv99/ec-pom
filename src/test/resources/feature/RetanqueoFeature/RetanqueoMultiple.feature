@@ -10,7 +10,7 @@ Característica: Retanqueo de creditos
     Cuando El agente ingrese a la pestana retanqueo
     Y se filtra por <Cedula> <Pagaduria> para retanqueo multiple
     Y se da clic a retanquear a todos los creditos
-#    Y se ingresa el monto a solicitar <Retanqueo>
+    Y se ingresa el monto a solicitar <Retanqueo>
 
     Ejemplos:
       | Cedula     | Retanqueo | Pagaduria          | Credito | Celular      | Correo                     | TipoDesen  | rutaPDF                                 | Tasa   | Plazo | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | VlrCompraSaneamiento | codigo | NombreCredito      | Mes       | fecha        | AnnoAfetacion | fechaActual  | Banco                                              | Cartera1 | Saneamiento2 | AccountingSourcePadre | AccountingNamePadre              | AccountingSourceHijo | AccountingNameHijo                                                        | NumRadicado | FechaRegistro |
@@ -21,10 +21,10 @@ Característica: Retanqueo de creditos
   Esquema del escenario: Solicitud Retanqueo Multiple
     Cuando se busca el credito por <Cedula>
     Y se selecciona el retanqueo
-#    Y borrar archivos
-#    Y cargar archivos nuevos <rutaPDF>
-#    Y se solicita la consulta a centrales de riesgo
-#    Y marcar el credito viable
+    Y borrar archivos
+    Y cargar archivos nuevos <rutaPDF>
+    Y se solicita la consulta a centrales de riesgo
+    Y marcar el credito viable
     Y ingresar al simulador interno y llenar los campos <Retanqueo><Tasa><Plazo><DiasHabilesIntereses><Ingresos><descLey><descNomina><VlrCompraSaneamiento>
     Y se validan los datos del simulador retanqueo multiple <Cedula><Pagaduria><Ingresos><descLey><descNomina><Tasa><Plazo><DiasHabilesIntereses><VlrCompraSaneamiento>
     Y se da clic en solicitar
