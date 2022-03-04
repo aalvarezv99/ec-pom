@@ -1,5 +1,10 @@
 package Consultas;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -141,31 +146,41 @@ public class ConexionBase {
 		return rs;
 	}
 	
-	public void ejecutorFunciones(String query) throws SQLException, ClassNotFoundException {
+	
+	/*ThainerPerez 04/Marzo/2022 V1.2 , 1.Se importa la libreria ScriptRunner
+	 * 									2. Se utiliza el archivo completo a ejecutar */
+	public void ejecutorFunciones(String pathFile) throws SQLException, ClassNotFoundException {
 		try {
-			if(instancia == null) {
+			if (instancia == null) {
 				instancia = leerPropiedades("instancia");
 				log.info("====================");
 				log.info("[ Base de Datos ] - " + instancia.toUpperCase());
 				log.info("====================");
-				dbUrl = leerPropiedades("jdbc-url")+instancia;
+				dbUrl = leerPropiedades("jdbc-url") + instancia;
 
 				username = leerPropiedades("username");
 
-				password = leerPropiedades("password");					
+				password = leerPropiedades("password");
 
 				Class.forName(leerPropiedades("driverClassName"));
-		
+
 			}
+
 			Connection con = DriverManager.getConnection(dbUrl, username, password);
-			
+			BufferedReader in = new BufferedReader(new FileReader(new File(pathFile).getAbsolutePath()));
+			String str;
+			StringBuffer sb = new StringBuffer();
+			while ((str = in.readLine()) != null) {
+				sb.append(str + "\n ");
+			}
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(query);
+			stmt.executeUpdate(sb.toString());
 			stmt.close();
-		
+
 		} catch (Exception e) {
-			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
+			log.error("********ERROR EJECUTANDO Y CREANDO LAS FUNCIONES*******");
 			log.error(e.getMessage());
+			assertTrue("********ERROR EJECUTANDO Y CREANDO LAS FUNCIONES*******", false);
 		}
 	}
 	

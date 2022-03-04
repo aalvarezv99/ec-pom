@@ -43,15 +43,7 @@ public class Driver {
 		baseTest = new BaseTest(driver);
 		
 	}
-	
-	/*
-	@Before
-	public void before(Scenario scenario) {
-		   this.scenario = scenario;
-		   System.out.println("como seria prueba de escenario "+scenario);
-	}*/
-	
-	
+
 	
 	@Before
 	public void iniciarDriver(Scenario scenario) throws MalformedURLException {			
