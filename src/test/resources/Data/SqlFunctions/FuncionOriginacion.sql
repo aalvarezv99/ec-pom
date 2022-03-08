@@ -1,17 +1,42 @@
-CREATE OR REPLACE FUNCTION public.calculos_automatizacion_pruebas(p_monto integer, p_xperiodoprima integer, p_tasainicial numeric, p_plazo numeric, p_diasiniciales numeric, p_vlrcompassaneamientos numeric, p_ingresos numeric, p_descley numeric, p_descnomina numeric, p_pagaduria text)
- RETURNS TABLE(r_monto_solicitar integer, r_cuota_corriente integer, r_estudio_credito_iva integer, r_fianza integer, r_gmf4100 integer, r_valor_intereses_iniciales integer, r_prima_anticipada_seguro integer, r_remanente_estimado integer, r_monto_max_desembolsar integer, r_capacidad_cliente integer)
+CREATE OR REPLACE FUNCTION public.calculos_automatizacion_pruebas(p_monto integer,
+p_xperiodoprima integer,
+p_tasainicial NUMERIC,
+p_plazo NUMERIC,
+p_diasiniciales NUMERIC,
+p_vlrcompassaneamientos NUMERIC,
+p_ingresos NUMERIC,
+p_descley NUMERIC,
+p_descnomina NUMERIC,
+p_pagaduria text)
+ RETURNS TABLE(
+r_monto_solicitar integer,
+r_cuota_corriente integer,
+r_estudio_credito_iva integer,
+r_fianza integer,
+r_gmf4100 integer,
+r_valor_intereses_iniciales integer,
+r_prima_anticipada_seguro integer,
+r_remanente_estimado integer,
+r_monto_max_desembolsar integer,
+r_capacidad_cliente integer
+--v_monto_solicitar_pantalla NUMERIC
+)
  LANGUAGE plpgsql
 AS $function$
 
 declare
 -- ============================================================================
 -- Autor: Equipo automatizacion Pruebas.
--- Fecha: 08/Nov/2021 Version 1.0 ThainerPerez - Jonathan Varon
+-- Fecha: 09/Ene/2022 Version 1.2 Jonathan Varon - ThainerPerez
 -- Se crea la funcion que retorna los calculos de originacion para los simuladores
+-- Se Elimino el valor de colchon para el calculo de capacidad cliente
 -- ============================================================================
 
 
 /*VARIABLES GLOBALES PARA LOS PARAMETROS*/
+
+v_monto_solicitar_pantalla numeric;
+
 v_tasa_estudio_credito numeric;
 
 v_tasa_fianza numeric;
@@ -79,13 +104,20 @@ where
 	and pa.nombre = 'colchon';
 
 /**********************************CALCULOS DE CONCEPTOS PARA SIMULADORES********************************************/
-   
-	/*Calcular monto solicitado -  originacion*/
-r_monto_solicitar := p_monto + (p_monto * v_tasaXmillonSeguro / v_valor_millon * p_xperiodoPrima)
-                + (p_monto * (v_tasa_estudio_credito / 100) * v_iva) + (p_monto * (v_tasa_fianza / 100) * v_iva);
 
-raise notice 'Monto solicitar %',
-(r_monto_solicitar);
+-- ============================================================================
+-- Autor: Equipo automatizacion Pruebas.
+-- Fecha: 07/Enero/2022 Version 1.2 Jonathan Varon
+-- Se crea la funcion que retorna los calculos de originacion para los simuladores con el nuevo Calculo
+-- ============================================================================
+
+	/*Calcular monto solicitado -  originacion*/
+/*r_monto_solicitar := p_monto + (p_monto * v_tasaXmillonSeguro / v_valor_millon * p_xperiodoPrima)
+                + (p_monto * (v_tasa_estudio_credito / 100) * v_iva) + (p_monto * (v_tasa_fianza / 100) * v_iva);
+*/
+r_monto_solicitar := p_monto;
+raise notice 'Monto solicitar %', (r_monto_solicitar);
+
 
 	/*Calcular cuota corriente -  originacion*/
    if(p_plazo < v_vlr_mes_dos) then
@@ -97,12 +129,7 @@ else
                     + ((power((1 + v_tasa_dos), (p_plazo - (v_vlr_mes_dos - 1))) - 1)
                     / (v_tasa_dos * power((1 + v_tasa_dos), (p_plazo - (v_vlr_mes_dos - 1)))))
                     / (power((1 + v_tasa_uno), (v_vlr_mes_dos - 1)))));
-                   
-   /*raise notice '>>>> valor credito %', (r_monto_solicitar);
-  raise notice '>>>> valor tasaUno  %', (v_tasa_uno);
- raise notice '>>>> valor mesDos  %', (v_vlr_mes_dos);
- raise notice '>>>> valor tazaDos  %', (v_tasa_dos);
-raise notice '>>>> valor plazo  %', (p_plazo);*/
+    
 end if;
 
 raise notice 'Cuota Corriente %', (r_cuota_corriente);
@@ -126,14 +153,12 @@ raise notice 'Valor GMF4100 %', (r_gmf4100);
 	/*Calular Valor Intereses Iniciales -  originacion*/
 r_valor_intereses_iniciales := ((r_monto_solicitar * p_tasaInicial) / 100) * (p_diasIniciales / v_diasMes);
 
-raise notice 'Valor Intereses Iniciales %',
-(r_valor_intereses_iniciales);
+raise notice 'Valor Intereses Iniciales %',(r_valor_intereses_iniciales);
 
 	/*Calcular Prima Anticipada Seguro -  originacion*/
 r_prima_anticipada_seguro := ((p_monto / v_valor_millon)*(v_tasaXmillonSeguro * p_xperiodoPrima));
 
-raise notice 'PrimaSeguro %',
-(r_prima_anticipada_seguro);
+raise notice 'PrimaSeguro %',(r_prima_anticipada_seguro);
 
 	/*Calcular Remanente Estimado -  originacion*/
 
@@ -141,9 +166,24 @@ r_remanente_estimado := r_monto_solicitar - (p_vlrCompasSaneamientos + r_gmf4100
 
 raise notice 'Remanente Estimado %', (r_remanente_estimado);
 
+	/* Calcular Valor Pantalla  - Monto del credito*/
+
+v_monto_solicitar_pantalla := round (r_remanente_estimado/((1-(((v_tasaXmillonSeguro/1000)/1000000)*1000)*p_xperiodoprima)-((v_tasa_fianza/100)*1.19)-((v_tasa_estudio_credito/100)*1.19)));
+raise notice 'Valor Monto Pantalla %', (v_monto_solicitar_pantalla);
+
+	/* Validacion Comparacion monto catulado y monto pantalla */
+if (v_monto_solicitar_pantalla = p_monto) then
+	r_monto_solicitar := v_monto_solicitar_pantalla;
+
+	raise notice 'PASS - Validacion Comparacion monto catulado y monto pantalla %', (r_monto_solicitar);
+else 
+	raise notice 'FAILED - Validacion Comparacion monto catulado y monto pantalla %', (r_monto_solicitar);
+end if;
+
 	/*Calcular Monto Maximo a Desembolsar -  originacion*/
 
 v_capacidad := ((p_ingresos - p_descLey) / 2) - p_descNomina - v_colchon;
+raise notice 'Colchon Cliente %', (v_colchon);
 raise notice 'Capacidad Cliente %', (v_capacidad);
 
 r_capacidad_cliente := v_capacidad;
@@ -172,6 +212,7 @@ coalesce (r_prima_anticipada_seguro,0),
 coalesce (r_remanente_estimado,0),
 coalesce (r_monto_max_desembolsar,0),
 coalesce (r_capacidad_cliente,0);
+--coalesce (v_monto_solicitar_pantalla,0);
 end;
 
 $function$

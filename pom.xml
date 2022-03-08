@@ -213,7 +213,7 @@
                     </systemProperties>
 					<includes>
 <!-- 						<include>**/*Runner.java</include> -->
-					<include>**/CertificacionSaldosRunner.java</include>
+<!-- 					<include>**/CertificacionSaldosRunner.java</include> -->
 					<include>**/OriginacionCreditosRunner.java</include>
 					</includes>
 					<!-- <testFailureIgnore>true</testFailureIgnore> -->
