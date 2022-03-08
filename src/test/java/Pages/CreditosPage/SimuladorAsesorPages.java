@@ -130,7 +130,7 @@ public class SimuladorAsesorPages {
         RemanenteEstimado = By.id("formSimuladorCredito:remanente_hinput");
         CuotaCorriente = By.id("formSimuladorCredito:cuota_hinput");
         edad = By.id("formSimuladorCredito:edad_hinput");
-        MontoMaximoSugerido = By.id("formSimuladorCredito:montoMax_hinput");
+        MontoMaximoSugerido = By.id("formSimuladorCredito:montoMaxDesem_hinput");
         CapacidadAproximada = By.id("formSimuladorCredito:capacidad_hinput");
 
         //FormCliente

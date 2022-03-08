@@ -286,6 +286,9 @@ public class OriginacionCreditoQuery {
         String Pagaduria = "'" + pagaduria + "'";
         ResultSet r = null;
         try {
+        	log.info("select * from public.calculos_automatizacion_pruebas (" + Monto + "," + DesPrimaAntic + "," + Tasa +
+                    "," + Plazo + "," + DiasHabilesIntereses + "," + vlrCompasSaneamientos + "," + Ingresos + "," + descLey +
+                    "," + descNomina + "," + Pagaduria + ");");
             r = dbconector.conexion("select * from public.calculos_automatizacion_pruebas (" + Monto + "," + DesPrimaAntic + "," + Tasa +
                     "," + Plazo + "," + DiasHabilesIntereses + "," + vlrCompasSaneamientos + "," + Ingresos + "," + descLey +
                     "," + descNomina + "," + Pagaduria + ");");

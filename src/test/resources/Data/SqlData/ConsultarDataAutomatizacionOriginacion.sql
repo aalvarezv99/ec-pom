@@ -4,7 +4,7 @@ select	a.com||p.nombre || a.com pagaduria, a.com || c.identificacion || a.com Ce
 		a.com || '${Ingresos}' || a.com Ingresos,a.com || '${DesLey}' || a.com DesLey, a.com || '${DesNomina}' || a.com DesNomina, a.com || '${MesDesembolso}' || a.com MesDesembolso,
 		a.com || '${FechaDesembolso}' || a.com FechaDesembolso, a.com||c.primer_nombre || ' ' || c.segundo_nombre || a.com nombreCredito, a.com||c.primer_nombre || a.com Pnombre,
 		a.com||c.segundo_nombre || a.com Snombre, a.com||c.primer_apellido || a.com Papellido, a.com||c.segundo_apellido || a.com Sapellido, a.com||to_char(current_date,'DD/MM/YYYY') || a.com fechaActual,
-		a.com||'Cartageta' || a.com Oficina,a.com||'Pensionado' || a.com Actividad, a.com || '${VlrCompras}' || a.com VlrCompras,
+		a.com||'Cartageta' || a.com Oficina,a.com||'Pensionado' || a.com Actividad, a.com||'200000' || a.com TotalActivos, a.com || '${VlrCompras}' || a.com VlrCompras,
 		a.com||'xx' || a.com tipo, a.com||'360000' || a.com colcon, a.com|| 'Pensionado por Tiempo (Vejez)' || a.com Tipocontrato, a.com||'05/01/2000' || a.com fechaIngreso,
 		a.com||'prueba321@gmail.com' || a.com correo, a.com||'3125127718' || a.com celular, a.com||'Cundinamarca' || a.com Dpto, a.com||'Anapoima' || a.com Ciudad, a.com||'src/test/resources/Data/PDFPRUEBA.pdf' || a.com rutaPDF,
 		a.com||'2021-04-20' || a.com fechaServidor, a.com||'Educación propia'|| a.com DestinoCredito, a.com||'${sexo}' || a.com sexo, a.com||'Soltero' || a.com EstadoCivil,

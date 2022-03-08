@@ -157,7 +157,7 @@ public class BaseTest {
         selectByVisibleText(contMes, mes);
 
         WebElement contDia = driver.findElement(conteDia);
-        List<WebElement> listDia = contDia.findElements(ListeDia);
+        List<WebElement> listDia = contDia.findElements(ListeDia);        
         for (WebElement contenido : listDia) {
             if (contenido.getText().contains(Integer.toString(dia))) {
                 contenido.click();
@@ -191,6 +191,7 @@ public class BaseTest {
     }
 
     public void recorerpestanas(String Dato) {
+    	log.info("****Ingreso a la pestama****** " + Dato);
         By locator = By.xpath("//a[text()='" + Dato + "']");
         while (assertEstaPresenteElemento(locator) == false) {
             hacerClick(pestanaSeguridadPage.Siguiente);
