@@ -347,6 +347,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 			ElementVisible();
 			marcarCheckMultiple(pagescreditosdesembolso.CheckProcesarPagos);
 			hacerClick(pagescreditosdesembolso.ProcesarPagos);
+			hacerClickVariasNotificaciones();
 		} catch (Exception e) {
 			log.error("########## Error - OriginacionCreditosAccion  - ProcesarCartera() #######" + e);
  			assertTrue("########## Error - OriginacionCreditosAccion - ProcesarCartera()########"+ e,false);
