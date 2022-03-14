@@ -119,15 +119,10 @@ public class OriginacionCreditosAccion extends BaseTest {
                                        String descNomina, String vlrCompasSaneamientos, String colchon)
             throws InterruptedException, NumberFormatException, SQLException {
         log.info("*********************OriginacionCreditosAccion - llenarFormularioAsesor() *************");
-        try {
-
-            assertEstaPresenteElemento(simuladorasesorpage.desPagaduria);
-            hacerClick(simuladorasesorpage.desPagaduria);
-            // driver.findElement(simuladorasesorpage.desPagaduria).click();
-            selectValorLista(simuladorasesorpage.contPagaduria, simuladorasesorpage.listPagaduria, Pagaduria);
-        } catch (Exception e) {
-            log.error("##### -ERROR- #####" + e);
-        }
+        assertEstaPresenteElemento(simuladorasesorpage.desPagaduria);
+        hacerClick(simuladorasesorpage.desPagaduria);
+        // driver.findElement(simuladorasesorpage.desPagaduria).click();
+        selectValorLista(simuladorasesorpage.contPagaduria, simuladorasesorpage.listPagaduria, Pagaduria);
         ElementVisible();
         assertTextoelemento(simuladorasesorpage.desPagaduria, Pagaduria);
         hacerClick(simuladorasesorpage.inputIdentificacion);
@@ -228,7 +223,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         SimuladorDto calculosSimulador = new SimuladorDto();
 
-        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+        calculosSimulador = this.consultarCalculosSimulador(TextoElemento(simuladorasesorpage.ResultMontoSoli), DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
                 Ingresos, descLey, descNomina, pagaduria);
 
         int edad = (int) edad(Fecha);
@@ -446,7 +441,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         }
         SimuladorDto calculosSimulador = new SimuladorDto();
 
-        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+        calculosSimulador = this.consultarCalculosSimulador(TextoElemento(pestanasimuladorinternopage.ResultMontoSoli), DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
                 Ingresos, descLey, descNomina, pagaduria);
 
         int edad = (int) edad(Fecha);
@@ -479,6 +474,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         ElementVisible();
         hacerClicknotificacion();
         if (!EncontrarElementoVisibleCss(pestanasimuladorinternopage.ModalExcepciones)) {
+        	log.info("**** Se ingresa Aprobar la Exepcion *******");
             this.AprobarExcepciones(rutaPdf, this.Cedula);
             this.ingresarSolicitudCredito(this.Cedula, this.NombreCredito);
         }
@@ -822,7 +818,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
     public void ReferenciaspositivasDigiCredito(String codigo) throws InterruptedException {
         log.info(
-                "******************** OriginacionCreditosAccion referencias Positivas - Referenciaspositivas()  ***************");
+                "******************** OriginacionCreditosAccion referencias Positivas - ReferenciaspositivasDigicredito()  ***************");
         try {
             recorerpestanas("REFERENCIACIÓN");
             hacerClick(pestanareferenciacionpage.SalarioCheck);
@@ -868,8 +864,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion  - Referenciaspositivas() #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - Referenciaspositivas()########" + e, false);
+            log.error("########## Error - OriginacionCreditosAccion  - ReferenciaspositivasDigicredito() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - ReferenciaspositivasDigicredito()########" + e, false);
         }
 
     }
@@ -1623,6 +1619,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         hacerClick(pestanasimuladorinternopage.SolicitarAprobacion);
         esperaExplicita(pestanasimuladorinternopage.Notificacion);
         String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
+        adjuntarCaptura("AprobarExepcion");
         if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
             hacerClicknotificacion();
             panelnavegacionaccion.navegarTareas();
@@ -1631,6 +1628,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             EscribirElemento(pagestareas.filtroTarea, "Revisar Aprobación excepción");
             ElementVisible();
+            adjuntarCaptura("AprobarExepcionTareas");
             hacerClick(pagestareas.EditarVer);
             ElementVisible();
             esperaExplicita(pagestareas.Aprobar);
@@ -1641,6 +1639,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(pagestareas.Guardar);
             Hacer_scroll(pagestareas.Guardar);
             hacerClick(pagestareas.Guardar);
+            adjuntarCaptura("GuardarExepcion");
             hacerClicknotificacion();
         } else {
             assertTrue("#### Error Aprobar excepcion por Perfil " + notificacion, false);
