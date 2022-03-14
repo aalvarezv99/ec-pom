@@ -490,7 +490,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
 
         // consulta base de datos calculo de prima true o false
         String prima = "";
@@ -612,7 +612,7 @@ public class RetanqueoCreditos extends BaseTest {
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-
+*/
 
     }
 
