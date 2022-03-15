@@ -812,8 +812,8 @@ public class BaseTest {
         List<String> clickvarios = parseWebElementsToList(clickvariosElement);
         
         for (int i = 0; i < clickvarios.size(); i++) {
-        	Hacer_scroll_centrado(By.id(clickvarios.get(i))); 
-        	esperaExplicita(By.id(clickvarios.get(i)));                       
+        	Hacer_scroll_centrado(By.id(clickvarios.get(i)));  
+        	//esperaExplicita(By.id(clickvarios.get(i)));                       
             hacerClick(By.id(clickvarios.get(i)));
             ElementVisible();
             hacerClicknotificacion();
