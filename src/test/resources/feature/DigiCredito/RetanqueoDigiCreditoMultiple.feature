@@ -83,7 +83,7 @@ Característica: Retanqueo de creditos
   @RetanqueoMultipleDigicreditoCCS
   Esquema del escenario: Retanqueo Compra de cartera y saneamiento Digicredito con compras de carteras
     Cuando el agente ingrese a la pestana solicitud filtra por el numero de radicacion del credito <NumRadicacion><primerNombre>
-    #Y cargar archivos nuevos <rutaPDF>
+    Y cargar archivos nuevos <rutaPDF>
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se presiona en verificacion en la pestana digitalizacion
