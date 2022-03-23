@@ -1,4 +1,5 @@
 #language: es
+#Feature diseñado para los casos de pruebas que vienen de Digicredito con retanqueo multiple con o sin compra de cartera
 Característica: Retanqueo de creditos
 
   Antecedentes: 
