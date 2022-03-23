@@ -81,6 +81,7 @@ Característica: Retanqueo de creditos
     Y ingresa los valores guardando <Ingresos><descLey><descNomina>
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fechaActual><Mes><Plazo><Tasa><VlrCompraSaneamiento>
+    Entonces Valida los valores del simulador retanqueo multiple <Cedula><Pagaduria><DiasHabilesIntereses><AnnoAfetacion><Retanqueo><fechaActual><Mes><Plazo><Tasa><VlrCompraSaneamiento>
     Y Guarda los datos del simulador
     Y ingrese a la pestana del plan de pagos
     Y valide la informacion cabecera con sus conceptos para Retanqueo<Tasa><Plazo>

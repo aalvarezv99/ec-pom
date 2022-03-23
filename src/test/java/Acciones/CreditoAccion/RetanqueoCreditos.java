@@ -479,6 +479,7 @@ public class RetanqueoCreditos extends BaseTest {
         Clear(pestanasimuladorinternopage.FechaDesembolso);
         EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);
         EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+        esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
         hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
         ElementVisible();
         selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
@@ -490,7 +491,7 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 
         // consulta base de datos calculo de prima true o false
         String prima = "";
@@ -577,9 +578,8 @@ public class RetanqueoCreditos extends BaseTest {
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.valorFianzaPadreAna)), calculosSimulador.getFianzaPadre());
             ToleranciaPesoMensaje("######  SIM ANALISTA RETANQUEO - CALCULANDO Comparacion Fianza",
                     Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), calculosSimulador.getFianzaNeta());
-
-            //ToleranciaPesoMensaje("######  SIM ASESOR RETANQUEO - CALCULANDO Valor Desembolsar ",
-            //		Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),calculosSimulador.getRemanenteEstimado());
+            ToleranciaPesoMensaje("######  SIM ASESOR RETANQUEO - CALCULANDO Valor Desembolsar ",
+            		Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),calculosSimulador.getRemanenteEstimado());
 
 
             //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - IF
@@ -612,7 +612,6 @@ public class RetanqueoCreditos extends BaseTest {
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
         vg_SegundaTasaInteres_Retanqueo = String.valueOf(tasaDos * 100);
-*/
 
     }
 
