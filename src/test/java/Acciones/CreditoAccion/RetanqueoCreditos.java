@@ -730,7 +730,7 @@ public class RetanqueoCreditos extends BaseTest {
         log.info("Estudio Credito" + calculosSimulador.getEstudioCredito());
         //log.info("Saldo al Dia" + calculosSimulador.getSaldoAlDia());
         //log.info("Remanente Estimado" + calculosSimulador.getRemanenteEstimado());
-
+        /*
         if (prima == "") {
             log.info("----------------- MENSUALIZADO -----------------------");
 
@@ -774,7 +774,7 @@ public class RetanqueoCreditos extends BaseTest {
             vg_PrimaNoDevengadaSeguro_Retanqueo = String.valueOf(calculosSimulador.getPrimaNoDevengada());
 
 
-        }
+        }*/
 
         //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos
         vg_MontoAprobado_Retanqueo = String.valueOf(calculoSoliPantalla);
