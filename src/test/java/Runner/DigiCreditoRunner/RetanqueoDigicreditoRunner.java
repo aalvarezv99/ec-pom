@@ -16,7 +16,7 @@ import cucumber.api.SnippetType;
 // @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/feature/DigiCredito/RetanqueoDigiCredito.feature",
                  glue = "StepsDefinitions",
-                 tags = {"@DesembolsoCarteraCCS" },
+                 tags = {"@AnalisisCreditoRetanqueoCCS" },
                  snippets = SnippetType.CAMELCASE)
 
 @RunWith(RunnerPersonalizado.class)
