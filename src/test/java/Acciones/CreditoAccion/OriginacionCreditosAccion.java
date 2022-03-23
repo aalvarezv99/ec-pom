@@ -998,14 +998,15 @@ public class OriginacionCreditosAccion extends BaseTest {
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
         hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
 
-        // consulta base de datos
+        //consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
         ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
         while (resultado.next()) {
             DesPrimaAntic = Integer.parseInt(resultado.getString(1));
         }
+        
         log.info("******** Valor de prima **** " + DesPrimaAntic);
         String DiasHabilesIntereses = TextoElemento(pestanasimuladorinternopage.DiasInteresesIniciales);
         if (Integer.parseInt(Plazo) < DesPrimaAntic) {
@@ -1075,7 +1076,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         //Variables globales para posterior analisis Plan de Pagos - Originacion
         vg_MontoAprobado_Originacion = String.valueOf(calculosSimulador.getMontoSolicitar());
         vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos * 100);
-        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());*/
+        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());
     }
 
     public void GuardarSimulacionAnalista() throws InterruptedException {
