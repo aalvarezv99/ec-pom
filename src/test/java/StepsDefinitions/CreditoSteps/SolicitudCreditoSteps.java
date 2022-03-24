@@ -181,7 +181,7 @@ public class SolicitudCreditoSteps {
     }
 //#Ingresos, descLey, descNomina, pagaduria);
     @Y("se validan los valores de las condiciones del credito {string}{string}{string}{string}")
-    public void sevalidanlosvaloresdelascondicionesdelcredito(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException {
+    public void sevalidanlosvaloresdelascondicionesdelcredito(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
         originacionaccion.ValidarValoresLlamadoBienvenida(ingresos, descLey, descNomina, pagaduria);
     }
 

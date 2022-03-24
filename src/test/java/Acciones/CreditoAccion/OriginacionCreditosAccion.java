@@ -373,6 +373,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             esperaExplicitaTexto(NombreCredito);
             ElementVisible();
+            adjuntarCaptura("Filtra el registro en solicitud de credito");
             esperaExplicita(creditocolicitudpage.selectVerEditar);
             hacerClick(creditocolicitudpage.selectVerEditar);
             ElementVisible();
@@ -411,6 +412,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClick(pestanaSeguridadPage.Viable);
             RepetirConsultaCentrales(pestanaSeguridadPage.BotonGuardar, pestanaSeguridadPage.Concepto);
             Hacer_scroll(pestanaSeguridadPage.Concepto);
+            adjuntarCaptura("Capture después de marcar el credito como viable");
             esperaExplicitaSeguridad(pestanaSeguridadPage.BtnCheck, Cedula);
             recorerpestanas("SIMULADOR");
         } catch (Exception e) {
@@ -928,6 +930,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ClicUltimoElemento(pestanasimuladorinternopage.listVerEditar);
             ElementVisible();
             esperaExplicita(pestanasimuladorinternopage.inputMesada);
+            adjuntarCaptura("filtar usuario en grilla para analisis de credito");
         } catch (Exception e) {
             log.error("########## Error - OriginacionCreditosAccion  - ingresarAnalisisCredito() #######" + e);
             assertTrue("########## Error - OriginacionCreditosAccion - ingresarAnalisisCredito()########" + e, false);
@@ -948,6 +951,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             Hacer_scroll(pestanasimuladorinternopage.Guardar);
             Clear(pestanasimuladorinternopage.DescuentoAfiliaciones);
             EscribirElemento(pestanasimuladorinternopage.DescuentoAfiliaciones, descNomina);
+            adjuntarCaptura("campos ingresos, descuentos de ley y de nómina diligenciados");
             ElementVisible();
             Hacer_scroll(pestanasimuladorinternopage.Guardar);
             hacerClick(pestanasimuladorinternopage.Guardar);
@@ -997,8 +1001,14 @@ public class OriginacionCreditosAccion extends BaseTest {
         ElementVisible();
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
         ElementVisible();
-        hacerClicknotificacion();
-        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);/*
+        // hacerClicknotificacion();
+        hacerClickVariasNotificaciones();
+        esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+        adjuntarCaptura("simulador analista, captura de campos");
+        Hacer_scroll(pestanasimuladorinternopage.ValorCuota);
+        adjuntarCaptura("simulador analista, captura de campos");
+        Hacer_scroll(pestanasimuladorinternopage.IngresosAsesor);
+        adjuntarCaptura("simulador analista, captura de campos");
 
         // consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1029,10 +1039,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             mesDos = resultado.getInt(5);
         }
 
-
-        SimuladorDto calculosSimulador = new SimuladorDto();
-
-        calculosSimulador = this.consultarCalculosSimulador(Monto, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
+        String calculoSoliPantalla = TextoElemento(pestanasimuladorinternopage.CapitalTotal);
+        SimuladorDto calculosSimulador = this.consultarCalculosSimulador(calculoSoliPantalla, DesPrimaAntic, Tasa, Plazo, DiasHabilesIntereses, vlrCompasSaneamientos,
                 Ingresos, descLey, descNomina, pagaduria);
 
 
@@ -1075,7 +1083,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         //Variables globales para posterior analisis Plan de Pagos - Originacion
         vg_MontoAprobado_Originacion = String.valueOf(calculosSimulador.getMontoSolicitar());
         vg_SegundaTasaInteres_Originacion = String.valueOf(tasaDos * 100);
-        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());*/
+        vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());
     }
 
     public void GuardarSimulacionAnalista() throws InterruptedException {
@@ -1219,6 +1227,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(pagestareas.filtroDescipcion);
             EscribirElemento(pagestareas.filtroDescipcion, Cedula);
             ElementVisible();
+            adjuntarCaptura("Filtro de tarea antes de aprobar");
             hacerClick(pagestareas.EditarVer);
             ElementVisible();
             Hacer_scroll(pagestareas.Aprobar);
@@ -1249,6 +1258,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             EscribirElemento(pagesclienteparabienvenida.filtrocedula, Cedula);
             ElementVisible();
             esperaExplicita(By.xpath("//td[text()='" + Cedula + "']"));
+            adjuntarCaptura("Filtra la cédula en clientes para bienvenida");
             hacerClick(pagesclienteparabienvenida.Continuar);
             ElementVisible();
         } catch (Exception e) {
@@ -1257,12 +1267,15 @@ public class OriginacionCreditosAccion extends BaseTest {
         }
     }
 
-    public void ValidarValoresLlamadoBienvenida(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException {
+    public void ValidarValoresLlamadoBienvenida(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
         recorerpestanas("CONDICIONES DEL CRÉDITO");
 
         ResultSet resultado;
 
         ValoresCredito = RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
+
+        adjuntarCaptura("Campos condiciones del crédito");
+        this.capturesValoresCondicionesCredito(pagesclienteparabienvenida.CheckCondicionesCredito);
 
         // consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
@@ -1280,14 +1293,12 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         log.info("******** Valor de prima **** " + DesPrimaAntic);
 
-        SimuladorDto calculosSimulador = new SimuladorDto();
-
         /*
          * Parametros del metodo
          * (String Monto, int DesPrimaAntic, String Tasa, String Plazo,
               String DiasHabilesIntereses, String vlrCompasSaneamientos, String Ingresos, String descLey,
               String descNomina, String pagaduriat)*/
-        calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(12),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
+        SimuladorDto calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(0),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
                 ValoresCredito.get(6),ValoresCredito.get(7),
                 ingresos, descLey, descNomina, pagaduria);
 
@@ -1364,6 +1375,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             EscribirElemento(PagesClienteParaVisacion.filtrocedula, Cedula);
             ElementVisible();
             esperaExplicita(By.xpath("//td[text()='" + Cedula + "']"));
+            adjuntarCaptura("Filtra la cédula en clientes para visación");
             hacerClick(PagesClienteParaVisacion.Continuar);
             ElementVisible();
         } catch (Exception e) {
@@ -1383,8 +1395,10 @@ public class OriginacionCreditosAccion extends BaseTest {
             EscribirElemento(PagesClienteParaVisacion.FechaResultado, fecha);
             EnviarEnter(PagesClienteParaVisacion.FechaResultado);
             ElementVisible();
+            adjuntarCaptura("Fecha diligenciada clientes para visación");
             cargarpdf(PagesClienteParaVisacion.DocumentoLibranza, pdf);
             esperaExplicita(PagesClienteParaVisacion.cargapdf);
+            adjuntarCaptura("Capture antes de aprobar");
             hacerClick(PagesClienteParaVisacion.Aprobar);
             ElementVisible();
         } catch (Exception e) {
@@ -1408,6 +1422,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             esperaExplicita(By.xpath("//td[text()='" + Cedula + "']"));
             ElementVisible();
+            adjuntarCaptura("Filtra la cédula en credito para desembolso");
         } catch (Exception e) {
             log.error("########## Error - OriginacionCreditosAccion - creditosparadesembolso() #######" + e);
             assertTrue("########## Error - OriginacionCreditosAccion - creditosparadesembolso()########" + e, false);
@@ -1420,6 +1435,7 @@ public class OriginacionCreditosAccion extends BaseTest {
         try {
             hacerClick(PagesCreditosDesembolso.CheckProcesarPagos);
             ElementVisible();
+            adjuntarCaptura("Capture check aprobado");
             hacerClick(PagesCreditosDesembolso.ProcesarPagos);
             ElementVisible();
         } catch (Exception e) {
@@ -1436,6 +1452,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
             EscribirElemento(PagesCreditosDesembolso.FiltroMonto, Monto);
             ElementVisible();
+            contarFilasTablas(By.xpath("//*[@id = 'form:listaLotes_data']/child::tr"));
 
             String pattern = "###,###,###.###";
             double value = Double.parseDouble(Monto);
@@ -1444,6 +1461,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             myFormatter = new DecimalFormat(pattern, DecimalFormatSymbols.getInstance(Locale.GERMANY));
             String output = myFormatter.format(value);
             esperaExplicita(By.xpath("//td[text()='" + output + "']"));
+            adjuntarCaptura("Capture después de filtrar el monto");
             ClicUltimoElemento(PagesCreditosDesembolso.VerEditar);
             ElementVisible();
             hacerClick(PagesCreditosDesembolso.Banco);
@@ -1455,6 +1473,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClick(PagesCreditosDesembolso.CrearArchivo);
             esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
             ElementVisible();
+            adjuntarCaptura("Capture edición antes de guardar");
             hacerClick(PagesCreditosDesembolso.Guardar);
             ElementVisible();
         } catch (Exception e) {
@@ -1565,6 +1584,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 }
                 contador = contador + 1;
             }
+            adjuntarCaptura("Finaliza de diligenciar las carteras y saneamientos");
         } catch (Exception e) {
             log.error("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras() #######" + e);
             assertTrue("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras()########" + e,
@@ -1859,6 +1879,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                 hacerClick(PagesCreditosDesembolso.CrearArchivo);
                 esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
                 ElementVisible();
+                adjuntarCaptura("Capture antes de guardar");
                 hacerClick(PagesCreditosDesembolso.Guardar);
                 ElementVisible();
             }
@@ -1913,6 +1934,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             hacerClick(pagescreditosdesembolso.CheckProcesarPagos);
             ElementVisible();
+            adjuntarCaptura("Captura antes de procesar pagos desembolso css");
             hacerClick(pagescreditosdesembolso.ProcesarPagos);
             ElementVisible();
         } catch (Exception e) {
