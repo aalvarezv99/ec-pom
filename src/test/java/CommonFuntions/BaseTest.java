@@ -191,7 +191,7 @@ public class BaseTest {
     }
 
     public void recorerpestanas(String Dato) {
-    	log.info("****Ingreso a la pestama****** " + Dato);
+    	log.info("****Ingreso a la pestana****** " + Dato);
         By locator = By.xpath("//a[text()='" + Dato + "']");
         while (assertEstaPresenteElemento(locator) == false) {
             hacerClick(pestanaSeguridadPage.Siguiente);
@@ -1200,6 +1200,7 @@ public class BaseTest {
                 i = i++;
                 driver.findElement(By.id(a[i])).click();
                 hacerClicknotificacion();
+                adjuntarCaptura("AprobarCartera");
             }
 			
 		} catch (Exception e) {

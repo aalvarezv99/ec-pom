@@ -130,6 +130,7 @@ public class RetanqueoCreditos extends BaseTest {
             BuscarenGrilla(retanqueopages.inputCedula, Cedula);
             ElementVisible();
             CedulaCliente = Cedula;
+            adjuntarCaptura("FiltroCedula");
             esperaExplicitaTexto(Cedula);
         } catch (Exception e) {
             log.error("########## ERROR RetanqueoCreditos - Credito() ########" + e);
@@ -455,20 +456,30 @@ public class RetanqueoCreditos extends BaseTest {
         hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
         ElementVisible();
         hacerClick(pestanadigitalizacionPage.Guardar);
+        adjuntarCaptura("IndentidadConfirmada");
         ElementVisible();
         esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
     }
 
+    /*ThainerPerez V1.2 24/Marzo/2022:  1. Se encierre el bloque en un try catch
+     * 									2. Se crea la acaptura de pantalla despues de terminar el proceso*/
     public void AprobarReferenciasPagaduria() {
-        recorerpestanas("REFERENCIACIÓN");
-        hacerClick(pestanareferenciacionpage.SalarioCheck);
-        ElementVisible();
-        hacerClick(pestanareferenciacionpage.FechaIngreso);
-        ElementVisible();
-        hacerClick(pestanareferenciacionpage.TipoContrato);
-        ElementVisible();
-        hacerClick(pestanareferenciacionpage.CargoCheck);
-        ElementVisible();
+    	log.info("******* Aprobando referencias de pagaduria, RetanqueoCreditos - AprobarReferenciasPagaduria() *********");
+        try {
+        	recorerpestanas("REFERENCIACIÓN");
+            hacerClick(pestanareferenciacionpage.SalarioCheck);
+            ElementVisible();
+            hacerClick(pestanareferenciacionpage.FechaIngreso);
+            ElementVisible();
+            hacerClick(pestanareferenciacionpage.TipoContrato);
+            ElementVisible();
+            hacerClick(pestanareferenciacionpage.CargoCheck);
+            ElementVisible();
+            adjuntarCaptura("AprobarReferenciaPagaduria");
+		} catch (Exception e) {
+			 log.error("########## ERROR RetanqueoCreditos - AprobarReferenciasPagaduria() ########" + e);
+	         assertTrue("########## ERROR RetanqueoCreditos - AprobarReferenciasPagaduria() ########" + e, false);
+		}
     }
 
     public void ValidarSimuladorAnalistaRetanqueos(String anno, String Credito, String retanqueo, String fecha,
