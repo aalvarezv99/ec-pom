@@ -658,8 +658,9 @@ public class BaseTest {
     // pdf + el nombre
     public void abriPdfNavegador(String rutaPdf) {
         try {
-            Thread.sleep(2500);
+        	Thread.sleep(2500);
             driver.get(rutaPdf);
+            Thread.sleep(2000);
         } catch (Exception e) {
             log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
         }

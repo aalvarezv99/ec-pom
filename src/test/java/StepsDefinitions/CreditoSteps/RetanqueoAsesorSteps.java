@@ -106,11 +106,6 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.validelainformacioncabeceraconsusconceptosparaRetanqueo(Tasa,Plazo);
 	}
 	
-//	@Entonces("Valida los valores del simulador retanqueos {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
-//	public void Validalosvaloresdelsimuladorretanqueos(String Anno,String Credito,String retanqueo,String fecha,String Mes, String Plazo,String Ingresos, String descLey, String descNomina, String cartera,String DiasHabilesIntereses, String Tasa) throws InterruptedException, SQLException {
-//		retanqueocreditos.ValidarSimuladorAnalistaRetanqueos(Anno,Credito,retanqueo,fecha,Mes,Plazo,Ingresos,descLey,descNomina,cartera,DiasHabilesIntereses, Tasa);
-//	}
-	
     @Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void validalosvaloresdelsimuladorretanqueosconcompradecarteraysaneamiento(String Anno,String Credito,String Retanqueo,String fecha,String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String Cartera1,String Saneamiento2,String DiasHabilesIntereses, String Tasa) throws InterruptedException, SQLException {
     	retanqueocreditos.ValidarSimuladorAnalistaRetanqueosCarteraSaneamiento(Anno,Credito,Retanqueo, fecha, Mes, Plazo, Ingresos, descLey, descNomina, Cartera1, Saneamiento2,DiasHabilesIntereses, Tasa);
@@ -157,8 +152,9 @@ public class RetanqueoAsesorSteps {
 		retanqueocreditos.validarSimuladorAnalistaRetanqueosMultiple(cedula, pagaduria, DiasHabilesIntereses ,  Anno , retanqueo , fecha , Mes , Plazo , Tasa, VlrCompraSaneamiento);
 	}
 
-	@Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}")
-	public void validalosvaloresdelsimuladorretanqueosCSS(String Anno,String Retanqueo,String fecha,String Mes,String Plazo,String Cartera1,String Saneamiento2, String Tasa) throws InterruptedException, SQLException {
-		retanqueocreditos.validarSimuladorAnalistaRetanqueosCCS(Anno, Retanqueo, fecha, Mes, Plazo, Cartera1, Saneamiento2, Tasa);
+	/*ThainePerez V1.23/Marzo/2022 : 1. Se agregan los valores (cedula, pagaduria y diashabiles intereses)*/
+	@Entonces("Valida los valores del simulador retanqueos con compra de cartera y saneamiento retanqueo multiple {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
+	public void validalosvaloresdelsimuladorretanqueosCSS(String cedula,String pagaduria,String DiasHabilesIntereses,String Anno,String Retanqueo,String fecha,String Mes,String Plazo,String Cartera1,String Saneamiento2, String Tasa) throws InterruptedException, SQLException {
+		retanqueocreditos.validarSimuladorAnalistaRetanqueosCCS( cedula, pagaduria, DiasHabilesIntereses,Anno, Retanqueo, fecha, Mes, Plazo, Cartera1, Saneamiento2, Tasa);
 	}
 }

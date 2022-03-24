@@ -1000,7 +1000,6 @@ public class OriginacionCreditosAccion extends BaseTest {
         EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anoAnalisis);
         ElementVisible();
         hacerClick(pestanasimuladorinternopage.CalcularDesglose);
-        ElementVisible();
         // hacerClicknotificacion();
         hacerClickVariasNotificaciones();
         esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
@@ -1010,12 +1009,14 @@ public class OriginacionCreditosAccion extends BaseTest {
         Hacer_scroll(pestanasimuladorinternopage.IngresosAsesor);
         adjuntarCaptura("simulador analista, captura de campos");
 
-        // consulta base de datos
+
+        //consulta base de datos
         OriginacionCreditoQuery query = new OriginacionCreditoQuery();
         ResultSet resultado = query.ConsultaDescuentoPrimaAntic();
         while (resultado.next()) {
             DesPrimaAntic = Integer.parseInt(resultado.getString(1));
         }
+        
         log.info("******** Valor de prima **** " + DesPrimaAntic);
         String DiasHabilesIntereses = TextoElemento(pestanasimuladorinternopage.DiasInteresesIniciales);
         if (Integer.parseInt(Plazo) < DesPrimaAntic) {

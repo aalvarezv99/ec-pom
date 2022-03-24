@@ -7,8 +7,14 @@ import java.time.Month;
 import java.time.temporal.TemporalAdjusters;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
@@ -22,8 +28,51 @@ public class PruebaCodigo {
 		//String valor = extraerValorPDF("C:\\Users\\User\\Downloads\\CertificacionSaldos\\","certificacion-saldo-47152.pdf","Total a pagar $");
 		//System.out.println(valor);
 	//	pruebaFormula();
-		fecha();
+		System.out.println(countDistinctIntegers(7));
 	}
+	
+	 public static int countDistinctIntegers(int n) {
+		    // Write your code here.
+		   List<Integer> listaNumeros = new ArrayList<Integer>();		       
+		       for(int i=1;i<=n;i++){
+		           if(n%i==1){
+		             listaNumeros.add(n-i);
+		           }
+		       }
+		       
+		    for(int variable:listaNumeros) {
+		    	for(int j=1;j<=variable;j++) {		    		
+			    	if(variable%j==1) {			    		
+			    	    System.out.println(n-j);
+			    	}			    
+		    				    		
+			    }
+		    }   
+		    
+		       		       
+		       return listaNumeros.size();
+      }
+	
+	public static int getUniqueCharacter(String s) {
+	    // Write your code here
+	      Map<Character,Integer> count = new HashMap<>();
+	      int n = s.length();
+	      
+	      for(int i=0;i<n;i++){
+	          char c = s.charAt(i);
+	          int freq = count.getOrDefault(c, 0);
+	          count.put(c,(freq+1));
+	      }
+	      
+	      for(int j = 0;j<n;j++){
+	          if (count.get(s.charAt(j))==1) {
+	          return j+1;
+	          }
+	      }
+	      return -1;
+	      
+	    }
+	
 	
 	public static void fecha() {
 		/*Calendar cal = Calendar.getInstance();
