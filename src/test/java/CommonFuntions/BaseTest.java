@@ -659,8 +659,9 @@ public class BaseTest {
     // pdf + el nombre
     public void abriPdfNavegador(String rutaPdf) {
         try {
-            Thread.sleep(2500);
+        	Thread.sleep(2500);
             driver.get(rutaPdf);
+            Thread.sleep(2000);
         } catch (Exception e) {
             log.error("########## ERROR BASETEST - ABRIPDFNAVEGADOR() ##########" + e);
         }
@@ -791,6 +792,7 @@ public class BaseTest {
             count = count + 1;
             hacerScrollAbajo();
         }
+        adjuntarCaptura("Se marcan todos los check correctos");
     }
 
     public void marcarCheckMultiple(By locator) throws InterruptedException {
@@ -801,7 +803,7 @@ public class BaseTest {
             hacerClick(By.id(item));
             ElementVisible();
         }
-
+        adjuntarCaptura("Checks marcados de procesar pagos");
 
     }
 
@@ -1165,7 +1167,7 @@ public class BaseTest {
 
             for (int i = 0; i < BtnAprobar.size(); i++) {
 
-                Hacer_scroll_Abajo(By.id(Entidad.get(i).getAttribute("id")));
+                Hacer_scroll_centrado(By.id(Entidad.get(i).getAttribute("id")));
                 esperaExplicita(By.id(Entidad.get(i).getAttribute("id")));
                 String radio = Tipo.get(i).getText().trim();
                 if (radio.contains("SANEAMIENTO")) {
@@ -1226,7 +1228,7 @@ public class BaseTest {
                 driver.findElement(By.id(Filtro.get(indexUno).getAttribute("id"))).sendKeys(EntidadSaneamiento[indexDos]);
                 EnviarEnter(By.id(Filtro.get(indexUno).getAttribute("id")));
                 // llenar el monto
-                Hacer_scroll(By.name(Monto.get(indexUno).getAttribute("name")));
+                Hacer_scroll_centrado(By.name(Monto.get(indexUno).getAttribute("name")));
                 Clear(By.name(Monto.get(indexUno).getAttribute("name")));
                 driver.findElement(By.name(Monto.get(indexUno).getAttribute("name"))).sendKeys(VlrMonto[indexDos]);
                 // llenar la cuota
@@ -1842,6 +1844,7 @@ public class BaseTest {
          
         }
     }
+
     
     public void ingresarvarioselementos(By locator,String variable) throws InterruptedException {
         List<WebElement> clickvariosElement = driver.findElements(locator);
@@ -1855,6 +1858,19 @@ public class BaseTest {
         	EscribirElemento(By.id(clickvarios.get(i)),variable);
         	hacerClicknotificacion();
             ElementVisible();
+        }
+    }
+
+    public void capturesValoresCondicionesCredito(By locator) throws InterruptedException {
+        List<String> posiciones = Arrays.asList("formCondicionCredito:tasaEfectivaAnual:0_clone", "formCondicionCredito:primaNoDevengada:0_clone", "formCondicionCredito:valorFianzaPadres:0_clone");
+        List<WebElement> webElements = driver.findElements(locator);
+        List<String> valores = parseWebElementsToList(webElements);
+        for (String valor : valores) {
+            if (posiciones.contains(valor)) {
+                Hacer_scroll(By.id(valor));
+                adjuntarCaptura("Campos condiciones del crédito");
+            }
+
         }
     }
 }
