@@ -13,6 +13,7 @@ import net.bytebuddy.asm.Advice.Return;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.util.SystemOutLogger;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.*;
@@ -1839,6 +1840,21 @@ public class BaseTest {
         	clickvariosElement.get(i).click();
         	ElementVisible();        	
          
+        }
+    }
+    
+    public void ingresarvarioselementos(By locator,String variable) throws InterruptedException {
+        List<WebElement> clickvariosElement = driver.findElements(locator);
+        List<String> clickvarios = parseWebElementsToList(clickvariosElement);
+        
+        for (int i = 0; i < clickvarios.size(); i++) {
+        	System.out.println("$$$$ prueba "+i+" "+clickvarios.get(i));
+        	Hacer_scroll_centrado(By.id(clickvarios.get(i))); 
+        	hacerClick(By.id(clickvarios.get(i)));
+        	ElementVisible();
+        	EscribirElemento(By.id(clickvarios.get(i)),variable);
+        	hacerClicknotificacion();
+            ElementVisible();
         }
     }
 }

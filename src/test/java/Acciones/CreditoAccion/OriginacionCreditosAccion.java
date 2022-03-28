@@ -720,7 +720,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             Hacer_scroll(pestanaformulariopage.TituloReferencias);
             ElementVisible();
-            //eliminarReferencias(pestanaformulariopage.listMenosReferencia);
+            ingresarvarioselementos(pestanaformulariopage.telefonoResidencia,TelefonoResidencia);
+            ingresarvarioselementos(pestanaformulariopage.telefonoTrabajo,TelefonoTrabajo);
             adjuntarCaptura("Referencias");
             Hacer_scroll(pestanaformulariopage.GuardarRefer);
             hacerClick(pestanaformulariopage.GuardarRefer);
@@ -1598,6 +1599,8 @@ public class OriginacionCreditosAccion extends BaseTest {
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
         ElementVisible();
+        ElementVisible();
+        Thread.sleep(1000);
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         validarTelefonosRefs(xpathSelectTelefonosRef, pestanareferenciacionpage.labelTelefonos);
         Hacer_scroll(pestanareferenciacionpage.Titulo);
