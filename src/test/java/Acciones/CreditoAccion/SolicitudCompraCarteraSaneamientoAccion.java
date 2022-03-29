@@ -95,9 +95,15 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	
 	
 	public void GuardarDatosSaneamiento() throws InterruptedException {
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.Guardar);
-		hacerClick(pestanadigitalizacionPage.Guardar);
-		ElementVisible();
+		log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - GuardarDatosSaneamiento() **********");
+		try {			
+			Hacer_scroll_Abajo(pestanadigitalizacionPage.Guardar);
+			hacerClick(pestanadigitalizacionPage.Guardar);
+			ElementVisible();
+		} catch (Exception e) {
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - GuardarDatosSaneamiento() #######" + e);
+            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - GuardarDatosSaneamiento() ########" + e, false);
+		}
 	}
 	
 	/*ThainerPerez 22/sep/2021 - Se actualiza el metodo donde recibe la tabla de (Cartera - Saneamiento) para manipular la data
@@ -149,37 +155,45 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 			ElementVisible();
 			adjuntarCaptura("termina de confirmar entidad y guardar referencias");
 		} catch (Exception e) {
-			// TODO: handle exception
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - ConfirmarEntidad() #######" + e);
+            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - ConfirmarEntidad() ########" + e, false);
 		}
 		
 	}
 	
     public void Referenciaspositivas(String Codigo) throws InterruptedException {
+    	log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() **********");
     	
-    	ElementVisible();
-    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
-		ElementVisible();
-		Hacer_scroll(pestanareferenciacionpage.Titulo);
-		clickvarios(pestanareferenciacionpage.CheckSI);
-		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
-		hacerClick(pestanareferenciacionpage.GuardarReferencias);
-		ElementVisible();
-		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-		hacerClicknotificacion();		
-		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);   	
-		recorerpestanas("DIGITALIZACIÓN");
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
-		Hacer_scroll_Abajo(pestanadigitalizacionPage.CodigoProforenses);
-    	EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, Codigo);
-    	clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
-    	hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
-    	ElementVisible();
-    	hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
-    	ElementVisible();
-    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    	try {
+    		ElementVisible();
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+    		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+    		ElementVisible();
+    		Hacer_scroll(pestanareferenciacionpage.Titulo);
+    		clickvarios(pestanareferenciacionpage.CheckSI);
+    		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+    		hacerClick(pestanareferenciacionpage.GuardarReferencias);
+    		ElementVisible();
+    		esperaExplicita(pestanadigitalizacionPage.Notificacion);
+    		hacerClicknotificacion();		
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);   	
+    		recorerpestanas("DIGITALIZACIÓN");
+    		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+    		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+    		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
+    		Hacer_scroll_Abajo(pestanadigitalizacionPage.CodigoProforenses);
+    		EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, Codigo);
+    		clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
+    		hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
+    		ElementVisible();
+    		hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
+    		ElementVisible();
+    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+			
+		} catch (Exception e) {
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() #######" + e);
+            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() ########" + e, false);
+		}
     }
     /************FIN ACCIONES SOLICITUD CREDITO COMPRA DE CARTERA CON SANEAMIENTO ***************/
 
@@ -189,7 +203,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     
        public void ValidarSimuladorAnalistaCompraCartera(String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2, String anoAnalisis, String fechaDesembolso) throws NumberFormatException, SQLException {
     	   
-    	log.info("***************** AplicacionCierreAccion - ValidarSimuladorAnalistaCompraCartera()");
+    	   log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - ValidarSimuladorAnalistaCompraCartera() **********");
     	try {
     	Clear(pestanasimuladorinternopage.FechaDesembolso);
     	EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fechaDesembolso);
@@ -277,13 +291,13 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     		vg_PrimaSeguroAnticipada_Originacion = String.valueOf(calculosSimulador.getPrimaSeguroAnticipada());*/
     		}
       catch (Exception e) {
-    	  	log.error("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno()  #######" + e);
-			assertTrue("########## Error - AplicacionCierreAccion - SeleccionarPeriodoAno() ########"+ e,false);
+    	  log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - ValidarSimuladorAnalistaCompraCartera() #######" + e);
+          assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - ValidarSimuladorAnalistaCompraCartera() ########" + e, false);
 		}
      }
        
        public void validelainformacioncabeceraconsusconceptosparaOriginacionCCS(String Tasa, String Plazo) throws InterruptedException {
-   		
+    	   log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - validelainformacioncabeceraconsusconceptosparaOriginacionCCS() **********");
    		try {
    		
    		validarCabeceraPlanDePagos("Originacion",
@@ -299,8 +313,8 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
        			pestanasimuladorinternopage.ValueCabeceraPlanDePagos);
    			
    		} catch (Exception e) {
-   			log.error("########## Error - OriginacionCreditosAccion  - PestanaPlanDePagos () #######" + e);
-   			assertTrue("########## Error - OriginacionCreditosAccion - PestanaPlanDePagos () ########" + e, false);
+   			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - validelainformacioncabeceraconsusconceptosparaOriginacionCCS() #######" + e);
+            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - validelainformacioncabeceraconsusconceptosparaOriginacionCCS() ########" + e, false);
    		}
    		
    	}
@@ -309,21 +323,30 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     /************INICIA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
 
        public void AceptarcondiconesdelcreditoComSan(String TipoDesen, String cedula) throws InterruptedException {
-    	   this.cambiarPestana(0);
-		   this.ClientesParaBienvenida(cedula);
-      	   recorerpestanas("CONDICIONES DEL CRÉDITO");
-      	   Refrescar();
-      	   clickvarioslist(pagesclienteparabienvenida.AceptarCarteras);    
-           MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
-           Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
-           Thread.sleep(3000);          
-           hacerClick(pagesclienteparabienvenida.Desembolso);
-           selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
-           hacerClick(pagesclienteparabienvenida.CalificacionProceso);
-           hacerClick(pagesclienteparabienvenida.CalificacionCobro);
-           hacerScrollAbajo(); 
-           hacerClick(pagesclienteparabienvenida.Acepta);
-           ElementVisible();
+    	   
+    	   log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - AceptarcondiconesdelcreditoComSan() **********");
+    	   
+    	   try {
+    		   this.cambiarPestana(0);
+    		   this.ClientesParaBienvenida(cedula);
+    		   recorerpestanas("CONDICIONES DEL CRÉDITO");
+    		   Refrescar();
+    		   clickvarioslist(pagesclienteparabienvenida.AceptarCarteras);    
+    		   MarcarCheck(pagesclienteparabienvenida.CheckCondicionesCredito);        
+    		   Hacer_scroll(pagesclienteparabienvenida.detalledelascarteras);
+    		   Thread.sleep(3000);          
+    		   hacerClick(pagesclienteparabienvenida.Desembolso);
+    		   selectValorLista(pagesclienteparabienvenida.ListDesembolso,TipoDesen);  
+    		   hacerClick(pagesclienteparabienvenida.CalificacionProceso);
+    		   hacerClick(pagesclienteparabienvenida.CalificacionCobro);
+    		   hacerScrollAbajo(); 
+    		   hacerClick(pagesclienteparabienvenida.Acepta);
+    		   ElementVisible();
+			
+		} catch (Exception e) {
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion  - AceptarcondiconesdelcreditoComSan() #######" + e);
+            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - AceptarcondiconesdelcreditoComSan()########" + e, false);
+		}
       }
        
     /************FINALIZA ACCIONES LLAMADA DE BIENVENIDA DE CREDITO COMPRA DE CARTERA*************/
@@ -332,7 +355,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
      * @throws InterruptedException*************/
        
 	public void ProcesarCartera(String tipo, String Cedula) throws InterruptedException {
-		log.info("*** Procesar Desembolsos de cartera - saneamientos, OriginacionCreditosAccion - ProcesarCartera()***");
+		log.info("*** Procesar Desembolsos de cartera - saneamientos, SolicitudCompraCarteraSaneamientoAccion - ProcesarCartera()***");
 		try {
 			panelnavegacionaccion.CreditoParaDesembolso();
 			ElementVisible();
@@ -354,8 +377,8 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 			hacerClick(pagescreditosdesembolso.ProcesarPagos);
 			hacerClickVariasNotificaciones();
 		} catch (Exception e) {
-			log.error("########## Error - OriginacionCreditosAccion  - ProcesarCartera() #######" + e);
- 			assertTrue("########## Error - OriginacionCreditosAccion - ProcesarCartera()########"+ e,false);
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion  - ProcesarCartera() #######" + e);
+ 			assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - ProcesarCartera()########"+ e,false);
 		}
 
 	}
@@ -473,7 +496,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
      }
           
      public void DescargarMediosDispercionRemanente(DataTable tablaFeature) throws InterruptedException {
-    	 log.info("***Se descargan los medios de dispercion del remanente restando carteras y saneamientos, OriginacionCreditosAccion -  DescargarMediosDispercionRemanente() ***");
+    	 log.info("***Se descargan los medios de dispercion del remanente restando carteras y saneamientos, SolicitudCompraCarteraSaneamientoAccion -  DescargarMediosDispercionRemanente() ***");
     	try {
     		 panelnavegacionaccion.CreditoParaDesembolsoDescargar();
     	      	esperaExplicita(PagesCreditosDesembolso.FiltroMonto);
@@ -512,8 +535,8 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     	      	  	ElementVisible(); 
     			}	
 		} catch (Exception e) {
-			log.error("########## Error - OriginacionCreditosAccion  - DescargarMediosDispercionRemanente() #######" + e);
- 			assertTrue("########## Error - OriginacionCreditosAccion - DescargarMediosDispercionRemanente()########"+ e,false);
+			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion  - DescargarMediosDispercionRemanente() #######" + e);
+ 			assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - DescargarMediosDispercionRemanente()########"+ e,false);
 		}
     	
     }
