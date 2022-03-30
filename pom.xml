@@ -19,7 +19,7 @@
 		<log.version>1.2.17</log.version>
 		<slf4Simple.version>1.6.1</slf4Simple.version>
 		<json.verison>1.1.1</json.verison>
-		<poi.version>3.10-FINAL</poi.version>
+		<poi.version>3.15</poi.version>
 
 		<allurecucumber.version>2.13.2</allurecucumber.version>
 		<picocontainer.version>1.2.5</picocontainer.version>
@@ -122,13 +122,35 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
-		</dependency>
-		
+		</dependency>	
+		<!--TP 11/Nov/2021 se agrega dependencia de SqlServer-->
+		<dependency>
+		    <groupId>com.microsoft.sqlserver</groupId>
+		    <artifactId>mssql-jdbc</artifactId>
+		    <version>9.4.0.jre8</version>
+		</dependency>	
 		<dependency>
 			<groupId>com.jcraft</groupId>
 			<artifactId>jsch</artifactId>
 			<version>0.1.53</version>
 		</dependency>
+		
+		<!--JV 27/01/2022 , Se agrega dependencia para Rest Assured (API TEST)-->
+		<dependency>
+		    <groupId>io.rest-assured</groupId>
+		    <artifactId>rest-assured</artifactId>
+		    <version>4.5.0</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<!-- JV 27/01/2022 , Se agrega dependencia para Rest Assured (Json Simple) -->
+		<dependency>
+		    <groupId>com.googlecode.json-simple</groupId>
+		    <artifactId>json-simple</artifactId>
+		    <version>1.1.1</version>
+		</dependency>
+		
+				
 
 		<!-- <dependency> -->
 		<!-- <groupId>io.qameta.allure</groupId> -->
@@ -146,8 +168,8 @@
 				<version>${maven.compiler.version}</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 

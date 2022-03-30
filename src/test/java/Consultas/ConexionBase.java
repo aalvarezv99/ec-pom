@@ -1,5 +1,10 @@
 package Consultas;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,7 +28,21 @@ public class ConexionBase {
 	private static String dbUrl;
 	private static String username;	
 	private static String password;
-	private static String driver;
+	
+	private static String instanciaAcounting;	
+	private static String dbUrlAcounting;
+	private static String usernameAcounting;	
+	private static String passwordAcounting;
+	
+	private static String dbPsl;	
+	private static String dbUrlPsl;
+	private static String userPsl;	
+	private static String passwordPsl;
+	
+	private static String dbtoken;	
+	private static String dbUrltoken;
+	private static String usertoken;	
+	private static String passwordtoken;
 	
 	public String leerPropiedades(String valor) {
 		try {
@@ -36,8 +55,6 @@ public class ConexionBase {
 	
 	public ResultSet conexion(String query) throws SQLException, ClassNotFoundException {
 		ResultSet rs = null;
-		
-
 		try {
 			if(instancia == null) {
 				instancia = leerPropiedades("instancia");
@@ -60,11 +77,142 @@ public class ConexionBase {
 			rs = stmt.executeQuery(query);
 		
 		} catch (Exception e) {
-			log.error("********ERROR CONEXION BASE DATOS*******");
+			log.error("********ERROR CONEXION BASE DATOS LIBRANZAS*******");
 			log.error(e.getMessage());
 		}
 		
 		return rs;
-		
 	}
+	
+	public ResultSet conexionAcountingBridge(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		
+		try {
+			if(instanciaAcounting == null) {
+				instanciaAcounting = leerPropiedades("instanciaAcounting");
+				log.info("====================");
+				log.info("[ Base de Datos - AccountinBridge ] - " + instanciaAcounting.toUpperCase());
+				log.info("====================");
+				dbUrlAcounting = leerPropiedades("jdbc-urlAcouting")+instanciaAcounting;
+
+				usernameAcounting = leerPropiedades("usernameAcouting");
+
+				passwordAcounting = leerPropiedades("passwordAcountig");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrlAcounting, usernameAcounting, passwordAcounting);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS ACCOUNTING BRIDGE*******");
+			log.error(e.getMessage());
+		}
+		return rs;
+	}
+	
+	public ResultSet conexionPSL(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		
+		try {
+			if(dbPsl == null) {
+				dbPsl = leerPropiedades("DBPsl");
+				log.info("====================");
+				log.info("[ Base de Datos - PSL PRUEBAS ] - " + dbPsl.toUpperCase());
+				log.info("====================");
+				dbUrlPsl = leerPropiedades("jdbc-urlPSL")+dbPsl;
+
+				userPsl = leerPropiedades("userPSL");
+
+				passwordPsl = leerPropiedades("PasswordPSL");					
+
+				Class.forName(leerPropiedades("driverClassNameSqlServer"));
+		
+			}
+			Connection con = DriverManager.getConnection(dbUrlPsl, userPsl, passwordPsl);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS PSL PRUEBAS *******");
+			log.error(e.getMessage());
+		}
+		return rs;
+	}
+	
+	
+	/*ThainerPerez 04/Marzo/2022 V1.2 , 1.Se importa la libreria ScriptRunner
+	 * 									2. Se utiliza el archivo completo a ejecutar */
+	public void ejecutorFunciones(String pathFile) throws SQLException, ClassNotFoundException {
+		try {
+			if (instancia == null) {
+				instancia = leerPropiedades("instancia");
+				log.info("====================");
+				log.info("[ Base de Datos ] - " + instancia.toUpperCase());
+				log.info("====================");
+				dbUrl = leerPropiedades("jdbc-url") + instancia;
+
+				username = leerPropiedades("username");
+
+				password = leerPropiedades("password");
+
+				Class.forName(leerPropiedades("driverClassName"));
+
+			}
+
+			Connection con = DriverManager.getConnection(dbUrl, username, password);
+			BufferedReader in = new BufferedReader(new FileReader(new File(pathFile).getAbsolutePath()));
+			String str;
+			StringBuffer sb = new StringBuffer();
+			while ((str = in.readLine()) != null) {
+				sb.append(str + "\n ");
+			}
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(sb.toString());
+			stmt.close();
+
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO Y CREANDO LAS FUNCIONES*******");
+			log.error(e.getMessage());
+			assertTrue("********ERROR EJECUTANDO Y CREANDO LAS FUNCIONES*******", false);
+		}
+	}
+	
+	public ResultSet BDtoken(String query) throws SQLException, ClassNotFoundException {
+		ResultSet rs = null;
+		try {
+			if(dbtoken == null) {
+				dbtoken = leerPropiedades("DBToken");
+				log.info("====================");
+				log.info("[ Base de Datos TOKEN ] - " + dbtoken.toUpperCase());
+				log.info("====================");
+				dbUrltoken = leerPropiedades("jdbc-url-token")+dbtoken;
+
+				usertoken = leerPropiedades("userToken");
+
+				passwordtoken = leerPropiedades("PasswordToken");					
+
+				Class.forName(leerPropiedades("driverClassName"));
+		
+			}
+            Connection con = DriverManager.getConnection(dbUrltoken, usertoken, passwordtoken);
+			
+			Statement stmt = con.createStatement();
+			stmt.setFetchSize(50);
+			rs = stmt.executeQuery(query);
+		
+		} catch (Exception e) {
+			log.error("********ERROR CONEXION BASE DATOS TOKEN*******");
+			log.error(e.getMessage());
+		}
+		
+		return rs;
+	}
+	
 }

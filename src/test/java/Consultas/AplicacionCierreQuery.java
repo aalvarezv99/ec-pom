@@ -51,4 +51,24 @@ public class AplicacionCierreQuery {
 		}
 		return r;
 	}
+	
+	/*
+	 * ThainerPerez, 03/Nov/2021 - se crea la consulta a bases de datos para validar la finalizacion de aplicacion y cierre*/
+	public ResultSet validarAplicacionCierre(String nombrePagaduria) {
+		ResultSet r = null;
+		try {
+			r = dbconector.conexion("select  to_char(app.periodo,'dd/mm/YYYY') fecha_Periodo, app.aplicacion_finalizada_si_no, coalesce(app.cierre_pagaduria,'NULL') cierre \r\n"
+					+ "from aplicacion_pago_pagaduria app \r\n"
+					+ "join pagaduria p on app.id_pagaduria = p.id\r\n"
+					+ "where 1=1\r\n"
+					+ "and trim(upper(p.nombre)) = trim(upper('"+nombrePagaduria+"')) \r\n"
+					+ "order by app.id desc limit 1;");
+			
+		} catch (Exception e) {
+			log.error("********ERROR EJECUTANDO LA CONSULTA AplicacionCierreQuery- validarAplicacionCierre() ********" + e);
+			assertTrue("########## ERROR EJECUTANDO LA CONSULTA AplicacionCierreQuery- validarAplicacionCierre() ########"+ e,false);
+		}
+		
+		return r;
+	}
 }

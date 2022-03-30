@@ -29,16 +29,19 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	
 	@Y("se guarda cartera")
 	public void SeGuardaCartera() throws InterruptedException {
+		log.info("@STEP - se guarda cartera - @STEP");
 		solicitudcompracarterasaneamientoaccion.GuardarDatosSaneamiento();
 	}
 	
 	@Y("se pasa a la primera pestana de referenciacion para confirmar la entidad")
 	public void SePasaALaPrimeraPestanaDeReferenciacionParaConfirmarLaEntidad(DataTable table) throws InterruptedException {
+		log.info("@STEP - se pasa a la primera pestana de referenciacion para confirmar la entidad - @STEP");
 		solicitudcompracarterasaneamientoaccion.ConfirmarEntidad(table);
 	}
 		
 	@Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences {string}")
 	public void SePasaALaSegundaPestanaDeDigitalizacionParaAgregarElCodigoProforencesApruebaReferencias(String Codigo) throws InterruptedException {
+		log.info("@STEP - se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences - @STEP");
 		solicitudcompracarterasaneamientoaccion.Referenciaspositivas(Codigo);
 	}
 	
@@ -48,7 +51,14 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 	
 	@Y("Valida los valores del simulador para compra de cartera con saneamiento {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
 	   public void ValidaLosValoresDelSimuladorParaCompraDeCarteraConSaneamiento (String Mes, String Monto,String Tasa,String Plazo, String Ingresos, String descLey, String descNomina, String Pagaduria, String Cartera1, String Saneamiento2,String anoAnalisis, String fechaDesembolso) throws NumberFormatException, SQLException {
+		log.info("@STEP - Valida los valores del simulador para compra de cartera con saneamiento - @STEP");
 		solicitudcompracarterasaneamientoaccion.ValidarSimuladorAnalistaCompraCartera(Mes,Monto,Tasa,Plazo,Ingresos,descLey,descNomina,Pagaduria,Cartera1,Saneamiento2,anoAnalisis, fechaDesembolso);
+	}
+	
+	@Y("valide la informacion cabecera con sus conceptos para OriginacionCCS{string}{string}")
+	public void validelainformacioncabeceraconsusconceptosparaOriginacionCCS (String Tasa, String Plazo) throws InterruptedException {
+		log.info("@STEP - valide la informacion cabecera con sus conceptos para OriginacionCCS - @STEP");
+		solicitudcompracarterasaneamientoaccion.validelainformacioncabeceraconsusconceptosparaOriginacionCCS(Tasa,Plazo);
 	}
 	//####################### FinalizaAnalisisCreditoParaCompraDeCartera ########################################################################
 
@@ -59,30 +69,22 @@ public class SolicitudCompraCarteraSaneamientoSteps {
 //	}	
 	//####################### FinalizaLlamadaDeBienvenidaParaCompraDeCartera #####################################################################
 
-	 //####################### IniciaDesembolsoCartera ##################################################################### 
+	//####################### IniciaDesembolsoCartera ##################################################################### 
 	
-	@Cuando ("el agente ingresa a la lista de pagos para procesar la cartera uno {string}")
-	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera (String Cedula) throws InterruptedException {
-		solicitudcompracarterasaneamientoaccion.ProcesarCartera(Cedula);
-	   }
+	@Cuando("el agente ingresa a la lista de pagos para procesar {string} con {string}")
+	public void ElAgenteIngresaALaListaDePagosParaProcesarLaPrimerCartera(String tipo, String Cedula)
+			throws InterruptedException {
+		log.info("@STEP - el agente ingresa a la lista de pagos para procesar - @STEP");
+		solicitudcompracarterasaneamientoaccion.ProcesarCartera(tipo, Cedula);
+	}
 	   
-	//####################### FinalizaDesembolsoCartera #####################################################################     
-	 
- 
-	//####################### IniciaDesembolsoSaneamiento #####################################################################  
-	   	   
-	   @Y("se descargan medios de dispersion para el saneamiento dos {string}{string}{string}")
-		public void sedescargadescarganmediosdedispersionparaelsaneamiento (String Saneamiento2, String Banco,String Pdf) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionSaneamiento(Saneamiento2, Banco,Pdf);
-		}
-	   
-//####################### FinalizaDesembolsoSaneamiento #####################################################################
-	   
-//####################### IniciaDesembolsoRemanente #####################################################################  
+
+	//####################### IniciaDesembolsoRemanente #####################################################################  
 	
-	   @Y ("se descarga medios de dispersion para el remanente {string}{string}{string}{string}{string}") 
-	   public void sedescargamediosdedispersionparaelremanente (String Monto, String Cartera1, String Saneamiento2, String Banco, String Pdf) throws InterruptedException {
-		   solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionRemanente (Monto,Cartera1, Saneamiento2,Banco,Pdf);
-	  }  
-//####################### FinalizaDesembolsoRemanente #####################################################################
+	@Y("se descarga medios de dispersion para el remanente")
+	public void sedescargamediosdedispersionparaelremanente(DataTable tabla) throws InterruptedException {
+		log.info("@STEP - se descarga medios de dispersion para el remanente - @STEP");
+		solicitudcompracarterasaneamientoaccion.DescargarMediosDispercionRemanente(tabla);
+	}
+	//####################### FinalizaDesembolsoRemanente #####################################################################
 }

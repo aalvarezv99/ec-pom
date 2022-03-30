@@ -41,6 +41,8 @@ public class PestanaDigitalizacionPage {
 	public By MarcarCartera;
 	public By SeleccionSaneamiento;
 	
+	public By montoDesplegable;
+	public By listMontoDesplegable;
 	
 	public PestanaDigitalizacionPage(WebDriver driver) {
 		
@@ -52,7 +54,9 @@ public class PestanaDigitalizacionPage {
 		CodigoProforenses= By.id("formRadicacion:proforenses");
 		IdentidadConfirmada= By.id("formRadicacion:resultadoProforenses:0_clone");
 		Radicar= By.id("formRadicacion:radicar");
-		AgregarCartera=By.id("formRadicacion:j_idt110");
+
+		AgregarCartera = By.xpath("//a[starts-with(@id,'formRadicacion:j_idt') and contains(@aria-label,'Agregar cartera')]");
+
 		
 		//Compra cartera
 		Entidad = By.id("formRadicacion:j_idt93:0:competidorSO_label");	
@@ -67,12 +71,16 @@ public class PestanaDigitalizacionPage {
 		RadioSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
 		RadioCompra = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:1");
 		MontoSaneamiento = By.id("formRadicacion:j_idt93:0:montoSO_input");
+		montoDesplegable = By.id("formRadicacion:j_idt93:0:montoSegurosAP_label");
+		listMontoDesplegable = By.xpath("//ul[@id='formRadicacion:j_idt93:0:montoSegurosAP_items']/child::li");
 		ValorCuotaSaneamiento = By.id("formRadicacion:j_idt93:0:valorCuotaSO_input");
 		FechaVencimientoSaneamiento = By.id("formRadicacion:j_idt93:0:fechaVencimientoSO_input");
 		NumeroObligacionSaneamiento	= By.id("formRadicacion:j_idt93:0:numeroObligacionSO");
 		SeleccionSaneamiento = By.id("formRadicacion:j_idt93:0:tipoCarteraSO:0");
 		
-		BotonGuardarCartera = By.id("formRadicacion:j_idt166");
+
+		BotonGuardarCartera = By.xpath("//*[text()='Guardar']");
+
 		listCheckSiCarteras = By.xpath("//input[starts-with(@id,'formRadicacion:certificacionesDeuda:') and contains(@id,'estadoCertificacion:') and contains(@value,'true') and not(@disabled)] ");
 		MarcarCartera1 = By.id("formRadicacion:certificacionesDeuda:0:estadoCertificacion:0_clone");
 		MarcarCartera2 = By.id("formRadicacion:certificacionesDeuda:1:estadoCertificacion:2_clone");

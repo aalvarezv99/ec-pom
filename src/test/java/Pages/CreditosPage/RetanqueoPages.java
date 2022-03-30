@@ -9,7 +9,9 @@ public class RetanqueoPages {
 	//Componentes iniciales
 		public By cedula;
 		public By credito;
+		public By Pagaduria;
 		public By BtnRentaqueo;
+		public By ListCreditos;
 		public By notificacion;
 		public By inputCedula;
 		public By continuar;
@@ -35,12 +37,26 @@ public class RetanqueoPages {
 		public By vlrCompra;
 		public By MontoSolicitar;
 		public By inputMontoValor;
+		public By SaldoTotalRecoger;
+		public By montoTotalSolicitado;
+		public By BtnRetanqueoMultiple;
+		public By SaldoAldiaCreditosMultiples;
 		
+		public By listValoresRetanqMultiple;
+		public By inputSumaSaldoDiaRetanqMultiple;
+		public By listaCreditosPadre;
+		public By btnVerEditar;
+
+		public By listTasa;
+		public By optionsTasa;
+
 		public RetanqueoPages(WebDriver driver) {
 			this.driver = driver;		
-			cedula = By.id("form:listaCreditos:j_idt66:filter");
-			credito = By.id("form:listaCreditos:j_idt55:filter");		
+			cedula = By.id("form:listaCreditos:j_idt67:filter");
+			credito = By.id("form:listaCreditos:j_idt56:filter");
+			Pagaduria = By.id("form:listaCreditos:j_idt73:filter");
 			BtnRentaqueo= By.xpath("//a[@title='Retanquear']");
+			ListCreditos= By.xpath("//div[starts-with(@id,'form:listaCreditos') and contains(@id,'check')]");
 			notificacion = By.xpath("//*[@class='ui-growl-title']");
 			inputCedula = By.xpath("//input[@id='form:listaCreditos:identificacion_cred_filtro:filter']");
 			continuar = By.xpath("//a[starts-with(@id,'form:listaCreditos:') and contains(@id,'continuar_proceso')]");
@@ -54,6 +70,10 @@ public class RetanqueoPages {
 			Viable=By.xpath("//input[starts-with(@id,'formConsultas:estados') and contains(@id,'clone')and @value='VIABLE']");
 			Guardar=By.xpath("//*[text()='Guardar']");
 			Concepto=By.xpath("//div[text()='CONCEPTO FINAL ']");
+			SaldoTotalRecoger=By.id("form:saldo_total_a_recoger_input_hinput");
+			montoTotalSolicitado=By.id("form:monto_total_solicitado_input_input");
+			BtnRetanqueoMultiple= By.id("form:btn_retanqueo_multiple");
+			SaldoAldiaCreditosMultiples= By.xpath("//table[@class='table']/child::tbody/child::tr//child::td[14]");
 			
 			//Componentes valores
 			MontoSolicitar = By.id("formSimuladorCredito:montoTotalCr_hinput");
@@ -68,5 +88,12 @@ public class RetanqueoPages {
 			inputDescLey = By.id("formSimuladorCredito:leyCr");
 			inputdDescNomina = By.id("formSimuladorCredito:nominaCr");
 			vlrCompra = By.id("formSimuladorCredito:comprasSaneamientoCr");
+			listValoresRetanqMultiple = By.xpath("//input[starts-with(@id,'formSimuladorCredito:j_id') and contains (@id,'_input') and @type='text']/following-sibling::input");
+	        inputSumaSaldoDiaRetanqMultiple = By.id("formSimuladorCredito:totalSaldoAlDia_hinput");
+			listaCreditosPadre = By.xpath("//tbody[@id='form:listaCreditos_data']/child::tr//child::td[2]");
+			btnVerEditar = By.xpath("//a[contains(@id,'ver_editar_cred')]");
+
+			listTasa = By.xpath("//ul[@id = 'formSimuladorCredito:tasa_items']");
+			optionsTasa = By.xpath("//li[starts-with(@id, 'formSimuladorCredito:tasa')]");
 		}	
 }

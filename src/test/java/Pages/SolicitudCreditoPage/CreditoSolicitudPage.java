@@ -9,6 +9,7 @@ public class CreditoSolicitudPage {
 	//Pantalla principal
 	public By inputFecha;
 	public By inputCedula;
+	public By inputRadicado;
 	public By contFecha;
 	public By listFecha;
 	public By selectVerEditar;
@@ -134,6 +135,7 @@ public class CreditoSolicitudPage {
 		
 		//Pantalla principal
 		inputCedula = By.xpath("//input[@id='form:listaCreditos:identificacion_cred_filtro:filter']");
+		inputRadicado = By.id("form:listaCreditos:num_rad_cred_filtro:filter");
 		inputFecha = By.id("form:listaCreditos:j_idt109_input");
 		contFecha = By.id("ui-datepicker-div");
 		listFecha = By.xpath("/html/body/div[11]/table/tbody/tr/td/a");

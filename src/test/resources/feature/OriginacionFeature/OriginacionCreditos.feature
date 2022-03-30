@@ -1,43 +1,42 @@
 #language: es
 Característica: Originacion de Creditos
 
-  Antecedentes: 
+  Antecedentes:
     Dado Un agente en el sistema core abacus con sesion iniciada
+    Y con las funciones sql necesarias del proyecto creadas
 
   @SimuladorAsesor
   Esquema del escenario: Simulador Asesor
     Cuando el agente ingresa a la pestana de simulador asesor
     # Y cambia la fecha del servidor <FechaServidor>
-    Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria><Cedula><fecha><Oficina><Actividad><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
-    #Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon>
+    Y cree la simulacion con la informacion del archivo contenida en la tabla <Pagaduria> <Cedula> <fecha> <Oficina> <Actividad> <Tasa> <Plazo> <Monto> <DiasHabilesIntereses> <Ingresos> <descLey> <descNomina> <vlrCompasSaneamientos> <tipo> <colchon>
+    Y valida los calculos correctos de la simulacion<fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><Pagaduria>
     Y guarda la simulacion presionando el boton guardar
     Entonces se permite crear el cliente <TipoContrato><FechaIngreso><Pnombre><Papellido><Sapellido><Correo><Celular><Dpto><Ciudad>
     Y el sistema habilita el cargue de documentos para el cliente <rutaPDF>
     Y se finaliza con la consulta a centrales <Cedula>
-
-    Ejemplos: 
-      | Pagaduria   | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre  | Papellido  | Sapellido | Correo                 | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor |
-      | "COLFONDOS" | "9777757"  | "17/Mar/1956" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0"            			 | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "CARLOS" | "HERRERA"  | "ARBOLEDA"| "prueba123@gmail.com" | "3125127717" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  |
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+   ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
 
   @SolicitudCredito
   Esquema del escenario: Solicitar credito sin saneamientos
     Cuando el agente ingrese a la pestana solicitud credito con la cedula del cliente <Cedula><NombreCredito>
     Y consulta la pestana seguridad dejando el cliente viable
-    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><colchon><rutaPDF>
+    Y valida los calculos correctos de la simulacion interna <fecha><Tasa><Plazo><Monto><DiasHabilesIntereses><Ingresos><descLey><descNomina><vlrCompasSaneamientos><tipo><Pagaduria><rutaPDF>
     Y carga todos los archivos en la pestana de digitalizacion <rutaPDF>
     Y marcar los check en correcto guardando en la pestana de digitalizacion
     Y se llenan los campos obligatorios en la pestana formulario guardando <DestinoCredito><Sexo><EstadoCivil><Direccion><Dpto><Ciudad><TipoVivienda><Correo><Celular>
-    Y se agregar las referencias en la segunta pestana del formulario guardando <IngresosMes><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
+    Y se agregar las referencias en la segunta pestana del formulario guardando <Ingresos><TotalActivos><PapellidoReferencia><PnombreReferencia><Direccion><TelefonoResidencia><TelefonoTrabajo><Dpto><Ciudad>
     Y se presiona en verificacion en la pestana digitalizacion
     Y se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias<Codigo>
     Y se marca identidida confirmada radicando la solicitud
     Entonces se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis
-
-    Ejemplos: 
-      | Cedula     | fecha         | Oficina     | Actividad    | Tasa  | Plazo | Monto     | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Pnombre    | Papellido  | Sapellido | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Cedula     | fecha         | Direccion         | TipoVivienda | NombreCredito | PnombreReferencia | PapellidoReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo |
-  		|"9777757"  	 |"17/Mar/1956"| "Cartagena" | "Pensionado" | "1.8" | "36"  |"20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "20500000"   | "0" 			            | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2005" | "FRANCISCO"| "JAVIER"   | "ARBOLEDA"| "prueba123@gmail.com"| "3125127117" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "7528644"  | "02/Jun/1985" |"Calle 2d #22-52"  | "FAMILIAR"   | "CARLOS"   | "alejandro"       | "perez"             | "7210273"          | "9007146"       | "3112" |
-      #| "10087953" | "26/Jul/1956" | "Cartagena" | "Pensionado" | "1.8" | "120" | "3600000" | "10"                 | "3600000" | "360000" | "0"        | "3600000"   | "20500000"   | "360000"              | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "10/03/2000" | "ARBEY" | "QUEBRADA" | "OLAYA"   | "ARBEYmail@mail.com" | "3115128156" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educacion propia" | "F"  | "Soltero"   | "10087953" | "02/Jun/1985" | "Calle 2d #22-52" | "FAMILIAR"   | "ARBEY"       | "alejandro"       | "perez"             | "7210273"          | "9007146"       | "3112" |
-  		#| "COLFONDOS" | "9777757"  | "17/Mar/1956" | "Cartagena" | "Pensionado" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "6500000"   | "80500000"   | "0"                   | "xx" | "0"    | "Pensionado por Tiempo (Vejez)" | "10/03/2005" | "CARLOS" | "HERRERA"   | "ARBOLEDA" | "ajflorez248@mail.com"     | "3015129153" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-21"  | "Educacion propia" | "M"  | "Soltero"   | "9777757"   | "Calle 2d #22-52" | "FAMILIAR"   | "CARLOS"      | "alejandro"           | "perez"             | "7210273"          | "9007146"       | "3112" |  "Abril" | "Efectivo" | "03/05/2021" | "Remanentes - 60237038927 - REMANENTE" |
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+  	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
 
   @AnalisisCredito
   Esquema del escenario: Analisis del credito
@@ -46,38 +45,56 @@ Característica: Originacion de Creditos
     Y pasa a la siguiente pestana del simulador analista
     Entonces Valida los valores del simulador<Mes><Monto><Tasa><Plazo><Ingresos><descLey><descNomina><Pagaduria><vlrCompasSaneamientos><AnoAnalisis><fechaDesembolso>
     Y Guarda los datos del simulador
+    Y ingrese a la pestana del plan de pagos
+    Y valide la informacion cabecera con sus conceptos para Originacion<Tasa><Plazo>
+    Y Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo<Plazo>
     Y Pasa a la pestana endeudamiento global aprobando
     Y Aprueba la tarea del credito<Cedula>
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
 
-    Ejemplos: 
-      | Pagaduria   | Cedula     | Tasa  | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | IngresosMes | TotalActivos | vlrCompasSaneamientos | NombreCredito | Mes         | AnoAnalisis | fechaDesembolso |
-      | "COLFONDOS" | "9777757" | "1.8" | "36"  | "20000000" | "21"                 | "6500000" | "480000" | "90000"    | "3600000"   | "6500000"    | "0"			              | "CARLOS"   | "Noviembre" | "2021"      | "05/10/2021"    |
 
   @ClientesBienvenida
   Esquema del escenario: Clientes para Bienvenida
     Cuando el agente ingresa a la pestana clientes para bienvenida<Cedula>
-    Y se marcar los check correctos junto con el celular y correo<Celular><Correo>
-    Y se validan los valores de las condiciones del credito
-    Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
+    Y se marcar los check correctos junto con el celular y correo<Celular> <Correo>
+    Y se validan los valores de las condiciones del credito <Ingresos><descLey><descNomina><Pagaduria>
+    #Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
     Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
 
-    Ejemplos: 
-      | Cedula     | Celular      | Correo                 | TipoDesen  |
-      | "9777757" | "3125127117" | "apqwerty250@mail.com" | "Efectivo" |
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
 
   @CreditosVisacion
   Esquema del escenario: Creditos para Visacion
     Cuando el agente ingresa a la pestana clientes para Visacion <Cedula>
     Y se marca aprobado se selecciona la fecha aprobando<fechaActual><rutaPDF>
-     Ejemplos: 
-       | Cedula     | fechaActual   | rutaPDF         												 |
-	     | "9777757" | "30/Sep/2021" | "src/test/resources/Data/PDFPRUEBA.pdf"  |
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+	##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
 
   @Desembolso
   Esquema del escenario: Creditos para Desembolso
     Cuando el agente ingresa a la pestana Desembolso lista de pagos <Cedula>
     Y se marca el check aprobando el proceso de pagos
     Y se filtra por monto y se edita <Monto><Banco><rutaPDF>
-      Ejemplos: 
-       | Cedula     | Monto      | rutaPDF 																 | Banco  															 | 
-       | "9777757" | "20000000" | "src/test/resources/Data/PDFPRUEBA.pdf" |"Remanentes - 60237038927 - REMANENTE" |
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+    ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |
+
+  @ValidarDinamicasContablesOriginacion
+  Esquema del escenario: Validar dinamicas contables ORIGINACION CREDITO
+    Cuando se valida por <NumRadicado> y <Cedula> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando el <NumRadicado> en la <FechaRegistro>
+    Y valida que las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> con el <NumRadicado> y <Cedula> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL con el <NumRadicado>
+    Ejemplos:
+      | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
+      ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
+      | "P.A COLPENSIONES" | "51618664" | "20/Jun/1958" | "1.70" | "120" | "80000000" | "10"                 | "6500000" | "350000" | "100000"   | "Enero" | "28/02/2022"    | "OLGA"        | "OLGA"  | "BEATRIZ" | "CONTRERAS" | "DE CAMACHO" | "7/3/2022"  | "Cartagena" | "Pensionado" | "200000"     | "0"                   | "xx" | "360000" | "Pensionado por Tiempo (Vejez)" | "05/01/2000" | "prueba321@gmail.com" | "3125127718" | "Cundinamarca" | "Anapoima" | "src/test/resources/Data/PDFPRUEBA.pdf" | "2021-04-20"  | "Educación propia" | "M"  | "Soltero"   | "Calle 2d #22-52" | "FAMILIAR"   | "perez"             | "alejando"        | "7210273"          | "9007146"       | "3112" | "2022"      | "Efectivo" | "Bancolombia Remanentes - 60237038927 - REMANENTE" | "'ACRED','EGRESO'" | "upper('Desembolso egreso'),upper('Desembolso activación de crédito')" | "05/01/2022"  | null        | "12345"            |

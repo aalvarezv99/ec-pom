@@ -21,14 +21,18 @@ public class LoginAccion extends BaseTest {
 		super(driver);		
 	}	
 	
-	public void iniciarSesion() {	
+	public void iniciarSesion() {
 		esperaExplicita(iniciosesionpage.inputUsuario);
 		EscribirElemento(iniciosesionpage.inputUsuario, "jtellez@excelcredit.co");
 		EscribirElemento(iniciosesionpage.inputContrasena, "Suaita.01");
-		hacerClick(iniciosesionpage.botonAutenticar);			
-		adjuntarCaptura("InisioSesionExitoso");		
-	}	
-	
-		
-	
+		adjuntarCaptura("InisioSesionExitoso");
+	}
+
+	public void login() {
+		esperaExplicita(iniciosesionpage.inputUser);
+		EscribirElemento(iniciosesionpage.inputUser, "1103713365");
+		EscribirElemento(iniciosesionpage.inputPassword, "Suaita01");
+		hacerClick(iniciosesionpage.btnLogin);
+		adjuntarCaptura("InisioSesionExitoso");
+	}
 }

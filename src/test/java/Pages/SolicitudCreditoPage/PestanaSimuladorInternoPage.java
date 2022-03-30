@@ -69,7 +69,19 @@ public class PestanaSimuladorInternoPage {
 	public By SolicitarAprobacion;
 	public By PrimaAnticipadaSeguroSInterno;
 	public By DiasInteresesIniciales;
-	
+	public By listaCreditosRecoger;
+	public By checksMultiples;
+	//ADP 98
+	public By PestanaPlanDePagos;
+	public By KeyCabeceraPlanDePagos;
+	public By ValueCabeceraPlanDePagos;
+	public By listVerEditar;
+	public By valorFianzaTotal;
+	public By valorFianzaPadotal;
+	public By valorFianzaPadre;
+	public By valorFianzaTotalAna;
+	public By valorFianzaPadreAna;
+
 	public PestanaSimuladorInternoPage(WebDriver driver) {
 		
 		ResultMontoSoli = By.id("formSimuladorCredito:montoTotalCr_hinput");
@@ -109,7 +121,7 @@ public class PestanaSimuladorInternoPage {
 	    MontoMaximoAsesor =By.id("formSimulador:montoMaximoSugerencias_hinput");
 	    CapacidadAsesor= By.id("formSimulador:valorCuotaMontoMaximoSugerencias_hinput");     
 	    ValorEstudioCreditoCXC= By.id("formSimulador:valorEstudio_hinput");
-	    ValorFianzaCXC = By.id("formSimulador:valorFianza_hinput");
+	    ValorFianzaCXC = By.id("formSimulador:valorFianzaNeta_hinput");
 	    Gravamento4x1000 = By.id("formSimulador:cuatroPorMil_hinput");
 	    ValoraDesembolsar = By.id("formSimulador:valorDesembolsar_hinput");
 	    SimuladorInternorValoraDesembolsar =   By.id("formSimuladorCredito:remanenteCr_hinput");
@@ -134,7 +146,20 @@ public class PestanaSimuladorInternoPage {
         Notificacion = By.xpath("//*[@class='ui-growl-title']");
         SolicitarAprobacion = By.id("formularioExcepciones:btnSolicitar");        
         EstudioCreditoSAnalista = By.id("formSimulador:valorEstudio_hinput");
-        ValorFianzaAnalista = By.id("formSimulador:valorFianza_hinput");
+        ValorFianzaAnalista = By.id("formSimulador:valorFianzaNeta_hinput");
         DiasInteresesIniciales = By.id("formSimulador:diasInteresInicial_hinput");
+        listaCreditosRecoger = By.xpath("//input[starts-with(@id,'formSimulador:j_idt1') and contains (@id,'_input') and @type='text']/following-sibling::input");
+        checksMultiples = By.xpath("//span[@class = 'ui-chkbox-icon ui-icon ui-icon-check ui-c']");
+        
+        //ADP - 98
+        PestanaPlanDePagos = By.id("navegacionCredito:j_idt34");
+        KeyCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][1]/child::label");
+        ValueCabeceraPlanDePagos = By.xpath("//div[contains(@id,'form:j_id')]/child::div[@class=\"row\"]/child::div[@class=\"col-xs-6\"][2]/child::label");
+		listVerEditar = By.xpath("//a[starts-with(@id, 'form:listaCreditos')]");
+
+		valorFianzaPadre = By.id("formSimuladorCredito:fianzaCrPadre_hinput");
+		valorFianzaTotal = By.id("formSimuladorCredito:totalFianza_hinput");
+		valorFianzaPadreAna = By.id("formSimulador:valorFianzaPadres_hinput");
+		valorFianzaTotalAna = By.id("formSimulador:valorFianza_hinput");
 	}
 }

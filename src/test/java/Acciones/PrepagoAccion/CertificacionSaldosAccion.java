@@ -7,7 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +24,7 @@ import Acciones.ConfigGlobalAccion.ConfigPrepagoAccion;
 import CommonFuntions.BaseTest;
 import Consultas.CertificacionSaldoQuery;
 import Pages.Prepago.CertificacionSaldoPage;
+import dto.SaldoInsolutoDto;
 
 public class CertificacionSaldosAccion extends BaseTest {
 
@@ -28,6 +35,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 	ConfigPrepagoAccion configlobalprepagoAccion;
 	GestionCertificadosAccion gestioncertificado;
 	CertificacionSaldoQuery query;
+	SaldoInsolutoDto conceptosCertificacion;
 	
 	private static Logger log = Logger.getLogger(CertificacionSaldosAccion.class);
 	
@@ -43,6 +51,7 @@ public class CertificacionSaldosAccion extends BaseTest {
 		configlobalprepagoAccion = new ConfigPrepagoAccion(driver);
 		gestioncertificado = new GestionCertificadosAccion(driver);
 		query = new CertificacionSaldoQuery();
+		conceptosCertificacion = new SaldoInsolutoDto();
 	}
 	
 	/********** INICIA INSTANCIA CLASE NAVEGAR SISTEMA****************/
@@ -188,7 +197,9 @@ public class CertificacionSaldosAccion extends BaseTest {
 	 * para realizar la validacion de los valores mostrados en el PDF 
 	 * */
 	public void validarValoresPDF(String numRadicado, String rutadocumento) {
-		log.info("************** CertificacionSaldosAccion - validarValoresPDF() ************");		
+		
+		log.info("************** CertificacionSaldosAccion - validarValoresPDF() ************");	
+		
 		ResultSet result = query.consultarTipoCertificacion(String.valueOf(numRadicado)); 		
 		String vlrFianza = null;		
 		String estado = null;
@@ -199,22 +210,22 @@ public class CertificacionSaldosAccion extends BaseTest {
 		try {
 			Date fechaFormato = formato.parse(fecchaVencimiento);
 			log.info(formatoSalida.format(fechaFormato));
-			query.obtenerSaldoInsoluto(numRadicado, fechaFormato);
+			conceptosCertificacion = query.obtenerSaldoInsoluto(numRadicado, formatoSalida.format(fechaFormato)); 
+			
 			while(result.next()) {
 				vlrFianza = result.getString(1);
 				estado = result.getString(2);
 				cuentasCXC = result.getString(3);
-				
 			}
-			if(vlrFianza!= null && estado.contains("ACTIVO") && cuentasCXC.toUpperCase().equals("CONCXC") ) {
-				CertificacionSaldoActivaCxcFianza(String.valueOf(numRadicado));
+			
+			String rutaPdf = leerPropiedades("RutaArchivosDescargados");
+			
+			Map<String,String> desConceptos = conceptosCertificacion(conceptosCertificacion,estado,vlrFianza,cuentasCXC);
+			
+			for (Map.Entry<String, String> entry : desConceptos.entrySet()) {
+				buscarVlrArchivoPDF("certificacion-saldo-"+numRadicado+".pdf",entry.getValue(),rutaPdf);
 			}
-			else if (vlrFianza == null && estado.equals("ACTIVO") && cuentasCXC.toUpperCase().equals("CONCXC")) {
-				CertificacionSaldoActivaCxcSinFianza(String.valueOf(numRadicado));
-			}
-			else if (vlrFianza == null && estado.equals("ACTIVO") && cuentasCXC.toUpperCase().equals("SINCXC")) {
-				CertificacionSaldoActivaSinCXC(String.valueOf(numRadicado));
-			}
+			
 		} catch (Exception e) {
 			log.error("######### ERROR - validarValoresPDF()#######"+ e);
 			assertTrue("######### ERROR - validarValoresPDF()#######"+ e,false);
@@ -224,116 +235,32 @@ public class CertificacionSaldosAccion extends BaseTest {
 		
 	}
 	
-	public void CertificacionSaldoActivaCxcFianza(String numRadicado) throws SQLException {
-		log.info("CERTIFICACION CON FIANZA Y ACTIVO Y CUENTAS POR COBRAR");
-		log.info("*************************CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza()*********");		
-		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
-		String rutaPdf = leerPropiedades("RutaArchivosDescargados");
+	public Map<String, String> conceptosCertificacion(SaldoInsolutoDto valores,String estado, String vlrFianza, String cuentasCXC){
+		Map<String,String> conceptos = new LinkedHashMap<>();
 		
-		//SaldoInsolutoDto saldoInsolutoDto = query.obtenerSaldoInsoluto(null, rutaPdf, numRadicado, rutaPdf);
+		conceptos.put("Capital", "Capital $ " +  valores.getCapital().intValue());
+		conceptos.put("IntCorriente", "Intereses Corrientes $ " + valores.getInteresesCorrientes().intValue());
+		conceptos.put("Seguro","Seguro $ "+ valores.getSeguro().intValue());
 		
-		//ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
+		if(vlrFianza != null) {
+			conceptos.put("Fianza","Fianza $ " + valores.getCxcFianza().intValue());
+			conceptos.put("IntFianza","Intereses de Fianza $ " + valores.getCxcInteresesFianza().intValue());
+		}
+		else if(cuentasCXC.toUpperCase()!=("SINCXC")) {
+			conceptos.put("SegIniPendiente","Seguro inicial pendiente de pago $ " + valores.getCxcSeguroIncial().intValue());
+			conceptos.put("IntIniPendiente","Intereses iniciales pendientes de pago $ " + valores.getCxcIntesesInciales().intValue());
+		}
 		
-		/*try {
-			while(result.next()) {
-				nombreDoc = "certificacion-saldo-"+numRadicado+".pdf";
-				//log.info("************** Buscando valores en la certificacion " + nombreDoc +" *******");
-				//abriPdfNavegador(rutaPdf+nombreDoc);
-				adjuntarCaptura(nombreDoc);
-				buscarVlrArchivoPDF(nombreDoc,"Capital $ "+ formatoNumero.format(Double.parseDouble(result.getString(2))).replace('.', '.'),rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc, "Intereses Corrientes $ "+ formatoNumero.format(Double.parseDouble(result.getString(3))).replace('.', '.'), rutaPdf);				
-				buscarVlrArchivoPDF(nombreDoc,"Seguro $ "+ formatoNumero.format(Double.parseDouble(result.getString(4))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Seguro inicial pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(5))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses iniciales pendientes de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(6))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Estudio de credito pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(7))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Fianza $ "+ formatoNumero.format(Double.parseDouble(result.getString(8))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses de Fianza $ "+ formatoNumero.format(Double.parseDouble(result.getString(9))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Prima de seguro anticipada pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(10))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses prima de seguro anticipada $ "+ formatoNumero.format(Double.parseDouble(result.getString(11))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Total a pagar $ "+ formatoNumero.format(Double.parseDouble(result.getString(12))).replace('.', '.') ,rutaPdf);			
-				log.info("Fecha Aprobacion Credito " +result.getString(13));
-				log.info("Fecha vencimiento Certificado " +result.getString(14));
-				buscarVlrArchivoPDF(nombreDoc,"Fecha limite de pago "+ result.getString(15),rutaPdf);
-			}		
-			result.close();
-			
-		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - CertificacionSaldoActivaCxcFianza() ##########"+ e,false);
-		}*/
+		conceptos.put("PrimaSegPendien","Prima de seguro anticipada pendiente de pago $ ");
+		conceptos.put("IntPrimaAnti","Intereses prima de seguro anticipada $ ");
+		conceptos.put("Total","Total a pagar $ " + valores.getSaldoInsoluto().intValue());
+		
+		
+		
+		return conceptos;
 	}
 	
-	public void CertificacionSaldoActivaCxcSinFianza(String numRadicado) {
-		log.info("CERTIFICACION SIN FIANZA Y ACTIVO, CON CUENTAS POR COBRAR ");
-		log.info("*************************CertificacionSaldosAccion - CertificacionSaldoActivaCxcSinFianza()*********");
-				
-		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
-		String rutaPdf = leerPropiedades("RutaArchivosDescargados");
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		
-		try {
-			while(result.next()) {
-				nombreDoc = result.getString(1);
-				//abriPdfNavegador(rutaPdf+nombreDoc);
-				adjuntarCaptura(nombreDoc);
-				log.info("************** Buscando valores en la certificacion " + nombreDoc +" *******");
-				buscarVlrArchivoPDF(nombreDoc,"Capital $ "+ formatoNumero.format(Double.parseDouble(result.getString(2))).replace('.', '.'),rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc, "Intereses Corrientes $ "+ formatoNumero.format(Double.parseDouble(result.getString(3))).replace('.', '.'), rutaPdf);				
-				buscarVlrArchivoPDF(nombreDoc,"Seguro $ "+ formatoNumero.format(Double.parseDouble(result.getString(4))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Seguro inicial pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(5))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses iniciales pendientes de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(6))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Estudio de credito pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(7))).replace('.', '.') ,rutaPdf);
-				//buscarVlrArchivoPDF(nombreDoc,"Fianza $ "+ formatoNumero.format(Double.parseDouble(result.getString(8))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Prima de seguro anticipada pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(10))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses prima de seguro anticipada $ "+ formatoNumero.format(Double.parseDouble(result.getString(11))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Total a pagar $ "+ formatoNumero.format(Double.parseDouble(result.getString(12))).replace('.', '.') ,rutaPdf);			
-				log.info("Fecha Aprobacion Credito " +result.getString(13));
-				log.info("Fecha vencimiento Certificado " +result.getString(14));
-				buscarVlrArchivoPDF(nombreDoc,"Fecha limite de pago "+ result.getString(15),rutaPdf);	
-				buscarVlrArchivoPDF(nombreDoc,"Clausula de indemnizacion por renuncia al plazo $ "+ formatoNumero.format(Double.parseDouble(result.getString(16))).replace('.', '.') ,rutaPdf);
-			}					
-			result.close();
-		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - validarValoresPDF() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - validarValoresPDF() ##########"+ e,false);
-		}
-	}
 	
-	public void CertificacionSaldoActivaSinCXC(String numRadicado) {
-		log.info("CERTIFICACION SIN FIANZA, SIN CUENTAS POR COBRAR Y ACTIVO");
-		log.info("*************************CertificacionSaldosAccion - CertificacionSaldoActivaSinCXC()*********");
-		
-		NumberFormat formatoNumero = NumberFormat.getNumberInstance();
-		String rutaPdf = leerPropiedades("RutaArchivosDescargados");
-		ResultSet result = query.ConsultarRegistroCertificacion(String.valueOf(numRadicado)); 
-		
-		try {
-			while(result.next()) {
-				nombreDoc = result.getString(1);
-				//abriPdfNavegador(rutaPdf+nombreDoc);
-				adjuntarCaptura(nombreDoc);
-				log.info("************** Buscando valores en la certificacion " + nombreDoc +" *******");
-				buscarVlrArchivoPDF(nombreDoc,"Capital $ "+ formatoNumero.format(Double.parseDouble(result.getString(2))).replace('.', '.'),rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc, "Intereses Corrientes $ "+ formatoNumero.format(Double.parseDouble(result.getString(3))).replace('.', '.'), rutaPdf);				
-				buscarVlrArchivoPDF(nombreDoc,"Seguro $ "+ formatoNumero.format(Double.parseDouble(result.getString(4))).replace('.', '.') ,rutaPdf);
-				//buscarVlrArchivoPDF(nombreDoc,"Seguro inicial pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(5))).replace('.', '.') ,rutaPdf);
-				//buscarVlrArchivoPDF(nombreDoc,"Intereses iniciales pendientes de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(6))).replace('.', '.') ,rutaPdf);
-				//buscarVlrArchivoPDF(nombreDoc,"Estudio de credito pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(7))).replace('.', '.') ,rutaPdf);
-				//buscarVlrArchivoPDF(nombreDoc,"Fianza $ "+ formatoNumero.format(Double.parseDouble(result.getString(8))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Prima de seguro anticipada pendiente de pago $ "+ formatoNumero.format(Double.parseDouble(result.getString(10))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Intereses prima de seguro anticipada $ "+ formatoNumero.format(Double.parseDouble(result.getString(11))).replace('.', '.') ,rutaPdf);
-				buscarVlrArchivoPDF(nombreDoc,"Total a pagar $ "+ formatoNumero.format(Double.parseDouble(result.getString(12))).replace('.', '.') ,rutaPdf);			
-				log.info("Fecha Aprobacion Credito " +result.getString(13));
-				log.info("Fecha vencimiento Certificado " +result.getString(14));
-				buscarVlrArchivoPDF(nombreDoc,"Fecha limite de pago "+ result.getString(15),rutaPdf);	
-				buscarVlrArchivoPDF(nombreDoc,"Clausula de indemnizacion por renuncia al plazo $ "+ formatoNumero.format(Double.parseDouble(result.getString(16))).replace('.', '.') ,rutaPdf);
-			}					
-			result.close();
-		} catch (Exception e) {
-			log.error("####### ERROR CertificacionSaldosAccion - validarValoresPDF() ##########"+ e);
-			assertTrue("####### ERROR CertificacionSaldosAccion - validarValoresPDF() ##########"+ e,false);
-		}
-	}
 	
 	/************************FINALIZA ACCION VALIDAR VALORES PDF**********************************/
 	/*===========================================================================================================*/

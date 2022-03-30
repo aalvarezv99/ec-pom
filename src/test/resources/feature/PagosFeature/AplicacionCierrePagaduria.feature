@@ -4,7 +4,7 @@
 Característica: Aplicacion de pagos y cierre
 
   Antecedentes: Usuario en el sistema
-    Dado Un agente en el sistema core abacus con sesion iniciada
+   Dado Un agente en el sistema core abacus con sesion iniciada
 
   @CarguePlanillaAlSistema
   Esquema del escenario: Cargue planilla de la pagaduria en abacus
@@ -14,64 +14,87 @@ Característica: Aplicacion de pagos y cierre
     Y cargue la pagaduria <NombrePagaduria> que se encuentra en la ruta <RutaPagaduria>
     Entonces cargara la pagaduria de manera exitosa mostando el mensaje "La carga ha finalizado correctamente"
     Y se valida el valor listado de la <NombrePagaduria> para el <Periodo> con el valor del sistema terminando con el proceso
-	#Tener en cuenta que en el periodo y el numero deben ir dos espacios
-    Ejemplos: 
-      | Periodo  | NombrePagaduria                        | RutaPagaduria                                        |
-	  	|  Agosto 30  |CUERPO OFICIAL DE BOMBEROS BOGOTA|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
-	  	|  Agosto 30  |BANCO DE LA REPUBLICA NÓMINA ACTIVOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
-	  	|  Agosto 30  |BANCO DE LA REPUBLICA NOMINA JUBILADOS|"C:\\Users\\User\\Downloads\\PlanillasCarguePagaduria\\"|
-  
+
+    #Tener en cuenta que en el periodo y el numero deben ir dos espacios
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
   @RecaudoPagaduria
   Esquema del escenario: Recaudo Pagaduria
     Cuando El agente navegue a la pestana pagos hasta la pestana preaplicacion de pagos
-    Y Se filtra por <Pagaduria><Ano><Periodo>
+    Y Se filtra por <NombrePagaduria><Ano><PeriodoEspacio>
     Y Se captura el valor del recaudo con la suma de valores recibidos
     Entonces se pasa a la pestana de recaudo
-    Y se agrega el pago de recaudo <Pagaduria><Ano><Periodo>
+    Y se agrega el pago de recaudo <NombrePagaduria><Ano><PeriodoEspacio>
 
-    Ejemplos: 
-      | Pagaduria        | Ano    | Periodo     |
-      | "CUERPO OFICIAL DE BOMBEROS BOGOTA" | "2021" | "Agosto  30" |
-      | "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Agosto  30" |
-      | "BANCO DE LA REPUBLICA NOMINA JUBILADOS" | "2021" | "Agosto  30" |
-      
-    @PreaplicacionPagaduria
-    Esquema del escenario: Preaplicacion Pagaduria
-    	Cuando Navegue al modulo de pagos y seleccione "Preaplicacion pagos"
-    	Y Se filtra por <Pagaduria><Ano><Periodo>
-    	Y valide que no se ha realizado una preaplicacion anteriormente con el <IdPagaduria>
-    	Y valide que el valor del recaudo sea igual al de recibido    	
-    	Entonces permite realizar la preaplicacion mostrando el mensaje "Ha iniciado la preaplicación" 
-    	Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
-    	Ejemplos: 
-    	|IdPagaduria| Pagaduria  | Ano    | Periodo     |
-      |23| "CUERPO OFICIAL DE BOMBEROS BOGOTA" | "2021" | "Agosto  30" |
-      |228| "BANCO DE LA REPUBLICA NÓMINA ACTIVOS" | "2021" | "Agosto  30" |
-      |271| "BANCO DE LA REPUBLICA NOMINA JUBILADOS" | "2021" | "Agosto  30" |
-      
-      @AplicacionFinalPagaduria
-      Esquema del escenario: Aplicacion final de pagaduria en abacus
-      	Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
-      	Y cuando filtre utilizando el <Periodo> con <Pagaduria> en la pantalla Aplicacion final
-      	Y Se muestra un unico registro permitiendo confirmar el pago
-      	Entonces en pantalla se visualiza el siguiente mensaje "se ha iniciado la aplicación de pagos"      	
-      	Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <Pagaduria> y <Periodo>
-      	Ejemplos:
-      	|Pagaduria|Periodo|
-      	|CUERPO OFICIAL DE BOMBEROS BOGOTA|30/08/2021|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/08/2021|
-      	|BANCO DE LA REPUBLICA NOMINA JUBILADOS|30/08/2021|
-      	
-      @CierrePagaduria
-      Esquema del escenario: Cierre de pagaduria en abacus
-      	Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
-      	Y cuando filtre utilizando el <Periodo> con <Pagaduria> en la pantalla Aplicacion final
-      	Y Se muestra un unico registro permitiendo cerrar la pagaduria
-      	Entonces en pantalla se visualiza el siguiente mensaje "el cierre de la pagaduria se ha iniciado"      	
-      	Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <Pagaduria> y <Periodo>
-      	Ejemplos:
-      	|Pagaduria|Periodo|
-      	|CUERPO OFICIAL DE BOMBEROS BOGOTA|30/08/2021|
-      	|BANCO DE LA REPUBLICA NÓMINA ACTIVOS|30/08/2021|
-      	|BANCO DE LA REPUBLICA NOMINA JUBILADOS|30/08/2021|
-      	
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+  @PreaplicacionPagaduria
+  Esquema del escenario: Preaplicacion Pagaduria
+    Cuando Navegue al modulo de pagos y seleccione "Preaplicacion pagos"
+    Y Se filtra por <NombrePagaduria><Ano><PeriodoEspacio>
+    Y valide que no se ha realizado una preaplicacion anteriormente con el <IdPagaduria>
+    Y valide que el valor del recaudo sea igual al de recibido
+    Entonces permite realizar la preaplicacion mostrando el mensaje "Ha iniciado la preaplicación"
+    Y se finaliza con el mensaje "Se finalizó la preaplicación de los pagos"
+
+    Ejemplos:
+     | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+     ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+  @AplicacionFinalPagaduria
+  Esquema del escenario: Aplicacion final de pagaduria en abacus
+    Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
+    Y cuando filtre utilizando el <FiltroFecha> con <NombrePagaduria> en la pantalla Aplicacion final
+    Y Se muestra un unico registro permitiendo confirmar el pago
+    Entonces en pantalla se visualiza el siguiente mensaje "se ha iniciado la aplicación de pagos"
+    Y Refresque el navegador haste que cambie a "SI" el "Recaudo confirmado" la <NombrePagaduria> y <FiltroFecha>
+
+    Ejemplos:
+      | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+  @ValidarDinamicasContablesAPLPAG
+  Esquema del escenario: Validar dinamicas contables en la Aplicacion de pagos
+    Cuando Se consulten los creditos cargados para <IdPagaduria> y se comparen con los que generaron movimientos contables <AccountingSource> en la <FechaRegistro>
+    Y el sistema valida por <IdPagaduria> en la tabla movimiento contable las <AccountingSource> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSource> con sus tipos y valores usando la <IdPagaduria> en la <FechaRegistro>
+    Y validando las cuentas de libranzas <AccountingSource> sean las del bridge <AccountingName> en la <FechaRegistro>
+    Entonces finalmente se valida la transaccion <AccountingSource> con <FechaRegistro> en la base de datos de PSL
+    Ejemplos:
+ | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+
+  @CierrePagaduria
+  Esquema del escenario: Cierre de pagaduria en abacus
+    Cuando Navegue al modulo de pagos y seleccione "Aplicacion Final"
+    Y cuando filtre utilizando el <FiltroFecha> con <NombrePagaduria> en la pantalla Aplicacion final
+    Y Se muestra un unico registro permitiendo cerrar la pagaduria
+    Entonces en pantalla se visualiza el siguiente mensaje "el cierre de la pagaduria se ha iniciado"
+    Y Refresque el navegador haste que cambie a "CERRADA" el "Estado Pagaduria" la <NombrePagaduria> y <FiltroFecha>
+
+    Ejemplos:
+    | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+       ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|
+
+   @ValidarDinamicasContablesCIERRE
+  Esquema del escenario: Validar dinamicas contables en el Cierre Contable
+    Cuando Se consulten los creditos cargados para <IdPagaduria> y se comparen con los que generaron movimientos contables <AccountingSourceCierre> en la <FechaRegistro>
+    Y el sistema valida por <IdPagaduria> en la tabla movimiento contable las <AccountingSourceCierre> que se proceso por el bridge en la <FechaRegistro>
+    Y valide la causacion de movimientos <AccountingSourceCierre> con sus tipos y valores usando la <IdPagaduria> en la <FechaRegistro>
+ 		Y validando las cuentas de libranzas <AccountingSourceCierre> sean las del bridge <AccountingNameCierre> en la <FechaRegistro>
+		Entonces finalmente se valida la transaccion <AccountingSourceCierre> con <FechaRegistro> en la base de datos de PSL
+ Ejemplos:
+     | IdPagaduria | Periodo      | NombrePagaduria  | RutaPagaduria  | Ano  | PeriodoEspacio  | FiltroFecha | AccountingSource | AccountingName   | FechaRegistro |AccountingSourceCierre|AccountingNameCierre|
+      ##@externaldata@./src/test/resources/Data/AutomationDataAplicacionPagoPagaduria.xlsx@AplicacionPago
+   |183   |Noviembre 30   |"ALCALDIA MUNICIPAL DE IBAGUE PENSIONADOS"   |"src/test/resources/Data/PagaduriaAplicacion/"   |2021   |"Noviembre  30"   |30/11/2021   |"'APLPAG'"   |"upper('Aplicación de pago por pagaduría') "   |17/01/2022   |"'CIERRE'"   |"upper('Causación fianza cierre de periodo')"|

@@ -42,6 +42,11 @@ public class PestanaFormularioPage {
     public By IngresosMes;
     public By Fecha;
     public By GuardarRefer;
+    public By tipoContrato;
+    public By listTipoContrato;
+    public By listMenosReferencia;
+    public By telefonoResidencia;
+    public By telefonoTrabajo;
     
 	
 	public PestanaFormularioPage (WebDriver driver) {
@@ -83,6 +88,11 @@ public class PestanaFormularioPage {
 		IngresosMes = By.id("form:ingresosMes_input");
 		Fecha = By.id("form:fechaEntrevista_input");
 		GuardarRefer = By.xpath("//a[text()='Guardar']");
+		tipoContrato = By.id("form:tipoContrato_label");
+		listTipoContrato = By.xpath("//li[contains(@id,'form:tipoContrato')]");
+		listMenosReferencia = By.xpath("//*[starts-with(@id,'form:j_idt') and contains(@class,'iconoResta2X')]");
+		telefonoResidencia = By.xpath("//*[text()='Teléfono residencia*:']/following-sibling::input");
+		telefonoTrabajo = By.xpath("//*[text()='Teléfono trabajo*:']/following-sibling::input");
 		
 	}
 	

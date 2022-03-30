@@ -1,20 +1,104 @@
 package Prueba.Automation;
 
 import java.text.Normalizer;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.TemporalAdjusters;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 
-
 public class PruebaCodigo {
 	static int i =0;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		//String valor = extraerValorPDF("C:\\Users\\User\\Downloads\\CertificacionSaldos\\","certificacion-saldo-47152.pdf","Total a pagar $");
 		//System.out.println(valor);
-		pruebaFormula();
+	//	pruebaFormula();
+		System.out.println(countDistinctIntegers(7));
+	}
+	
+	 public static int countDistinctIntegers(int n) {
+		    // Write your code here.
+		   List<Integer> listaNumeros = new ArrayList<Integer>();		       
+		       for(int i=1;i<=n;i++){
+		           if(n%i==1){
+		             listaNumeros.add(n-i);
+		           }
+		       }
+		       
+		    for(int variable:listaNumeros) {
+		    	for(int j=1;j<=variable;j++) {		    		
+			    	if(variable%j==1) {			    		
+			    	    System.out.println(n-j);
+			    	}			    
+		    				    		
+			    }
+		    }   
+		    
+		       		       
+		       return listaNumeros.size();
+      }
+	
+	public static int getUniqueCharacter(String s) {
+	    // Write your code here
+	      Map<Character,Integer> count = new HashMap<>();
+	      int n = s.length();
+	      
+	      for(int i=0;i<n;i++){
+	          char c = s.charAt(i);
+	          int freq = count.getOrDefault(c, 0);
+	          count.put(c,(freq+1));
+	      }
+	      
+	      for(int j = 0;j<n;j++){
+	          if (count.get(s.charAt(j))==1) {
+	          return j+1;
+	          }
+	      }
+	      return -1;
+	      
+	    }
+	
+	
+	public static void fecha() {
+		/*Calendar cal = Calendar.getInstance();
+		cal.set(2021, 10, 12);
+		Date date = cal.getTime();
+		System.out.println(date);*/
+		
+
+		
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Date date = sdf.parse("2021-12-15");
+
+	        Calendar calendar = Calendar.getInstance();  
+	        calendar.setTime(date);         
+	        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));       
+
+	        System.out.println("First Day Of Month : " + calendar.getActualMinimum(Calendar.DAY_OF_MONTH));  
+	        System.out.println("Last Day of Month  : " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+	        System.out.println("Ultimo dia del mes: "+sdf.format(calendar.getTime()));
+	        
+	        
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 	}
 	
 	public static void periodo(int vlr) {
@@ -23,30 +107,17 @@ public class PruebaCodigo {
 		System.out.println((int)Math.ceil((double)vlr/30));
 	}
 	
-	public static void pruebaFormula() {
-		/*
-		//plazo menos a mes dos
-		System.out.println(Math.round(2020000*((Math.pow((1+0.018), (12)) )-1)/(0.018*Math.pow((1+0.018),(12)))));
-		
-		//plazo mayor a mes dos
-		System.out.println(Math.round(
-		2020000*((Math.pow((1+0.018), (49-1)))-1)/(0.018*Math.pow((1+0.018), (49-1)) )+
-		(2020000*(( Math.pow((1+0.0075), (120-(49-1))) )-1)/(0.0075* Math.pow((1+0.0075), (120-(49-1))) ))/Math.pow((1+0.018), (49-1)) ));
-		*/
-		//montoSoli/(1+porEstudioCre*iva+tasaFianza*iva+tasaXmillon/1000000*periodoPrima)*tasaFianza*iva;
-		// 38096808/(1+(0.0*1.19)+(8.35*1.19)+(4625/1000000)*17);//*8.35*1.19;
-		double valor = 38096808/(1+((0.0/100)*1.19)+((8.35/100)*1.19)+((double)4625/1000000)*17)*(8.35/100)*1.19;
-		System.out.println( Math.round(valor) );
-		
-		System.out.println( (double)4625);
-		
-		//Cuota > segundo mes
-		/*System.out.println(Math.round(31077250/((Math.pow((1+0.018),(49-1)) -1)/(0.018*Math.pow((1+0.018), (49-1)))
-				+((Math.pow((1+0.0075), (120-(49-1)))-1)/(0.0075*Math.pow((1+0.0075), (120-(49-1) )) ))/(Math.pow((1+0.018), (49-1))))));
-		
-		//cuota < segundo mes
-		System.out.println(Math.round(31077250/((Math.pow((1+0.018), (12)) -1)/(0.018* Math.pow((1+0.018), (12))))));*/
-		
+	public static void pruebaFormula() throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date date = sdf.parse("2021/02/15");
+
+        Calendar calendar = Calendar.getInstance();  
+        calendar.setTime(date);         
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));       
+
+        System.out.println("First Day Of Month : " + calendar.getActualMinimum(Calendar.DAY_OF_MONTH));  
+        System.out.println("Last Day of Month  : " + calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        System.out.println("Ultimo dia del mes: "+sdf.format(calendar.getTime()));        
 		
 	} 
 	
