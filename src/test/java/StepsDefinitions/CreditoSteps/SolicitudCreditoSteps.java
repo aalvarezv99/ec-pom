@@ -35,7 +35,8 @@ public class SolicitudCreditoSteps {
 
     @Cuando("el agente ingrese a la pestana solicitud filtra por el numero de radicacion del credito {string}{string}")
     public void el_agente_ingrese_a_la_pestana_solicitud_filtra_por_el_numero_de_radicacion_del_credito(String radicacion, String NombreCredito) throws InterruptedException {
-        originacionaccion.ingresarSolicitudCreditoDigicredito(radicacion, NombreCredito);
+    	log.info("@STEP - el agente ingrese a la pestana solicitud filtra por el numero de radicacion del credito - @STEP");
+    	originacionaccion.ingresarSolicitudCreditoDigicredito(radicacion, NombreCredito);
     }
 
     @Y("consulta la pestana seguridad dejando el cliente viable")
@@ -50,38 +51,45 @@ public class SolicitudCreditoSteps {
 
     @Y("carga todos los archivos en la pestana de digitalizacion {string}")
     public void cargaTodosLosArchivosEnLaPestanaDeDigitalizacion(String Pdf) throws InterruptedException {
-        originacionaccion.Digitalizacion(Pdf);
+    	log.info("@STEP - carga todos los archivos en la pestana de digitalizacion - @STEP");
+    	originacionaccion.Digitalizacion(Pdf);
     }
 
     @Y("marcar los check en correcto guardando en la pestana de digitalizacion")
     public void marcarLosCheckEnCorrectoGuardandoEnLaPestanaDeDigitalizacion() throws InterruptedException {
-        originacionaccion.DigitalizacionCheck();
+    	log.info("@STEP - marcar los check en correcto guardando en la pestana de digitalizacion - @STEP");
+    	originacionaccion.DigitalizacionCheck();
     }
 
     @Y("se llenan los campos obligatorios en la pestana formulario guardando {string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void seLlenanLosCamposObligatoriosEnLaPestanaFormularioGuardando(String DestinoCredito, String Sexo, String EstadoCivil, String Direccion, String Dpto, String Ciudad, String TipoVivienda, String Correo, String Celular) throws InterruptedException {
-        originacionaccion.formulario(DestinoCredito, Sexo, EstadoCivil, Direccion, Dpto, Ciudad, TipoVivienda, Correo, Celular);
+    	log.info("@STEP - se llenan los campos obligatorios en la pestana formulario guardando - @STEP");
+    	originacionaccion.formulario(DestinoCredito, Sexo, EstadoCivil, Direccion, Dpto, Ciudad, TipoVivienda, Correo, Celular);
     }
 
     @Y("se llenan los campos obligatorios en la pestana formulario guardando digicredito {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void seLlenanLosCamposObligatoriosEnLaPestanaFormularioGuardandoDigicredito(String DestinoCredito, String Sexo, String EstadoCivil, String Direccion, String Dpto, String Ciudad, String TipoVivienda, String Correo, String Celular, String TipoContrato) throws InterruptedException {
-        originacionaccion.formularioDigicredito(DestinoCredito, Sexo, EstadoCivil, Direccion, Dpto, Ciudad, TipoVivienda, Correo, Celular, TipoContrato);
+    	log.info("@STEP - se llenan los campos obligatorios en la pestana formulario guardando digicredito - @STEP");
+    	originacionaccion.formularioDigicredito(DestinoCredito, Sexo, EstadoCivil, Direccion, Dpto, Ciudad, TipoVivienda, Correo, Celular, TipoContrato);
     }
 
 
     @Y("se agregar las referencias en la segunta pestana del formulario guardando {string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void seAgregarLasReferenciasEnLaSeguntaPestanaDelFormularioGuardando(String IngresosMes, String TotalActivos, String Papellido, String Pnombre, String Direccion, String TelefonoResidencia, String TelefonoTrabajo, String Dpto, String Ciudad) throws InterruptedException {
-        originacionaccion.formularioSegundaPestana(IngresosMes, TotalActivos, Papellido, Pnombre, Direccion, TelefonoResidencia, TelefonoTrabajo, Dpto, Ciudad);
+    	log.info("@STEP - se agregar las referencias en la segunta pestana del formulario guardando - @STEP");
+    	originacionaccion.formularioSegundaPestana(IngresosMes, TotalActivos, Papellido, Pnombre, Direccion, TelefonoResidencia, TelefonoTrabajo, Dpto, Ciudad);
     }
 
     @Y("se agregar las referencias en la segunta pestana del formulario guardando Digicredito {string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void seAgregarLasReferenciasEnLaSeguntaPestanaDelFormularioGuardandoDigicredito(String IngresosMes, String TotalActivos, String Papellido, String Pnombre, String Direccion, String TelefonoResidencia, String TelefonoTrabajo, String Dpto, String Ciudad) throws InterruptedException {
-        originacionaccion.formularioSegundaPestanaDigicredito(IngresosMes, TotalActivos, Papellido, Pnombre, Direccion, TelefonoResidencia, TelefonoTrabajo, Dpto, Ciudad);
+    	log.info("@STEP - se agregar las referencias en la segunta pestana del formulario guardando Digicredito - @STEP");
+    	originacionaccion.formularioSegundaPestanaDigicredito(IngresosMes, TotalActivos, Papellido, Pnombre, Direccion, TelefonoResidencia, TelefonoTrabajo, Dpto, Ciudad);
     }
 
     @Y("se presiona en verificacion en la pestana digitalizacion")
     public void sePresionaEnVerificacionEnLaPestanaDigitalizacion() {
-        originacionaccion.DigitalizacionVerificacion();
+    	log.info("@STEP - se presiona en verificacion en la pestana digitalizacion - @STEP");
+    	originacionaccion.DigitalizacionVerificacion();
     }
 
     @Y("se crean los tipos de cartera o saneamiento a recoger")
@@ -102,29 +110,34 @@ public class SolicitudCreditoSteps {
 
     @Y("se marca identidida confirmada radicando la solicitud")
     public void seMarcaIdentididaConfirmadaRadicandoLaSolicitud() throws InterruptedException {
-        originacionaccion.Radicar();
+    	log.info("@STEP - se marca identidida confirmada radicando la solicitud - @STEP");
+    	originacionaccion.Radicar();
     }
 
     @Entonces("se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis")
     public void seApruebaLaReferenciacionDeLaPagaduriaEnLaPestanaReferenciacionpermiterealizarlasolicituddelanalisis() throws InterruptedException {
-        originacionaccion.ReferenciacionSolicitarAnalisis();
+    	log.info("@STEP - se aprueba la referenciacion de la pagaduria en la pestana referenciacion permite realizar la solicitud del analisis - @STEP");
+    	originacionaccion.ReferenciacionSolicitarAnalisis();
     }
 
     //####################### AnalisisCredito #####################################################################
 
     @Cuando("el agente ingresa a pestana analisis de credito busca con la cedula del cliente {string}{string}")
     public void el_agente_ingresa_a_pestana_analisis_de_credito_busca_con_la_cedula_del_cliente(String Cedula, String Nombre) throws InterruptedException {
-        originacionaccion.ingresarAnalisisCredito(Cedula, Nombre);
+    	log.info("@STEP - el agente ingresa a pestana analisis de credito busca con la cedula del cliente - @STEP");
+    	originacionaccion.ingresarAnalisisCredito(Cedula, Nombre);
     }
 
     @Y("ingresa los valores guardando {string}{string}{string}")
     public void ingresa_los_valores_guardando(String Ingresos, String descLey, String descNomina) throws InterruptedException {
-        originacionaccion.LlenarIngresos(Ingresos, descLey, descNomina);
+    	log.info("@STEP - ingresa los valores guardando - @STEP");
+    	originacionaccion.LlenarIngresos(Ingresos, descLey, descNomina);
     }
 
     @Y("pasa a la siguiente pestana del simulador analista")
     public void pasa_a_la_siguiente_pestana_del_simulador_analista() throws InterruptedException {
-        originacionaccion.SegundaPestanaSimuladorAnalista();
+    	log.info("@STEP - pasa a la siguiente pestana del simulador analista - @STEP");
+    	originacionaccion.SegundaPestanaSimuladorAnalista();
     }
 
     @Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
@@ -135,7 +148,8 @@ public class SolicitudCreditoSteps {
 
     @Y("Guarda los datos del simulador")
     public void guarda_los_datos_del_simulador() throws InterruptedException {
-        originacionaccion.GuardarSimulacionAnalista();
+    	log.info("@STEP - Guarda los datos del simulador - @STEP");
+    	originacionaccion.GuardarSimulacionAnalista();
     }
 
     //ADP-98-Jonathan Varon
@@ -161,28 +175,33 @@ public class SolicitudCreditoSteps {
 
     @Y("Pasa a la pestana endeudamiento global aprobando")
     public void pasa_a_la_pestana_endeudamiento_global_aprobando() throws InterruptedException {
-        originacionaccion.EndeudamientoGlobal();
+    	log.info("@STEP - Pasa a la pestana endeudamiento global aprobando - @STEP");
+    	originacionaccion.EndeudamientoGlobal();
     }
 
     @Y("Aprueba la tarea del credito{string}")
     public void apruebaLaTareaDelCredito(String Cedula) throws InterruptedException {
-        originacionaccion.AprobarTareaCredito(Cedula);
+    	log.info("@STEP - Aprueba la tarea del credito - @STEP");
+    	originacionaccion.AprobarTareaCredito(Cedula);
     }
 
     //########################### Clientes para bienvenida ##############################
     @Cuando("el agente ingresa a la pestana clientes para bienvenida{string}")
     public void elAgenteIngresaALaPestanaClientesParaBienvenida(String Cedula) throws InterruptedException {
-        originacionaccion.ClientesParaBienvenida(Cedula);
+    	log.info("@STEP - el agente ingresa a la pestana clientes para bienvenida - @STEP");
+    	originacionaccion.ClientesParaBienvenida(Cedula);
     }
 
     @Y("se marcar los check correctos junto con el celular y correo{string} {string}")
     public void semarcarloscheckcorretosjuntoconelcelularycorreo(String Celular, String Correo) throws InterruptedException {
-        originacionaccion.Correctocondiciones(Celular, Correo);
+    	log.info("@STEP - se marcar los check correctos junto con el celular y correo - @STEP");
+    	originacionaccion.Correctocondiciones(Celular, Correo);
     }
 //#Ingresos, descLey, descNomina, pagaduria);
     @Y("se validan los valores de las condiciones del credito {string}{string}{string}{string}")
     public void sevalidanlosvaloresdelascondicionesdelcredito(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
-        originacionaccion.ValidarValoresLlamadoBienvenida(ingresos, descLey, descNomina, pagaduria);
+    	log.info("@STEP - se validan los valores de las condiciones del credito - @STEP");
+    	originacionaccion.ValidarValoresLlamadoBienvenida(ingresos, descLey, descNomina, pagaduria);
     }
 
 
@@ -225,7 +244,8 @@ public class SolicitudCreditoSteps {
 
     @Y("se marcan los chech y se acepta carteras y saneamientos {string}{string}")
     public void semarcanloschechyseaceptacarterasysaneamientos(String TipoDesen, String cedula) throws InterruptedException {
-        solicitudCompraCarteraSaneamientoAccion.AceptarcondiconesdelcreditoComSan(TipoDesen, cedula);
+    	log.info("@STEP - se marcan los chech y se acepta carteras y saneamientos - @STEP");
+    	solicitudCompraCarteraSaneamientoAccion.AceptarcondiconesdelcreditoComSan(TipoDesen, cedula);
     }
 
     @Y("se marcan los chech y se acepta el detalle originacion{string}{string}")
@@ -251,11 +271,13 @@ public class SolicitudCreditoSteps {
 
     @Y("se crean los tipos de cartera o saneamiento a recoger creados en digicredito")
     public void seCreanLosTiposDeCarteraOSaneamientoARecogerDigicredito() {
-        originacionaccion.agregarSaneamientosCarterasDigicredito();
+    	log.info("@STEP - se crean los tipos de cartera o saneamiento a recoger creados en digicredito - @STEP");
+    	originacionaccion.agregarSaneamientosCarterasDigicredito();
     }
     
     @Entonces("se ingresa el codigo OTP {string}")
     public void seingresaelcodigoOTP(String Cedula) throws InterruptedException {
+    	log.info("@STEP - se ingresa el codigo OTP - @STEP");
     	originacionaccion.ingresaCodigoOTP(Cedula);
     }
     

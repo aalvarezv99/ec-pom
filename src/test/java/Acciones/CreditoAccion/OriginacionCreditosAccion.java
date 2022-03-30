@@ -385,7 +385,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     }
 
     public void ingresarSolicitudCreditoDigicredito(String radicacion, String NombreCredito) throws InterruptedException {
-        log.info("******************** OriginacionCreditosAccion - ingresarSolicitudCredito()  ***************");
+        log.info("******************** OriginacionCreditosAccion - ingresarSolicitudCreditoDigicredito()  ***************");
         try {
             this.NombreCredito = NombreCredito;
             panelnavegacionaccion.navegarCreditoSolicitud();
@@ -398,8 +398,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
 
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - ingresarSolicitudCredito() ########" + e, false);
+            log.error("########## Error - OriginacionCreditosAccion - ingresarSolicitudCreditoDigicredito() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - ingresarSolicitudCreditoDigicredito() ########" + e, false);
         }
 
     }
@@ -512,8 +512,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion Cargue PDF - DigitalizacionCheck()   #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion Cargue PDF - DigitalizacionCheck()   ########" + e,
+            log.error("########## Error - OriginacionCreditosAccion seleccion Check - DigitalizacionCheck()   #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion seleccion Check - DigitalizacionCheck()   ########" + e,
                     false);
         }
 
@@ -581,7 +581,7 @@ public class OriginacionCreditosAccion extends BaseTest {
     public void formularioDigicredito(String DestinoCredito, String Sexo, String EstadoCivil, String Direccion, String Dpto,
                                       String Ciudad, String TipoVivienda, String Correo, String Celular, String TipoContrato) throws InterruptedException {
         log.info(
-                "******************** OriginacionCreditosAccion Llenar formulario cliente - formulario()  ***************");
+                "******************** OriginacionCreditosAccion Llenar formulario cliente - formularioDigicredito()  ***************");
         try {
             recorerpestanas("FORMULARIO");
             esperaExplicita(pestanaformulariopage.DestinoCredito);
@@ -633,8 +633,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             // hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion - formulario() #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - formulario() ########" + e, false);
+            log.error("########## Error - OriginacionCreditosAccion - formularioDigicredito() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - formularioDigicredito() ########" + e, false);
         }
 
     }
@@ -706,7 +706,7 @@ public class OriginacionCreditosAccion extends BaseTest {
                                                     String Direccion, String TelefonoResidencia, String TelefonoTrabajo, String Dpto, String Ciudad)
             throws InterruptedException {
         log.info(
-                "******************** OriginacionCreditosAccion Llenar referencias - formularioSegundaPestana()  ***************");
+                "******************** OriginacionCreditosAccion Llenar referencias - formularioSegundaPestanaDigicredito()  ***************");
         try {
             recorerpestanas("FORMULARIO");// borrar despues de la prueba
             hacerClick(pestanaformulariopage.PestanaFormulario);
@@ -738,10 +738,10 @@ public class OriginacionCreditosAccion extends BaseTest {
 
         } catch (Exception e) {
             log.error(
-                    "########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestana() #######"
+                    "########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestanaDigicredito() #######"
                             + e);
             assertTrue(
-                    "########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestana()########"
+                    "########## Error - OriginacionCreditosAccion - Llenar referencias - formularioSegundaPestanaDigicredito()########"
                             + e,
                     false);
         }
@@ -942,7 +942,7 @@ public class OriginacionCreditosAccion extends BaseTest {
 
     public void LlenarIngresos(String Ingresos, String descLey, String descNomina) throws InterruptedException {
         log.info(
-                "******************** OriginacionCreditosAccion Llenar ingresos en analisis - ingresarAnalisisCredito()  ***************");
+                "******************** OriginacionCreditosAccion Llenar ingresos en analisis - LlenarIngresos()  ***************");
         try {
             esperaExplicita(pestanasimuladorinternopage.inputMesada);
             Clear(pestanasimuladorinternopage.inputMesada);
@@ -962,8 +962,8 @@ public class OriginacionCreditosAccion extends BaseTest {
             hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion  - ingresarAnalisisCredito() #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - ingresarAnalisisCredito()########" + e, false);
+            log.error("########## Error - OriginacionCreditosAccion  - LlenarIngresos() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - LlenarIngresos()########" + e, false);
         }
 
     }
@@ -1272,49 +1272,57 @@ public class OriginacionCreditosAccion extends BaseTest {
     }
 
     public void ValidarValoresLlamadoBienvenida(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
-        recorerpestanas("CONDICIONES DEL CRÉDITO");
-
-        ResultSet resultado;
-
-        ValoresCredito = RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
-
-        adjuntarCaptura("Campos condiciones del crédito");
-        this.capturesValoresCondicionesCredito(pagesclienteparabienvenida.CheckCondicionesCredito);
-
-        // consulta base de datos
-        OriginacionCreditoQuery query = new OriginacionCreditoQuery();
-        resultado = query.ConsultaDescuentoPrimaAntic();
-        while (resultado.next()) {
-            DesPrimaAntic = Integer.parseInt(resultado.getString(1));
-        }
-
-        // consulta para validar prima menor a 24 meses
-
-        if (Integer.parseInt(ValoresCredito.get(1)) < DesPrimaAntic) {
-            int periodoGracia = (int) Math.ceil((double) Integer.parseInt(ValoresCredito.get(7)) / 30);
-            DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito.get(1));
-        }
-
-        log.info("******** Valor de prima **** " + DesPrimaAntic);
-
-        /*
-         * Parametros del metodo
-         * (String Monto, int DesPrimaAntic, String Tasa, String Plazo,
+    	log.info("************ Ejecutando; OriginacionCreditosAccion - ValidarValoresLlamadoBienvenida() **********");
+    	
+    	try {
+    		recorerpestanas("CONDICIONES DEL CRÉDITO");
+    		
+    		ResultSet resultado;
+    		
+    		ValoresCredito = RetornarStringListWebElemen(pagesclienteparabienvenida.ValoresCondicionesCredito);
+    		
+    		adjuntarCaptura("Campos condiciones del crédito");
+    		this.capturesValoresCondicionesCredito(pagesclienteparabienvenida.CheckCondicionesCredito);
+    		
+    		// consulta base de datos
+    		OriginacionCreditoQuery query = new OriginacionCreditoQuery();
+    		resultado = query.ConsultaDescuentoPrimaAntic();
+    		while (resultado.next()) {
+    			DesPrimaAntic = Integer.parseInt(resultado.getString(1));
+    		}
+    		
+    		// consulta para validar prima menor a 24 meses
+    		
+    		if (Integer.parseInt(ValoresCredito.get(1)) < DesPrimaAntic) {
+    			int periodoGracia = (int) Math.ceil((double) Integer.parseInt(ValoresCredito.get(7)) / 30);
+    			DesPrimaAntic = periodoGracia + Integer.parseInt(ValoresCredito.get(1));
+    		}
+    		
+    		log.info("******** Valor de prima **** " + DesPrimaAntic);
+    		
+    		/*
+    		 * Parametros del metodo
+    		 * (String Monto, int DesPrimaAntic, String Tasa, String Plazo,
               String DiasHabilesIntereses, String vlrCompasSaneamientos, String Ingresos, String descLey,
               String descNomina, String pagaduriat)*/
-        SimuladorDto calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(0),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
-                ValoresCredito.get(6),ValoresCredito.get(7),
-                ingresos, descLey, descNomina, pagaduria);
-
-
-        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA PRIMA *****", Integer.parseInt(ValoresCredito.get(9)),
-                calculosSimulador.getPrimaSeguroAnticipada());
-        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA MONTO SOLICITUD ******",
-                (int) Double.parseDouble(ValoresCredito.get(0)), calculosSimulador.getMontoSolicitar());
-        ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA VALOR FIANZA *****", Integer.parseInt(ValoresCredito.get(17)),
-                calculosSimulador.getFianza());
-        ToleranciaPesoMensaje("***** LLAMADA BIENVENID- COMPARA ESTUDIO CREDITO ****",
-                Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
+    		SimuladorDto calculosSimulador = this.consultarCalculosSimulador(ValoresCredito.get(0),DesPrimaAntic,ValoresCredito.get(2),String.valueOf(ValoresCredito.get(1)),
+    				ValoresCredito.get(6),ValoresCredito.get(7),
+    				ingresos, descLey, descNomina, pagaduria);
+    		
+    		
+    		ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA PRIMA *****", Integer.parseInt(ValoresCredito.get(9)),
+    				calculosSimulador.getPrimaSeguroAnticipada());
+    		ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA MONTO SOLICITUD ******",
+    				(int) Double.parseDouble(ValoresCredito.get(0)), calculosSimulador.getMontoSolicitar());
+    		ToleranciaPesoMensaje("***** LLAMADA BIENVENIDA - COMPARA VALOR FIANZA *****", Integer.parseInt(ValoresCredito.get(17)),
+    				calculosSimulador.getFianza());
+    		ToleranciaPesoMensaje("***** LLAMADA BIENVENID- COMPARA ESTUDIO CREDITO ****",
+    				Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
+			
+		} catch (Exception e) {
+			log.error("########## Error - OriginacionCreditosAccion  - ValidarValoresLlamadoBienvenida() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - ValidarValoresLlamadoBienvenida()########" + e, false);
+		}
 
     }
 
@@ -1952,14 +1960,15 @@ public class OriginacionCreditosAccion extends BaseTest {
     }
 
     public void agregarSaneamientosCarterasDigicredito() {
+    	log.info("************ Ejecutando; OriginacionCreditosAccion - agregarSaneamientosCarterasDigicredito() **********");
         try {
             recorerpestanas("DIGITALIZACIÓN");
             Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
             esperaExplicita(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
             hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
         } catch (Exception e) {
-            log.error("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras() #######" + e);
-            assertTrue("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarteras()########" + e,
+            log.error("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarterasDigicredito() #######" + e);
+            assertTrue("########## Error - OriginacionCreditosAccion - agregarSaneamientosCarterasDigicredito()########" + e,
                     false);
         }
     }
