@@ -177,6 +177,7 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
     	clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
     	hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
     	ElementVisible();
+		adjuntarCaptura("Antes de guardar las referencias positivas");
     	hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
     	ElementVisible();
     	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);

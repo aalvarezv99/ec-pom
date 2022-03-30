@@ -392,6 +392,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             BuscarenGrilla(creditocolicitudpage.inputRadicado, radicacion);
             esperaExplicitaTexto(NombreCredito);
             ElementVisible();
+            adjuntarCaptura("Filtra el registro en solicitud de credito");
             esperaExplicita(creditocolicitudpage.selectVerEditar);
             hacerClick(creditocolicitudpage.selectVerEditar);
             ElementVisible();
@@ -754,7 +755,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(pestanadigitalizacionPage.Titulo);
             hacerClick(pestanadigitalizacionPage.EnVerificacion);
             ElementVisible();
-            esperaExplicita(pestanadigitalizacionPage.Notificacion);
+            hacerClicknotificacion();
             adjuntarCaptura("EnVerificacion");
             hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
@@ -1212,6 +1213,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(simuladorasesorpage.notificacion);
             String notificacion = GetText(simuladorasesorpage.notificacion);
             ElementVisible();
+            adjuntarCaptura("Pestaña endeudamiento global, después de dar aprobar");
             if (!notificacion.equals("Este crédito se ha enviado a flujo de aprobación de analisis.")) {
                 this.MostrarReferencias();
             }
@@ -1619,12 +1621,13 @@ public class OriginacionCreditosAccion extends BaseTest {
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
         ElementVisible();
-        ElementVisible();
+//        ElementVisible();
         Thread.sleep(1000);
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         validarTelefonosRefs(xpathSelectTelefonosRef, pestanareferenciacionpage.labelTelefonos);
         Hacer_scroll(pestanareferenciacionpage.Titulo);
         clickvarios(pestanareferenciacionpage.CheckSI);
+        adjuntarCaptura("Agregar referencias");
         Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
         hacerClick(pestanareferenciacionpage.GuardarReferencias);
         ElementVisible();

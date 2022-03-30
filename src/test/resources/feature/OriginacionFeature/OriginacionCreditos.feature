@@ -63,6 +63,7 @@ Característica: Originacion de Creditos
     Y se validan los valores de las condiciones del credito <Ingresos><descLey><descNomina><Pagaduria>
     #Y validar las condiciones de la carta de notificacion de creditos originacion <Cedula>
     Y se marcan los chech y se acepta el detalle originacion<TipoDesen><Cedula>
+
     Ejemplos:
       | Pagaduria          | Cedula     | fecha         | Tasa   | Plazo | Monto      | DiasHabilesIntereses | Ingresos  | descLey  | descNomina | Mes     | fechaDesembolso | NombreCredito | Pnombre | Snombre   | Papellido   | Sapellido    | fechaActual | Oficina     | Actividad    | TotalActivos | vlrCompasSaneamientos | tipo | colchon  | TipoContrato                    | FechaIngreso | Correo                | Celular      | Dpto           | Ciudad     | rutaPDF                                 | FechaServidor | DestinoCredito     | Sexo | EstadoCivil | Direccion         | TipoVivienda | PapellidoReferencia | PnombreReferencia | TelefonoResidencia | TelefonoTrabajo | Codigo | AnoAnalisis | TipoDesen  | Banco                                              | AccountingSource   | AccountingName                                                         | FechaRegistro | NumRadicado | NumRadicadoCredito |
     ##@externaldata@./src/test/resources/Data/AutomationDataOriginacion.xlsx@OriginacionCredito
