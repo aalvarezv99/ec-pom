@@ -17,7 +17,7 @@ import cucumber.api.SnippetType;
 @CucumberOptions(
 		features = "src/test/resources/feature/DigiCredito/OriginacionCreditosDigiCredito.feature", 					
 		glue = "StepsDefinitions",
-		tags = {"@AnalisisCreditoCCS"},
+		tags = {"@DesembolsoCarteraCCS"},
 	    snippets = SnippetType.CAMELCASE
 		)
 

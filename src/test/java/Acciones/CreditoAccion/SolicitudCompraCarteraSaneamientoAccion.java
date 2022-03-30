@@ -163,37 +163,31 @@ public class SolicitudCompraCarteraSaneamientoAccion extends BaseTest {
 	
     public void Referenciaspositivas(String Codigo) throws InterruptedException {
     	log.info("************ Ejecutando; SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() **********");
-    	
-    	try {
-    		ElementVisible();
-    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-    		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
-    		ElementVisible();
-    		Hacer_scroll(pestanareferenciacionpage.Titulo);
-    		clickvarios(pestanareferenciacionpage.CheckSI);
-    		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
-    		hacerClick(pestanareferenciacionpage.GuardarReferencias);
-    		ElementVisible();
-    		esperaExplicita(pestanadigitalizacionPage.Notificacion);
-    		hacerClicknotificacion();		
-    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);   	
-    		recorerpestanas("DIGITALIZACIÓN");
-    		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-    		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
-    		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
-    		Hacer_scroll_Abajo(pestanadigitalizacionPage.CodigoProforenses);
-    		EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, Codigo);
-    		clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
-    		hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
-    		ElementVisible();
-    		hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
-    		ElementVisible();
-    		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
-			
-		} catch (Exception e) {
-			log.error("########## Error - SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() #######" + e);
-            assertTrue("########## Error - SolicitudCompraCarteraSaneamientoAccion - Referenciaspositivas() ########" + e, false);
-		}
+    	ElementVisible();
+    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+		clickvarios(pestanareferenciacionpage.ReferenciaPositiva);
+		ElementVisible();
+		Hacer_scroll(pestanareferenciacionpage.Titulo);
+		clickvarios(pestanareferenciacionpage.CheckSI);
+		Hacer_scroll(pestanareferenciacionpage.GuardarReferencias);
+		hacerClick(pestanareferenciacionpage.GuardarReferencias);
+		ElementVisible();
+		esperaExplicita(pestanadigitalizacionPage.Notificacion);
+		hacerClicknotificacion();		
+		esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);   	
+		recorerpestanas("DIGITALIZACIÓN");
+		Hacer_scroll_Abajo(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+		hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
+		esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
+		Hacer_scroll_Abajo(pestanadigitalizacionPage.CodigoProforenses);
+    	EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, Codigo);
+    	clickvarios(pestanadigitalizacionPage.listCheckSiCarteras);
+    	hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
+    	ElementVisible();
+		adjuntarCaptura("Antes de guardar las referencias positivas");
+    	hacerClick(pestanadigitalizacionPage.BotonGuardarCartera);
+    	ElementVisible();
+    	esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
     }
     /************FIN ACCIONES SOLICITUD CREDITO COMPRA DE CARTERA CON SANEAMIENTO ***************/
 
