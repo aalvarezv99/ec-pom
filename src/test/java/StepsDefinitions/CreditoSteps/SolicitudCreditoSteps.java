@@ -30,6 +30,7 @@ public class SolicitudCreditoSteps {
 
     @Cuando("el agente ingrese a la pestana solicitud credito con la cedula del cliente {string}{string}")
     public void el_agente_ingrese_a_la_pestana_solicitud_credito_con_la_cedula_del_cliente_Cedula(String Cedula, String NombreCredito) throws InterruptedException {
+        log.info("@STEP - el agente ingrese a la pestana solicitud credito con la cedula del cliente - @STEP");
         originacionaccion.ingresarSolicitudCredito(Cedula, NombreCredito);
     }
 
@@ -41,11 +42,13 @@ public class SolicitudCreditoSteps {
 
     @Y("consulta la pestana seguridad dejando el cliente viable")
     public void consultaLaPestanaSeguridadDejandoElClienteViable() throws InterruptedException, NumberFormatException, SQLException {
+        log.info("@STEP - consulta la pestana seguridad dejando el cliente viable - @STEP");
         originacionaccion.Seguridad();
     }
 
     @Y("valida los calculos correctos de la simulacion interna {string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void valida_los_calculos_correctos_de_la_simulacion_interna(String Fecha, String Tasa, String Plazo, String Monto, String DiasHabilesIntereses, String Ingresos, String descLey, String descNomina, String vlrCompasSaneamientos, String tipo, String pagaduria, String rutaPdf) throws NumberFormatException, SQLException, InterruptedException {
+        log.info("@STEP - valida los calculos correctos de la simulacion interna - @STEP");
         originacionaccion.assertSimuladorinterno(Fecha, Tasa, Plazo, Monto, DiasHabilesIntereses, Ingresos, descLey, descNomina, vlrCompasSaneamientos, tipo, pagaduria, rutaPdf);
     }
 
@@ -94,16 +97,19 @@ public class SolicitudCreditoSteps {
 
     @Y("se crean los tipos de cartera o saneamiento a recoger")
     public void seCreanLosTiposDeCarteraOSaneamientoARecoger(DataTable dataTable) {
+        log.info("@STEP - se crean los tipos de cartera o saneamiento a recoger - @STEP");
         originacionaccion.agregarSaneamientosCarteras(dataTable);
     }
 
     @Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias{string}")
     public void se_pasa_a_la_segunta_pestana_de_digitalizacion_se_agrega_el_codigo_proforences_aprueba_referencias(String codigo) throws InterruptedException {
+        log.info("@STEP - se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias - @STEP");
         originacionaccion.Referenciaspositivas(codigo);
     }
 
     @Y("se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias digicredito {string}")
     public void se_pasa_a_la_segunta_pestana_de_digitalizacion_se_agrega_el_codigo_proforences_aprueba_referencias_digicredito(String codigo) throws InterruptedException {
+        log.info("@STEP - se pasa a la segunda pestana de digitalizacion se agrega el codigo proforences aprueba referencias digicredito - @STEP");
         originacionaccion.ReferenciaspositivasDigiCredito(codigo);
     }
 
@@ -142,6 +148,7 @@ public class SolicitudCreditoSteps {
 
     @Entonces("Valida los valores del simulador{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}{string}")
     public void validaLosValoresDelSimulador(String Mes, String Monto, String Tasa, String Plazo, String Ingresos, String descLey, String descNomina, String pagaduria, String vlrCompasSaneamientos, String anoAnalisis, String fechaDesembolso) throws InterruptedException, NumberFormatException, SQLException {
+        log.info("@STEP - Valida los valores del simulador - @STEP");
         originacionaccion.ValidarSimuladorAnalista(Mes, Monto, Tasa, Plazo, Ingresos, descLey, descNomina, pagaduria, vlrCompasSaneamientos, anoAnalisis, fechaDesembolso);
     }
 
@@ -155,11 +162,13 @@ public class SolicitudCreditoSteps {
     //ADP-98-Jonathan Varon
     @Y("ingrese a la pestana del plan de pagos")
     public void ingreseALaPestanaDelPlanDePagos() throws Throwable {
+        log.info("@STEP - ingrese a la pestana del plan de pagos - @STEP");
         originacionaccion.PestanaPlanDePagos(); // ADP - 98 - Jonathan Varon
     }
 
     @Y("valide la informacion cabecera con sus conceptos para Originacion{string}{string}")
     public void validelainformacioncabeceraconsusconceptosparaOriginacion(String Tasa, String Plazo) throws InterruptedException {
+        log.info("@STEP - valide la informacion cabecera con sus conceptos para Originacion - @STEP");
         originacionaccion.validelainformacioncabeceraconsusconceptosparaOriginacion(Tasa, Plazo);
     }
 
@@ -170,6 +179,7 @@ public class SolicitudCreditoSteps {
 
     @Y("Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo{string}")
     public void Validaciondesaldoacapitaleneldesglocedelplandepagosconelultimo(String plazo) throws Throwable {
+        log.info("@STEP - Validacion de saldo a capital en el desgloce del plan de pagos con el ultimo - @STEP");
         originacionaccion.VerificacionUltimoSaldoCapitalPlanDePagos(plazo);
     }
 
@@ -197,7 +207,7 @@ public class SolicitudCreditoSteps {
     	log.info("@STEP - se marcar los check correctos junto con el celular y correo - @STEP");
     	originacionaccion.Correctocondiciones(Celular, Correo);
     }
-//#Ingresos, descLey, descNomina, pagaduria);
+
     @Y("se validan los valores de las condiciones del credito {string}{string}{string}{string}")
     public void sevalidanlosvaloresdelascondicionesdelcredito(String ingresos, String descLey, String descNomina, String pagaduria) throws NumberFormatException, SQLException, InterruptedException {
     	log.info("@STEP - se validan los valores de las condiciones del credito - @STEP");
@@ -207,38 +217,45 @@ public class SolicitudCreditoSteps {
 
     @Y("se marcan los chech y se acepta {string}{string}")
     public void semarcanloschechyseacepta(String TipoDesen, String cedula) throws InterruptedException {
+        log.info("@STEP - se marcan los chech y se acepta - @STEP");
         originacionaccion.Aceptacondiconesdelcredito(TipoDesen, cedula);
     }
 
     //########################### Clientes para visacion ##############################
     @Cuando("el agente ingresa a la pestana clientes para Visacion {string}")
     public void elagenteingresaalapestanaclientesparaVisacion(String Cedula) throws InterruptedException {
+        log.info("@STEP - el agente ingresa a la pestana clientes para Visacion - @STEP");
         originacionaccion.ClientesParaVisacion(Cedula);
     }
 
     @Y("se marca aprobado se selecciona la fecha aprobando{string}{string}")
     public void semarcaaprobadoyseseleccionalafecha(String FechaActual, String pdf) throws InterruptedException {
+        log.info("@STEP - se marca aprobado se selecciona la fecha aprobando - @STEP");
         originacionaccion.AprobarCredito(FechaActual, pdf);
     }
 
     //########################### Clientes para Desembolso ##############################
     @Cuando("el agente ingresa a la pestana Desembolso lista de pagos {string}")
     public void elagenteingresaalapestanaDesembolsolistadepagos(String Cedula) throws InterruptedException {
+        log.info("@STEP - el agente ingresa a la pestana Desembolso lista de pagos - @STEP");
         originacionaccion.creditosparadesembolso(Cedula);
     }
 
     @Y("se marca el check aprobando el proceso de pagos")
     public void semarcaelcheckaprobandoelprocesodepagos() {
+        log.info("@STEP - se marca el check aprobando el proceso de pagos - @STEP");
         originacionaccion.ProcesarPagos();
     }
 
     @Y("se filtra por monto y se edita {string}{string}{string}")
     public void sefiltrapormontoyseedita(String Monto, String Banco, String Pdf) {
+        log.info("@STEP - se filtra por monto y se edita - @STEP");
         originacionaccion.DescargarMediosdedispercion(Monto, Banco, Pdf);
     }
 
     @Y("validar las condiciones de la carta de notificacion de creditos originacion {string}")
     public void validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(String cedula) throws NumberFormatException, SQLException {
+        log.info("@STEP - validar las condiciones de la carta de notificacion de creditos originacion - @STEP");
         originacionaccion.validarLasCondicionesDeLaCartaDeNotificacionDeCreditos(cedula);
     }
 
@@ -250,22 +267,26 @@ public class SolicitudCreditoSteps {
 
     @Y("se marcan los chech y se acepta el detalle originacion{string}{string}")
     public void seMarcanLosChechySeaceptaElDetalleOriginacion(String TipoDesen, String cedula) throws InterruptedException {
+        log.info("@STEP - se marcan los chech y se acepta el detalle originacion - @STEP");
         originacionaccion.aceptaCondicionesDelCreditoLibreInversion(TipoDesen, cedula);
     }
 
     @Y("se descargan medios de dispersion para la cartera")
     public void sedescargadescarganmediosdedispersionparalacartera(DataTable datatable) throws InterruptedException {
+        log.info("@STEP - se descargan medios de dispersion para la cartera - @STEP");
         originacionaccion.DescargarMediosDispercionCartera(datatable);
     }
 
 
     @Y("se navega hasta carteras {string}")
     public void senavegahastacarteras(String Pdf) throws InterruptedException {
+        log.info("@STEP - se navega hasta carteras - @STEP");
         solicitudCompraCarteraSaneamientoAccion.VisacionCartera(Pdf);
     }
 
     @Cuando("el agente ingresa a la lista de pagos para procesar el remanente {string}")
     public void elagenteingresaalalistadepagosparaprocesarelremanente(String Cedula) throws InterruptedException {
+        log.info("@STEP - el agente ingresa a la lista de pagos para procesar el remanente - @STEP");
         originacionaccion.ProcesarRemanente(Cedula);
     }
 
