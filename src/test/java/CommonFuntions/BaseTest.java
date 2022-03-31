@@ -203,6 +203,10 @@ public class BaseTest {
     public void EnviarEnter(By locator) {
         driver.findElement(locator).sendKeys(Keys.ENTER);
     }
+    
+    public void hacerTab(By locator) {
+    	driver.findElement(locator).sendKeys(Keys.TAB);
+    }
 
     public void assertTextonotificacion(By locator, String Texto) {
         String pageText = driver.findElement(locator).getText();

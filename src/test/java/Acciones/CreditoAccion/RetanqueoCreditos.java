@@ -504,15 +504,15 @@ public class RetanqueoCreditos extends BaseTest {
     	log.info("** Llenando informacion simulador analista Retanqueo, RatanqueoCreditos - navegarSimuladoranalistaRetanqueo()***");
     	try {
     		esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
+    		ElementVisible();
+    		hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
+            selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
+            ElementVisible();
             hacerClick(pestanasimuladorinternopage.FechaDesembolso);
             Clear(pestanasimuladorinternopage.FechaDesembolso);
             EscribirElemento(pestanasimuladorinternopage.FechaDesembolso, fecha);
-            EnviarEnter(pestanasimuladorinternopage.FechaDesembolso);
+            hacerTab(pestanasimuladorinternopage.FechaDesembolso);
             esperaExplicita(pestanasimuladorinternopage.MesDeAfecatcion);
-            hacerClick(pestanasimuladorinternopage.MesDeAfecatcion);
-            ElementVisible();
-            selectValorLista(pestanasimuladorinternopage.ListaMes, Mes);
-            ElementVisible();
             Clear(pestanasimuladorinternopage.anoAfectacion);
             EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
             hacerClick(pestanasimuladorinternopage.FechasManuales);
@@ -579,6 +579,7 @@ public class RetanqueoCreditos extends BaseTest {
             int PrimaNoDevengada = 0;
 
             String calculoSoliPantalla = TextoElemento(pestanasimuladorinternopage.CapitalTotal);
+            String diasInteresesPantalla = TextoElemento(pestanasimuladorinternopage.InteresesInicialesSimuladorAnalista);
 
             if (!ValidarElementoPresente(pestanasimuladorinternopage.listaCreditosRecoger)) {
                 log.info("Entra a validar los calculos de las condiciones del credito a recoger");
@@ -591,20 +592,20 @@ public class RetanqueoCreditos extends BaseTest {
             SimuladorDto calculosSimulador = new SimuladorDto();
             
             String fechaDesembolso = TextoElemento(pestanasimuladorinternopage.FechaDesembolso);
-            calculosSimulador = this.consultarCalculosSimuladorRetanqueo(Credito, Tasa, Plazo, DiasHabilesIntereses, calculoSoliPantalla, VlrCompraSaneamiento, fechaDesembolso);
+            calculosSimulador = this.consultarCalculosSimuladorRetanqueo(Credito, Tasa, Plazo, diasInteresesPantalla, calculoSoliPantalla, VlrCompraSaneamiento, fechaDesembolso);
 
             log.info("Tipo Calculos" + calculosSimulador.getTipoCalculos());
             log.info("Prima Seguro Anticipada" + calculosSimulador.getPrimaSeguroAnticipada());
-            //log.info("Cuota Corriente" + calculosSimulador.getCuotaCorriente());
-            //log.info("Gmf4X100" + calculosSimulador.getGmf4X100());
+            log.info("Cuota Corriente" + calculosSimulador.getCuotaCorriente());
+            log.info("Gmf4X100" + calculosSimulador.getGmf4X100());
             log.info("Prima No Devengada" + calculosSimulador.getPrimaNoDevengada());
             log.info("Prima Neta" + calculosSimulador.getPrimaNeta());
             log.info("Suma Fianzas" + calculosSimulador.getSumaFianzas());
             log.info("Fianza Padre" + calculosSimulador.getFianzaPadre());
             log.info("fianza neta" + calculosSimulador.getFianzaNeta());
             log.info("Estudio Credito" + calculosSimulador.getEstudioCredito());
-            //log.info("Saldo al Dia" + calculosSimulador.getSaldoAlDia());
-            //log.info("Remanente Estimado" + calculosSimulador.getRemanenteEstimado());
+            log.info("Saldo al Dia" + calculosSimulador.getSaldoAlDia());
+            log.info("Remanente Estimado" + calculosSimulador.getRemanenteEstimado());
 
             if (prima == "") {
                 log.info("----------------- MENSUALIZADO -----------------------");
@@ -620,7 +621,7 @@ public class RetanqueoCreditos extends BaseTest {
                 ToleranciaPesoMensaje("######  SIM ANALISTA RETANQUEO - CALCULANDO Comparacion Fianza",
                         Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValorFianzaAnalista)), calculosSimulador.getFianzaNeta());
                 ToleranciaPesoMensaje("######  SIM ASESOR RETANQUEO - CALCULANDO Valor Desembolsar ",
-                		Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),calculosSimulador.getRemanenteEstimado());
+                		Integer.parseInt(TextoElemento(pestanasimuladorinternopage.ValoraDesembolsar)),calculosSimulador.getRemanenteEstimado());
 
 
                 //Variables globales - Retanqueo - Validaciones Cabecera Plan De Pagos - IF
