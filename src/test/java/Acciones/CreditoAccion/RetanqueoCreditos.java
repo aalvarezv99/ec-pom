@@ -137,6 +137,7 @@ public class RetanqueoCreditos extends BaseTest {
             BuscarenGrilla(retanqueopages.inputCedula, Cedula);
             ElementVisible();
             CedulaCliente = Cedula;
+            adjuntarCaptura("FiltroCedula");
             esperaExplicitaTexto(Cedula);
         } catch (Exception e) {
             log.error("########## ERROR RetanqueoCreditos - Credito() ########" + e);
@@ -481,9 +482,10 @@ public class RetanqueoCreditos extends BaseTest {
        
     }
 
+    /*ThainerPerez V1.2 24/Marzo/2022:  1. Se encierre el bloque en un try catch
+     * 									2. Se crea la acaptura de pantalla despues de terminar el proceso*/
     public void AprobarReferenciasPagaduria() {
-
-    	log.info("******************RetanqueoCreditos - AprobarReferenciasPagaduria()********** ");
+    	log.info("******* Aprobando referencias de pagaduria, RetanqueoCreditos - AprobarReferenciasPagaduria() *********");
         try {
         	recorerpestanas("REFERENCIACIÓN");
             hacerClick(pestanareferenciacionpage.SalarioCheck);
@@ -494,10 +496,11 @@ public class RetanqueoCreditos extends BaseTest {
             ElementVisible();
             hacerClick(pestanareferenciacionpage.CargoCheck);
             ElementVisible();
-        } catch (Exception e) {
-            log.error("########## Error - RetanqueoCreditos - AprobarReferenciasPagaduria() #######" + e);
-            assertTrue("########## Error - RetanqueoCreditos- AprobarReferenciasPagaduria() ########" + e, false);
-        }
+            adjuntarCaptura("AprobarReferenciaPagaduria");
+		} catch (Exception e) {
+			 log.error("########## ERROR RetanqueoCreditos - AprobarReferenciasPagaduria() ########" + e);
+	         assertTrue("########## ERROR RetanqueoCreditos - AprobarReferenciasPagaduria() ########" + e, false);
+		}
     }
     
     public void navegarSimuladoranalistaRetanqueo(String fecha, String Mes, String anno) {
@@ -527,9 +530,8 @@ public class RetanqueoCreditos extends BaseTest {
 		}
     }
 
-    public void ValidarSimuladorAnalistaRetanqueos(String anno, String Credito, String retanqueo, String fecha,
-                                                   String Mes, String Plazo, String Ingresos, String descLey, String descNomina, String DiasHabilesIntereses,
-                                                   String Tasa, String VlrCompraSaneamiento) throws InterruptedException, SQLException {
+    public void ValidarSimuladorAnalistaRetanqueos(String anno,String Credito,String retanqueo,String fecha,
+    		String Mes,String Plazo,String Ingresos,String descLey,String descNomina,String DiasHabilesIntereses,String Tasa,String VlrCompraSaneamiento) throws InterruptedException, SQLException {
       
     	navegarSimuladoranalistaRetanqueo(fecha,  Mes,  anno);
     	log.info("******* Validando simulador Analista retanqueo, RetanqueoCreditos - ValidarSimuladorAnalistaRetanqueos() *******");

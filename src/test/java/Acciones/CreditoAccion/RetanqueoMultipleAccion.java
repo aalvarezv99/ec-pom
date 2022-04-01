@@ -112,6 +112,7 @@ public class RetanqueoMultipleAccion extends BaseTest {
 				EscribirElemento(retanqueopages.montoTotalSolicitado,String.valueOf(ValorCreditos+Integer.parseInt(Retanqueo)));
 				hacerClick(retanqueopages.cedula);		
 				ElementVisible();
+				adjuntarCaptura("RetanqueoMultiple");
 				hacerClick(retanqueopages.BtnRetanqueoMultiple);
 				ElementVisible();
 			} catch (Exception e) {
