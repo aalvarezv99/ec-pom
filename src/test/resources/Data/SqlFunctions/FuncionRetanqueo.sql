@@ -184,7 +184,8 @@ raise info 'Cuota Corriente  %', calculoCuotaCorriente;
 raise info '4 X 1000  %', resultGmf41000;
  
  -- calcular prima no devengada
- calculoPrimaNoDevengada = ceiling(coalesce(primaPadre, 0) - ((coalesce(montoPadre, 0) * tasaXmillon) / variableMillon) * mesesActivosPadre);
+ --calculoPrimaNoDevengada = ceiling(coalesce(primaPadre, 0) - ((coalesce(montoPadre, 0) * tasaXmillon) / variableMillon) * mesesActivosPadre);
+ calculoPrimaNoDevengada = coalesce(sum(ceiling(coalesce(primaPadre ,0)-(coalesce(primaPadre ,0)/descuentoPrimaAnticipada*mesesActivosPadre))),0);
 raise info 'Prima no devengada  %', calculoPrimaNoDevengada;
  
  -- calcular prima neta
