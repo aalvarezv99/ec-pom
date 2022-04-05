@@ -88,12 +88,12 @@ AS $function$
  raise info 'Saldo al dia  %', saldoAlDia;
  
  -- fehca desembolso crédito hijo
- select coalesce(sian.fecha_desembolso, current_date), credito.estado
- into fechaDesembolso, estadoCreditoHijo
- from simulador_analista sian
- inner join credito on(credito.id = sian.id_credito)
- where id_credito in (select credito.id from credito where numero_radicacion = 79796)
- order by credito.id desc limit 1;
+  select coalesce(sian.fecha_desembolso, current_date), credito.estado
+  into fechaDesembolso, estadoCreditoHijo
+  from simulador_analista sian
+  inner join credito on(credito.id = sian.id_credito)
+  where id_credito in (idCredito)
+  order by credito.id desc limit 1;
  raise info 'Estado Credito Hijo  %', estadoCreditoHijo;
  
  if (estadoCreditoHijo = 'LLAMADA_BIENVENIDA' or estadoCreditoHijo = 'PENDIENTE_DESEMBOLSO')
