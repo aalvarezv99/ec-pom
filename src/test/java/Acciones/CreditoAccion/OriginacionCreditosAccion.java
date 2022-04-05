@@ -406,7 +406,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             esperaExplicita(creditocolicitudpage.selectVerEditar);
             hacerClick(creditocolicitudpage.selectVerEditar);
             ElementVisible();
-
+            adjuntarCaptura("FiltrarCredito");
         } catch (Exception e) {
             log.error("########## Error - OriginacionCreditosAccion - ingresarSolicitudCreditoDigicredito() #######" + e);
             assertTrue("########## Error - OriginacionCreditosAccion - ingresarSolicitudCreditoDigicredito() ########" + e, false);
@@ -942,6 +942,7 @@ public class OriginacionCreditosAccion extends BaseTest {
             ElementVisible();
             Thread.sleep(1000);
             esperaExplicitaTexto(Nombre);
+            adjuntarCaptura("Filtroanalisis");
             esperaExplicita(pestanasimuladorinternopage.EditarVer);
             Thread.sleep(1000);
             ClicUltimoElemento(pestanasimuladorinternopage.listVerEditar);
@@ -1616,6 +1617,8 @@ public class OriginacionCreditosAccion extends BaseTest {
                     ElementVisible();
                 }
                 contador = contador + 1;
+                
+                adjuntarCaptura(e.get("Entidad"));
             }
             adjuntarCaptura("Finaliza de diligenciar las carteras y saneamientos");
         } catch (Exception e) {

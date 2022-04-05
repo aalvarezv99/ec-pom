@@ -192,7 +192,7 @@ public class BaseTest {
     }
 
     public void recorerpestanas(String Dato) {
-    	log.info("****Ingreso a la pestama****** " + Dato);
+    	log.info("****Ingreso a la pestana****** " + Dato);
         By locator = By.xpath("//a[text()='" + Dato + "']");
         while (assertEstaPresenteElemento(locator) == false) {
             hacerClick(pestanaSeguridadPage.Siguiente);
@@ -202,6 +202,10 @@ public class BaseTest {
 
     public void EnviarEnter(By locator) {
         driver.findElement(locator).sendKeys(Keys.ENTER);
+    }
+    
+    public void hacerTab(By locator) {
+    	driver.findElement(locator).sendKeys(Keys.TAB);
     }
 
     public void assertTextonotificacion(By locator, String Texto) {
@@ -1203,6 +1207,7 @@ public class BaseTest {
                 i = i++;
                 driver.findElement(By.id(a[i])).click();
                 hacerClicknotificacion();
+                adjuntarCaptura("AprobarCartera");
             }
 			
 		} catch (Exception e) {
