@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 public class OriginacionCreditoQuery {
 
-    private static Logger log = Logger.getLogger(CertificacionSaldoQuery.class);
+    private static Logger log = Logger.getLogger(OriginacionCreditoQuery.class);
     ConexionBase dbconector = new ConexionBase();
     WebDriver driver;
 
