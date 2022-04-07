@@ -203,6 +203,7 @@ public class RetanqueoCreditos extends BaseTest {
             hacerClick(retanqueopages.BtnConsultaCentrales);
             ElementVisible();
             esperaExplicita(retanqueopages.notificacion);
+            adjuntarCaptura("Consulta a Centrales");
             Thread.sleep(5000);
         } catch (Exception e) {
             log.error("########## ERROR RetanqueoCreditos - ConsultaCentrales() ########" + e);
@@ -431,6 +432,7 @@ public class RetanqueoCreditos extends BaseTest {
                 //		Integer.parseInt(TextoElemento(pestanasimuladorinternopage.SimuladorInternorValoraDesembolsar)),calculosSimulador.getRemanenteEstimado());
 
             }
+            adjuntarCaptura("Validacion Simulador");
 		} catch (Exception e) {
 			log.error("########## Error - RetanqueoCreditos - ValidarSimulador() #######" + e);
             assertTrue("########## Error - RetanqueoCreditos - ValidarSimulador() ########" + e, false);
@@ -453,6 +455,7 @@ public class RetanqueoCreditos extends BaseTest {
                 ElementVisible();
             }
             ElementVisible();
+            adjuntarCaptura("Solicitar Credito");
         } catch (Exception e) {
             log.error("########## ERROR RetanqueoCreditos - SolicitarCredito() ########" + e);
             assertTrue("########## ERROR RetanqueoCreditos - SolicitarCredito() ########" + e, false);
@@ -467,13 +470,13 @@ public class RetanqueoCreditos extends BaseTest {
              esperaExplicita(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
              hacerClick(pestanadigitalizacionPage.SegundaPestanaDigitalizacion);
              esperaExplicita(pestanadigitalizacionPage.CodigoProforenses);
-
              EscribirElemento(pestanadigitalizacionPage.CodigoProforenses, codigo);
              ElementVisible();
              hacerClick(pestanadigitalizacionPage.IdentidadConfirmada);
              ElementVisible();
              hacerClick(pestanadigitalizacionPage.Guardar);
              ElementVisible();
+             adjuntarCaptura("Se confirma Entidad");
              esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
         } catch (Exception e) {
             log.error("########## Error - RetanqueoCreditos - Confirmaidentidad() #######" + e);
@@ -520,10 +523,16 @@ public class RetanqueoCreditos extends BaseTest {
             EscribirElemento(pestanasimuladorinternopage.anoAfectacion, anno);
             hacerClick(pestanasimuladorinternopage.FechasManuales);
             ElementVisible();
+            adjuntarCaptura("Llenado sim Analista");
             hacerClick(pestanasimuladorinternopage.CalcularDesglose);
             ElementVisible();
             hacerClicknotificacion();
             esperaExplicitaNopresente(pestanadigitalizacionPage.Notificacion);
+            adjuntarCaptura("simulador analista, captura de campos");
+            Hacer_scroll(pestanasimuladorinternopage.ValorCuota);
+            adjuntarCaptura("simulador analista, captura de campos");
+            Hacer_scroll(pestanasimuladorinternopage.IngresosAsesor);
+            adjuntarCaptura("simulador analista, captura de campos");
 		} catch (Exception e) {
 			log.error("########## Error - RetanqueoCreditos - ValidarSimuladorAnalistaRetanqueos() #######" + e);
             assertTrue("########## Error - RetanqueoCreditos- ValidarSimuladorAnalistaRetanqueos() ########" + e, false);
@@ -848,6 +857,7 @@ public class RetanqueoCreditos extends BaseTest {
             ElementVisible();
             Thread.sleep(2000);
             String pattern = "###,###,###.###";
+            adjuntarCaptura("Filtrando monto");
             double value = Double.parseDouble(String.valueOf(calculosSimulador.getRemanenteEstimado()-1));     
             
             DecimalFormat myFormatter = new DecimalFormat(pattern);
@@ -865,6 +875,7 @@ public class RetanqueoCreditos extends BaseTest {
             hacerClick(PagesCreditosDesembolso.CrearArchivo);
             esperaExplicita(PagesCreditosDesembolso.ArchivoCreado);
             ElementVisible();
+            adjuntarCaptura("Medios dispersion");
             hacerClick(PagesCreditosDesembolso.Guardar);
             ElementVisible();
 		} catch (Exception e) {
@@ -982,6 +993,7 @@ public class RetanqueoCreditos extends BaseTest {
 					Integer.parseInt(ValoresCredito.get(17)), calculosSimulador.getFianzaNeta());
 			ToleranciaPesoMensaje("######  SIM LLAMADO BIENVENIDA RETANQ -# CALCULANDO ESTUDIO CREDITO ########",
 					Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
+			adjuntarCaptura("simuladorAnalista");
 
 //    ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(ValoresCredito.get(12)),
 //            remantEstimado + Integer.parseInt(ValoresCredito.get(10)));
@@ -1098,6 +1110,7 @@ public class RetanqueoCreditos extends BaseTest {
         esperaExplicita(pestanasimuladorinternopage.Notificacion);
         String notificacion = GetText(pestanasimuladorinternopage.Notificacion);
         System.out.println(" ------------------- print después del if ---------------------- ");
+        adjuntarCaptura("AprobarExepcion");
         if (notificacion.contains("Se han enviado solicitudes de aprobación para estas excepciones de tipo")) {
             hacerClicknotificacion();
             panelnavegacionaccion.navegarTareas();
@@ -1106,6 +1119,7 @@ public class RetanqueoCreditos extends BaseTest {
             ElementVisible();
             EscribirElemento(pagestareas.filtroTarea, "Revisar Aprobación excepción");
             ElementVisible();
+            adjuntarCaptura("AprobarExepcionTareas");
             hacerClick(pagestareas.EditarVer);
             ElementVisible();
             esperaExplicita(pagestareas.Aprobar);
@@ -1116,6 +1130,7 @@ public class RetanqueoCreditos extends BaseTest {
             esperaExplicita(pagestareas.Guardar);
             Hacer_scroll(pagestareas.Guardar);
             hacerClick(pagestareas.Guardar);
+            adjuntarCaptura("GuardarExepcion");
             hacerClicknotificacion();
 
         } else {
