@@ -158,7 +158,7 @@ public class BaseTest {
         selectByVisibleText(contMes, mes);
 
         WebElement contDia = driver.findElement(conteDia);
-        List<WebElement> listDia = contDia.findElements(ListeDia);        
+        List<WebElement> listDia = contDia.findElements(ListeDia);
         for (WebElement contenido : listDia) {
             if (contenido.getText().contains(Integer.toString(dia))) {
                 contenido.click();
@@ -203,7 +203,7 @@ public class BaseTest {
     public void EnviarEnter(By locator) {
         driver.findElement(locator).sendKeys(Keys.ENTER);
     }
-    
+
     public void hacerTab(By locator) {
     	driver.findElement(locator).sendKeys(Keys.TAB);
     }
@@ -817,10 +817,10 @@ public class BaseTest {
     public void clickvarios(By locator) throws InterruptedException {
         List<WebElement> clickvariosElement = driver.findElements(locator);
         List<String> clickvarios = parseWebElementsToList(clickvariosElement);
-        
+
         for (int i = 0; i < clickvarios.size(); i++) {
-        	Hacer_scroll_centrado(By.id(clickvarios.get(i)));  
-        	//esperaExplicita(By.id(clickvarios.get(i)));                       
+        	Hacer_scroll_centrado(By.id(clickvarios.get(i)));
+        	//esperaExplicita(By.id(clickvarios.get(i)));
             hacerClick(By.id(clickvarios.get(i)));
             ElementVisible();
             hacerClicknotificacion();
@@ -1143,9 +1143,9 @@ public class BaseTest {
                                   By ListNumObligacion, By ListRadioSaneamiento, By ListBtnAprobar, By ListTipo, By Listradiocompra,
                                   By ListDescEntidad, String[] EntidadSaneamiento, String[] VlrMonto, String VlrCuota[], String VlrFecha[],
                                   String VlrObligacion[]) throws InterruptedException {
-    	
+
     	try {
-    		
+
     		List<WebElement> Entidad = driver.findElements(ListEntidad);
             List<WebElement> Filtro = driver.findElements(ListFiltro);
             List<WebElement> Monto = driver.findElements(ListMonto);
@@ -1159,14 +1159,14 @@ public class BaseTest {
 
             List<WebElement> descEntidad = driver.findElements(ListDescEntidad);
             String a[] = new String[VlrCuota.length];
-            
+
             String descEntidadGet[] = new String[VlrCuota.length];
             for(int i=0;i<descEntidad.size();i++) {
             	descEntidadGet[i]=descEntidad.get(i).getText();
             	a[i] = BtnAprobar.get(i).getAttribute("id");
-            }           
+            }
 
-            
+
     		log.info("************ se confirman las carteras y saneamientos  basetest() **********");
 
             for (int i = 0; i < BtnAprobar.size(); i++) {
@@ -1179,8 +1179,8 @@ public class BaseTest {
                 } else {
                     driver.findElement(By.id(RadioCompra.get(i).getAttribute("id"))).click();
                 }
-                
-                String[] parts = EntidadSaneamiento[i].split("- ");          
+
+                String[] parts = EntidadSaneamiento[i].split("- ");
                 if (!descEntidadGet[i].equals(parts[1])) {
                     for (int j = 0; j < EntidadSaneamiento.length; j++) {
                         parts = EntidadSaneamiento[j].split("- ");
@@ -1192,14 +1192,14 @@ public class BaseTest {
                     }
                 } else {
                     confirmarCarterasReferenciacion(radio, Entidad, Filtro, Monto, Cuota, Fecha, NumObligacion,
-                            EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);         	                 
+                            EntidadSaneamiento, VlrMonto, VlrCuota, VlrFecha, VlrObligacion, i, i);
                 }
-                
+
             }
 
             // Aprobar las compras
-           
-            for (int i = 0; i < BtnAprobar.size(); i++) {        	
+
+            for (int i = 0; i < BtnAprobar.size(); i++) {
                 assertEstaPresenteElemento(By.id(a[i]));
                 Hacer_scroll_Abajo(By.id(a[i]));
                 driver.findElement(By.id(a[i])).click();
@@ -1209,12 +1209,12 @@ public class BaseTest {
                 hacerClicknotificacion();
                 adjuntarCaptura("AprobarCartera");
             }
-			
+
 		} catch (Exception e) {
 			log.error("########## Error - BAseTest - ClickBtnMultiples() ####### : " + e);
 		}
-    	
-        
+
+
     }
 
     public void confirmarCarterasReferenciacion(String desRadio, List<WebElement> Entidad, List<WebElement> Filtro,
@@ -1772,32 +1772,32 @@ public class BaseTest {
             }
         }
     }
-    
+
     public String obtenerTokenDevelopmentExcelCredit() {
     	log.info("########## Obteniendo TOKEN Develop ExcelCredit ##########");
-    	
+
     	String access_token = null;
-    	
+
     	try {
     		String developToken = leerPropiedades("UrlDevelopmentExcelCredit");
     		String grant_type = leerPropiedades("grant_type");
     		String client_id = leerPropiedades("client_id");
     		String client_secret = leerPropiedades("client_secret");
-    		
-    		
+
+
     		RestAssured.baseURI = developToken;
     		RequestSpecification request = RestAssured.given()
     				.contentType("application/x-www-form-urlencoded; charset=utf-8")
     				.formParam("grant_type", grant_type)
     				.formParam("client_id", client_id)
     				.formParam("client_secret", client_secret);
-    		
+
     		Response response = request.post("/token");
-    		
+
     		assertvalidarEquals(String.valueOf(200),String.valueOf(response.getStatusCode()));
-    		
-    		access_token = response.then().extract().path("access_token");		   		  		
-			
+
+    		access_token = response.then().extract().path("access_token");
+
 		} catch (Exception e) {
 			log.error("########## Error - BaseTest - Obtener Token Development ExcelCredit #######" + e);
             assertTrue("########## Error - BaseTest - Obtener Token Development ExcelCredit - consumo de API########" + e,
@@ -1805,33 +1805,33 @@ public class BaseTest {
 		}
 		return access_token;
     }
-    
+
     public String obtenerTokenAPI_notificacion_OPT(String tokenDevEC, String creditoHijo, String idCliente, String idUsuario) {
-    	
+
     	log.info("########## Obteniendo TOKEN API Notificacion OPT ##########");
-    	
+
     	String token_notificacion_OTP = null;
-    	
+
     	try {
 			String ulrOnboarding = leerPropiedades("UrlOnboardingOTP");
 			RestAssured.baseURI = ulrOnboarding + "creditos/" + creditoHijo + "/prospeccion";
 			RequestSpecification request = RestAssured.given();
-			
+
 			request.header("Authorization","Bearer "+tokenDevEC);
 			request.header("content-type","application/json;charset=UTF-8");
-			
-			
+
+
 			JSONObject requestParams = new JSONObject();
 			requestParams.put("idCliente", idCliente);
 			requestParams.put("idUsuario", idUsuario);
 			request.body(requestParams.toJSONString());
-			
+
 			Response response = request.post("/notificacion-otp");
 
 			assertvalidarEquals(String.valueOf(200),String.valueOf(response.getStatusCode()));
-					
+
 			token_notificacion_OTP = response.then().extract().path("token");
-			
+
 		} catch (Exception e) {
 			log.error("########## Error - BaseTest - obtener TokenAPI notificacion OPT #######" + e);
             assertTrue("########## Error - BaseTest - obtenerTokenAPI_notificacion_OPT - consumo de API########" + e,
@@ -1839,25 +1839,25 @@ public class BaseTest {
 		}
     	return token_notificacion_OTP;
     }
-    
+
     public void clickvarioslist(By locator) throws InterruptedException {
         List<WebElement> clickvariosElement = driver.findElements(locator);
-        
-        for (int i = 0; i < clickvariosElement.size(); i++) {        	
+
+        for (int i = 0; i < clickvariosElement.size(); i++) {
         	clickvariosElement.get(i).click();
-        	ElementVisible();        	
-         
+        	ElementVisible();
+
         }
     }
 
-    
+
     public void ingresarvarioselementos(By locator,String variable) throws InterruptedException {
         List<WebElement> clickvariosElement = driver.findElements(locator);
         List<String> clickvarios = parseWebElementsToList(clickvariosElement);
-        
+
         for (int i = 0; i < clickvarios.size(); i++) {
         	System.out.println("$$$$ prueba "+i+" "+clickvarios.get(i));
-        	Hacer_scroll_centrado(By.id(clickvarios.get(i))); 
+        	Hacer_scroll_centrado(By.id(clickvarios.get(i)));
         	hacerClick(By.id(clickvarios.get(i)));
         	ElementVisible();
         	EscribirElemento(By.id(clickvarios.get(i)),variable);

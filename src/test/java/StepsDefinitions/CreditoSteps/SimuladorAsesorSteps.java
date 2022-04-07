@@ -34,9 +34,9 @@ public class SimuladorAsesorSteps {
         log.info("@STEP - Un agente en el sistema core abacus con sesion iniciada - @STEP");
         try {
             // login anterior
-//			loginaccion.iniciarSesion();
+			loginaccion.iniciarSesion();
             // nuevo login
-            loginaccion.login();
+//            loginaccion.login();
         } catch (Exception e) {
             log.error("#ERROR###" + e);
         }
