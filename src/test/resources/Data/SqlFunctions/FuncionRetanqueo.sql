@@ -85,10 +85,6 @@ AS $function$
   -- consulta para obtener el id del credito y la pagaduría
   select c.id, c.id_pagaduria into idCredito, idPagaduria from credito c where numero_radicacion = creditoPadre;
   
-  -- consultar el saldo al dia
-  select ceiling(calcular_saldo_al_dia(idCredito,v_fecha::date::text)) into saldoAlDia ;  
-  raise info 'Saldo al dia  %', saldoAlDia;
-  
   -- fehca desembolso crédito hijo
   select coalesce(sian.fecha_desembolso, current_date), credito.estado
   into fechaDesembolso, estadoCreditoHijo
@@ -107,6 +103,10 @@ AS $function$
   			fechaEstudioCredito = current_date;
   		end if;
   end if;
+  
+   -- consultar el saldo al dia
+   select ceiling(calcular_saldo_al_dia(idCredito,fechaEstudioCredito::text)) into saldoAlDia ;  
+   raise info 'Saldo al dia  %', saldoAlDia;
   
   
   select coalesce(ceiling(obtener_valor_estudio_credito(fechaEstudioCredito, idCredito, idPagaduria, false)),0) estudioCreditoPadre into estudioCreditoPadre;
