@@ -992,11 +992,9 @@ public class RetanqueoCreditos extends BaseTest {
 			ToleranciaPesoMensaje("######  SIM LLAMADO BIENVENIDA RETANQ -  CALCULANDO VALOR FIANZA ########",
 					Integer.parseInt(ValoresCredito.get(17)), calculosSimulador.getFianzaNeta());
 			ToleranciaPesoMensaje("######  SIM LLAMADO BIENVENIDA RETANQ -# CALCULANDO ESTUDIO CREDITO ########",
-					Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());
-			adjuntarCaptura("simuladorAnalista");
-
-//    ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(ValoresCredito.get(12)),
-//            remantEstimado + Integer.parseInt(ValoresCredito.get(10)));
+					Integer.parseInt(ValoresCredito.get(19)), calculosSimulador.getEstudioCredito());			
+			ToleranciaPesoMensaje(" Valor Desembolsar ", Integer.parseInt(ValoresCredito.get(12)),calculosSimulador.getRemanenteEstimado());
+			adjuntarCaptura("LlamadaBienvenida");
 		} catch (Exception e) {
 			log.error("########## Error - RetanqueoCreditos - ValidarValoresLlamadoBienvenidaRetanqueo() #######" + e);
             assertTrue("########## Error - RetanqueoCreditos- ValidarValoresLlamadoBienvenidaRetanqueo() ########" + e, false);
