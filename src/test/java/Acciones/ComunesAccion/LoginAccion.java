@@ -25,6 +25,7 @@ public class LoginAccion extends BaseTest {
 		esperaExplicita(iniciosesionpage.inputUsuario);
 		EscribirElemento(iniciosesionpage.inputUsuario, "jtellez@excelcredit.co");
 		EscribirElemento(iniciosesionpage.inputContrasena, "Suaita.01");
+		hacerClick(iniciosesionpage.botonAutenticar);
 		adjuntarCaptura("InisioSesionExitoso");
 	}
 

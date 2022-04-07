@@ -48,6 +48,7 @@ AS $function$
   fechaEstudioCredito Date = v_fecha::date;
   fechaDesembolso Date;
   estadoCreditoHijo varchar;
+  capitalizado varchar;
   
   begin
 	  RAISE info 'Fecha que ingresa %', v_fecha::date;
@@ -65,23 +66,37 @@ AS $function$
   and c.credito_activo is true
   and c.numero_radicacion = creditoPadre;
   RAISE info 'PAdre con prima o sin %', tienePrimaPadre;
-  
+
   -- consulta el descuento de la prima anticipada
   select valor
   into descuentoPrimaAnticipada
   from parametro_configuracion
   where nombre = 'PRIMA_SEGURO_PERIODOS_DESCONTAR'
   order by id desc;
-  
+
+  -- consulta para saber si el credito padre es capitalizado
+  select cc.id into capitalizado from capitalizacion_cxc cc join credito c on c.id = cc.id_credito where numero_radicacion = creditoPadre;
+  RAISE info 'Credito padre capitalizado %', capitalizado;
+
   -- consulta para obtener la fianza padre
-  select coalesce(ceiling(d.valor_fianza),0) fianzaPadre
-  into fianzaPadre
-  from desglose d
-  where id_credito in (select  id from credito where numero_radicacion = creditoPadre)
-  and desglose_seleccionado is true
-  limit 1;
-  RAISE info 'Fianza Padre %', fianzaPadre;
-  
+  if (capitalizado = '' || capitalizado is null)
+  	then
+  		select d.valor_fianza as fianzaPadre
+		  into fianzaPadre
+		  from desglose d
+		  where id_credito in (select  id from credito where numero_radicacion = creditoPadre)
+		  and desglose_seleccionado is true
+		  limit 1;
+  else
+		  select d.total_fianza as fianzaPadre
+		  into fianzaPadre
+		  from desglose d
+		  where id_credito in (select  id from credito where numero_radicacion = creditoPadre)
+		  and desglose_seleccionado is true
+		  limit 1;
+  end if;
+  RAISE info 'fianzaPadre %', fianzaPadre;
+
   -- consulta para obtener el id del credito y la pagaduría
   select c.id, c.id_pagaduria into idCredito, idPagaduria from credito c where numero_radicacion = creditoPadre;
   

@@ -60,7 +60,7 @@ public class RetanqueoPages {
 			notificacion = By.xpath("//*[@class='ui-growl-title']");
 			inputCedula = By.xpath("//input[@id='form:listaCreditos:identificacion_cred_filtro:filter']");
 			continuar = By.xpath("//a[starts-with(@id,'form:listaCreditos:') and contains(@id,'continuar_proceso')]");
-			borrararchivos = By.xpath("//a[starts-with(@id,'formHistorial:otrosDocumentosList') and @class='ui-commandlink ui-widget iconoMatematicos iconoResta iconoBtn']");
+			borrararchivos = By.xpath("//a[starts-with(@id,'formHistorial') and @class='ui-commandlink ui-widget iconoMatematicos iconoResta iconoBtn']");
 			ImputAutorizacion = By.id("formHistorial:j_idt198_input");
 			ImputCedula = By.id("formHistorial:j_idt205_input");
 			ImputDesprendibleNomina = By.id("formHistorial:j_idt212_input");
