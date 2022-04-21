@@ -91,7 +91,7 @@ public class CertificacionSaldoQuery {
 
 			// Capital
 			query = new StringBuilder();
-			query.append("select sum(distinct(pdp.capital)) - sum(distinct(dcp.capital)) as saldo_capital\n");
+			query.append("select coalesce(sum(distinct(pdp.capital)),0) - coalesce(sum(distinct(dcp.capital)),0) as saldo_capital\n");
 			query.append("from plan_de_pagos pdp\n");
 			query.append("left join desglose_contable_pago dcp on dcp.id_plan_de_pago = pdp.id\n");
 			query.append("where id_credito = " + idCredito + ";");
@@ -218,6 +218,13 @@ public class CertificacionSaldoQuery {
 				cxcInteresesIniciales = calcularCapitalizado(cxcInteresesIniciales, vlrNoConsumido, "Intereses iniciales pendientes de pago");	
 				interesesCorrientes = calcularCapitalizado(interesesCorrientes, vlrNoConsumido,"Intereses corrientes");
 				capital = calcularCapitalizado(capital, vlrNoConsumido,"capita");
+				
+				if((fianza != BigDecimal.ZERO) || (cxcInteresesFianza != BigDecimal.ZERO)) {
+					fianza = BigDecimal.ZERO;
+					cxcInteresesFianza = BigDecimal.ZERO;
+				}
+				log.info(" Fianza: $ " + fianza);
+				log.info(" Intereses de Fianza: $ " + cxcInteresesFianza);
 
 			}
 			
